@@ -3,375 +3,398 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madd Rules - Zara’s Arabic Literacy</title>
+    <title>Qalqalah Master Studio - Zahrah Tajweed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0d1b2a;
-            --card-bg: #1b263b;
-            --accent-gold: #ffb703;
-            --accent-green: #06d6a0;
-            --accent-red: #ef476f;
-            --white: #ffffff;
+            --bg-dark: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.95);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #06b6d4;
+            --accent-rose: #f43f5e;
+            --accent-emerald: #10b981;
+            --text-light: #f8fafc;
+            --border-glow: rgba(255, 255, 255, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #0f172a 100%);
+            color: var(--text-light);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        /* HEADER & SCORE BAR */
-        .game-header {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        .nav-header {
+            width: 100%; max-width: 850px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
         }
 
         .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: bold;
+            background: rgba(255,255,255,0.1); color: var(--text-light);
+            text-decoration: none; padding: 10px 20px; border-radius: 14px;
+            font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: 0.2s;
+        }
+        .back-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .score-box { font-size: 1.2rem; font-weight: 700; color: var(--accent-gold); }
+
+        .game-card {
+            background: var(--panel-bg); backdrop-filter: blur(16px);
+            border: 2px solid var(--border-glow); border-radius: 24px;
+            padding: 28px; width: 100%; max-width: 850px; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        .score-board {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
+        .view-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .tab-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            color: #94a3b8; padding: 12px 24px; border-radius: 14px; cursor: pointer;
+            font-weight: 600; font-size: 1rem; transition: 0.2s;
+        }
+        .tab-btn.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
+
+        .lesson-box { text-align: left; line-height: 1.6; }
+        .lesson-title { font-size: 1.6rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; }
+
+        /* Letter Selector Grid */
+        .letter-selector-label {
+            text-align: center; color: var(--accent-cyan); font-weight: 700;
+            margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;
+        }
+        .letter-picker {
+            display: flex; justify-content: center; gap: 12px; margin: 15px 0 25px 0; flex-wrap: wrap;
+        }
+        .letter-btn {
+            font-family: 'Amiri', serif; font-size: 2rem; width: 65px; height: 65px;
+            border-radius: 18px; border: 2px solid var(--border-glow);
+            background: rgba(255, 255, 255, 0.05); color: var(--accent-gold);
+            cursor: pointer; transition: all 0.2s ease; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .letter-btn:hover, .letter-btn.active {
+            background: var(--accent-gold); color: #000; transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); border-color: var(--accent-gold);
         }
 
-        /* MUTE BUTTON STYLES */
-        .mute-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* Interactive Studio Box */
+        .studio-card {
+            background: rgba(0, 0, 0, 0.35); border: 2px solid var(--accent-cyan);
+            border-radius: 20px; padding: 20px; margin-bottom: 20px;
+        }
+        .studio-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;
+        }
+        .active-letter-name { font-size: 1.3rem; color: var(--accent-gold); font-weight: 700; }
+
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 650px) { .comparison-grid { grid-template-columns: 1fr; } }
+
+        .sound-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow);
+            border-radius: 16px; padding: 16px; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+        }
+        .sound-badge {
+            font-size: 0.75rem; text-transform: uppercase; padding: 4px 10px;
+            border-radius: 8px; font-weight: 700; margin-bottom: 8px;
+        }
+        .badge-sughra { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+        .badge-kubra { background: rgba(244, 63, 94, 0.2); color: var(--accent-rose); border: 1px solid var(--accent-rose); }
+
+        .arabic-demo-text { font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; margin: 8px 0; }
+        .hl { color: var(--accent-gold); font-weight: bold; }
+
+        .audio-play-btn {
+            background: var(--accent-cyan); color: #000; border: none; width: 100%;
+            padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.2s; margin-top: 10px;
+        }
+        .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .audio-play-btn.kubra-btn { background: var(--accent-rose); color: #fff; }
+
+        .start-test-btn {
+            background: var(--accent-gold); color: #000; border: none;
+            padding: 18px 32px; border-radius: 16px; font-size: 1.2rem;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s;
+        }
+        .start-test-btn:hover { background: #f59e0b; transform: translateY(-2px); }
+
+        /* Test Section Styles */
+        .progress-bar {
+            width: 100%; height: 8px; background: rgba(255,255,255,0.1);
+            border-radius: 4px; margin-bottom: 20px; overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: var(--accent-cyan); width: 0%; transition: width 0.3s ease; }
+
+        .arabic-display {
+            font-family: 'Amiri', serif; font-size: 3.8rem;
+            color: var(--accent-gold); margin: 20px 0;
+            background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px;
+            border: 1px solid var(--border-glow); position: relative;
         }
 
-        .mute-btn:hover { background: rgba(255, 255, 255, 0.2); }
-
-        .mute-btn.muted {
-            background: rgba(239, 71, 111, 0.2);
-            border-color: var(--accent-red);
-            color: var(--accent-red);
-        }
-
-        /* MAIN GAME ARENA */
-        .arena {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 500px;
-            border-radius: 24px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 3px solid rgba(255,255,255,0.05);
-            position: relative;
-        }
-
-        .instruction {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 25px;
-        }
-
-        /* SPEAKER BUTTON */
         .audio-btn {
-            background: var(--accent-gold);
-            color: #000;
-            border: none;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            font-size: 2.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
-            transition: transform 0.2s;
-            margin-bottom: 35px;
+            cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
+            width: 55px; height: 55px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.6rem; margin: 5px auto 0; transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2);
         }
+        .audio-btn:hover { background: var(--accent-gold); color: #000; }
 
-        .audio-btn:active { transform: scale(0.95); }
-
-        /* ARABIC OPTIONS GRID */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .action-btn {
+            background: rgba(255,255,255,0.05); border: 2px solid var(--border-glow);
+            color: var(--text-light); padding: 18px; border-radius: 18px;
+            font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
         }
-
-        .arabic-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            font-size: 3.5rem;
-            padding: 20px 0;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
-            position: relative;
-        }
-
-        .arabic-card:hover {
-            border-color: var(--accent-gold);
-            background: rgba(255, 183, 3, 0.1);
-        }
-
-        .arabic-card .key-badge {
-            position: absolute;
-            top: 8px;
-            left: 12px;
-            font-size: 0.8rem;
-            color: #64748b;
-            font-family: sans-serif;
-        }
-
-        /* FEEDBACK STATES */
-        .correct {
-            background: var(--accent-green) !important;
-            color: #000 !important;
-            border-color: var(--accent-green) !important;
-        }
-
-        .wrong {
-            background: var(--accent-red) !important;
-            border-color: var(--accent-red) !important;
-        }
-
-        /* VICTORY MODAL */
-        .modal-overlay {
-            display: none;
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(13, 27, 42, 0.95);
-            border-radius: 24px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 10;
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-title {
-            font-size: 2rem;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-        }
-
-        .modal-btn {
-            background: var(--accent-green);
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 12px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+        .action-btn:hover { background: var(--accent-cyan); color: #000; transform: translateY(-2px); }
     </style>
 </head>
 <body>
 
-    <div class="game-header">
-        <a href="index.html" class="back-btn">⬅ Menu</a>
+    <div class="nav-header">
+        <a href="index.html" class="back-btn">← Main Menu</a>
+        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/15 | Score: <span id="scoreVal">0</span> ⭐</div>
+    </div>
 
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <button class="mute-btn" id="mute-btn" onclick="toggleMute()">🔊 Sound On</button>
-            <div class="score-board">⭐ Score: <span id="score">0</span></div>
+    <div class="game-card">
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tabLesson" onclick="showView('lesson')">🎧 Master All 5 Letter Echoes</button>
+            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 Practice Test</button>
+        </div>
+
+        <!-- LESSON VIEW: 5-LETTER PRONUNCIATION SOUNDBOARD -->
+        <div id="lessonView" class="lesson-box">
+            <h2 class="lesson-title">Interactive Qalqalah Soundboard Studio</h2>
+            <p style="color: #cbd5e1; text-align: center;">
+                Select each letter below to hear and compare its <strong>Sughra (Light Echo)</strong> vs. <strong>Kubra (Strong Echo)</strong> pronunciation:
+            </p>
+
+            <div class="letter-selector-label">Choose a Letter to Listen:</div>
+            <div class="letter-picker">
+                <button class="letter-btn active" onclick="selectLetter('ق', this)">ق</button>
+                <button class="letter-btn" onclick="selectLetter('ط', this)">ط</button>
+                <button class="letter-btn" onclick="selectLetter('ب', this)">ب</button>
+                <button class="letter-btn" onclick="selectLetter('ج', this)">ج</button>
+                <button class="letter-btn" onclick="selectLetter('د', this)">د</button>
+            </div>
+
+            <!-- DYNAMIC COMPARISON STUDIO CARD -->
+            <div class="studio-card">
+                <div class="studio-header">
+                    <span class="active-letter-name" id="studioLetterTitle">Letter: Qaf (ق)</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;">Click play buttons to listen</span>
+                </div>
+
+                <div class="comparison-grid">
+                    <!-- SUGRA SIDE -->
+                    <div class="sound-card">
+                        <div>
+                            <span class="sound-badge badge-sughra">Sughra (Minor / Mid-Word)</span>
+                            <div class="arabic-demo-text" id="sughraArabic">يَ<span class="hl">قْ</span>طَعُونَ</div>
+                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="sughraDesc">Quick bounce in the middle of a word without stopping flow.</p>
+                        </div>
+                        <button class="audio-play-btn" id="sughraPlayBtn" onclick="playCurrentAudio('sughra')">🔊 Listen to Sughra Echo</button>
+                    </div>
+
+                    <!-- KUBRA SIDE -->
+                    <div class="sound-card">
+                        <div>
+                            <span class="sound-badge badge-kubra">Kubra (Major / End-Stop)</span>
+                            <div class="arabic-demo-text" id="kubraArabic">الْفَلَ<span class="hl">قِ</span></div>
+                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="kubraDesc">Strong, accented echo when stopping on the letter at the end.</p>
+                        </div>
+                        <button class="audio-play-btn kubra-btn" id="kubraPlayBtn" onclick="playCurrentAudio('kubra')">🔊 Listen to Kubra Echo</button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('test')">I Have Listened to All Letters - Start Test →</button>
+        </div>
+
+        <!-- PRACTICE TEST VIEW -->
+        <div id="testView" style="display: none;">
+            <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+            <h2 style="color:var(--accent-cyan); margin-bottom: 8px;">Qalqalah Knowledge Check</h2>
+            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the rule applied in this word:</p>
+
+            <div class="arabic-display" id="wordDisplay">...</div>
+            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+
+            <div class="btn-grid" id="choicesContainer"></div>
         </div>
     </div>
 
-    <div class="arena">
-        <div class="instruction">Tap the speaker to listen, then select the matching long vowel (Madd)!</div>
+<script>
+    // Complete 5-Letter Pronunciation Database
+    const letterDatabase = {
+        'ق': {
+            name: 'Letter: Qaf (ق)',
+            sughra: { word: 'يَقْطَعُونَ', audio: '002027.mp3', desc: 'Light, continuous echo in mid-word.' },
+            kubra: { word: 'الْفَلَقِ', audio: '113001.mp3', desc: 'Deep, explosive echo when stopping at verse end.' }
+        },
+        'ط': {
+            name: 'Letter: Taa (ط)',
+            sughra: { word: 'مُطْمَئِنّ', audio: '089027.mp3', desc: 'Crisp heavy bounce mid-word.' },
+            kubra: { word: 'مُحِيطٌ', audio: '002019.mp3', desc: 'Heavy, firm echo upon stopping.' }
+        },
+        'ب': {
+            name: 'Letter: Baa (ب)',
+            sughra: { word: 'سُبْحَانَ', audio: '017001.mp3', desc: 'Gentle lip-rebound in mid-word.' },
+            kubra: { word: 'وَتَبَّ', audio: '111001.mp3', desc: 'Strong, resolute lip bounce on stop.' }
+        },
+        'ج': {
+            name: 'Letter: Jeem (ج)',
+            sughra: { word: 'يَجْعَلُونَ', audio: '105002.mp3', desc: 'Middle-tongue quick bounce mid-word.' },
+            kubra: { word: 'الْبُرُوجِ', audio: '085001.mp3', desc: 'Full, echoed release at stop.' }
+        },
+        'د': {
+            name: 'Letter: Dal (د)',
+            sughra: { word: 'يَدْخُلُونَ', audio: '110002.mp3', desc: 'Light tip-of-tongue rebound mid-word.' },
+            kubra: { word: 'قُلْ هُوَ اللَّهُ أَحَدٌ', audio: '112001.mp3', desc: 'Strong accented tip-of-tongue echo at stop.' }
+        }
+    };
+
+    let activeLetterKey = 'ق';
+
+    const testSuite = [
+        { word: "قَلَقٌ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "113001.mp3" },
+        { word: "أَحَدٌ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "112001.mp3" },
+        { word: "الْفَلَقِ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "113001.mp3" },
+        { word: "حَبْلٌ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "111005.mp3" },
+        { word: "يَجْعَلْ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "105002.mp3" },
+        { word: "مُطْمَئِنّ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "089027.mp3" },
+        { word: "كَتَبَ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002008.mp3" },
+        { word: "عَلِيمٌ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "004017.mp3" },
+        { word: "إِبْرَاهِيمَ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002124.mp3" },
+        { word: "مُحِيطٌ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002019.mp3" },
+        { word: "يَدْخُلُونَ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "110002.mp3" },
+        { word: "الْبُرُوجِ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "085001.mp3" },
+        { word: "يَعْلَمُونَ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002013.mp3" },
+        { word: "الصَّمَدُ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "112002.mp3" },
+        { word: "تَجْرِي", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002025.mp3" }
+    ];
+
+    const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
+    let currentIndex = 0;
+    let score = 0;
+
+    function selectLetter(char, element) {
+        document.querySelectorAll('.letter-btn').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+        activeLetterKey = char;
+
+        const data = letterDatabase[char];
+        document.getElementById('studioLetterTitle').innerText = data.name;
+        document.getElementById('sughraArabic').innerHTML = data.sughra.word;
+        document.getElementById('sughraDesc').innerText = data.sughra.desc;
+
+        document.getElementById('kubraArabic').innerHTML = data.kubra.word;
+        document.getElementById('kubraDesc').innerText = data.kubra.desc;
+    }
+
+    function playCurrentAudio(type) {
+        const item = letterDatabase[activeLetterKey][type];
+        playAudioFile(item.audio);
+    }
+
+    function showView(view) {
+        const isLesson = view === 'lesson';
+        document.getElementById('lessonView').style.display = isLesson ? 'block' : 'none';
+        document.getElementById('testView').style.display = isLesson ? 'none' : 'block';
+        document.getElementById('scoreHeader').style.display = isLesson ? 'none' : 'block';
         
-        <button class="audio-btn" onclick="playQuestionSound()">🔊</button>
+        document.getElementById('tabLesson').classList.toggle('active', isLesson);
+        document.getElementById('tabTest').classList.toggle('active', !isLesson);
 
-        <div class="options-grid" id="options-container">
-            <!-- Dynamic option cards -->
-        </div>
-
-        <!-- Completion Modal -->
-        <div class="modal-overlay" id="victory-modal">
-            <div class="modal-title">🎉 Excellent Work!</div>
-            <p style="font-size: 1.2rem; margin-bottom: 10px;">You mastered all Madd rules in this set!</p>
-            <p style="color: var(--accent-gold); font-size: 1.4rem;">Final Score: <span id="final-score">0</span></p>
-            <button class="modal-btn" onclick="restartGame()">Play Again 🔄</button>
-        </div>
-    </div>
-
-    <script src="sound.js"></script>
-
-    <script>
-        const questions = [
-            { sound: "با", correct: "با", options: ["با", "بو", "بي", "بَ"] },
-            { sound: "بو", correct: "بو", options: ["با", "بو", "بي", "بُ"] },
-            { sound: "تي", correct: "تي", options: ["تا", "تو", "تي", "تِ"] },
-            { sound: "جا", correct: "جا", options: ["جا", "جو", "جي", "جَ"] }
-        ];
-
-        let currentIndex = 0;
-        let score = 0;
-        let isMuted = false;
-        let canAnswer = true;
-        let activeOptions = [];
-
-        function saveGameScore(gameNumber, newStars) {
-            const key = `arabic_game_${gameNumber}_score`;
-            const previousHighScore = parseInt(localStorage.getItem(key) || '0', 10);
-
-            if (newStars > previousHighScore) {
-                localStorage.setItem(key, newStars);
-            }
+        if (!isLesson && currentIndex === 0) {
+            loadQuestion();
         }
+    }
 
-        function shuffleArray(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        function toggleMute() {
-            isMuted = !isMuted;
-            const btn = document.getElementById('mute-btn');
-            if (isMuted) {
-                btn.innerText = "🔇 Sound Off";
-                btn.classList.add('muted');
-                window.speechSynthesis.cancel();
-            } else {
-                btn.innerText = "🔊 Sound On";
-                btn.classList.remove('muted');
-            }
-        }
-
-        function loadQuestion() {
-            canAnswer = true;
-            const q = questions[currentIndex];
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-
-            playQuestionSound();
-
-            activeOptions = shuffleArray(q.options);
-
-            activeOptions.forEach((symbol, index) => {
-                const card = document.createElement('div');
-                card.className = 'arabic-card';
-                card.innerHTML = `<span class="key-badge">${index + 1}</span>${symbol}`;
-                card.onclick = () => checkAnswer(symbol, card);
-                container.appendChild(card);
-            });
-        }
-
-        function playQuestionSound() {
-            if (isMuted) return;
-            
-            window.speechSynthesis.cancel();
-            const q = questions[currentIndex];
-            const utterance = new SpeechSynthesisUtterance(q.sound);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.8;
-            
-            // Handle browser user-gesture requirements safely
-            try {
-                window.speechSynthesis.speak(utterance);
-            } catch (e) {
-                console.warn("Speech synthesis requires direct interaction:", e);
-            }
-        }
-
-        function checkAnswer(selected, cardElement) {
-            if (!canAnswer) return;
-
-            const q = questions[currentIndex];
-
-            if (selected === q.correct) {
-                canAnswer = false;
-                if (!isMuted && typeof playCorrectSound === 'function') {
-                    playCorrectSound();
-                }
-
-                cardElement.classList.add('correct');
-                score += 10;
-                document.getElementById('score').innerText = score;
-
-                saveGameScore(4, score);
-
-                setTimeout(() => {
-                    currentIndex++;
-                    if (currentIndex < questions.length) {
-                        loadQuestion();
-                    } else {
-                        showVictoryScreen();
-                    }
-                }, 1000);
-            } else {
-                if (!isMuted && typeof playWrongSound === 'function') {
-                    playWrongSound();
-                }
-
-                cardElement.classList.add('wrong');
-                setTimeout(() => {
-                    cardElement.classList.remove('wrong');
-                }, 500);
-            }
-        }
-
-        function showVictoryScreen() {
-            document.getElementById('final-score').innerText = score;
-            document.getElementById('victory-modal').classList.add('active');
-        }
-
-        function restartGame() {
-            document.getElementById('victory-modal').classList.remove('active');
+    function loadQuestion() {
+        if (currentIndex >= testSuite.length) {
+            alert(`Test Complete! Score: ${score} / ${testSuite.length * 20}`);
             currentIndex = 0;
             score = 0;
-            document.getElementById('score').innerText = score;
-            loadQuestion();
+            showView('lesson');
+            return;
         }
 
-        // Keyboard Shortcut Listener (1-4 keys & Space)
-        document.addEventListener('keydown', (e) => {
-            if (['1', '2', '3', '4'].includes(e.key) && canAnswer) {
-                const idx = parseInt(e.key, 10) - 1;
-                const container = document.getElementById('options-container');
-                const cards = container.getElementsByClassName('arabic-card');
-                if (cards[idx] && activeOptions[idx]) {
-                    checkAnswer(activeOptions[idx], cards[idx]);
-                }
-            } else if (e.code === 'Space') {
-                e.preventDefault();
-                playQuestionSound();
-            }
-        });
+        const item = testSuite[currentIndex];
+        document.getElementById('qNum').innerText = currentIndex + 1;
+        document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
+        document.getElementById('wordDisplay').innerText = item.word;
 
-        window.onload = () => {
-            score = parseInt(localStorage.getItem('arabic_game_4_score') || '0', 10);
-            document.getElementById('score').innerText = score;
+        const choices = document.getElementById('choicesContainer');
+        choices.innerHTML = "";
+
+        item.choices.forEach(choice => {
+            let choiceVal = "None";
+            if (choice.includes("Sughra")) choiceVal = "Sughra";
+            if (choice.includes("Kubra")) choiceVal = "Kubra";
+
+            const btn = document.createElement('button');
+            btn.className = "action-btn";
+            btn.innerText = choice;
+            btn.onclick = () => checkAnswer(choiceVal);
+            choices.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedVal) {
+        const item = testSuite[currentIndex];
+        if (selectedVal === item.correct) {
+            score += 20;
+            document.getElementById('scoreVal').innerText = score;
+            playQuestionAudio();
+            currentIndex++;
+            setTimeout(loadQuestion, 800);
+        } else {
+            alert(`Incorrect. Correct Rule: ${getRuleName(item.correct)}`);
+            currentIndex++;
             loadQuestion();
-        };
-    </script>
+        }
+    }
+
+    function getRuleName(val) {
+        if (val === "Sughra") return "Qalqalah Sughra (Mid-word echo)";
+        if (val === "Kubra") return "Qalqalah Kubra (End-word stop echo)";
+        return "No Qalqalah";
+    }
+
+    function playQuestionAudio() {
+        const item = testSuite[currentIndex];
+        playAudioFile(item.audio);
+    }
+
+    function playAudioFile(fileName) {
+        const audio = new Audio(AUDIO_BASE + fileName);
+        audio.play().catch(() => {
+            // Web Audio API Fallback Tone if blocked by CORS
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(300, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.15);
+        });
+    }
+</script>
 </body>
 </html>
