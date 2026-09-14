@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zara’s Arabic Literacy - Main Menu</title>
+
+    <!-- 1. TAILWIND CSS (Required for Paywall Modal Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. FONTAWESOME (Required for Lock & Card Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
             --bg-dark: #0a111e;
@@ -21,7 +28,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-dark);
             background-image: 
-                /* Subtle Islamic geometric star/grid overlay using SVG background */
                 url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l5 15 15 5-15 5-5 15-5-15-15-5 15-5z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E"),
                 var(--bg-gradient);
             background-attachment: fixed;
@@ -174,6 +180,24 @@
             background: #ffffff;
         }
     </style>
+
+    <!-- App Manifest and PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16a34a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Zahrah Classroom">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./sw.js')
+            .then(() => console.log('Service Worker Registered'))
+            .catch((err) => console.log('Service Worker Failed:', err));
+        });
+      }
+    </script>
 </head>
 <body>
 
@@ -193,8 +217,6 @@
 
     <!-- 8 GAME CARDS GRID -->
     <div class="games-grid">
-
-        <!-- Game 1 -->
         <a href="game1.html" class="game-card">
             <div>
                 <div class="game-number">Level 1</div>
@@ -207,7 +229,6 @@
             </div>
         </a>
 
-        <!-- Game 2 -->
         <a href="game2.html" class="game-card">
             <div>
                 <div class="game-number">Level 2</div>
@@ -220,7 +241,6 @@
             </div>
         </a>
 
-        <!-- Game 3 -->
         <a href="game3.html" class="game-card">
             <div>
                 <div class="game-number">Level 3</div>
@@ -233,7 +253,6 @@
             </div>
         </a>
 
-        <!-- Game 4 -->
         <a href="game4.html" class="game-card">
             <div>
                 <div class="game-number">Level 4</div>
@@ -246,7 +265,6 @@
             </div>
         </a>
 
-        <!-- Game 5 -->
         <a href="game5.html" class="game-card">
             <div>
                 <div class="game-number">Level 5</div>
@@ -259,7 +277,6 @@
             </div>
         </a>
 
-        <!-- Game 6 -->
         <a href="game6.html" class="game-card">
             <div>
                 <div class="game-number">Level 6</div>
@@ -272,7 +289,6 @@
             </div>
         </a>
 
-        <!-- Game 7 -->
         <a href="game7.html" class="game-card">
             <div>
                 <div class="game-number">Level 7</div>
@@ -285,7 +301,6 @@
             </div>
         </a>
 
-        <!-- Game 8 -->
         <a href="game8.html" class="game-card">
             <div>
                 <div class="game-number">Level 8</div>
@@ -297,26 +312,54 @@
                 <span class="play-btn">Play ➔</span>
             </div>
         </a>
+    </div>
 
+    <!-- Lock Screen Modal -->
+    <div id="paywall-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 max-w-md w-full text-center space-y-6 shadow-2xl">
+            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mx-auto">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-bold text-white">Unlock Full Classroom Access</h3>
+                <p class="text-xs text-slate-400 mt-2">
+                    Get full access to all interactive modules.
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                <a id="paystack-btn" href="#" target="_blank" class="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl transition-colors shadow-lg">
+                    <i class="fa-solid fa-credit-card mr-2"></i> Pay Now to Get Access
+                </a>
+
+                <div class="text-slate-500 text-xs font-semibold">OR</div>
+
+                <div class="space-y-2">
+                    <input type="text" id="access-code-input" placeholder="Enter Access Key" class="w-full bg-slate-900 border border-slate-700 text-white text-center rounded-xl py-2.5 text-sm uppercase font-mono focus:outline-none focus:border-emerald-500">
+                    <button onclick="verifyAccessKey()" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs rounded-xl">
+                        Unlock App
+                    </button>
+                </div>
+                <p id="paywall-error" class="text-rose-400 text-xs font-semibold hidden">Invalid Key. Try again.</p>
+            </div>
+        </div>
     </div>
 
     <script>
         const totalGames = 8;
+        const MASTER_KEY = "ZAHRAH2026";
 
         function loadTotalScores() {
             let grandTotal = 0;
-
             for (let i = 1; i <= totalGames; i++) {
                 const gameScore = parseInt(localStorage.getItem(`arabic_game_${i}_score`) || '0', 10);
-                
                 const scoreElement = document.getElementById(`score-g${i}`);
                 if (scoreElement) {
                     scoreElement.innerText = gameScore;
                 }
-
                 grandTotal += gameScore;
             }
-
             document.getElementById('total-stars').innerText = grandTotal;
         }
 
@@ -330,7 +373,30 @@
             }
         }
 
-        window.onload = loadTotalScores;
+        function checkPaywallStatus() {
+            const isUnlocked = localStorage.getItem("zahrah_app_unlocked");
+            const modal = document.getElementById("paywall-modal");
+            if (isUnlocked === "true") {
+                modal.classList.add("hidden");
+            } else {
+                modal.classList.remove("hidden");
+            }
+        }
+
+        function verifyAccessKey() {
+            const input = document.getElementById("access-code-input").value.trim().toUpperCase();
+            if (input === MASTER_KEY) {
+                localStorage.setItem("zahrah_app_unlocked", "true");
+                document.getElementById("paywall-modal").classList.add("hidden");
+            } else {
+                document.getElementById("paywall-error").classList.remove("hidden");
+            }
+        }
+
+        window.onload = function() {
+            loadTotalScores();
+            checkPaywallStatus();
+        };
     </script>
 </body>
 </html>
