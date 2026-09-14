@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0f172a;
+            --bg-dark: #0b1120;
             --panel-bg: rgba(30, 41, 59, 0.95);
             --accent-gold: #fbbf24;
             --accent-cyan: #06b6d4;
             --accent-rose: #f43f5e;
             --accent-emerald: #10b981;
+            --accent-purple: #a855f7;
             --text-light: #f8fafc;
             --border-glow: rgba(255, 255, 255, 0.12);
         }
@@ -21,7 +22,7 @@
 
         body {
             font-family: 'Fredoka', sans-serif;
-            background: radial-gradient(circle at top center, #1e1b4b 0%, #0f172a 100%);
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #0b1120 100%);
             color: var(--text-light);
             min-height: 100vh;
             padding: 20px;
@@ -31,7 +32,7 @@
         }
 
         .nav-header {
-            width: 100%; max-width: 850px; display: flex;
+            width: 100%; max-width: 900px; display: flex;
             justify-content: space-between; align-items: center; margin-bottom: 20px;
         }
 
@@ -42,36 +43,45 @@
         }
         .back-btn:hover { background: var(--accent-gold); color: #000; }
 
-        .score-box { font-size: 1.2rem; font-weight: 700; color: var(--accent-gold); }
+        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--accent-gold); }
 
         .game-card {
             background: var(--panel-bg); backdrop-filter: blur(16px);
             border: 2px solid var(--border-glow); border-radius: 24px;
-            padding: 28px; width: 100%; max-width: 850px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            padding: 30px; width: 100%; max-width: 900px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
 
-        .view-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 25px; }
+        .view-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
         .tab-btn {
             background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
-            color: #94a3b8; padding: 12px 24px; border-radius: 14px; cursor: pointer;
-            font-weight: 600; font-size: 1rem; transition: 0.2s;
+            color: #94a3b8; padding: 12px 22px; border-radius: 14px; cursor: pointer;
+            font-weight: 600; font-size: 0.95rem; transition: 0.2s;
         }
         .tab-btn.active { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
 
         .lesson-box { text-align: left; line-height: 1.6; }
-        .lesson-title { font-size: 1.6rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; }
+        .lesson-title { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; }
 
-        /* Letter Selector Grid */
-        .letter-selector-label {
-            text-align: center; color: var(--accent-cyan); font-weight: 700;
-            margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;
+        .mnemonic-banner {
+            background: rgba(6, 182, 212, 0.12); border: 1px solid var(--accent-cyan);
+            border-radius: 16px; padding: 18px; margin: 15px 0 25px 0; text-align: center;
         }
+        .mnemonic-letters {
+            font-family: 'Amiri', serif; font-size: 2.5rem; color: var(--accent-gold);
+            display: block; margin-top: 5px; font-weight: 700;
+        }
+
+        .section-header {
+            color: var(--accent-cyan); font-size: 1.2rem; margin: 25px 0 12px 0;
+            border-left: 4px solid var(--accent-cyan); padding-left: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
         .letter-picker {
             display: flex; justify-content: center; gap: 12px; margin: 15px 0 25px 0; flex-wrap: wrap;
         }
         .letter-btn {
-            font-family: 'Amiri', serif; font-size: 2rem; width: 65px; height: 65px;
+            font-family: 'Amiri', serif; font-size: 2.2rem; width: 68px; height: 68px;
             border-radius: 18px; border: 2px solid var(--border-glow);
             background: rgba(255, 255, 255, 0.05); color: var(--accent-gold);
             cursor: pointer; transition: all 0.2s ease; display: flex;
@@ -79,13 +89,12 @@
         }
         .letter-btn:hover, .letter-btn.active {
             background: var(--accent-gold); color: #000; transform: scale(1.08);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4); border-color: var(--accent-gold);
         }
 
-        /* Interactive Studio Box */
         .studio-card {
-            background: rgba(0, 0, 0, 0.35); border: 2px solid var(--accent-cyan);
-            border-radius: 20px; padding: 20px; margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.4); border: 2px solid var(--accent-cyan);
+            border-radius: 20px; padding: 22px; margin-bottom: 25px;
         }
         .studio-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -93,16 +102,21 @@
         }
         .active-letter-name { font-size: 1.3rem; color: var(--accent-gold); font-weight: 700; }
 
+        .makhraj-box {
+            background: rgba(255,255,255,0.03); border-radius: 12px; padding: 10px 15px;
+            margin-bottom: 15px; font-size: 0.9rem; color: #cbd5e1; border-left: 3px solid var(--accent-emerald);
+        }
+
         .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 650px) { .comparison-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 680px) { .comparison-grid { grid-template-columns: 1fr; } }
 
         .sound-card {
             background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow);
-            border-radius: 16px; padding: 16px; text-align: center;
+            border-radius: 16px; padding: 18px; text-align: center;
             display: flex; flex-direction: column; justify-content: space-between; align-items: center;
         }
         .sound-badge {
-            font-size: 0.75rem; text-transform: uppercase; padding: 4px 10px;
+            font-size: 0.75rem; text-transform: uppercase; padding: 4px 12px;
             border-radius: 8px; font-weight: 700; margin-bottom: 8px;
         }
         .badge-sughra { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
@@ -113,73 +127,131 @@
 
         .audio-play-btn {
             background: var(--accent-cyan); color: #000; border: none; width: 100%;
-            padding: 10px; border-radius: 12px; font-weight: 700; cursor: pointer;
+            padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: 0.2s; margin-top: 10px;
+            transition: 0.2s; margin-top: 12px; font-size: 0.95rem;
         }
         .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .audio-play-btn.kubra-btn { background: var(--accent-rose); color: #fff; }
 
+        .pitfalls-card {
+            background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 16px; padding: 18px; margin: 20px 0;
+        }
+        .pitfalls-card h4 { color: var(--accent-rose); margin-bottom: 8px; }
+        .pitfalls-card ul { padding-left: 20px; font-size: 0.92rem; color: #cbd5e1; }
+
         .start-test-btn {
             background: var(--accent-gold); color: #000; border: none;
-            padding: 18px 32px; border-radius: 16px; font-size: 1.2rem;
-            font-weight: 700; cursor: pointer; width: 100%; margin-top: 15px; transition: 0.2s;
+            padding: 18px 32px; border-radius: 16px; font-size: 1.25rem;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
         }
         .start-test-btn:hover { background: #f59e0b; transform: translateY(-2px); }
 
-        /* Test Section Styles */
         .progress-bar {
-            width: 100%; height: 8px; background: rgba(255,255,255,0.1);
-            border-radius: 4px; margin-bottom: 20px; overflow: hidden;
+            width: 100%; height: 10px; background: rgba(255,255,255,0.1);
+            border-radius: 5px; margin-bottom: 20px; overflow: hidden;
         }
         .progress-fill { height: 100%; background: var(--accent-cyan); width: 0%; transition: width 0.3s ease; }
 
         .arabic-display {
             font-family: 'Amiri', serif; font-size: 3.8rem;
             color: var(--accent-gold); margin: 20px 0;
-            background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px;
+            background: rgba(0,0,0,0.35); padding: 25px; border-radius: 20px;
             border: 1px solid var(--border-glow); position: relative;
         }
 
         .audio-btn {
             cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
-            width: 55px; height: 55px; display: inline-flex; align-items: center;
-            justify-content: center; font-size: 1.6rem; margin: 5px auto 0; transition: 0.2s;
-            border: 1px solid rgba(255,255,255,0.2);
+            width: 60px; height: 60px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.8rem; margin: 5px auto 0; transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2); color: var(--accent-gold);
         }
-        .audio-btn:hover { background: var(--accent-gold); color: #000; }
+        .audio-btn:hover { background: var(--accent-gold); color: #000; transform: scale(1.05); }
 
-        .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+        @media (max-width: 600px) { .btn-grid { grid-template-columns: 1fr; } }
+
         .action-btn {
             background: rgba(255,255,255,0.05); border: 2px solid var(--border-glow);
-            color: var(--text-light); padding: 18px; border-radius: 18px;
-            font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: 0.2s;
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            color: var(--text-light); padding: 18px 12px; border-radius: 16px;
+            font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
         }
-        .action-btn:hover { background: var(--accent-cyan); color: #000; transform: translateY(-2px); }
+        .action-btn:hover { background: var(--accent-cyan); color: #000; transform: translateY(-2px); border-color: var(--accent-cyan); }
+
+        .feedback-banner {
+            margin-top: 15px; padding: 12px; border-radius: 12px; font-weight: 700;
+            display: none; animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="nav-header">
         <a href="index.html" class="back-btn">← Main Menu</a>
-        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/15 | Score: <span id="scoreVal">0</span> ⭐</div>
+        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/20 | Score: <span id="scoreVal">0</span> ⭐</div>
     </div>
 
     <div class="game-card">
         <div class="view-tabs">
-            <button class="tab-btn active" id="tabLesson" onclick="showView('lesson')">🎧 Master All 5 Letter Echoes</button>
-            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 Practice Test</button>
+            <button class="tab-btn active" id="tabLesson" onclick="showView('lesson')">📖 Rules & Explanations</button>
+            <button class="tab-btn" id="tabStudio" onclick="showView('studio')">🎧 5-Letter Audio Studio</button>
+            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 Practice Test (20 Questions)</button>
         </div>
 
-        <!-- LESSON VIEW: 5-LETTER PRONUNCIATION SOUNDBOARD -->
+        <!-- VIEW 1: EXPLANATIONS & RULES -->
         <div id="lessonView" class="lesson-box">
-            <h2 class="lesson-title">Interactive Qalqalah Soundboard Studio</h2>
-            <p style="color: #cbd5e1; text-align: center;">
-                Select each letter below to hear and compare its <strong>Sughra (Light Echo)</strong> vs. <strong>Kubra (Strong Echo)</strong> pronunciation:
+            <h2 class="lesson-title">Understanding Qalqalah (قَلْقَلَة)</h2>
+            <p style="color: #cbd5e1; text-align: center; margin-bottom: 15px;">
+                <strong>Qalqalah</strong> literally means "shaking" or "echoing." In Tajweed, it refers to the sudden release or bounce of vocal pressure when pronouncing specific consonants carrying a <strong>Sukuun (سُكُون)</strong> or when pausing at the end of an Ayah.
             </p>
 
-            <div class="letter-selector-label">Choose a Letter to Listen:</div>
+            <div class="mnemonic-banner">
+                The 5 Qalqalah Letters are stored in the historic phrase:
+                <span class="mnemonic-letters">قُطْبُ جَدٍّ</span>
+                <span style="font-size: 0.9rem; color: #94a3b8;">(Qaf ق, Taa ط, Baa ب, Jeem ج, Dal د)</span>
+            </div>
+
+            <div class="section-header">The 2 Main Degrees of Echo</div>
+            <div class="comparison-grid" style="margin-bottom: 20px;">
+                <div class="sound-card">
+                    <span class="sound-badge badge-sughra">1. Qalqalah Sughra (Minor)</span>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; text-align: left; margin: 8px 0;">
+                        Occurs when a Qalqalah letter is in the <strong>middle of a word</strong> with an explicit Sukuun. The echo is quick, light, and maintains continuous recitation flow.
+                    </p>
+                    <div class="arabic-demo-text">يَ<span class="hl">قْ</span>طَعُونَ</div>
+                </div>
+                <div class="sound-card">
+                    <span class="sound-badge badge-kubra">2. Qalqalah Kubra (Major)</span>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; text-align: left; margin: 8px 0;">
+                        Occurs when stopping at the <strong>end of a word or Ayah</strong> on a Qalqalah letter. The bounce is pronounced, strong, and highly distinct.
+                    </p>
+                    <div class="arabic-demo-text">الْفَلَ<span class="hl">قِ</span></div>
+                </div>
+            </div>
+
+            <div class="pitfalls-card">
+                <h4>⚠️ Common Mistakes to Avoid:</h4>
+                <ul>
+                    <li><strong>Adding a Vowel (Fathah):</strong> Do not turn the bounce into a full vowel sound (e.g., saying <em>"Yaj-a-loona"</em> instead of <em>"Yaj’loona"</em>).</li>
+                    <li><strong>Cutting the Echo Short:</strong> Releasing the air too abruptly without letting the natural echo reverberate off the articulation point.</li>
+                    <li><strong>Bouncing Non-Qalqalah Letters:</strong> Applying an echo to letters like <strong>Lām (ل)</strong> or <strong>Mīm (م)</strong> when they have Sukuun.</li>
+                </ul>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('studio')">Proceed to 5-Letter Audio Soundboard Studio →</button>
+        </div>
+
+        <!-- VIEW 2: 5-LETTER AUDIO STUDIO -->
+        <div id="studioView" class="lesson-box" style="display: none;">
+            <h2 class="lesson-title">5-Letter Audio Soundboard Studio</h2>
+            <p style="color: #cbd5e1; text-align: center;">
+                Select each Qalqalah letter below to study its anatomical point of articulation (Makhraj) and compare its **Sughra** and **Kubra** audio recordings:
+            </p>
+
             <div class="letter-picker">
                 <button class="letter-btn active" onclick="selectLetter('ق', this)">ق</button>
                 <button class="letter-btn" onclick="selectLetter('ط', this)">ط</button>
@@ -188,78 +260,85 @@
                 <button class="letter-btn" onclick="selectLetter('د', this)">د</button>
             </div>
 
-            <!-- DYNAMIC COMPARISON STUDIO CARD -->
             <div class="studio-card">
                 <div class="studio-header">
                     <span class="active-letter-name" id="studioLetterTitle">Letter: Qaf (ق)</span>
-                    <span style="font-size: 0.85rem; color: #94a3b8;">Click play buttons to listen</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;">Click audio buttons below</span>
+                </div>
+
+                <div class="makhraj-box" id="makhrajDesc">
+                    <strong>Point of Articulation (Makhraj):</strong> Deepest part of the back of the tongue hitting the soft palate.
                 </div>
 
                 <div class="comparison-grid">
-                    <!-- SUGRA SIDE -->
                     <div class="sound-card">
                         <div>
-                            <span class="sound-badge badge-sughra">Sughra (Minor / Mid-Word)</span>
+                            <span class="sound-badge badge-sughra">Sughra (Mid-Word Echo)</span>
                             <div class="arabic-demo-text" id="sughraArabic">يَ<span class="hl">قْ</span>طَعُونَ</div>
-                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="sughraDesc">Quick bounce in the middle of a word without stopping flow.</p>
+                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="sughraDesc">Light continuous echo in mid-word.</p>
                         </div>
-                        <button class="audio-play-btn" id="sughraPlayBtn" onclick="playCurrentAudio('sughra')">🔊 Listen to Sughra Echo</button>
+                        <button class="audio-play-btn" onclick="playCurrentAudio('sughra')">🔊 Listen Sughra Echo</button>
                     </div>
 
-                    <!-- KUBRA SIDE -->
                     <div class="sound-card">
                         <div>
-                            <span class="sound-badge badge-kubra">Kubra (Major / End-Stop)</span>
+                            <span class="sound-badge badge-kubra">Kubra (End-Stop Echo)</span>
                             <div class="arabic-demo-text" id="kubraArabic">الْفَلَ<span class="hl">قِ</span></div>
-                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="kubraDesc">Strong, accented echo when stopping on the letter at the end.</p>
+                            <p style="font-size: 0.85rem; color:#cbd5e1;" id="kubraDesc">Deep, explosive echo when stopping at verse end.</p>
                         </div>
-                        <button class="audio-play-btn kubra-btn" id="kubraPlayBtn" onclick="playCurrentAudio('kubra')">🔊 Listen to Kubra Echo</button>
+                        <button class="audio-play-btn kubra-btn" onclick="playCurrentAudio('kubra')">🔊 Listen Kubra Echo</button>
                     </div>
                 </div>
             </div>
 
-            <button class="start-test-btn" onclick="showView('test')">I Have Listened to All Letters - Start Test →</button>
+            <button class="start-test-btn" onclick="showView('test')">I Have Mastered All 5 Sounds - Start 20-Question Test →</button>
         </div>
 
-        <!-- PRACTICE TEST VIEW -->
+        <!-- VIEW 3: PRACTICE TEST (20 QUESTIONS) -->
         <div id="testView" style="display: none;">
             <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 
-            <h2 style="color:var(--accent-cyan); margin-bottom: 8px;">Qalqalah Knowledge Check</h2>
-            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the rule applied in this word:</p>
+            <h2 style="color:var(--accent-cyan); margin-bottom: 8px;">Qalqalah Comprehensive Test</h2>
+            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the rule applied in this word/verse:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
             <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+
+            <div class="feedback-banner" id="feedbackBox"></div>
 
             <div class="btn-grid" id="choicesContainer"></div>
         </div>
     </div>
 
 <script>
-    // Complete 5-Letter Pronunciation Database
     const letterDatabase = {
         'ق': {
             name: 'Letter: Qaf (ق)',
+            makhraj: 'Deepest part of the back of the tongue hitting the soft palate.',
             sughra: { word: 'يَقْطَعُونَ', audio: '002027.mp3', desc: 'Light, continuous echo in mid-word.' },
             kubra: { word: 'الْفَلَقِ', audio: '113001.mp3', desc: 'Deep, explosive echo when stopping at verse end.' }
         },
         'ط': {
             name: 'Letter: Taa (ط)',
+            makhraj: 'Top surface of the tip of the tongue hitting the roots of the upper two front teeth.',
             sughra: { word: 'مُطْمَئِنّ', audio: '089027.mp3', desc: 'Crisp heavy bounce mid-word.' },
             kubra: { word: 'مُحِيطٌ', audio: '002019.mp3', desc: 'Heavy, firm echo upon stopping.' }
         },
         'ب': {
             name: 'Letter: Baa (ب)',
+            makhraj: 'Closing the wet inner parts of both lips together.',
             sughra: { word: 'سُبْحَانَ', audio: '017001.mp3', desc: 'Gentle lip-rebound in mid-word.' },
             kubra: { word: 'وَتَبَّ', audio: '111001.mp3', desc: 'Strong, resolute lip bounce on stop.' }
         },
         'ج': {
             name: 'Letter: Jeem (ج)',
+            makhraj: 'Center of the tongue touching the roof of the mouth (hard palate).',
             sughra: { word: 'يَجْعَلُونَ', audio: '105002.mp3', desc: 'Middle-tongue quick bounce mid-word.' },
             kubra: { word: 'الْبُرُوجِ', audio: '085001.mp3', desc: 'Full, echoed release at stop.' }
         },
         'د': {
             name: 'Letter: Dal (د)',
+            makhraj: 'Tip of the tongue hitting the root of the upper central incisors.',
             sughra: { word: 'يَدْخُلُونَ', audio: '110002.mp3', desc: 'Light tip-of-tongue rebound mid-word.' },
             kubra: { word: 'قُلْ هُوَ اللَّهُ أَحَدٌ', audio: '112001.mp3', desc: 'Strong accented tip-of-tongue echo at stop.' }
         }
@@ -267,22 +346,28 @@
 
     let activeLetterKey = 'ق';
 
+    // 20-Question Bank
     const testSuite = [
-        { word: "قَلَقٌ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "113001.mp3" },
-        { word: "أَحَدٌ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "112001.mp3" },
-        { word: "الْفَلَقِ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "113001.mp3" },
-        { word: "حَبْلٌ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "111005.mp3" },
-        { word: "يَجْعَلْ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "105002.mp3" },
-        { word: "مُطْمَئِنّ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "089027.mp3" },
-        { word: "كَتَبَ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002008.mp3" },
-        { word: "عَلِيمٌ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "004017.mp3" },
-        { word: "إِبْرَاهِيمَ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002124.mp3" },
-        { word: "مُحِيطٌ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002019.mp3" },
-        { word: "يَدْخُلُونَ", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "110002.mp3" },
-        { word: "الْبُرُوجِ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "085001.mp3" },
-        { word: "يَعْلَمُونَ", correct: "None", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002013.mp3" },
-        { word: "الصَّمَدُ", correct: "Kubra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "112002.mp3" },
-        { word: "تَجْرِي", correct: "Sughra", choices: ["Qalqalah Sughra", "Qalqalah Kubra", "No Qalqalah"], audio: "002025.mp3" }
+        { word: "قَلَقٌ", correct: "Sughra", audio: "113001.mp3" },
+        { word: "أَحَدٌ", correct: "Kubra", audio: "112001.mp3" },
+        { word: "الْفَلَقِ", correct: "Kubra", audio: "113001.mp3" },
+        { word: "حَبْلٌ", correct: "Sughra", audio: "111005.mp3" },
+        { word: "يَجْعَلْ", correct: "Sughra", audio: "105002.mp3" },
+        { word: "مُطْمَئِنّ", correct: "Sughra", audio: "089027.mp3" },
+        { word: "كَتَبَ", correct: "None", audio: "002008.mp3" },
+        { word: "عَلِيمٌ", correct: "None", audio: "004017.mp3" },
+        { word: "إِبْرَاهِيمَ", correct: "Sughra", audio: "002124.mp3" },
+        { word: "مُحِيطٌ", correct: "Kubra", audio: "002019.mp3" },
+        { word: "يَدْخُلُونَ", correct: "Sughra", audio: "110002.mp3" },
+        { word: "الْبُرُوجِ", correct: "Kubra", audio: "085001.mp3" },
+        { word: "يَعْلَمُونَ", correct: "None", audio: "002013.mp3" },
+        { word: "الصَّمَدُ", correct: "Kubra", audio: "112002.mp3" },
+        { word: "تَجْرِي", correct: "Sughra", audio: "002025.mp3" },
+        { word: "مَسَدٍ", correct: "Kubra", audio: "111005.mp3" },
+        { word: "أَطْعَمَهُم", correct: "Sughra", audio: "106004.mp3" },
+        { word: "الْحَرِيقِ", correct: "Kubra", audio: "085010.mp3" },
+        { word: "الْحَمْدُ", correct: "None", audio: "001002.mp3" },
+        { word: "وَتَبَّ", correct: "Kubra", audio: "111001.mp3" }
     ];
 
     const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
@@ -296,6 +381,8 @@
 
         const data = letterDatabase[char];
         document.getElementById('studioLetterTitle').innerText = data.name;
+        document.getElementById('makhrajDesc').innerHTML = `<strong>Point of Articulation (Makhraj):</strong> ${data.makhraj}`;
+        
         document.getElementById('sughraArabic').innerHTML = data.sughra.word;
         document.getElementById('sughraDesc').innerText = data.sughra.desc;
 
@@ -309,22 +396,23 @@
     }
 
     function showView(view) {
-        const isLesson = view === 'lesson';
-        document.getElementById('lessonView').style.display = isLesson ? 'block' : 'none';
-        document.getElementById('testView').style.display = isLesson ? 'none' : 'block';
-        document.getElementById('scoreHeader').style.display = isLesson ? 'none' : 'block';
+        document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
+        document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
+        document.getElementById('testView').style.display = view === 'test' ? 'block' : 'none';
+        document.getElementById('scoreHeader').style.display = view === 'test' ? 'block' : 'none';
         
-        document.getElementById('tabLesson').classList.toggle('active', isLesson);
-        document.getElementById('tabTest').classList.toggle('active', !isLesson);
+        document.getElementById('tabLesson').classList.toggle('active', view === 'lesson');
+        document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
+        document.getElementById('tabTest').classList.toggle('active', view === 'test');
 
-        if (!isLesson && currentIndex === 0) {
+        if (view === 'test' && currentIndex === 0) {
             loadQuestion();
         }
     }
 
     function loadQuestion() {
         if (currentIndex >= testSuite.length) {
-            alert(`Test Complete! Score: ${score} / ${testSuite.length * 20}`);
+            alert(`🎉 Test Complete!\nYour Final Score: ${score} / ${testSuite.length * 10}`);
             currentIndex = 0;
             score = 0;
             showView('lesson');
@@ -335,41 +423,52 @@
         document.getElementById('qNum').innerText = currentIndex + 1;
         document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
         document.getElementById('wordDisplay').innerText = item.word;
+        document.getElementById('feedbackBox').style.display = 'none';
 
-        const choices = document.getElementById('choicesContainer');
-        choices.innerHTML = "";
+        const choices = [
+            { label: "Qalqalah Sughra", val: "Sughra" },
+            { label: "Qalqalah Kubra", val: "Kubra" },
+            { label: "No Qalqalah", val: "None" }
+        ];
 
-        item.choices.forEach(choice => {
-            let choiceVal = "None";
-            if (choice.includes("Sughra")) choiceVal = "Sughra";
-            if (choice.includes("Kubra")) choiceVal = "Kubra";
+        const container = document.getElementById('choicesContainer');
+        container.innerHTML = "";
 
+        choices.forEach(choice => {
             const btn = document.createElement('button');
             btn.className = "action-btn";
-            btn.innerText = choice;
-            btn.onclick = () => checkAnswer(choiceVal);
-            choices.appendChild(btn);
+            btn.innerText = choice.label;
+            btn.onclick = () => checkAnswer(choice.val);
+            container.appendChild(btn);
         });
+
+        playQuestionAudio();
     }
 
     function checkAnswer(selectedVal) {
         const item = testSuite[currentIndex];
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
+
         if (selectedVal === item.correct) {
-            score += 20;
+            score += 10;
             document.getElementById('scoreVal').innerText = score;
-            playQuestionAudio();
-            currentIndex++;
-            setTimeout(loadQuestion, 800);
+            feedback.style.background = "rgba(16, 185, 129, 0.2)";
+            feedback.style.color = "var(--accent-emerald)";
+            feedback.innerHTML = "✨ Correct! Excellent Tajweed recognition.";
         } else {
-            alert(`Incorrect. Correct Rule: ${getRuleName(item.correct)}`);
-            currentIndex++;
-            loadQuestion();
+            feedback.style.background = "rgba(244, 63, 94, 0.2)";
+            feedback.style.color = "var(--accent-rose)";
+            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${getRuleName(item.correct)}</strong>`;
         }
+
+        currentIndex++;
+        setTimeout(loadQuestion, 1200);
     }
 
     function getRuleName(val) {
-        if (val === "Sughra") return "Qalqalah Sughra (Mid-word echo)";
-        if (val === "Kubra") return "Qalqalah Kubra (End-word stop echo)";
+        if (val === "Sughra") return "Qalqalah Sughra (Mid-Word)";
+        if (val === "Kubra") return "Qalqalah Kubra (End-Stop)";
         return "No Qalqalah";
     }
 
@@ -381,7 +480,6 @@
     function playAudioFile(fileName) {
         const audio = new Audio(AUDIO_BASE + fileName);
         audio.play().catch(() => {
-            // Web Audio API Fallback Tone if blocked by CORS
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
