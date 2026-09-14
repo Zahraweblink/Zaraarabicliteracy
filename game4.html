@@ -3,261 +3,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Madd Rules - Zara’s Arabic Literacy</title>
+    <title>Nūn Sakinah & Tanween Master Studio - Zahrah Tajweed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0d1b2a;
-            --card-bg: #1b263b;
-            --accent-gold: #ffb703;
-            --accent-green: #06d6a0;
-            --accent-red: #ef476f;
-            --white: #ffffff;
+            --bg-dark: #0b1120;
+            --panel-bg: rgba(30, 41, 59, 0.95);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #06b6d4;
+            --accent-rose: #f43f5e;
+            --accent-emerald: #10b981;
+            --accent-purple: #a855f7;
+            --text-light: #f8fafc;
+            --border-glow: rgba(255, 255, 255, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #0b1120 100%);
+            color: var(--text-light);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        /* HEADER & SCORE BAR */
-        .game-header {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        .nav-header {
+            width: 100%; max-width: 900px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
         }
 
         .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: bold;
+            background: rgba(255,255,255,0.1); color: var(--text-light);
+            text-decoration: none; padding: 10px 20px; border-radius: 14px;
+            font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: 0.2s;
+        }
+        .back-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--accent-gold); }
+
+        .game-card {
+            background: var(--panel-bg); backdrop-filter: blur(16px);
+            border: 2px solid var(--border-glow); border-radius: 24px;
+            padding: 30px; width: 100%; max-width: 900px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
 
-        .score-board {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
+        .view-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            color: #94a3b8; padding: 12px 22px; border-radius: 14px; cursor: pointer;
+            font-weight: 600; font-size: 0.95rem; transition: 0.2s;
+        }
+        .tab-btn.active { background: var(--accent-emerald); color: #000; border-color: var(--accent-emerald); }
+
+        .lesson-box { text-align: left; line-height: 1.6; }
+        .lesson-title { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; }
+
+        .mnemonic-banner {
+            background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-emerald);
+            border-radius: 16px; padding: 18px; margin: 15px 0 25px 0; text-align: center;
+        }
+        .mnemonic-letters {
+            font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--accent-gold);
+            display: block; margin-top: 5px; font-weight: 700;
         }
 
-        /* MUTE BUTTON STYLES */
-        .mute-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .section-header {
+            color: var(--accent-emerald); font-size: 1.2rem; margin: 25px 0 12px 0;
+            border-left: 4px solid var(--accent-emerald); padding-left: 10px; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        .mute-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .rule-picker {
+            display: flex; justify-content: center; gap: 10px; margin: 15px 0 25px 0; flex-wrap: wrap;
+        }
+        .rule-btn {
+            font-size: 0.95rem; font-weight: 600; padding: 12px 18px;
+            border-radius: 14px; border: 2px solid var(--border-glow);
+            background: rgba(255, 255, 255, 0.05); color: var(--text-light);
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .rule-btn:hover, .rule-btn.active {
+            background: var(--accent-emerald); color: #000; transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); border-color: var(--accent-emerald);
         }
 
-        .mute-btn.muted {
-            background: rgba(239, 71, 111, 0.2);
-            border-color: var(--accent-red);
-            color: var(--accent-red);
+        .studio-card {
+            background: rgba(0, 0, 0, 0.4); border: 2px solid var(--accent-emerald);
+            border-radius: 20px; padding: 22px; margin-bottom: 25px;
+        }
+        .studio-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;
+        }
+        .active-rule-title { font-size: 1.3rem; color: var(--accent-gold); font-weight: 700; }
+
+        .makhraj-box {
+            background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px 15px;
+            margin-bottom: 15px; font-size: 0.92rem; color: #cbd5e1; border-left: 3px solid var(--accent-cyan);
         }
 
-        /* MAIN GAME ARENA */
-        .arena {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 500px;
-            border-radius: 24px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 3px solid rgba(255,255,255,0.05);
+        .sound-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow);
+            border-radius: 16px; padding: 20px; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            margin-top: 15px;
+        }
+        .sound-badge {
+            font-size: 0.8rem; text-transform: uppercase; padding: 4px 12px;
+            border-radius: 8px; font-weight: 700; margin-bottom: 8px;
+            background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border: 1px solid var(--accent-emerald);
         }
 
-        .instruction {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 25px;
+        .arabic-demo-text { font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; margin: 8px 0; }
+        .hl { color: var(--accent-gold); font-weight: bold; }
+
+        .audio-play-btn {
+            background: var(--accent-emerald); color: #000; border: none; width: 100%;
+            padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.2s; margin-top: 12px; font-size: 0.95rem;
+        }
+        .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+        .pitfalls-card {
+            background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 16px; padding: 18px; margin: 20px 0;
+        }
+        .pitfalls-card h4 { color: var(--accent-rose); margin-bottom: 8px; }
+        .pitfalls-card ul { padding-left: 20px; font-size: 0.92rem; color: #cbd5e1; }
+
+        .start-test-btn {
+            background: var(--accent-gold); color: #000; border: none;
+            padding: 18px 32px; border-radius: 16px; font-size: 1.25rem;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+        }
+        .start-test-btn:hover { background: #f59e0b; transform: translateY(-2px); }
+
+        .progress-bar {
+            width: 100%; height: 10px; background: rgba(255,255,255,0.1);
+            border-radius: 5px; margin-bottom: 20px; overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: var(--accent-emerald); width: 0%; transition: width 0.3s ease; }
+
+        .arabic-display {
+            font-family: 'Amiri', serif; font-size: 3.8rem;
+            color: var(--accent-gold); margin: 20px 0;
+            background: rgba(0,0,0,0.35); padding: 25px; border-radius: 20px;
+            border: 1px solid var(--border-glow); position: relative;
         }
 
-        /* SPEAKER BUTTON */
         .audio-btn {
-            background: var(--accent-gold);
-            color: #000;
-            border: none;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            font-size: 2.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
-            transition: transform 0.2s;
-            margin-bottom: 35px;
+            cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
+            width: 60px; height: 60px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.8rem; margin: 5px auto 0; transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2); color: var(--accent-gold);
         }
+        .audio-btn:hover { background: var(--accent-gold); color: #000; transform: scale(1.05); }
 
-        .audio-btn:active { transform: scale(0.95); }
+        .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        @media (max-width: 600px) { .btn-grid { grid-template-columns: 1fr; } }
 
-        /* ARABIC OPTIONS GRID */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .action-btn {
+            background: rgba(255,255,255,0.05); border: 2px solid var(--border-glow);
+            color: var(--text-light); padding: 18px 12px; border-radius: 16px;
+            font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
         }
+        .action-btn:hover { background: var(--accent-emerald); color: #000; transform: translateY(-2px); border-color: var(--accent-emerald); }
 
-        .arabic-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            font-size: 3.5rem;
-            padding: 20px 0;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
+        .feedback-banner {
+            margin-top: 15px; padding: 12px; border-radius: 12px; font-weight: 700;
+            display: none; animation: fadeIn 0.3s ease; text-align: center;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .arabic-card:hover {
-            border-color: var(--accent-gold);
-            background: rgba(255, 183, 3, 0.1);
+        .diagram-box {
+            background: rgba(255,255,255,0.03); border-radius: 16px; padding: 15px;
+            margin: 15px 0; text-align: center; border: 1px dashed var(--accent-emerald);
         }
-
-        /* FEEDBACK STATES */
-        .correct {
-            background: var(--accent-green) !important;
-            color: #000 !important;
-            border-color: var(--accent-green) !important;
-        }
-
-        .wrong {
-            background: var(--accent-red) !important;
-            border-color: var(--accent-red) !important;
-        }
+        .rule-state { font-weight: bold; color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
-    <div class="game-header">
-        <a href="index.html" class="back-btn">⬅ Menu</a>
+    <div class="nav-header">
+        <a href="index.html" class="back-btn">← Main Menu</a>
+        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/30 | Score: <span id="scoreVal">0</span> ⭐</div>
+    </div>
 
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <!-- MUTE BUTTON -->
-            <button class="mute-btn" onclick="toggleMute()">🔊 Sound On</button>
-            <div class="score-board">⭐ Score: <span id="score">0</span></div>
+    <div class="game-card">
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tabLesson" onclick="showView('lesson')">📖 Rules & Explanations</button>
+            <button class="tab-btn" id="tabStudio" onclick="showView('studio')">🎧 4-Rule Audio Studio</button>
+            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 Practice Test (30 Questions)</button>
+        </div>
+
+        <!-- VIEW 1: EXPLANATIONS & RULES -->
+        <div id="lessonView" class="lesson-box">
+            <h2 class="lesson-title">Understanding Nūn Sakinah & Tanween (أَحْكَامُ النُّونِ السَّاكِنَةِ وَالتَّنْوِينِ)</h2>
+            <p style="color: #cbd5e1; text-align: center; margin-bottom: 15px;">
+                When a <strong>Nūn Sakinah (نْ)</strong> or <strong>Tanween (ً ٍ ٌ)</strong> meets any of the 28 Arabic letters, it produces one of <strong>four fundamental Tajweed rules</strong>:
+            </p>
+
+            <div class="mnemonic-banner">
+                The 4 Rules of Nūn Sakinah & Tanween:
+                <span class="mnemonic-letters">إِظْهَار  •  إِدْغَام  •  إِقْلَاب  •  إِخْفَاء</span>
+                <span style="font-size: 0.9rem; color: #94a3b8;">(Clarity • Merging • Conversion • Concealment)</span>
+            </div>
+
+            <div class="section-header">Rule Summary</div>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Izhar Halqi (إِظْهَار حَلْقِي) — Absolute Clarity</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>6 Throat Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-gold);">ء, هـ, ع, ح, غ, خ</span><br>
+                        Pronounce the Nūn Sakinah or Tanween clearly from its origin without extra nasal stretching.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Idgham (إِدْغَام) — Merging</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>6 Letters (يَرْمَلُونَ):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-cyan);">ي, ر, م, ل, و, ن</span><br>
+                        • <strong>With Ghunnah (2 counts):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-gold);">ي, ن, م, و</span> (YAMNW)<br>
+                        • <strong>Without Ghunnah:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-rose);">ر, ل</span> (R, L)
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Iqlab (إِقْلَاب) — Conversion</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>1 Letter:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-purple);">ب</span> (Baa)<br>
+                        Convert the Nūn sound into a hidden <strong>Mīm (م)</strong> accompanied by a 2-count Ghunnah.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Ikhfa' Haqiqi (إِخْفَاء حَقِيقِي) — Concealment</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Remaining 15 Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-emerald);">ت, ث, ج, د, ذ, ز, س, ش, ص, ض, ط, ظ, ف, ق, ك</span><br>
+                        Conceal the Nūn tongue placement while sustaining nasal resonance for 2 counts.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pitfalls-card">
+                <h4>⚠️ Single-Word Exception (Izhar Mutlaq):</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1;">
+                    When Nūn Sakinah is followed by an Idgham letter (<span style="font-family: 'Amiri', serif; color: var(--accent-gold);">و</span> or <span style="font-family: 'Amiri', serif; color: var(--accent-gold);">ي</span>) <strong>within the SAME single word</strong>, Idgham is forbidden! You must apply <strong>Izhar Mutlaq (Absolute Clarity)</strong>. There are only 4 occurrences in the entire Quran:
+                    <br><strong style="color: #fff; font-family: 'Amiri', serif; font-size: 1.4rem;">الدُّنْيَا • بُنْيَانٌ • قِنْوَانٌ • صِنْوَانٌ</strong>
+                </p>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('studio')">Proceed to 4-Rule Audio Soundboard Studio →</button>
+        </div>
+
+        <!-- VIEW 2: 4-RULE AUDIO STUDIO -->
+        <div id="studioView" class="lesson-box" style="display: none;">
+            <h2 class="lesson-title">4-Rule Audio Studio</h2>
+            <p style="color: #cbd5e1; text-align: center;">
+                Select a rule below to examine its mechanism and listen to authentic audio examples:
+            </p>
+
+            <div class="rule-picker">
+                <button class="rule-btn active" onclick="selectRule('izhar', this)">1. Izhar (6 Throat)</button>
+                <button class="rule-btn" onclick="selectRule('idgham_ghunnah', this)">2a. Idgham + Ghunnah</button>
+                <button class="rule-btn" onclick="selectRule('idgham_noghunnah', this)">2b. Idgham (No Ghunnah)</button>
+                <button class="rule-btn" onclick="selectRule('iqlab', this)">3. Iqlab (ب)</button>
+                <button class="rule-btn" onclick="selectRule('ikhfa', this)">4. Ikhfa' (15 Letters)</button>
+            </div>
+
+            <div class="studio-card">
+                <div class="studio-header">
+                    <span class="active-rule-title" id="studioRuleTitle">Izhar Halqi (إِظْهَار حَلْقِي)</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;">Click audio player below</span>
+                </div>
+
+                <div class="diagram-box" id="diagramBox">
+                    Phonetic Mechanism: <span class="rule-state" id="ruleState">Clear Nūn sound without holding extra Ghunnah</span>
+                </div>
+
+                <div class="makhraj-box" id="makhrajDesc">
+                    <strong>Rule Mechanism:</strong> Applies when meeting <span style="font-family:'Amiri', serif; font-size:1.2rem;">ء, هـ, ع, ح, غ, خ</span>.
+                </div>
+
+                <div class="sound-card">
+                    <div>
+                        <span class="sound-badge" id="ruleBadge">Izhar Halqi Demo</span>
+                        <div class="arabic-demo-text" id="demoArabic">مَ<span class="hl">نْ أَمَ</span>نَ</div>
+                        <p style="font-size: 0.88rem; color:#cbd5e1;" id="demoDesc">Listen to the sharp, clear Nūn before Hamzah.</p>
+                    </div>
+                    <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Play Recitation Audio</button>
+                </div>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('test')">I Am Ready - Start 30-Question Master Test →</button>
+        </div>
+
+        <!-- VIEW 3: PRACTICE TEST (30 QUESTIONS) -->
+        <div id="testView" style="display: none;">
+            <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+            <h2 style="color:var(--accent-emerald); margin-bottom: 8px;">Nūn Sakinah Master Test</h2>
+            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the rule applied in this word/phrase:</p>
+
+            <div class="arabic-display" id="wordDisplay">...</div>
+            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+
+            <div class="feedback-banner" id="feedbackBox"></div>
+
+            <div class="btn-grid" id="choicesContainer"></div>
         </div>
     </div>
 
-    <div class="arena">
-        <div class="instruction">Tap the speaker to listen, then select the matching long vowel (Madd)!</div>
-        
-        <button class="audio-btn" onclick="playQuestionSound()">🔊</button>
+<script>
+    const ruleDatabase = {
+        'izhar': {
+            title: "Izhar Halqi (إِظْهَار حَلْقِي)",
+            ruleState: "Clear Nūn / Tanween sound with standard length and NO extra Ghunnah.",
+            makhraj: "Triggered when Nūn Sakinah or Tanween meets: <strong>ء, هـ, ع, ح, غ, خ</strong>.",
+            word: "مَ<span class='hl'>نْ أَمَ</span>نَ",
+            audio: "002008.mp3",
+            badge: "Izhar Halqi",
+            desc: "Notice the crisp, distinct Nūn sound before Hamzah."
+        },
+        'idgham_ghunnah': {
+            title: "Idgham with Ghunnah (إِدْغَام بِغُنَّة)",
+            ruleState: "Complete merging into the next letter with 2-count nasal resonance.",
+            makhraj: "Triggered when meeting letters of YAMNW: <strong>ي, ن, م, و</strong> across two words.",
+            word: "مَ<span class='hl'>ن يَ</span>قُولُ",
+            audio: "002008.mp3",
+            badge: "Idgham with Ghunnah",
+            desc: "Listen to the Nūn merge fluidly into Ya with nasal humming."
+        },
+        'idgham_noghunnah': {
+            title: "Idgham without Ghunnah (إِدْغَام بِلا غُنَّة)",
+            ruleState: "Complete merging into Ra or Laam with NO nasal hum.",
+            makhraj: "Triggered when meeting: <strong>ر, ل</strong>.",
+            word: "مِّ<span class='hl'>ن رَّ</span>بِّهِمْ",
+            audio: "002005.mp3",
+            badge: "Idgham without Ghunnah",
+            desc: "The Nūn transforms entirely into Ra with zero nasal resonance."
+        },
+        'iqlab': {
+            title: "Iqlab (إِقْلَاب)",
+            ruleState: "Conversion of Nūn sound into Mīm (م) with 2-count Ghunnah.",
+            makhraj: "Triggered ONLY when Nūn Sakinah or Tanween meets: <strong>ب</strong>.",
+            word: "مِ<span class='hl'>ن بَ</span>عْدِ",
+            audio: "002027.mp3",
+            badge: "Iqlab (Mīm Sound)",
+            desc: "Listen to the Nūn convert into a soft Mīm before Baa."
+        },
+        'ikhfa': {
+            title: "Ikhfa' Haqiqi (إِخْفَاء حَقِيقِي)",
+            ruleState: "Concealment of tongue contact while holding 2-count Ghunnah.",
+            makhraj: "Triggered when meeting any of the remaining <strong>15 Ikhfa' letters</strong>.",
+            word: "مِ<span class='hl'>ن دُ</span>ونِ",
+            audio: "002023.mp3",
+            badge: "Ikhfa' Haqiqi",
+            desc: "The tongue stays near the point of articulation without fully pressing."
+        }
+    };
 
-        <div class="options-grid" id="options-container">
-            <!-- Dynamic option cards -->
-        </div>
-    </div>
+    let activeRuleKey = 'izhar';
 
-    <!-- LINK SOUND SYNTHESIZER MODULE -->
-    <script src="sound.js"></script>
+    // 30-Question Comprehensive Test Bank
+    const testSuite = [
+        { word: "مَنْ آمَنَ", correct: "Izhar", audio: "002008.mp3", exp: "Nūn Sakinah followed by Hamzah (ء) = Izhar Halqi." },
+        { word: "مَن يَقُولُ", correct: "Idgham_G", audio: "002008.mp3", exp: "Nūn Sakinah followed by Ya (ي) = Idgham with Ghunnah." },
+        { word: "مِّن رَّبِّهِمْ", correct: "Idgham_NoG", audio: "002005.mp3", exp: "Nūn Sakinah followed by Ra (ر) = Idgham without Ghunnah." },
+        { word: "مِن بَعْدِ", correct: "Iqlab", audio: "002027.mp3", exp: "Nūn Sakinah followed by Baa (ب) = Iqlab (turns to Mīm)." },
+        { word: "مِن دُونِ", correct: "Ikhfa", audio: "002023.mp3", exp: "Nūn Sakinah followed by Dal (د) = Ikhfa' Haqiqi." },
+        { word: "عَلِيمٌ حَكِيمٌ", correct: "Izhar", audio: "004017.mp3", exp: "Tanween followed by Ha (ح) = Izhar Halqi." },
+        { word: "فَمَن يَعْمَلْ", correct: "Idgham_G", audio: "099007.mp3", exp: "Nūn Sakinah followed by Ya (ي) = Idgham with Ghunnah." },
+        { word: "هُدًى لِّلْمُتَّقِينَ", correct: "Idgham_NoG", audio: "002002.mp3", exp: "Tanween followed by Laam (ل) = Idgham without Ghunnah." },
+        { word: "سَمِيعٌ بَصِيرٌ", correct: "Iqlab", audio: "022061.mp3", exp: "Tanween followed by Baa (ب) = Iqlab." },
+        { word: "إِن كُنتُمْ", correct: "Ikhfa", audio: "002023.mp3", exp: "Nūn Sakinah followed by Kaf (ك) = Ikhfa' Haqiqi." },
+        { word: "الدُّنْيَا", correct: "Izhar", audio: "002085.mp3", exp: "Special exception! Single-word Nūn before Waw/Ya = Izhar Mutlaq!" },
+        { word: "مَنْ خَافَ", correct: "Izhar", audio: "079040.mp3", exp: "Nūn Sakinah followed by Kha (خ) = Izhar Halqi." },
+        { word: "مِن وَالٍ", correct: "Idgham_G", audio: "013011.mp3", exp: "Nūn Sakinah followed by Waw (و) = Idgham with Ghunnah." },
+        { word: "غَفُورٌ رَّحِيمٌ", correct: "Idgham_NoG", audio: "002173.mp3", exp: "Tanween followed by Ra (ر) = Idgham without Ghunnah." },
+        { word: "أَنبِئْهُم", correct: "Iqlab", audio: "002033.mp3", exp: "Single-word Nūn Sakinah before Baa (ب) = Iqlab." },
+        { word: "عَن صَلَاتِهِمْ", correct: "Ikhfa", audio: "107005.mp3", exp: "Nūn Sakinah followed by Sad (ص) = Ikhfa' Haqiqi." },
+        { word: "بُنْيَانٌ", correct: "Izhar", audio: "061004.mp3", exp: "Single-word exception! Nūn before Ya = Izhar Mutlaq." },
+        { word: "مَنْ هُوَ", correct: "Izhar", audio: "002093.mp3", exp: "Nūn Sakinah followed by Ha (هـ) = Izhar Halqi." },
+        { word: "مِintel مَّاءٍ", correct: "Idgham_G", audio: "002022.mp3", exp: "Nūn Sakinah followed by Mīm (م) = Idgham with Ghunnah." },
+        { word: "مَالًا لُّبَدًا", correct: "Idgham_NoG", audio: "090006.mp3", exp: "Tanween followed by Laam (ل) = Idgham without Ghunnah." },
+        { word: "كِرَامٍ بَرَرَةٍ", correct: "Iqlab", audio: "080016.mp3", exp: "Tanween followed by Baa (ب) = Iqlab." },
+        { word: "فَأَنذَرْتُكُمْ", correct: "Ikhfa", audio: "092014.mp3", exp: "Nūn Sakinah inside a word before Zhal (ذ) = Ikhfa' Haqiqi." },
+        { word: "قِنْوَانٌ", correct: "Izhar", audio: "006099.mp3", exp: "Single-word exception! Nūn before Waw = Izhar Mutlaq." },
+        { word: "مَنْ غَلَّ", correct: "Izhar", audio: "003161.mp3", exp: "Nūn Sakinah followed by Ghain (غ) = Izhar Halqi." },
+        { word: "مِن نَّفْسٍ", correct: "Idgham_G", audio: "004001.mp3", exp: "Nūn Sakinah followed by Nūn (ن) = Idgham with Ghunnah." },
+        { word: "رَحْمَةً مِّنَّا", correct: "Idgham_G", audio: "019021.mp3", exp: "Tanween followed by Mīm (م) = Idgham with Ghunnah." },
+        { word: "جَنَّاتٍ تَجْرِي", correct: "Ikhfa", audio: "002025.mp3", exp: "Tanween followed by Taa (ت) = Ikhfa' Haqiqi." },
+        { word: "صِنْوَانٌ", correct: "Izhar", audio: "013004.mp3", exp: "Single-word exception! Nūn before Waw = Izhar Mutlaq." },
+        { word: "يَنحِتُونَ", correct: "Izhar", audio: "015082.mp3", exp: "Single-word Nūn Sakinah before Ḥa (ح) = Izhar Halqi." },
+        { word: "مَن ثَقُلَتْ", correct: "Ikhfa", audio: "101006.mp3", exp: "Nūn Sakinah followed by Thaa (ث) = Ikhfa' Haqiqi." }
+    ];
 
-    <script>
-        const questions = [
-            { sound: "Baa with Madd Alif (Baa)", correct: "با", options: ["با", "بو", "بي", "بَ"] },
-            { sound: "Baa with Madd Waw (Boo)", correct: "بو", options: ["با", "بو", "بي", "بُ"] },
-            { sound: "Ta with Madd Ya (Tee)", correct: "تي", options: ["تا", "تو", "تي", "تِ"] },
-            { sound: "Jim with Madd Alif (Jaa)", correct: "جا", options: ["جا", "جو", "جي", "جَ"] }
+    const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
+    let currentIndex = 0;
+    let score = 0;
+
+    function selectRule(ruleKey, element) {
+        document.querySelectorAll('.rule-btn').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+        activeRuleKey = ruleKey;
+
+        const data = ruleDatabase[ruleKey];
+        document.getElementById('studioRuleTitle').innerText = data.title;
+        document.getElementById('ruleState').innerText = data.ruleState;
+        document.getElementById('makhrajDesc').innerHTML = `<strong>Rule Mechanism:</strong> ${data.makhraj}`;
+        document.getElementById('ruleBadge').innerText = data.badge;
+        document.getElementById('demoArabic').innerHTML = data.word;
+        document.getElementById('demoDesc').innerText = data.desc;
+    }
+
+    function playStudioAudio() {
+        const item = ruleDatabase[activeRuleKey];
+        playAudioFile(item.audio);
+    }
+
+    function showView(view) {
+        document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
+        document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
+        document.getElementById('testView').style.display = view === 'test' ? 'block' : 'none';
+        document.getElementById('scoreHeader').style.display = view === 'test' ? 'block' : 'none';
+
+        document.getElementById('tabLesson').classList.toggle('active', view === 'lesson');
+        document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
+        document.getElementById('tabTest').classList.toggle('active', view === 'test');
+
+        if (view === 'test' && currentIndex === 0) {
+            loadQuestion();
+        }
+    }
+
+    function loadQuestion() {
+        if (currentIndex >= testSuite.length) {
+            alert(`🎉 Outstanding! You Completed the 30-Question Nūn Sakinah Master Test!\nYour Score: ${score} / ${testSuite.length * 10}`);
+            currentIndex = 0;
+            score = 0;
+            showView('lesson');
+            return;
+        }
+
+        const item = testSuite[currentIndex];
+        document.getElementById('qNum').innerText = currentIndex + 1;
+        document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
+        document.getElementById('wordDisplay').innerText = item.word;
+        document.getElementById('feedbackBox').style.display = 'none';
+
+        const choices = [
+            { label: "1. Izhar (Clear)", val: "Izhar" },
+            { label: "2a. Idgham + Ghunnah", val: "Idgham_G" },
+            { label: "2b. Idgham (No Ghunnah)", val: "Idgham_NoG" },
+            { label: "3. Iqlab (Mīm)", val: "Iqlab" },
+            { label: "4. Ikhfa' (Concealed)", val: "Ikhfa" }
         ];
 
-        let currentIndex = 0;
-        let score = 0;
+        const container = document.getElementById('choicesContainer');
+        container.innerHTML = "";
 
-        /* ----------------------------------------------------
-           SAVE SCORE FUNCTION (Saves Game 4 high score)
-        ---------------------------------------------------- */
-        function saveGameScore(gameNumber, newStars) {
-            const key = `arabic_game_${gameNumber}_score`;
-            const previousHighScore = parseInt(localStorage.getItem(key) || '0', 10);
+        choices.forEach(choice => {
+            const btn = document.createElement('button');
+            btn.className = "action-btn";
+            btn.innerText = choice.label;
+            btn.onclick = () => checkAnswer(choice.val);
+            container.appendChild(btn);
+        });
 
-            if (newStars > previousHighScore) {
-                localStorage.setItem(key, newStars);
-            }
+        playQuestionAudio();
+    }
+
+    function checkAnswer(selectedVal) {
+        const item = testSuite[currentIndex];
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
+
+        if (selectedVal === item.correct) {
+            score += 10;
+            document.getElementById('scoreVal').innerText = score;
+            feedback.style.background = "rgba(16, 185, 129, 0.2)";
+            feedback.style.color = "var(--accent-emerald)";
+            feedback.innerHTML = `✨ Correct! ${item.exp}`;
+        } else {
+            feedback.style.background = "rgba(244, 63, 94, 0.2)";
+            feedback.style.color = "var(--accent-rose)";
+            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${getRuleName(item.correct)}</strong>.<br><small>${item.exp}</small>`;
         }
 
-        function loadQuestion() {
-            const q = questions[currentIndex];
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
+        currentIndex++;
+        setTimeout(loadQuestion, 1600);
+    }
 
-            playQuestionSound();
+    function getRuleName(val) {
+        if (val === "Izhar") return "Izhar Halqi (Clarity)";
+        if (val === "Idgham_G") return "Idgham with Ghunnah";
+        if (val === "Idgham_NoG") return "Idgham without Ghunnah";
+        if (val === "Iqlab") return "Iqlab (Turns to Mīm)";
+        return "Ikhfa' Haqiqi (Concealment)";
+    }
 
-            q.options.forEach(symbol => {
-                const card = document.createElement('div');
-                card.className = 'arabic-card';
-                card.innerText = symbol;
-                card.onclick = () => checkAnswer(symbol, card);
-                container.appendChild(card);
-            });
-        }
+    function playQuestionAudio() {
+        const item = testSuite[currentIndex];
+        playAudioFile(item.audio);
+    }
 
-        function playQuestionSound() {
-            const q = questions[currentIndex];
-            const utterance = new SpeechSynthesisUtterance(q.sound);
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function checkAnswer(selected, cardElement) {
-            const q = questions[currentIndex];
-
-            if (selected === q.correct) {
-                // 🔊 PLAY CORRECT CHIME
-                if (typeof playCorrectSound === 'function') {
-                    playCorrectSound();
-                }
-
-                cardElement.classList.add('correct');
-                score += 10;
-                document.getElementById('score').innerText = score;
-
-                /* ----------------------------------------------------
-                   CALL SAVE SCORE HERE (Pass 4 for Game 4)
-                ---------------------------------------------------- */
-                saveGameScore(4, score);
-
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % questions.length;
-                    loadQuestion();
-                }, 1000);
-            } else {
-                // 🔊 PLAY WRONG BUZZ
-                if (typeof playWrongSound === 'function') {
-                    playWrongSound();
-                }
-
-                cardElement.classList.add('wrong');
-                setTimeout(() => {
-                    cardElement.classList.remove('wrong');
-                }, 500);
-            }
-        }
-
-        window.onload = () => {
-            score = parseInt(localStorage.getItem('arabic_game_4_score') || '0', 10);
-            document.getElementById('score').innerText = score;
-            loadQuestion();
-        };
-    </script>
+    function playAudioFile(fileName) {
+        const audio = new Audio(AUDIO_BASE + fileName);
+        audio.play().catch(() => {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(350, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(175, ctx.currentTime + 0.18);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.18);
+        });
+    }
+</script>
 </body>
 </html>
