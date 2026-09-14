@@ -3,334 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zara’s Arabic Literacy - Main Menu</title>
+    <title>Zahrah Master Arabic & Tajweed Classroom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.75);
-            --accent-gold: #ffb703;
-            --accent-green: #06d6a0;
-            --accent-red: #ef476f;
-            --white: #ffffff;
+            --bg-dark: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.75);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-purple: #a855f7;
+            --accent-rose: #f43f5e;
+            --text-light: #f8fafc;
+            --border-glow: rgba(255, 255, 255, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            background-image: 
-                /* Subtle Islamic geometric star/grid overlay using SVG background */
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l5 15 15 5-15 5-5 15-5-15-15-5 15-5z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E"),
-                var(--bg-gradient);
-            background-attachment: fixed;
-            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #0f172a 100%);
+            color: var(--text-light);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        /* HEADER SECTION */
-        header {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 25px;
-        }
+        header { text-align: center; margin-bottom: 40px; }
+        h1 { font-size: 2.8rem; color: var(--accent-gold); margin-bottom: 8px; }
+        p { color: #94a3b8; font-size: 1.1rem; }
 
-        h1 {
-            font-size: 2.3rem;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-            text-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
-            letter-spacing: 0.5px;
-        }
-
-        p.subtitle {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-
-        /* SCORE & RESET BAR */
-        .score-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 35px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .total-score-card {
-            background: rgba(255, 183, 3, 0.12);
-            border: 2px solid var(--accent-gold);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 12px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-            box-shadow: 0 0 25px rgba(255, 183, 3, 0.15);
-        }
-
-        .reset-btn {
-            background: rgba(239, 71, 111, 0.12);
-            border: 2px solid var(--accent-red);
-            backdrop-filter: blur(8px);
-            color: var(--accent-red);
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .reset-btn:hover {
-            background: var(--accent-red);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(239, 71, 111, 0.4);
-        }
-
-        /* GAMES GRID */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+        .dashboard-container {
             width: 100%;
-            max-width: 900px;
-        }
-
-        .game-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px 20px;
-            text-decoration: none;
-            color: var(--white);
+            max-width: 950px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            gap: 35px;
         }
 
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 12px 30px rgba(255, 183, 3, 0.2);
-        }
-
-        .game-number {
-            font-size: 0.85rem;
-            font-weight: bold;
+        .category-title {
+            font-size: 1.2rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-        }
-
-        .game-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .game-desc {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .game-card-footer {
+            letter-spacing: 2px;
+            margin-bottom: 15px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            font-size: 0.95rem;
+            gap: 10px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(14px);
+            border: 2px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 22px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 12px 30px rgba(251, 191, 36, 0.2);
+        }
+
+        .card-header { display: flex; align-items: center; gap: 12px; }
+        .card-icon { font-size: 2rem; }
+        .card-title { font-size: 1.15rem; font-weight: 700; color: var(--accent-cyan); }
+        .card-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.08);
             color: var(--accent-gold);
-        }
-
-        .play-btn {
-            background: var(--accent-gold);
-            color: #000;
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-
-        .game-card:hover .play-btn {
-            background: #ffffff;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Zara’s Arabic Literacy</h1>
-        <p class="subtitle">Interactive Tajweed &amp; Phonics Learning Hub</p>
+        <h1>Zahrah Master Classroom</h1>
+        <p>Standard Quranic Tajweed & Arabic Literacy Curriculum</p>
     </header>
 
-    <!-- AGGREGATED TOTAL SCORE & RESET ACTION -->
-    <div class="score-bar-container">
-        <div class="total-score-card">
-            <span>⭐ Total Stars Earned:</span>
-            <span id="total-stars">0</span>
-        </div>
-        <button class="reset-btn" onclick="confirmResetProgress()">🔄 Reset Progress</button>
+    <div class="dashboard-container">
+
+        <!-- LEVEL 1: FOUNDATION -->
+        <section>
+            <div class="category-title" style="color: var(--accent-cyan)">
+                <span>🔹</span> Level 1: Foundations & Reading Basics
+            </div>
+            <div class="menu-grid">
+                <a href="letter-lab.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔤</div>
+                        <div class="card-title">1. Letter Lab</div>
+                    </div>
+                    <div class="card-desc">Master the 28 Arabic letters across isolated, initial, medial, and final visual positions.</div>
+                    <div class="card-tag">Phonetics & Positions</div>
+                </a>
+
+                <a href="vowels.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔊</div>
+                        <div class="card-title">2. Vowel Master</div>
+                    </div>
+                    <div class="card-desc">Practice short vowel pronunciations: Fathah (َ), Kasrah (ِ), and Dhammah (ُ).</div>
+                    <div class="card-tag">Harakat Basics</div>
+                </a>
+
+                <a href="builder.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏗️</div>
+                        <div class="card-title">3. Word Builder</div>
+                    </div>
+                    <div class="card-desc">Assemble 3-letter joined words from individual connected Arabic components.</div>
+                    <div class="card-tag">Word Joining</div>
+                </a>
+
+                <a href="spelling.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🐝</div>
+                        <div class="card-title">4. Spelling Bee</div>
+                    </div>
+                    <div class="card-desc">Listen to authentic native audio recitations and spell out full Arabic vocabulary words.</div>
+                    <div class="card-tag">Audio Ear-Training</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- LEVEL 2: BASIC TAJWEED -->
+        <section>
+            <div class="category-title" style="color: var(--accent-emerald)">
+                <span>🔹</span> Level 2: Primary Tajweed Rules
+            </div>
+            <div class="menu-grid">
+                <a href="sukuun-madd.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⏸️</div>
+                        <div class="card-title">5. Sukuun & Madd</div>
+                    </div>
+                    <div class="card-desc">Learn silent rest marks (ْ) and natural 2-count long stretch vowels (Alif, Waw, Ya).</div>
+                    <div class="card-tag">Stops & Stretches</div>
+                </a>
+
+                <a href="qalqalah.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💥</div>
+                        <div class="card-title">6. Qalqalah Engine</div>
+                    </div>
+                    <div class="card-desc">Practice the 5 bouncing echo letters (ق, ط, ب, ج, د) when static or stopping.</div>
+                    <div class="card-tag">Echo Mechanics</div>
+                </a>
+
+                <a href="lam-ra.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚖️</div>
+                        <div class="card-title">7. Rules of Lam & Ra</div>
+                    </div>
+                    <div class="card-desc">Master heavy (Tafkheem) vs. light (Tarqeeq) pronunciations for Ra and the Name of Allah.</div>
+                    <div class="card-tag">Full-Mouth Sound</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- LEVEL 3: ADVANCED TAJWEED -->
+        <section>
+            <div class="category-title" style="color: var(--accent-purple)">
+                <span>🔹</span> Level 3: Advanced Tajweed Rules
+            </div>
+            <div class="menu-grid">
+                <a href="nun-sakinah.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📜</div>
+                        <div class="card-title">8. Nun Sakinah & Tanween</div>
+                    </div>
+                    <div class="card-desc">Izhar (Clear), Idgham (Merging), Iqlab (Converting), and Ikhfa (Hiding) rules for نْ and Tanween.</div>
+                    <div class="card-tag">Core Tajweed</div>
+                </a>
+
+                <a href="meem-sakinah.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🤫</div>
+                        <div class="card-title">9. Meem Sakinah Rules</div>
+                    </div>
+                    <div class="card-desc">Identify Idgham Shafawi, Ikhfa Shafawi, and Izhar Shafawi when handling silent Meem (مْ).</div>
+                    <div class="card-tag">Labial Rules</div>
+                </a>
+
+                <a href="madd-advanced.html" class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🌊</div>
+                        <div class="card-title">10. Advanced Madd Types</div>
+                    </div>
+                    <div class="card-desc">Distinguish Madd Asli, Madd Muttasil (4-5 counts), Munfasil, and Madd Lazim (6 counts).</div>
+                    <div class="card-tag">Extended Lengthening</div>
+                </a>
+            </div>
+        </section>
+
     </div>
 
-    <!-- 8 GAME CARDS GRID -->
-    <div class="games-grid">
-
-        <!-- Game 1 -->
-        <a href="game1.html" class="game-card">
-            <div>
-                <div class="game-number">Level 1</div>
-                <div class="game-title">Harakat Match</div>
-                <div class="game-desc">Master short vowels (Fatha, Kasra, Damma) through audio identification.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g1">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 2 -->
-        <a href="game2.html" class="game-card">
-            <div>
-                <div class="game-number">Level 2</div>
-                <div class="game-title">Letter Joining</div>
-                <div class="game-desc">Identify initial, medial, and final connected letter forms.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g2">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 3 -->
-        <a href="game3.html" class="game-card">
-            <div>
-                <div class="game-number">Level 3</div>
-                <div class="game-title">Tanween Match</div>
-                <div class="game-desc">Recognize double vowels (Fathatain, Kasratain, Dammatain).</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g3">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 4 -->
-        <a href="game4.html" class="game-card">
-            <div>
-                <div class="game-number">Level 4</div>
-                <div class="game-title">Madd Rules</div>
-                <div class="game-desc">Practice long vowels with Madd Alif, Waw, and Ya.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g4">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 5 -->
-        <a href="game5.html" class="game-card">
-            <div>
-                <div class="game-number">Level 5</div>
-                <div class="game-title">Sukoon Rules</div>
-                <div class="game-desc">Locate rested consonants carrying Sukoon in words.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g5">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 6 -->
-        <a href="game6.html" class="game-card">
-            <div>
-                <div class="game-number">Level 6</div>
-                <div class="game-title">Shaddah Rules</div>
-                <div class="game-desc">Spot doubled letter emphasis across Quranic vocabulary.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g6">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 7 -->
-        <a href="game7.html" class="game-card">
-            <div>
-                <div class="game-number">Level 7</div>
-                <div class="game-title">Hamzatul Wasl</div>
-                <div class="game-desc">Distinguish between connecting and severing Hamza forms.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g7">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <!-- Game 8 -->
-        <a href="game8.html" class="game-card">
-            <div>
-                <div class="game-number">Level 8</div>
-                <div class="game-title">Sun &amp; Moon Letters</div>
-                <div class="game-desc">Classify words into Al-Shamsiyyah and Al-Qamariyyah rules.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g8">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-    </div>
-
-    <script>
-        const totalGames = 8;
-
-        function loadTotalScores() {
-            let grandTotal = 0;
-
-            for (let i = 1; i <= totalGames; i++) {
-                const gameScore = parseInt(localStorage.getItem(`arabic_game_${i}_score`) || '0', 10);
-                
-                const scoreElement = document.getElementById(`score-g${i}`);
-                if (scoreElement) {
-                    scoreElement.innerText = gameScore;
-                }
-
-                grandTotal += gameScore;
-            }
-
-            document.getElementById('total-stars').innerText = grandTotal;
-        }
-
-        function confirmResetProgress() {
-            const userConfirmed = confirm("Are you sure you want to reset all high scores to zero?");
-            if (userConfirmed) {
-                for (let i = 1; i <= totalGames; i++) {
-                    localStorage.removeItem(`arabic_game_${i}_score`);
-                }
-                loadTotalScores();
-            }
-        }
-
-        window.onload = loadTotalScores;
-    </script>
 </body>
 </html>
