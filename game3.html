@@ -3,258 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanween Match - Zara’s Arabic Literacy</title>
+    <title>Madd Rules Master Studio - Zahrah Tajweed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #0d1b2a;
-            --card-bg: #1b263b;
-            --accent-gold: #ffb703;
-            --accent-green: #06d6a0;
-            --accent-pink: #ef476f;
-            --white: #ffffff;
+            --bg-dark: #0b1120;
+            --panel-bg: rgba(30, 41, 59, 0.95);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #06b6d4;
+            --accent-rose: #f43f5e;
+            --accent-emerald: #10b981;
+            --accent-purple: #a855f7;
+            --text-light: #f8fafc;
+            --border-glow: rgba(255, 255, 255, 0.12);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--white);
+            font-family: 'Fredoka', sans-serif;
+            background: radial-gradient(circle at top center, #1e1b4b 0%, #0b1120 100%);
+            color: var(--text-light);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
         }
 
-        /* HEADER & SCORE BAR */
-        .game-header {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        .nav-header {
+            width: 100%; max-width: 900px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px;
         }
 
         .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 12px;
-            font-weight: bold;
+            background: rgba(255,255,255,0.1); color: var(--text-light);
+            text-decoration: none; padding: 10px 20px; border-radius: 14px;
+            font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: 0.2s;
+        }
+        .back-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--accent-gold); }
+
+        .game-card {
+            background: var(--panel-bg); backdrop-filter: blur(16px);
+            border: 2px solid var(--border-glow); border-radius: 24px;
+            padding: 30px; width: 100%; max-width: 900px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
         }
 
-        .score-board {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
+        .view-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-glow);
+            color: #94a3b8; padding: 12px 22px; border-radius: 14px; cursor: pointer;
+            font-weight: 600; font-size: 0.95rem; transition: 0.2s;
+        }
+        .tab-btn.active { background: var(--accent-emerald); color: #000; border-color: var(--accent-emerald); }
+
+        .lesson-box { text-align: left; line-height: 1.6; }
+        .lesson-title { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; }
+
+        .mnemonic-banner {
+            background: rgba(16, 185, 129, 0.12); border: 1px solid var(--accent-emerald);
+            border-radius: 16px; padding: 18px; margin: 15px 0 25px 0; text-align: center;
+        }
+        .mnemonic-letters {
+            font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--accent-gold);
+            display: block; margin-top: 5px; font-weight: 700;
         }
 
-        /* MUTE BUTTON STYLES */
-        .mute-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .section-header {
+            color: var(--accent-emerald); font-size: 1.2rem; margin: 25px 0 12px 0;
+            border-left: 4px solid var(--accent-emerald); padding-left: 10px; text-transform: uppercase; letter-spacing: 0.5px;
         }
 
-        .mute-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+        .rule-picker {
+            display: flex; justify-content: center; gap: 10px; margin: 15px 0 25px 0; flex-wrap: wrap;
+        }
+        .rule-btn {
+            font-size: 0.95rem; font-weight: 600; padding: 12px 18px;
+            border-radius: 14px; border: 2px solid var(--border-glow);
+            background: rgba(255, 255, 255, 0.05); color: var(--text-light);
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .rule-btn:hover, .rule-btn.active {
+            background: var(--accent-emerald); color: #000; transform: scale(1.04);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); border-color: var(--accent-emerald);
         }
 
-        .mute-btn.muted {
-            background: rgba(239, 71, 111, 0.2);
-            border-color: var(--accent-pink);
-            color: var(--accent-pink);
+        .studio-card {
+            background: rgba(0, 0, 0, 0.4); border: 2px solid var(--accent-emerald);
+            border-radius: 20px; padding: 22px; margin-bottom: 25px;
+        }
+        .studio-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;
+        }
+        .active-rule-title { font-size: 1.3rem; color: var(--accent-gold); font-weight: 700; }
+
+        .makhraj-box {
+            background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px 15px;
+            margin-bottom: 15px; font-size: 0.92rem; color: #cbd5e1; border-left: 3px solid var(--accent-cyan);
         }
 
-        /* MAIN GAME ARENA */
-        .arena {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 500px;
-            border-radius: 24px;
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 3px solid rgba(255,255,255,0.05);
+        .sound-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow);
+            border-radius: 16px; padding: 20px; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+            margin-top: 15px;
+        }
+        .sound-badge {
+            font-size: 0.8rem; text-transform: uppercase; padding: 4px 12px;
+            border-radius: 8px; font-weight: 700; margin-bottom: 8px;
+            background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); border: 1px solid var(--accent-emerald);
         }
 
-        .instruction {
-            font-size: 1.1rem;
-            color: #cbd5e1;
-            margin-bottom: 25px;
+        .arabic-demo-text { font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; margin: 8px 0; }
+        .hl { color: var(--accent-gold); font-weight: bold; }
+
+        .audio-play-btn {
+            background: var(--accent-emerald); color: #000; border: none; width: 100%;
+            padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.2s; margin-top: 12px; font-size: 0.95rem;
+        }
+        .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+        .pitfalls-card {
+            background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 16px; padding: 18px; margin: 20px 0;
+        }
+        .pitfalls-card h4 { color: var(--accent-rose); margin-bottom: 8px; }
+        .pitfalls-card ul { padding-left: 20px; font-size: 0.92rem; color: #cbd5e1; }
+
+        .start-test-btn {
+            background: var(--accent-gold); color: #000; border: none;
+            padding: 18px 32px; border-radius: 16px; font-size: 1.25rem;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.2s;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+        }
+        .start-test-btn:hover { background: #f59e0b; transform: translateY(-2px); }
+
+        .progress-bar {
+            width: 100%; height: 10px; background: rgba(255,255,255,0.1);
+            border-radius: 5px; margin-bottom: 20px; overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: var(--accent-emerald); width: 0%; transition: width 0.3s ease; }
+
+        .arabic-display {
+            font-family: 'Amiri', serif; font-size: 3.8rem;
+            color: var(--accent-gold); margin: 20px 0;
+            background: rgba(0,0,0,0.35); padding: 25px; border-radius: 20px;
+            border: 1px solid var(--border-glow); position: relative;
         }
 
-        /* SPEAKER BUTTON */
         .audio-btn {
-            background: var(--accent-pink);
-            color: #fff;
-            border: none;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            font-size: 2.5rem;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(239, 71, 111, 0.4);
-            transition: transform 0.2s;
-            margin-bottom: 35px;
+            cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
+            width: 60px; height: 60px; display: inline-flex; align-items: center;
+            justify-content: center; font-size: 1.8rem; margin: 5px auto 0; transition: 0.2s;
+            border: 1px solid rgba(255,255,255,0.2); color: var(--accent-gold);
         }
+        .audio-btn:hover { background: var(--accent-gold); color: #000; transform: scale(1.05); }
 
-        .audio-btn:active { transform: scale(0.95); }
+        .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        @media (max-width: 600px) { .btn-grid { grid-template-columns: 1fr; } }
 
-        /* ARABIC OPTIONS GRID */
-        .options-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .action-btn {
+            background: rgba(255,255,255,0.05); border: 2px solid var(--border-glow);
+            color: var(--text-light); padding: 18px 12px; border-radius: 16px;
+            font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
         }
+        .action-btn:hover { background: var(--accent-emerald); color: #000; transform: translateY(-2px); border-color: var(--accent-emerald); }
 
-        .arabic-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            font-size: 3.5rem;
-            padding: 20px 0;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s;
-            font-family: 'Traditional Arabic', 'Amiri', serif;
+        .feedback-banner {
+            margin-top: 15px; padding: 12px; border-radius: 12px; font-weight: 700;
+            display: none; animation: fadeIn 0.3s ease; text-align: center;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .arabic-card:hover {
-            border-color: var(--accent-pink);
-            background: rgba(239, 71, 111, 0.1);
+        .diagram-box {
+            background: rgba(255,255,255,0.03); border-radius: 16px; padding: 15px;
+            margin: 15px 0; text-align: center; border: 1px dashed var(--accent-emerald);
         }
-
-        /* FEEDBACK STATES */
-        .correct {
-            background: var(--accent-green) !important;
-            color: #000 !important;
-            border-color: var(--accent-green) !important;
-        }
-
-        .wrong {
-            background: var(--accent-pink) !important;
-            border-color: var(--accent-pink) !important;
-        }
+        .rule-state { font-weight: bold; color: var(--accent-gold); }
     </style>
 </head>
 <body>
 
-    <div class="game-header">
-        <a href="index.html" class="back-btn">⬅ Menu</a>
-        
-        <div style="display: flex; gap: 10px; align-items: center;">
-            <!-- MUTE BUTTON -->
-            <button class="mute-btn" onclick="toggleMute()">🔊 Sound On</button>
-            <div class="score-board">⭐ Score: <span id="score">0</span></div>
+    <div class="nav-header">
+        <a href="index.html" class="back-btn">← Main Menu</a>
+        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/30 | Score: <span id="scoreVal">0</span> ⭐</div>
+    </div>
+
+    <div class="game-card">
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tabLesson" onclick="showView('lesson')">📖 Rules & Explanations</button>
+            <button class="tab-btn" id="tabStudio" onclick="showView('studio')">🎧 5-Madd Audio Studio</button>
+            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 Practice Test (30 Questions)</button>
+        </div>
+
+        <!-- VIEW 1: EXPLANATIONS & RULES -->
+        <div id="lessonView" class="lesson-box">
+            <h2 class="lesson-title">Understanding Madd Rules (أَحْكَامُ المَدَّ)</h2>
+            <p style="color: #cbd5e1; text-align: center; margin-bottom: 15px;">
+                <strong>Madd (أَلْمَدّ)</strong> means prolonging or stretching the voice when pronouncing one of the three Madd letters: <strong>Alif (ا), Waw (و), or Ya (ي)</strong>.
+            </p>
+
+            <div class="mnemonic-banner">
+                The 3 Letters of Madd (حُرُوفُ المَدّ):
+                <span class="mnemonic-letters">نُوحِيهَا  (ا  •  و  •  ي)</span>
+                <span style="font-size: 0.9rem; color: #94a3b8;">(Alif preceded by Fat-ḥah • Waw preceded by Ḍammah • Ya preceded by Kasrah)</span>
+            </div>
+
+            <div class="section-header">Core Madd Classifications</div>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي / طَبِيعِي) — Natural Madd</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Duration:</strong> Exactly <strong>2 counts</strong>.<br>
+                        Natural stretching inherent to the letter without any Hamzah or Sukūn following it.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Madd Muttaṣil (مَدّ مُتَّصِل) — Connected Obligatory Madd</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Duration:</strong> <strong>4 or 5 counts</strong>.<br>
+                        Occurs when a Madd letter is followed by a <strong>Hamzah (ء) inside the SAME single word</strong>.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Madd Munfaṣil (مَدّ مُنْفَصِل) — Disconnected Permissible Madd</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Duration:</strong> <strong>4 or 5 counts</strong> (2 allowed in specific riwāyāt).<br>
+                        Occurs when the Madd letter ends one word, and the <strong>Hamzah (ء) begins the NEXT word</strong>.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Madd ‘Āriḍ li-s-Sukūn (مَدّ عَارِض لِلسُّكُون) — Presented Sukūn Madd</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Duration:</strong> <strong>2, 4, or 6 counts</strong>.<br>
+                        Occurs when stopping at the end of an Āyah creates a temporary Sukūn right after a Madd letter.
+                    </p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
+                    <h3 style="color: var(--accent-rose); margin-bottom: 6px;">5. Madd Lāzim (مَدّ لازِم) — Compulsory Madd</h3>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">
+                        <strong>Duration:</strong> Strictly <strong>6 counts</strong>.<br>
+                        Occurs when a original (permanent) Sukūn or Shaddah directly follows a Madd letter.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pitfalls-card">
+                <h4>⚠️ Key Distinctions to Remember:</h4>
+                <p style="font-size: 0.9rem; color: #cbd5e1;">
+                    • <strong>Muttaṣil vs. Munfaṣil:</strong> Look at the word boundary! <span style="font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.2rem;">جَاءَ</span> (Same word = Muttaṣil) vs. <span style="font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.2rem;">إِنَّا أَعْطَيْنَاكَ</span> (Two words = Munfaṣil).<br>
+                    • <strong>Madd Lāzim</strong> is always held for a full 6 counts regardless of continuous reading or stopping!
+                </p>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('studio')">Proceed to 5-Madd Audio Studio →</button>
+        </div>
+
+        <!-- VIEW 2: 5-MADD AUDIO STUDIO -->
+        <div id="studioView" class="lesson-box" style="display: none;">
+            <h2 class="lesson-title">5-Madd Audio Studio</h2>
+            <p style="color: #cbd5e1; text-align: center;">
+                Select a Madd category below to examine its stretching mechanism and listen to audio recitations:
+            </p>
+
+            <div class="rule-picker">
+                <button class="rule-btn active" onclick="selectRule('asli', this)">1. Natural (2 Counts)</button>
+                <button class="rule-btn" onclick="selectRule('muttasil', this)">2. Muttaṣil (4-5 Counts)</button>
+                <button class="rule-btn" onclick="selectRule('munfasil', this)">3. Munfaṣil (4-5 Counts)</button>
+                <button class="rule-btn" onclick="selectRule('arid', this)">4. ‘Āriḍ (2/4/6 Counts)</button>
+                <button class="rule-btn" onclick="selectRule('lazim', this)">5. Lāzim (6 Counts)</button>
+            </div>
+
+            <div class="studio-card">
+                <div class="studio-header">
+                    <span class="active-rule-title" id="studioRuleTitle">Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي)</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;">Click audio player below</span>
+                </div>
+
+                <div class="diagram-box" id="diagramBox">
+                    Duration: <span class="rule-state" id="ruleState">Exactly 2 Counts</span>
+                </div>
+
+                <div class="makhraj-box" id="makhrajDesc">
+                    <strong>Rule Mechanism:</strong> Basic vowel elongation without Hamzah or Sukūn following it.
+                </div>
+
+                <div class="sound-card">
+                    <div>
+                        <span class="sound-badge" id="ruleBadge">Natural Madd Demo</span>
+                        <div class="arabic-demo-text" id="demoArabic">قَا<span class="hl">لَ</span></div>
+                        <p style="font-size: 0.88rem; color:#cbd5e1;" id="demoDesc">Listen to the clean 2-count elongation on the Alif.</p>
+                    </div>
+                    <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Play Recitation Audio</button>
+                </div>
+            </div>
+
+            <button class="start-test-btn" onclick="showView('test')">I Am Ready - Start 30-Question Master Test →</button>
+        </div>
+
+        <!-- VIEW 3: PRACTICE TEST (30 QUESTIONS) -->
+        <div id="testView" style="display: none;">
+            <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+
+            <h2 style="color:var(--accent-emerald); margin-bottom: 8px;">Madd Rules Master Test</h2>
+            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the type of Madd applied in this word/phrase:</p>
+
+            <div class="arabic-display" id="wordDisplay">...</div>
+            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+
+            <div class="feedback-banner" id="feedbackBox"></div>
+
+            <div class="btn-grid" id="choicesContainer"></div>
         </div>
     </div>
 
-    <div class="arena">
-        <div class="instruction">Tap the speaker to listen, then select the matching Tanween!</div>
-        
-        <button class="audio-btn" onclick="playQuestionSound()">🔊</button>
+<script>
+    const ruleDatabase = {
+        'asli': {
+            title: "Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي)",
+            ruleState: "Stretch duration: Exactly 2 counts.",
+            makhraj: "Standard elongation of Alif, Waw, or Ya without Hamzah or Sukūn.",
+            word: "قَا<span class='hl'>لَ</span>",
+            audio: "002033.mp3",
+            badge: "Natural Madd (2 Counts)",
+            desc: "Listen to the exact 2-count measure of natural Alif stretching."
+        },
+        'muttasil': {
+            title: "Madd Muttaṣil (مَدّ مُتَّصِل)",
+            ruleState: "Stretch duration: Obligatory 4 or 5 counts.",
+            makhraj: "Madd letter followed by Hamzah (ء) in the SAME single word.",
+            word: "جَا<span class='hl'>ءَ</span>",
+            audio: "002019.mp3",
+            badge: "Connected Madd (4-5 Counts)",
+            desc: "Notice the prolonged mandatory extension because Hamzah shares the word."
+        },
+        'munfasil': {
+            title: "Madd Munfaṣil (مَدّ مُنْفَصِل)",
+            ruleState: "Stretch duration: Permissible 4 or 5 counts.",
+            makhraj: "Madd letter ends first word, Hamzah (ء) begins the subsequent word.",
+            word: "إِنَّا أَعْ<span class='hl'>طَيْنَاكَ</span>",
+            audio: "108001.mp3",
+            badge: "Disconnected Madd (4-5 Counts)",
+            desc: "Listen to the long Madd spanning across the word boundary."
+        },
+        'arid': {
+            title: "Madd ‘Āriḍ li-s-Sukūn (مَدّ عَارِض لِلسُّكُون)",
+            ruleState: "Stretch duration: Optional 2, 4, or 6 counts when stopping.",
+            makhraj: "A temporary Sukūn is introduced at the end of an Āyah during pause.",
+            word: "الْعَالَمِ<span class='hl'>ينَ</span>",
+            audio: "001002.mp3",
+            badge: "Presented Sukūn Madd (2/4/6 Counts)",
+            desc: "Notice how stopping at verse-end extends the Ya before Nuun."
+        },
+        'lazim': {
+            title: "Madd Lāzim (مَدّ لازِم)",
+            ruleState: "Stretch duration: Strictly 6 counts.",
+            makhraj: "Original Sukūn or Shaddah following a Madd letter permanently.",
+            word: "الصَّا<span class='hl'>خَّةُ</span>",
+            audio: "080033.mp3",
+            badge: "Compulsory Madd (6 Counts)",
+            desc: "Listen to the full 6-count compulsory stretch preceding the Shaddah."
+        }
+    };
 
-        <div class="options-grid" id="options-container">
-            <!-- Dynamic option cards -->
-        </div>
-    </div>
+    let activeRuleKey = 'asli';
 
-    <!-- LINK SOUND SYNTHESIZER MODULE -->
-    <script src="sound.js"></script>
+    // 30-Question Comprehensive Test Bank
+    const testSuite = [
+        { word: "قَالَ", correct: "Asli", audio: "002033.mp3", exp: "Standard Madd letter with no Hamzah or Sukūn = Madd Aṣlī (2 counts)." },
+        { word: "جَاءَ", correct: "Muttasil", audio: "002019.mp3", exp: "Madd letter + Hamzah in SAME word = Madd Muttaṣil (4-5 counts)." },
+        { word: "إِنَّا أَعْطَيْنَاكَ", correct: "Munfasil", audio: "108001.mp3", exp: "Madd letter at end of word 1 + Hamzah at start of word 2 = Madd Munfaṣil." },
+        { word: "الْعَالَمِينَ", correct: "Arid", audio: "001002.mp3", exp: "Madd letter followed by presented Sukūn upon stopping = Madd ‘Āriḍ." },
+        { word: "الصَّاخَّةُ", correct: "Lazim", audio: "080033.mp3", exp: "Madd letter followed by permanent Shaddah = Madd Lāzim (6 counts)." },
+        { word: "قِيلَ", correct: "Asli", audio: "002011.mp3", exp: "Ya Madd without Hamzah or Sukūn = Madd Aṣlī (2 counts)." },
+        { word: "سُوءَ", correct: "Muttasil", audio: "002049.mp3", exp: "Waw Madd + Hamzah in SAME word = Madd Muttaṣil." },
+        { word: "قُوا أَنفُسَكُمْ", correct: "Munfasil", audio: "066006.mp3", exp: "Waw Madd at end of 'Qū' + Hamzah in 'Anfusakum' = Madd Munfaṣil." },
+        { word: "الرَّحِيمِ", correct: "Arid", audio: "001001.mp3", exp: "Stopping at verse-end creates temporary Sukūn = Madd ‘Āriḍ." },
+        { word: "الطَّآمَّةُ", correct: "Lazim", audio: "079034.mp3", exp: "Alif Madd followed by original Shaddah = Madd Lāzim (6 counts)." },
+        { word: "يَقُولُ", correct: "Asli", audio: "002008.mp3", exp: "Waw Madd without Hamzah/Sukūn = Madd Aṣlī (2 counts)." },
+        { word: "السَّمَاءِ", correct: "Muttasil", audio: "002019.mp3", exp: "Alif Madd + Hamzah inside 'Al-Samā'' = Madd Muttaṣil." },
+        { word: "فِي أَيَّامٍ", correct: "Munfasil", audio: "041016.mp3", exp: "Ya Madd in 'Fī' + Hamzah in 'Ayyām' = Madd Munfaṣil." },
+        { word: "نَسْتَعِينُ", correct: "Arid", audio: "001005.mp3", exp: "Stopping on Nuun turns it to Sukūn = Madd ‘Āriḍ (2/4/6 counts)." },
+        { word: "آلْآنَ", correct: "Lazim", audio: "010051.mp3", exp: "Alif Madd followed by permanent Sukūn = Madd Lāzim Kalimī Mukhaffaf." },
+        { word: "نُوحِيهَا", correct: "Asli", audio: "011049.mp3", exp: "All three Madd letters (Waw, Ya, Alif) here are Madd Aṣlī (2 counts)." },
+        { word: "مَلَائِكَةِ", correct: "Muttasil", audio: "002031.mp3", exp: "Alif Madd + Hamzah in single word 'Malā'ikah' = Madd Muttaṣil." },
+        { word: "يَا أَيُّهَا", correct: "Munfasil", audio: "002021.mp3", exp: "'Yā' (word 1) + 'Ayyuhā' (word 2) = Madd Munfaṣil." },
+        { word: "الْمُفْلِحُونَ", correct: "Arid", audio: "002005.mp3", exp: "Pause on end of verse = Madd ‘Āriḍ li-s-Sukūn." },
+        { word: "الْحَاقَّةُ", correct: "Lazim", audio: "069001.mp3", exp: "Madd letter + Shaddah = Madd Lāzim (6 counts)." },
+        { word: "فِيِهَا", correct: "Asli", audio: "002025.mp3", exp: "Ya Madd and Alif Madd without Hamzah = Madd Aṣlī." },
+        { word: "هَنِيئًا", correct: "Muttasil", audio: "004004.mp3", exp: "Ya Madd + Hamzah in SAME word = Madd Muttaṣil." },
+        { word: "بِمَا أُنزِلَ", correct: "Munfasil", audio: "002004.mp3", exp: "'Bimā' (word 1) + 'Unzila' (word 2) = Madd Munfaṣil." },
+        { word: "الْمُسْتَقِيمَ", correct: "Arid", audio: "001006.mp3", exp: "Stopping on Meem creates temporary Sukūn = Madd ‘Āriḍ." },
+        { word: "دَابَّةٍ", correct: "Lazim", audio: "002164.mp3", exp: "Madd letter + Shaddah in single word = Madd Lāzim." },
+        { word: "مَتَاعًا", correct: "Asli", audio: "002241.mp3", exp: "Alif Madd without Hamzah or Sukūn = Madd Aṣlī." },
+        { word: "شَاءَ", correct: "Muttasil", audio: "002255.mp3", exp: "Alif Madd + Hamzah in single word 'Shā'a' = Madd Muttaṣil." },
+        { word: "قَالُوا آمَنَّا", correct: "Munfasil", audio: "002014.mp3", exp: "'Qālū' (word 1) + 'Āmannā' (word 2) = Madd Munfaṣil." },
+        { word: "الَّذِينَ", correct: "Arid", audio: "002003.mp3", exp: "Stopping on Nuun at verse end = Madd ‘Āriḍ." },
+        { word: "أَتُحَاجُّونِّي", correct: "Lazim", audio: "006080.mp3", exp: "Contains compulsory 6-count Madd Lāzim due to heavy Shaddah." }
+    ];
 
-    <script>
-        const questions = [
-            { sound: "Baa with Fathatain (Ban)", correct: "بً", options: ["بً", "بٍ", "بٌ", "بَ"] },
-            { sound: "Ta with Kasratain (Tin)", correct: "تٍ", options: ["تً", "تٍ", "تٌ", "تِ"] },
-            { sound: "Meem with Dammatain (Mun)", correct: "مٌ", options: ["مً", "مٍ", "مٌ", "مُ"] },
-            { sound: "Nun with Fathatain (Nan)", correct: "نً", options: ["نً", "نٍ", "نٌ", "نَ"] }
+    const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
+    let currentIndex = 0;
+    let score = 0;
+
+    function selectRule(ruleKey, element) {
+        document.querySelectorAll('.rule-btn').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+        activeRuleKey = ruleKey;
+
+        const data = ruleDatabase[ruleKey];
+        document.getElementById('studioRuleTitle').innerText = data.title;
+        document.getElementById('ruleState').innerText = data.ruleState;
+        document.getElementById('makhrajDesc').innerHTML = `<strong>Rule Mechanism:</strong> ${data.makhraj}`;
+        document.getElementById('ruleBadge').innerText = data.badge;
+        document.getElementById('demoArabic').innerHTML = data.word;
+        document.getElementById('demoDesc').innerText = data.desc;
+    }
+
+    function playStudioAudio() {
+        const item = ruleDatabase[activeRuleKey];
+        playAudioFile(item.audio);
+    }
+
+    function showView(view) {
+        document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
+        document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
+        document.getElementById('testView').style.display = view === 'test' ? 'block' : 'none';
+        document.getElementById('scoreHeader').style.display = view === 'test' ? 'block' : 'none';
+
+        document.getElementById('tabLesson').classList.toggle('active', view === 'lesson');
+        document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
+        document.getElementById('tabTest').classList.toggle('active', view === 'test');
+
+        if (view === 'test' && currentIndex === 0) {
+            loadQuestion();
+        }
+    }
+
+    function loadQuestion() {
+        if (currentIndex >= testSuite.length) {
+            alert(`🎉 Outstanding! You Completed the 30-Question Madd Master Test!\nYour Score: ${score} / ${testSuite.length * 10}`);
+            currentIndex = 0;
+            score = 0;
+            showView('lesson');
+            return;
+        }
+
+        const item = testSuite[currentIndex];
+        document.getElementById('qNum').innerText = currentIndex + 1;
+        document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
+        document.getElementById('wordDisplay').innerText = item.word;
+        document.getElementById('feedbackBox').style.display = 'none';
+
+        const choices = [
+            { label: "1. Madd Aṣlī (2 Counts)", val: "Asli" },
+            { label: "2. Madd Muttaṣil (Connected)", val: "Muttasil" },
+            { label: "3. Madd Munfaṣil (Disconnected)", val: "Munfasil" },
+            { label: "4. Madd ‘Āriḍ (Presented)", val: "Arid" },
+            { label: "5. Madd Lāzim (6 Counts)", val: "Lazim" }
         ];
 
-        let currentIndex = 0;
-        let score = 0;
+        const container = document.getElementById('choicesContainer');
+        container.innerHTML = "";
 
-        /* ----------------------------------------------------
-           SAVE SCORE FUNCTION (Saves Game 3 high score)
-        ---------------------------------------------------- */
-        function saveGameScore(gameNumber, newStars) {
-            const key = `arabic_game_${gameNumber}_score`;
-            const previousHighScore = parseInt(localStorage.getItem(key) || '0', 10);
+        choices.forEach(choice => {
+            const btn = document.createElement('button');
+            btn.className = "action-btn";
+            btn.innerText = choice.label;
+            btn.onclick = () => checkAnswer(choice.val);
+            container.appendChild(btn);
+        });
 
-            if (newStars > previousHighScore) {
-                localStorage.setItem(key, newStars);
-            }
+        playQuestionAudio();
+    }
+
+    function checkAnswer(selectedVal) {
+        const item = testSuite[currentIndex];
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
+
+        if (selectedVal === item.correct) {
+            score += 10;
+            document.getElementById('scoreVal').innerText = score;
+            feedback.style.background = "rgba(16, 185, 129, 0.2)";
+            feedback.style.color = "var(--accent-emerald)";
+            feedback.innerHTML = `✨ Correct! ${item.exp}`;
+        } else {
+            feedback.style.background = "rgba(244, 63, 94, 0.2)";
+            feedback.style.color = "var(--accent-rose)";
+            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${getRuleName(item.correct)}</strong>.<br><small>${item.exp}</small>`;
         }
 
-        function loadQuestion() {
-            const q = questions[currentIndex];
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
+        currentIndex++;
+        setTimeout(loadQuestion, 1600);
+    }
 
-            playQuestionSound();
+    function getRuleName(val) {
+        if (val === "Asli") return "Madd Aṣlī (Natural 2 Counts)";
+        if (val === "Muttasil") return "Madd Muttaṣil (Connected Obligatory)";
+        if (val === "Munfasil") return "Madd Munfaṣil (Disconnected Permissible)";
+        if (val === "Arid") return "Madd ‘Āriḍ li-s-Sukūn";
+        return "Madd Lāzim (Compulsory 6 Counts)";
+    }
 
-            q.options.forEach(symbol => {
-                const card = document.createElement('div');
-                card.className = 'arabic-card';
-                card.innerText = symbol;
-                card.onclick = () => checkAnswer(symbol, card);
-                container.appendChild(card);
-            });
-        }
+    function playQuestionAudio() {
+        const item = testSuite[currentIndex];
+        playAudioFile(item.audio);
+    }
 
-        function playQuestionSound() {
-            const q = questions[currentIndex];
-            const utterance = new SpeechSynthesisUtterance(q.sound);
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function checkAnswer(selected, cardElement) {
-            const q = questions[currentIndex];
-
-            if (selected === q.correct) {
-                // 🔊 PLAY CORRECT CHIME
-                if (typeof playCorrectSound === 'function') {
-                    playCorrectSound();
-                }
-
-                cardElement.classList.add('correct');
-                score += 10;
-                document.getElementById('score').innerText = score;
-
-                saveGameScore(3, score);
-
-                setTimeout(() => {
-                    currentIndex = (currentIndex + 1) % questions.length;
-                    loadQuestion();
-                }, 1000);
-            } else {
-                // 🔊 PLAY WRONG BUZZ
-                if (typeof playWrongSound === 'function') {
-                    playWrongSound();
-                }
-
-                cardElement.classList.add('wrong');
-                setTimeout(() => {
-                    cardElement.classList.remove('wrong');
-                }, 500);
-            }
-        }
-
-        window.onload = () => {
-            score = parseInt(localStorage.getItem('arabic_game_3_score') || '0', 10);
-            document.getElementById('score').innerText = score;
-            loadQuestion();
-        };
-    </script>
+    function playAudioFile(fileName) {
+        const audio = new Audio(AUDIO_BASE + fileName);
+        audio.play().catch(() => {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.frequency.setValueAtTime(400, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.18);
+            gain.gain.setValueAtTime(0.5, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.18);
+        });
+    }
+</script>
 </body>
 </html>
