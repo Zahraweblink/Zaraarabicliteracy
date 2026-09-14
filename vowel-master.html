@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vowel Master | Interactive Studio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-btn.active {
+            border-bottom-color: #16a34a;
+            color: #16a34a;
+            font-weight: 600;
+        }
+        .vowel-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .vowel-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                        <i class="fa-solid fa-microphone-lines"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-slate-900 leading-tight">Vowel Master Studio</h1>
+                        <p class="text-xs text-slate-500">Short Vowels (Harakat) & Long Vowels (Madd)</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="score-display" class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-100">
+                        <i class="fa-solid fa-trophy mr-1.5"></i> Progress: <span id="quiz-score-val" class="ml-1">0</span>/5
+                    </span>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">
+                        <i class="fa-solid fa-house mr-1"></i> Dashboard
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Studio Tab Switcher -->
+            <div class="flex space-x-8 -mb-px border-t border-slate-100 sm:border-t-0">
+                <button onclick="switchTab('rules')" id="tab-rules" class="tab-btn active py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open"></i> Rules & Explanations
+                </button>
+                <button onclick="switchTab('soundboard')" id="tab-soundboard" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Soundboard Studio
+                </button>
+                <button onclick="switchTab('practice')" id="tab-practice" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-vial"></i> Practice Test Engine
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- VIEW 1: RULES & EXPLANATIONS -->
+        <section id="view-rules" class="space-y-8">
+            <div class="bg-gradient-to-r from-brand-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl">
+                <div class="max-w-3xl">
+                    <span class="px-3 py-1 bg-brand-500/20 text-brand-300 text-xs font-semibold rounded-full border border-brand-500/30">Foundation Module</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-2">Understanding Arabic Vowel Movements</h2>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        In Arabic, letters carry short vowel marks called <strong>Haraakat</strong> which define their basic phonetic output. Extending these short vowels using Madd letters converts them into long vowels.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Rules Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Fathah Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">1</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                        </div>
+                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
+                            <span class="font-arabic text-5xl text-slate-800">َ</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900">Fathah (فَتْحَة)</h3>
+                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "a" (as in "cat")</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            A small diagonal line placed <strong>above</strong> a letter. It requires opening the mouth vertically to produce a short 'a' sound.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                        <span>Anatomical Action:</span>
+                        <span class="font-medium text-slate-700">Open Jaw</span>
+                    </div>
+                </div>
+
+                <!-- Kasrah Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">2</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                        </div>
+                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
+                            <span class="font-arabic text-5xl text-slate-800">ِ</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900">Kasrah (كَسْرَة)</h3>
+                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "i" (as in "bit")</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            A small diagonal line placed <strong>below</strong> a letter. It requires lowering the bottom jaw slightly to emit a crisp 'i' sound.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                        <span>Anatomical Action:</span>
+                        <span class="font-medium text-slate-700">Lower Jaw</span>
+                    </div>
+                </div>
+
+                <!-- Dammah Card -->
+                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">3</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                        </div>
+                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
+                            <span class="font-arabic text-5xl text-slate-800">ُ</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900">Dammah (ضَمَّة)</h3>
+                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "u" (as in "put")</p>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            A small apostrophe-like symbol placed <strong>above</strong> a letter. It requires rounding and circling the lips.
+                        </p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                        <span>Anatomical Action:</span>
+                        <span class="font-medium text-slate-700">Circle Lips</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Long Vowels Rule Section -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                <h3 class="font-bold text-lg text-slate-900 mb-2">Long Vowels (Madd Letters)</h3>
+                <p class="text-slate-600 text-sm mb-6">Short vowels become long vowels (2 counts) when combined with their corresponding natural elongation letters:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
+                        <span class="font-arabic text-3xl text-slate-800">ـَ + ا</span>
+                        <p class="text-xs font-bold text-slate-700 mt-2">Fathah + Alif = "aa"</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
+                        <span class="font-arabic text-3xl text-slate-800">ـِ + ي</span>
+                        <p class="text-xs font-bold text-slate-700 mt-2">Kasrah + Ya = "ee"</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
+                        <span class="font-arabic text-3xl text-slate-800">ـُ + و</span>
+                        <p class="text-xs font-bold text-slate-700 mt-2">Dammah + Waw = "oo"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: SOUNDBOARD STUDIO -->
+        <section id="view-soundboard" class="hidden space-y-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">Interactive Phonetic Soundboard</h2>
+                    <p class="text-slate-500 text-sm">Select a base letter and trigger different vowel combinations to hear the changes.</p>
+                </div>
+                <!-- Letter Selector -->
+                <div class="flex items-center space-x-2">
+                    <label class="text-xs font-semibold text-slate-600 uppercase tracking-wider">Base Letter:</label>
+                    <select id="letter-select" onchange="updateSoundboard()" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 p-2.5 font-arabic text-lg font-bold">
+                        <option value="ب">ب (Ba)</option>
+                        <option value="ت">ت (Ta)</option>
+                        <option value="م">م (Meem)</option>
+                        <option value="ر">ر (Ra)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Soundboard Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Fathah Tile -->
+                <div onclick="playSound('Fathah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-fathah" class="font-arabic text-6xl text-slate-800">بَ</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Fathah</h4>
+                        <p id="trans-fathah" class="text-xs text-slate-500 mt-1">Phonetic: "Ba"</p>
+                    </div>
+                </div>
+
+                <!-- Kasrah Tile -->
+                <div onclick="playSound('Kasrah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-kasrah" class="font-arabic text-6xl text-slate-800">بِ</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Kasrah</h4>
+                        <p id="trans-kasrah" class="text-xs text-slate-500 mt-1">Phonetic: "Bi"</p>
+                    </div>
+                </div>
+
+                <!-- Dammah Tile -->
+                <div onclick="playSound('Dammah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-dammah" class="font-arabic text-6xl text-slate-800">بُ</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Dammah</h4>
+                        <p id="trans-dammah" class="text-xs text-slate-500 mt-1">Phonetic: "Bu"</p>
+                    </div>
+                </div>
+
+                <!-- Madd Alif Tile -->
+                <div onclick="playSound('Madd Alif')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-madd-alif" class="font-arabic text-6xl text-slate-800">با</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Fathah + Alif</h4>
+                        <p id="trans-madd-alif" class="text-xs text-slate-500 mt-1">Phonetic: "Baa"</p>
+                    </div>
+                </div>
+
+                <!-- Madd Ya Tile -->
+                <div onclick="playSound('Madd Ya')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-madd-ya" class="font-arabic text-6xl text-slate-800">بي</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Kasrah + Ya</h4>
+                        <p id="trans-madd-ya" class="text-xs text-slate-500 mt-1">Phonetic: "Bee"</p>
+                    </div>
+                </div>
+
+                <!-- Madd Waw Tile -->
+                <div onclick="playSound('Madd Waw')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                    <div class="flex justify-between items-start">
+                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="text-center my-6">
+                        <span id="display-madd-waw" class="font-arabic text-6xl text-slate-800">بو</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-slate-800">Dammah + Waw</h4>
+                        <p id="trans-madd-waw" class="text-xs text-slate-500 mt-1">Phonetic: "Boo"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulated Audio Feedback Toast -->
+            <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+                <i class="fa-solid fa-circle-play text-brand-500 text-base"></i>
+                <span id="toast-text">Playing Audio...</span>
+            </div>
+        </section>
+
+        <!-- VIEW 3: PRACTICE TEST ENGINE -->
+        <section id="view-practice" class="hidden max-w-2xl mx-auto space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+                <!-- Quiz Header -->
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                    <div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Assessment Engine</span>
+                        <h2 class="text-lg font-bold text-slate-900">Vowel Identification Test</h2>
+                    </div>
+                    <span id="question-count" class="text-xs font-medium bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Question 1 of 5</span>
+                </div>
+
+                <!-- Question Area -->
+                <div id="quiz-container">
+                    <div class="text-center my-8">
+                        <p class="text-xs text-slate-500 mb-2">Identify the primary vowel mark on this letter:</p>
+                        <div id="quiz-symbol" class="font-arabic text-7xl text-slate-800 py-6 bg-slate-50 rounded-xl border border-slate-100 inline-block px-12 shadow-inner">
+                            كُ
+                        </div>
+                    </div>
+
+                    <!-- Answer Options -->
+                    <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                        <!-- Dynamic options rendered via JavaScript -->
+                    </div>
+
+                    <!-- Feedback Alert -->
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm font-medium mb-6"></div>
+
+                    <!-- Controls -->
+                    <div class="flex justify-end">
+                        <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center gap-2">
+                            Next Question <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completion Screen (Hidden by default) -->
+                <div id="quiz-complete" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Assessment Completed!</h3>
+                    <p class="text-slate-600 text-sm mb-6">You scored <span id="final-score" class="font-bold text-brand-600">0</span> out of 5.</p>
+                    <button onclick="resetQuiz()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
+                        Retake Assessment
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            &copy; 2026 Zahrah Interactive Online Classroom. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Logic Engine -->
+    <script>
+        // Data structure for Soundboard combinations
+        const soundboardData = {
+            'ب': { fathah: 'بَ', kasrah: 'بِ', dammah: 'بُ', mAlif: 'با', mYa: 'بي', mWaw: 'بو', name: 'Ba' },
+            'ت': { fathah: 'تَ', kasrah: 'تِ', dammah: 'تُ', mAlif: 'تا', mYa: 'تي', mWaw: 'تو', name: 'Ta' },
+            'م': { fathah: 'مَ', kasrah: 'مِ', dammah: 'مُ', mAlif: 'ما', mYa: 'مي', mWaw: 'مو', name: 'Meem' },
+            'ر': { fathah: 'رَ', kasrah: 'رِ', dammah: 'رُ', mAlif: 'را', mYa: 'ري', mWaw: 'رو', name: 'Ra' }
+        };
+
+        // Practice Questions Bank
+        const questions = [
+            { symbol: 'كُ', correct: 'Dammah', options: ['Fathah', 'Kasrah', 'Dammah', 'Madd Alif'] },
+            { symbol: 'سِ', correct: 'Kasrah', options: ['Kasrah', 'Fathah', 'Dammah', 'Madd Ya'] },
+            { symbol: 'لَ', correct: 'Fathah', options: ['Dammah', 'Fathah', 'Kasrah', 'Madd Waw'] },
+            { symbol: 'نِي', correct: 'Madd Ya', options: ['Kasrah', 'Madd Ya', 'Madd Alif', 'Dammah'] },
+            { symbol: 'قُو', correct: 'Madd Waw', options: ['Dammah', 'Madd Alif', 'Madd Waw', 'Fathah'] }
+        ];
+
+        let currentQuestionIdx = 0;
+        let score = 0;
+
+        // View Switcher Functionality
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+
+            document.getElementById('view-rules').classList.add('hidden');
+            document.getElementById('view-soundboard').classList.add('hidden');
+            document.getElementById('view-practice').classList.add('hidden');
+
+            document.getElementById(`view-${tabName}`).classList.remove('hidden');
+        }
+
+        // Soundboard Update
+        function updateSoundboard() {
+            const letter = document.getElementById('letter-select').value;
+            const data = soundboardData[letter];
+
+            document.getElementById('display-fathah').innerText = data.fathah;
+            document.getElementById('display-kasrah').innerText = data.kasrah;
+            document.getElementById('display-dammah').innerText = data.dammah;
+            document.getElementById('display-madd-alif').innerText = data.mAlif;
+            document.getElementById('display-madd-ya').innerText = data.mYa;
+            document.getElementById('display-madd-waw').innerText = data.mWaw;
+
+            document.getElementById('trans-fathah').innerText = `Phonetic: "${data.name}a"`;
+            document.getElementById('trans-kasrah').innerText = `Phonetic: "${data.name}i"`;
+            document.getElementById('trans-dammah').innerText = `Phonetic: "${data.name}u"`;
+            document.getElementById('trans-madd-alif').innerText = `Phonetic: "${data.name}aa"`;
+            document.getElementById('trans-madd-ya').innerText = `Phonetic: "${data.name}ee"`;
+            document.getElementById('trans-madd-waw').innerText = `Phonetic: "${data.name}oo"`;
+        }
+
+        // Simulated Audio Trigger
+        function playSound(type) {
+            const letter = document.getElementById('letter-select').value;
+            const toast = document.getElementById('audio-toast');
+            const toastText = document.getElementById('toast-text');
+
+            toastText.innerText = `Playing ${type} sound for (${letter})...`;
+            toast.classList.remove('opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 1800);
+        }
+
+        // Quiz Engine Functions
+        function loadQuestion() {
+            const q = questions[currentQuestionIdx];
+            document.getElementById('question-count').innerText = `Question ${currentQuestionIdx + 1} of ${questions.length}`;
+            document.getElementById('quiz-symbol').innerText = q.symbol;
+            
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = '';
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-brand-500 bg-white font-medium text-slate-700 text-sm transition-all text-left flex items-center justify-between group';
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300 group-hover:text-brand-500"></i>`;
+                btn.onclick = () => selectAnswer(btn, opt, q.correct);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selectedBtn, selectedOption, correctOption) {
+            const options = document.getElementById('quiz-options').children;
+            for (let btn of options) {
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            }
+
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+
+            if (selectedOption === correctOption) {
+                score++;
+                document.getElementById('quiz-score-val').innerText = score;
+                selectedBtn.classList.remove('border-slate-200', 'opacity-60');
+                selectedBtn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-50 text-emerald-800 border border-emerald-200';
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent recognition.';
+            } else {
+                selectedBtn.classList.remove('border-slate-200', 'opacity-60');
+                selectedBtn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-800');
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-50 text-rose-800 border border-rose-200';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. The correct answer was <strong>${correctOption}</strong>.`;
+            }
+
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < questions.length) {
+                loadQuestion();
+            } else {
+                showCompletion();
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-complete').classList.remove('hidden');
+            document.getElementById('final-score').innerText = score;
+        }
+
+        function resetQuiz() {
+            currentQuestionIdx = 0;
+            score = 0;
+            document.getElementById('quiz-score-val').innerText = '0';
+            document.getElementById('quiz-complete').classList.add('hidden');
+            document.getElementById('quiz-container').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Initialize Engine
+        window.onload = () => {
+            loadQuestion();
+        };
+    </script>
+</body>
+</html>
