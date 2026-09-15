@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ishmām & Tashīl Studio - Zahrah’s Interactive Online Classroom</title>
+    <title>Ishmām & Tashīl Studio \ Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,9 +37,18 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        @keyframes successPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .animate-success {
+            animation: successPulse 0.8s ease-in-out;
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 flex flex-col items-center">
+<body class="p-4 md:p-8 flex flex-col items-center justify-between min-h-screen">
 
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
@@ -113,7 +122,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -124,9 +133,240 @@
 
     </main>
 
+    <!-- Footer -->
+    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
+        Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App.
+    </footer>
+
     <script>
-        To calculate the total number of carbon atoms in a molecule with a 4-carbon main chain and a propyl substituent, we sum the parent chain and the substituent:
+        // Dataset of Tajweed questions focusing on Ishmām, Tashīl, and related major Hafs 'an 'Aasim rules
+        const quizQuestions = [
+            {
+                arabic: "مَا لَكَ لَا <span class='text-cyan-400'>تَأْمَنَّا</span>",
+                prompt: "In Surah Yusuf (12:11), what physical mouth gesture accompanies the hidden Sukoon during <strong>Ishmām</strong>?",
+                options: [
+                    { text: "Rounding the lips outward without sound", correct: true },
+                    { text: "Biting the lower lip gently with teeth", correct: false },
+                    { text: "Spreading the lips wide into a smile", correct: false },
+                    { text: "Opening the mouth completely wide", correct: false }
+                ],
+                explanation: "Ishmām involves shaping the lips into a Dammah state instantly after uttering the Noon Sukoon without making any vocal sound."
+            },
+            {
+                arabic: "وَقِيلَ <span class='text-amber-400'>مَنْ</span> <span class='text-cyan-400'>رَاقٍ</span>",
+                prompt: "In Surah Al-Qiyamah (75:27), what happens to the Noon of <strong class='text-amber-400'>من</strong> when meeting <strong class='text-cyan-400'>راقٍ</strong> (Sakt)?",
+                options: [
+                    { text: "It is fully merged (Idgham) into the Raa with ghunnah", correct: false },
+                    { text: "It is pronounced with a brief pause (Sakt) without breathing, blocking Idgham", correct: true },
+                    { text: "It is clearly declared with an Izhar rule", correct: false },
+                    { text: "It is converted into a Meem sound (Iqlab)", correct: false }
+                ],
+                explanation: "Hafs 'an 'Aasim introduces a light Sakt (silent pause of about 2 seconds without breathing) over the Noon, preventing Idgham into the Raa."
+            },
+            {
+                arabic: "ءَ۠<span class='text-emerald-400'>عْجَمِيٌّ</span> وَعَرَبِيّ",
+                prompt: "In Surah Fussilat (41:44), how is the second Hamzah in <strong class='text-emerald-400'>أعجمي</strong> pronounced via <strong>Tashīl</strong>?",
+                options: [
+                    { text: "Omitted completely as if it were absent", correct: false },
+                    { text: "Softened between a pure Hamzah and an Alif sound", correct: true },
+                    { text: "Strongly emphasized with a deep throat contraction", correct: false },
+                    { text: "Changed into a heavy letters like Waw or Yaa", correct: false }
+                ],
+                explanation: "Tashīl means easing the second Hamzah so it sounds intermediate between a full Hamzah and a soft Alif vowel."
+            },
+            {
+                arabic: "بِئْسَ <span class='text-cyan-400'>الِاسْمُ</span> الْفُسُوقُ",
+                prompt: "When starting independently on the word <strong class='text-cyan-400'>الاسم</strong> in Surah Al-Hujurat (49:11), what happens to the Hamzatul Wasl?",
+                options: [
+                    { text: "It takes a permanent Kasrah sound (الِسْم)", correct: false },
+                    { text: "It takes a preliminary Kasrah because the third letter carries an original Kasrah", correct: false },
+                    { text: "It takes a Dammah on the Hamzah because the third letter has a Dammah", correct: true },
+                    { text: "It is pronounced with a silent breath", correct: false }
+                ],
+                explanation: "Notice the third letter 'Seen' has a Kasrah (derived from the original verb pattern), making the starting Hamzatul Wasl take a Kasrah: الإِسْم."
+            },
+            {
+                arabic: "وَمَنْ يَبْتَغِ غَيْرَ <span class='text-amber-400'>الْإِسْلَامِ</span>",
+                prompt: "What Tajweed rule governs the Lam in the definite article <strong class='text-amber-400'>ال</strong> attached to 'Islam'?",
+                options: [
+                    { text: "Lam Shamsiyyah (Assimilation into the following letter)", correct: false },
+                    { text: "Lam Qamariyyah (Clear pronunciation of the Moon Lam)", correct: true },
+                    { text: "Lam Mutakarriban (Close merging)", correct: false },
+                    { text: "Lam Sakinah with pure Ghunnah", correct: false }
+                ],
+                explanation: "'Alif' is a Qamari letter, so the Lam is pronounced clearly and distinctly (Izhar Qamari)."
+            },
+            {
+                arabic: "<span class='text-cyan-400'>مَجْرَاهَا</span> وَمُرْسَاهَا",
+                prompt: "In Surah Hud (11:41), how is the vowel of the letter Ba in <strong class='text-cyan-400'>مجرىها</strong> pronounced (Imālah)?",
+                options: [
+                    { text: "Poured fully toward an 'ee' sound (Imālah Kubrā)", correct: true },
+                    { text: "Opened widely like a normal fat-ha", correct: false },
+                    { text: "Rounded tightly like a dammah", correct: false },
+                    { text: "Pronounced with a heavy tafkheem quality", correct: false }
+                ],
+                explanation: "Hafs 'an 'Aasim specifically reads the Fat-ha of the Ra in 'Majraha' inclined toward a Kasrah sound (Imālah)."
+            },
+            {
+                arabic: "وَكَذَلِكَ نُنْجِي <span class='text-amber-400'>الْمُؤْمِنِينَ</span>",
+                prompt: "What is the primary characteristic of the Noon in <strong class='text-amber-400'>نُنْجِي</strong> followed by Jeem?",
+                options: [
+                    { text: "Ikhfā' Haqīقī (Hidden with nasal sound)", correct: true },
+                    { text: "Izhar Halqi (Clear throat articulation)", correct: false },
+                    { text: "Idgham Bila Ghunnah", correct: false },
+                    { text: "Iqlab converted to Meem", correct: false }
+                ],
+                explanation: "Jeem is one of the 15 letters of Ikhfā', requiring a nasal concealment of the Noon Sakinah."
+            },
+            {
+                arabic: "إِنَّ اللَّهَ لَا يَسْتَحْيِي أَنْ يَضْرِبَ <span class='text-cyan-400'>مَثَلًا</span>",
+                prompt: "When stopping on <strong class='text-cyan-400'>مَثَلًا</strong> at the end of an ayah, what rule applies?",
+                options: [
+                    { text: "Madd 'Iwad (Compensating for Tanween Fath with an elongated Alif)", correct: true },
+                    { text: "Madd Lāzim Kalimi", correct: false },
+                    { text: "Madd Tabii normal stretch", correct: false },
+                    { text: "Complete cancellation of sound (Sakt)", correct: false }
+                ],
+                explanation: "Tanween Fath turns into an ordinary 2-vowel-count Madd 'Iwad when pausing on it."
+            },
+            {
+                arabic: "عَمَّ <span class='text-amber-400'>يَتَسَاءَلُونَ</span>",
+                prompt: "What forms when the preposition 'An' combines with the interrogative 'Maa' in <strong class='text-amber-400'>عَمَّ</strong>?",
+                options: [
+                    { text: "The Noon is dropped and the Meem is heavily ghunnah-stressed (Mushaddadah)", correct: true },
+                    { text: "A Sakt is placed between them", correct: false },
+                    { text: "An extra Alif is inserted", correct: false },
+                    { text: "The Meem is completely silent", correct: false }
+                ],
+                explanation: "The Noon merges completely into the Meem, creating a mandatory 2-count Mushaddadah Meem Ghunnah."
+            },
+            {
+                arabic: "وَالْعَصْرِ ۝ إِنَّ الْإِنْسَانَ لَفِي <span class='text-cyan-400'>خُسْرٍ</span>",
+                prompt: "When stopping on the word <strong class='text-cyan-400'>خُسْرٍ</strong>, what Tajweed rule applies to the Ra?",
+                options: [
+                    { text: "Tafkheem (Heavy pronunciation) because the preceding letter has a Sukoon after a Dammah", correct: true },
+                    { text: "Tarqeeq (Light pronunciation) due to the Kasrah underneath", correct: false },
+                    { text: "Complete omission of the Ra sound", correct: false },
+                    { text: "Double echoing (Qalqalah)", correct: false }
+                ],
+                explanation: "When pausing on a Ra preceded by a quiescent letter which is preceded by a Dammah (or Fathah), the Ra is heavy (Mufakhkham)."
+            }
+        ];
 
-4 \text{ (parent chain)} + 3 \text{ (propyl group)} = 7 \text{ carbons}
+        let currentIdx = 0;
+        let score = 0;
+        let answeredCurrent = false;
 
-Thus, a molecule with a 4-carbon main chain bearing a propyl group contains 7 carbon atoms in total (an isomer of heptane, such as 4-propylheptane if named systematically based on the longest chain).
+        function loadQuestion() {
+            answeredCurrent = false;
+            const q = quizQuestions[currentIdx];
+            
+            document.getElementById('question-num').textContent = currentIdx + 1;
+            document.getElementById('target-arabic').innerHTML = q.arabic;
+            document.getElementById('target-prompt').innerHTML = q.prompt;
+            
+            const badge = document.getElementById('feedback-badge');
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+            badge.textContent = "";
+
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            // Shuffle options for interactivity
+            const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "glass-card p-4 rounded-2xl text-left text-xs text-slate-200 hover:border-cyan-400 hover:bg-slate-800/80 transition-all flex items-start gap-3 cursor-pointer border border-slate-700/60";
+                btn.innerHTML = `<i class="fa-regular fa-circle text-slate-400 mt-0.5"></i> <span class="flex-1">${opt.text}</span>`;
+                
+                btn.onclick = () => selectOption(btn, opt.correct, q.explanation);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedBtn, isCorrect, explanation) {
+            if (answeredCurrent) return;
+            answeredCurrent = true;
+
+            const badge = document.getElementById('feedback-badge');
+            badge.classList.remove('hidden');
+
+            const allButtons = document.querySelectorAll('#options-container button');
+            allButtons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                score += 10;
+                document.getElementById('current-score').textContent = score;
+                badge.className = "px-2.5 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 font-bold text-xs";
+                badge.textContent = "Correct! +10 pts";
+                selectedBtn.className = "glass-card p-4 rounded-2xl text-left text-xs text-emerald-200 bg-emerald-950/40 border border-emerald-500/60 flex items-start gap-3";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-check text-emerald-400 mt-0.5";
+            } else {
+                badge.className = "px-2.5 py-0.5 rounded-md bg-rose-500/20 border border-rose-500/40 text-rose-300 font-bold text-xs";
+                badge.textContent = "Incorrect";
+                selectedBtn.className = "glass-card p-4 rounded-2xl text-left text-xs text-rose-200 bg-rose-950/40 border border-rose-500/60 flex items-start gap-3";
+                selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400 mt-0.5";
+
+                // Highlight correct option
+                allButtons.forEach(b => {
+                    if (b.textContent.includes(quizQuestions[currentIdx].options.find(o => o.correct).text)) {
+                        b.className = "glass-card p-4 rounded-2xl text-left text-xs text-emerald-200 bg-emerald-950/40 border border-emerald-500/60 flex items-start gap-3";
+                    }
+                });
+            }
+
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-gradient-to-r from-amber-400 to-cyan-400 hover:brightness-110 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer shadow-lg";
+        }
+
+        function nextQuestion() {
+            currentIdx++;
+            if (currentIdx < quizQuestions.length) {
+                loadQuestion();
+            } else {
+                // Quiz completed successfully
+                const pathParts = window.location.pathname.split('/');
+                const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
+                localStorage.setItem('arabic_completed_' + currentFileName, 'true');
+
+                const mainArea = document.querySelector('main');
+                mainArea.innerHTML = `
+                    <div class="glass-card rounded-3xl p-8 text-center space-y-6 border border-amber-500/40 shadow-2xl animate-success">
+                        <div class="inline-block p-4 bg-amber-500/20 rounded-full text-amber-400 text-4xl mb-2">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-white">Studio Module Completed!</h2>
+                        <p class="text-slate-300 text-sm max-w-md mx-auto">
+                            Fantastic mastery! You successfully navigated through complex Hafs 'an 'Aasim special articulations with a total score of <strong class="text-amber-400">${score} points</strong>. Progress saved!
+                        </p>
+                        <div class="pt-4 flex justify-center gap-4">
+                            <a href="index.html" class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg hover:brightness-110 transition-all">
+                                <i class="fa-solid fa-house mr-2"></i> Return to Dashboard Hub
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function playWordAudio() {
+            const audioBtn = event.currentTarget;
+            const originalHTML = audioBtn.innerHTML;
+            audioBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-sm"></i> Playing Recitation...`;
+            setTimeout(() => {
+                audioBtn.innerHTML = originalHTML;
+            }, 1200);
+        }
+
+        // Initialize quiz on load
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
+      
