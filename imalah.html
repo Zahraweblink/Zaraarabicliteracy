@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imālah Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-cyan: #06b6d4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Special Tajweed Rules (Usool & Rewayah)
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Imālah Studio (الإِمَالَة)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master <strong>Imālah</strong>: leaning the sound of Fathah toward Kasrah and Alif toward Ya'.
+            </p>
+        </div>
+
+        <!-- Practical Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-sliders"></i> Mechanics & Occurrence in Hafs 'an 'Aasim
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">مَجْر۪ىٰهَا</span>
+                    <span class="text-xs font-bold text-slate-200">1. Sole Location</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Occurs in <strong>only one word</strong> in Hafs recitation: <em>Surah Hud (11:41)</em>.</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold text-cyan-400 block mb-1">Fathah ➔ Kasrah</span>
+                    <span class="text-xs font-bold text-slate-200">2. Vocalic Shift</span>
+                    <p class="text-[11px] text-slate-400 mt-1">The vowel sound tilts halfway between "A" (Fathah) and "E/I" (Kasrah), sounding like "Maj-ray-ha".</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">◊  or  ۪</span>
+                    <span class="text-xs font-bold text-slate-200">3. Mus-haf Notation</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Marked by a <strong>solid diamond symbol (◊)</strong> under the letter Raa (ر۪).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word / Verse Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    بِسْمِ اللَّهِ <span class="text-cyan-400">مَجْر۪ىٰهَا</span> وَمُرْسَاهَا
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    In Surah Hud (11:41), how is the letter <strong>Raa (ر)</strong> in <strong class="text-cyan-400">مَجْر۪ىٰهَا</strong> pronounced?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const questionBank = [
+            // --- CORE LOCATION & EXCLUSIVITY ---
+            {
+                word: "بِسْمِ اللَّهِ مَجْر۪ىٰهَا وَمُرْسَاهَا",
+                prompt: "In the recitation of Hafs 'an 'Aasim, how many words contain the rule of <strong>Imālah (الإِمَالَة)</strong>?",
+                options: ["Only 1 word (مَجْر۪ىٰهَا in Surah Hud)", "5 words across different Surahs"],
+                correctIndex: 0
+            },
+            {
+                word: "سُورَة هُود (11:41)",
+                prompt: "In which Surah and verse of the Quran is <strong>Imālah</strong> performed in Hafs 'an 'Aasim?",
+                options: ["Surah Hud (11:41)", "Surah Al-Kahf (18:1)"],
+                correctIndex: 0
+            },
+            {
+                word: "مَجْر۪ىٰهَا",
+                prompt: "What happens to the letter <strong>Raa (ر)</strong> in <strong>مَجْر۪ىٰهَا</strong> due to Imālah?",
+                options: ["It is recited with Tarqeeq (lightness) because the vowel tilts toward Kasrah", "It is recited with heavy Tafkheem"],
+                correctIndex: 0
+            },
+
+            // --- PHONETIC MECHANICS & DEFINITION ---
+            {
+                word: "الإِمَالَة الكُبْرَى",
+                prompt: "Linguistically and practically, what does <strong>Imālah Kubra</strong> mean?",
+                options: ["Slanting the Fathah sound toward Kasrah and Alif toward Ya'", "Elongating a vowel for 6 counts"],
+                correctIndex: 0
+            },
+            {
+                word: "مَجْر۪ىٰهَا vs وَمُرْسَاهَا",
+                prompt: "Comparing <strong>مَجْر۪ىٰهَا</strong> and <strong>وَمُرْسَاهَا</strong> in verse 11:41, which word takes Imālah?",
+                options: ["Only مَجْر۪ىٰهَا (وَمُرْسَاهَا is read with standard Fathah)", "Both words take Imālah"],
+                correctIndex: 0
+            },
+            {
+                word: "◊ (Solid Diamond Symbol)",
+                prompt: "What visual symbol in the Quranic script (Mus-haf) marks the letter taking Imālah?",
+                options: ["A solid diamond (◊) beneath the letter", "A small circle (○) above the letter"],
+                correctIndex: 0
+            },
+
+            // --- CONCEPTUAL & RECITATIONAL KNOWLEDGE ---
+            {
+                word: "مَجْرَاهَا (Standard Fathah)",
+                prompt: "If a reciter reads <strong>مَجْرَاهَا</strong> with a plain 'A' vowel in Hafs, what error has been made?",
+                options: ["Failing to apply the mandatory Imālah for this word", "Applying Saktah"],
+                correctIndex: 0
+            },
+            {
+                word: "رواية حَفْص عَنْ عَاصِم",
+                prompt: "Is Imālah a general rule applied to many words in the Hafs recitation or a special exception?",
+                options: ["A unique vocalic exception restricted to a single instance", "A rule applied whenever Raa has a Fathah"],
+                correctIndex: 0
+            },
+            {
+                word: "التَّرْقِيق وَالإِمَالَة",
+                prompt: "Because the Raa in <strong>مَجْر۪ىٰهَا</strong> undergoes Imālah, its tone quality is:",
+                options: ["Light (Tarqeeq)", "Heavy (Tafkheem)"],
+                correctIndex: 0
+            },
+            {
+                word: "مَجْر۪ىٰهَا",
+                prompt: "Which vowel sound best approximates the pronunciation of <strong>ر۪</strong> in Imālah?",
+                options: ["A sound similar to 'ray' in English (midway between Fathah and Kasrah)", "A pure 'roo' sound"],
+                correctIndex: 0
+            }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_imalah_score";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("target-arabic").innerHTML = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                if (score > highScore) {
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                }
+                alert(`Imālah Studio Complete!\nYour Score: ${score}/100 points`);
+                window.location.href = "index.html";
+            }
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
