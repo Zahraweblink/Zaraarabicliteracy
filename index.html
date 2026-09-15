@@ -3,183 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah’s Interactive Online Classroom - Tajweed Master App</title>
+    <title>Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Master App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
-            --accent-gold: #ffb703;
-            --accent-cyan: #06b6d4;
+            --bg-deep: #0f172a;
+            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
+            --card-bg: rgba(30, 41, 59, 0.75);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #22d3ee;
             --white: #ffffff;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep);
             background-image: var(--bg-gradient);
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Glowing background ambient lights */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: 20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(6, 182, 212, 0.12);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            top: 40%;
+            right: 15%;
+            width: 450px;
+            height: 450px;
+            background: rgba(251, 191, 36, 0.1);
+            filter: blur(120px);
+            border-radius: 50%;
+            z-index: -1;
         }
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
         }
         .glass-card:hover {
-            border-color: rgba(255, 183, 3, 0.4);
-            transform: translateY(-2px);
-        }
-        .arabic-text {
-            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
-            direction: rtl;
+            border-color: rgba(251, 191, 36, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px 0 rgba(251, 191, 36, 0.15);
+            background: rgba(30, 41, 59, 0.9);
         }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
 
-    <!-- Header -->
-    <header class="w-full max-w-4xl text-center space-y-3 mb-10">
-        <div class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
-            Zahrah Interactive Classroom
+    <!-- Header / Branding -->
+    <header class="w-full max-w-4xl text-center space-y-3 mb-10 mt-2">
+        <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
+            Zahrah’s Interactive Online Classroom
         </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-white">Complete Tajweed Curriculum</h1>
-        <p class="text-slate-300 text-sm max-w-xl mx-auto">
-            Structured step-by-step curriculum from absolute beginner letter formation to advanced professional recitations.
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Tajweed Curriculum Hub</h1>
+        <p class="text-slate-300 text-sm max-w-xl mx-auto font-medium">
+            Welcome! Choose a studio below to journey step-by-step from foundational letters to advanced recitations.
         </p>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="w-full max-w-4xl space-y-10">
+    <!-- Main App Container -->
+    <main class="w-full max-w-4xl space-y-10 z-10">
 
-        <!-- Phase 1: Beginners -->
+        <!-- Step 1: Absolute Beginners -->
         <section class="space-y-4">
-            <div class="flex items-center gap-2 text-cyan-400 font-bold text-lg px-2 border-b border-cyan-500/20 pb-2">
-                <i class="fa-solid fa-seedling"></i> Phase 1: Absolute Beginners (Letters & Vowels)
+            <div class="flex items-center gap-2 text-cyan-300 font-bold text-lg px-2 border-b border-cyan-500/30 pb-2">
+                <i class="fa-solid fa-seedling"></i> Step 1: Laying the Groundwork (Absolute Beginners)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="letter-lab.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Letter Lab</h3><p class="text-xs text-slate-400">Letter Recognition & Formation</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                <a href="letter-lab.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Letter Lab</h3><p class="text-xs text-slate-300">Letter Recognition & Formation</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="vowel-master.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Vowel Master</h3><p class="text-xs text-slate-400">Short Vowels & Harakat</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                <a href="vowel-master.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Vowel Master</h3><p class="text-xs text-slate-300">Practicing Short Vowels (Harakat)</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="sun-moon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Sun & Moon Letters</h3><p class="text-xs text-slate-400">Al-Shamsiyyah & Al-Qamariyyah</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                <a href="sun-moon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sun & Moon Letters</h3><p class="text-xs text-slate-300">Al-Shamsiyyah & Al-Qamariyyah</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="sukoon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Sukoon Studio</h3><p class="text-xs text-slate-400">Understanding Static Letters</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                <a href="sukoon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sukoon Studio</h3><p class="text-xs text-slate-300">Understanding Static Letters</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Phase 2: Elementary Tajweed -->
+        <!-- Step 2: Elementary Tajweed -->
         <section class="space-y-4">
-            <div class="flex items-center gap-2 text-emerald-400 font-bold text-lg px-2 border-b border-emerald-500/20 pb-2">
-                <i class="fa-solid fa-book-open"></i> Phase 2: Elementary Tajweed (Anatomy & Sound)
+            <div class="flex items-center gap-2 text-emerald-300 font-bold text-lg px-2 border-b border-emerald-500/30 pb-2">
+                <i class="fa-solid fa-book-open"></i> Step 2: Unlocking the Mechanics (Elementary Tajweed)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="makharij.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Al-Makhaarij Studio</h3><p class="text-xs text-slate-400">Exit Points of Letters</p></div>
-                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                <a href="makharij.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-emerald-300 transition-colors">Al-Makhaarij Studio</h3><p class="text-xs text-slate-300">Anatomical Exit Points</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="as-sifat.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">As-Sifāt Studio</h3><p class="text-xs text-slate-400">Letter Characteristics (Hams, Shiddah)</p></div>
-                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                <a href="as-sifat.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-emerald-300 transition-colors">As-Sifāt Studio</h3><p class="text-xs text-slate-300">Inherent Letter Characteristics</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="tafkheem.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Tafkheem Studio</h3><p class="text-xs text-slate-400">Heavy Letters & Elevation</p></div>
-                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                <a href="tafkheem.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-emerald-300 transition-colors">Tafkheem Studio</h3><p class="text-xs text-slate-300">Heavy Letters & Elevation</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="tarqeeq.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Tarqeeq Studio</h3><p class="text-xs text-slate-400">Light Letters & Thinning</p></div>
-                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                <a href="tarqeeq.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-emerald-300 transition-colors">Tarqeeq Studio</h3><p class="text-xs text-slate-300">Light Letters & Thinning</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="qalqalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
-                    <div><h3 class="font-bold text-white text-sm">Qalqalah Studio</h3><p class="text-xs text-slate-400">Bouncing Echoing Sounds</p></div>
-                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                <a href="qalqalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-emerald-300 transition-colors">Qalqalah Studio</h3><p class="text-xs text-slate-300">Bouncing Echoing Sounds</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Phase 3: Intermediate Rules -->
+        <!-- Step 3: Blending & Flow Rules -->
         <section class="space-y-4">
-            <div class="flex items-center gap-2 text-amber-400 font-bold text-lg px-2 border-b border-amber-500/20 pb-2">
-                <i class="fa-solid fa-layer-group"></i> Phase 3: Intermediate Rules (Blending and Flow Rules)
+            <div class="flex items-center gap-2 text-amber-300 font-bold text-lg px-2 border-b border-amber-500/30 pb-2">
+                <i class="fa-solid fa-water"></i> Step 3: Blending & Flow Rules (Intermediate Tajweed)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="noon-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Noon Sakinah Studio</h3><p class="text-xs text-slate-400">Ithhar, Idgham, Iqlab, Ikhfa</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                <a href="noon-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Noon Sakinah Studio</h3><p class="text-xs text-slate-300">Voicing, Merging, Flipping & Hiding</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="meem-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Meem Sakinah Studio</h3><p class="text-xs text-slate-400">Rules of Static Meem</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                <a href="meem-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Meem Sakinah Studio</h3><p class="text-xs text-slate-300">Static Meem Blending Rules</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="shaddah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Shaddah Studio</h3><p class="text-xs text-slate-400">Doubled Letters & Emphasis</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                <a href="shaddah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Shaddah Studio</h3><p class="text-xs text-slate-300">Doubled Letters & Emphasis</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="madd.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Madd Studio</h3><p class="text-xs text-slate-400">Prolongation & Counts</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                <a href="madd.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Madd Studio</h3><p class="text-xs text-slate-300">Accurate Elongation Counts</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="waqf.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
-                    <div><h3 class="font-bold text-white text-sm">Waqf Studio</h3><p class="text-xs text-slate-400">Stopping Rules & Signs</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                <a href="waqf.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Waqf Studio</h3><p class="text-xs text-slate-300">Safe Stopping Rules & Signs</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Phase 4: Advanced Recitations & Special Articulations -->
+        <!-- Step 4: Refining the Art -->
         <section class="space-y-4">
-            <div class="flex items-center gap-2 text-rose-400 font-bold text-lg px-2 border-b border-rose-500/20 pb-2">
-                <i class="fa-solid fa-graduation-cap"></i> Phase 4: Advanced Recitations (Usool & Special Articulations)
+            <div class="flex items-center gap-2 text-rose-300 font-bold text-lg px-2 border-b border-rose-500/30 pb-2">
+                <i class="fa-solid fa-graduation-cap"></i> Step 4: Refining the Art (Advanced Recitations)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="hamza.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Hamza Studio</h3><p class="text-xs text-slate-400">Glottal Stops & Carrier Rules</p></div>
-                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                <a href="hamza.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-rose-300 transition-colors">Hamza Studio</h3><p class="text-xs text-slate-300">Glottal Stops & Carrier Rules</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="nabr.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Nabr Studio</h3><p class="text-xs text-slate-400">Vocal Accents & Pressure</p></div>
-                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                <a href="nabr.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-rose-300 transition-colors">Nabr Studio</h3><p class="text-xs text-slate-300">Vocal Accents & Pressure</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="saktah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Saktah Studio</h3><p class="text-xs text-slate-400">Mandatory Silent Pauses</p></div>
-                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                <a href="saktah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-rose-300 transition-colors">Saktah Studio</h3><p class="text-xs text-slate-300">Mandatory Silent Pauses</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="imalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Imālah Studio</h3><p class="text-xs text-slate-400">Vowel Deflection (Majrehaa)</p></div>
-                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                <a href="imalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-rose-300 transition-colors">Imālah Studio</h3><p class="text-xs text-slate-300">Vowel Deflection (Majrehaa)</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="ishmam-tashil.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
-                    <div><h3 class="font-bold text-white text-sm">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-400">Lip-rounding & Softened Hamzah</p></div>
-                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                <a href="ishmam-tashil.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-rose-300 transition-colors">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-300">Lip-Rounding & Softened Hamzah</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
 
-        <!-- Phase 5: Gamified Practice Studios -->
+        <!-- Step 5: Interactive Practice & Games -->
         <section class="space-y-4">
-            <div class="flex items-center gap-2 text-purple-400 font-bold text-lg px-2 border-b border-purple-500/20 pb-2">
-                <i class="fa-solid fa-gamepad"></i> Phase 5: Gamified Practice & Challenges
+            <div class="flex items-center gap-2 text-purple-300 font-bold text-lg px-2 border-b border-purple-500/30 pb-2">
+                <i class="fa-solid fa-gamepad"></i> Step 5: Putting It All Together (Interactive Practice)
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="spelling-bee.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Spelling Bee</h3><p class="text-xs text-slate-400">Arabic Spelling Challenge</p></div>
-                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
+                <a href="spelling-bee.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-purple-300 transition-colors">Spelling Bee</h3><p class="text-xs text-slate-300">Interactive Spelling Challenge</p></div>
+                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="word-builder.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
-                    <div><h3 class="font-bold text-white text-sm">Word Builder</h3><p class="text-xs text-slate-400">Construct Words & Roots</p></div>
-                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
+                <a href="word-builder.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <div><h3 class="font-bold text-white text-sm group-hover:text-purple-300 transition-colors">Word Builder</h3><p class="text-xs text-slate-300">Construct Words & Roots</p></div>
+                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
         </section>
@@ -187,8 +214,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full max-w-4xl text-center text-slate-500 text-xs mt-12 pb-6 border-t border-slate-800 pt-6">
-        Zahrah’s Interactive Online Classroom &copy; 2026. All 22 modules active.
+    <footer class="w-full max-w-4xl text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10">
+        Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Master App&copy; 2026. All 22 modules linked and active.
     </footer>
 
 </body>
