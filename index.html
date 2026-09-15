@@ -3,408 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah’s Arabic Literacy - Main Menu</title>
-
-    <!-- PWA Meta Tags & Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#16a34a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Zahrah Classroom">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3426/3426653.png">
-
-    <!-- External Libraries -->
+    <title>Zahrah’s Interactive Online Classroom - Tajweed Master App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- AUTO-UNLOCK SCRIPT & PWA REGISTRATION -->
-    <script>
-        // Check URL for ?unlocked=true from Paystack
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('unlocked') === 'true') {
-            localStorage.setItem("zahrah_app_unlocked", "true");
-            // Clean URL parameter without reloading the page
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(() => console.log('Service Worker Registered'))
-                    .catch((err) => console.log('Service Worker Failed:', err));
-            });
-        }
-    </script>
-
     <style>
         :root {
             --bg-dark: #0a111e;
             --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.75);
+            --card-bg: rgba(27, 38, 59, 0.8);
             --accent-gold: #ffb703;
-            --accent-green: #06d6a0;
-            --accent-red: #ef476f;
+            --accent-cyan: #06b6d4;
             --white: #ffffff;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-dark);
-            background-image: 
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l5 15 15 5-15 5-5 15-5-15-15-5 15-5z' fill='%23ffffff' fill-opacity='0.02'/%3E%3C/svg%3E"),
-                var(--bg-gradient);
+            background-image: var(--bg-gradient);
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
         }
-
-        /* HEADER SECTION */
-        header {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 25px;
-        }
-
-        h1 {
-            font-size: 2.3rem;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-            text-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
-            letter-spacing: 0.5px;
-        }
-
-        p.subtitle {
-            color: #cbd5e1;
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-
-        /* SCORE & RESET BAR */
-        .score-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 35px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .total-score-card {
-            background: rgba(255, 183, 3, 0.12);
-            border: 2px solid var(--accent-gold);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 12px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-            box-shadow: 0 0 25px rgba(255, 183, 3, 0.15);
-        }
-
-        .reset-btn {
-            background: rgba(239, 71, 111, 0.12);
-            border: 2px solid var(--accent-red);
-            backdrop-filter: blur(8px);
-            color: var(--accent-red);
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .reset-btn:hover {
-            background: var(--accent-red);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(239, 71, 111, 0.4);
-        }
-
-        /* GAMES GRID */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .game-card {
+        .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 25px 20px;
-            text-decoration: none;
-            color: var(--white);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            transition: all 0.3s ease;
         }
-
-        .game-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 12px 30px rgba(255, 183, 3, 0.2);
+        .glass-card:hover {
+            border-color: rgba(255, 183, 3, 0.4);
+            transform: translateY(-2px);
         }
-
-        .game-number {
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-        }
-
-        .game-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .game-desc {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .game-card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: bold;
-            font-size: 0.95rem;
-            color: var(--accent-gold);
-        }
-
-        .play-btn {
-            background: var(--accent-gold);
-            color: #000;
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-
-        .game-card:hover .play-btn {
-            background: #ffffff;
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
         }
     </style>
 </head>
-<body>
+<body class="p-4 md:p-8 flex flex-col items-center">
 
-    <header>
-        <h1>Zahrah’s Arabic Literacy</h1>
-        <p class="subtitle">Interactive Tajweed &amp; Phonics Learning Hub</p>
+    <!-- Header -->
+    <header class="w-full max-w-4xl text-center space-y-3 mb-10">
+        <div class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
+            Zahrah Interactive Classroom
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-white">Complete Tajweed Curriculum</h1>
+        <p class="text-slate-300 text-sm max-w-xl mx-auto">
+            Structured step-by-step curriculum from absolute beginner letter formation to advanced professional recitations.
+        </p>
     </header>
 
-    <!-- AGGREGATED TOTAL SCORE & RESET ACTION -->
-    <div class="score-bar-container">
-        <div class="total-score-card">
-            <span>⭐ Total Stars Earned:</span>
-            <span id="total-stars">0</span>
-        </div>
-        <button class="reset-btn" onclick="confirmResetProgress()">🔄 Reset Progress</button>
-    </div>
+    <!-- Main Content Container -->
+    <main class="w-full max-w-4xl space-y-10">
 
-    <!-- 8 GAME CARDS GRID -->
-    <div class="games-grid">
-        <a href="letter-lab.html" class="game-card">
-            <div>
-                <div class="game-number">Level 1</div>
-                <div class="game-title">Letter Lab</div>
-                <div class="game-desc">Master Arabic letter shapes, positions, and recognition skills.</div>
+        <!-- Phase 1: Beginners -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 text-cyan-400 font-bold text-lg px-2 border-b border-cyan-500/20 pb-2">
+                <i class="fa-solid fa-seedling"></i> Phase 1: Absolute Beginners (Letters & Vowels)
             </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g1">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="vowel-master.html" class="game-card">
-            <div>
-                <div class="game-number">Level 2</div>
-                <div class="game-title">Vowel Master</div>
-                <div class="game-desc">Identify short vowels (Fatha, Kasra, Damma) and Tanween marks.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g2">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="word-builder.html" class="game-card">
-            <div>
-                <div class="game-number">Level 3</div>
-                <div class="game-title">Word Builder</div>
-                <div class="game-desc">Connect isolated letter forms to build complete Arabic words.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g3">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="spelling-bee.html" class="game-card">
-            <div>
-                <div class="game-number">Level 4</div>
-                <div class="game-title">Spelling Bee</div>
-                <div class="game-desc">Test audio listening skills and construct correct Arabic spellings.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g4">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="madd.html" class="game-card">
-            <div>
-                <div class="game-number">Level 5</div>
-                <div class="game-title">Madd Rules</div>
-                <div class="game-desc">Master natural and long elongation rules (Alif, Waw, Ya).</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g5">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="qalqalah.html" class="game-card">
-            <div>
-                <div class="game-number">Level 6</div>
-                <div class="game-title">Qalqalah Rules</div>
-                <div class="game-desc">Identify echoing mechanism letters (ق , ط , ب , ج , د) in words.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g6">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="noon-sakinah.html" class="game-card">
-            <div>
-                <div class="game-number">Level 7</div>
-                <div class="game-title">Noon Sakinah</div>
-                <div class="game-desc">Practice Izhar, Idgham, Iqlab, and Ikhfa Tajweed rules.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g7">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-
-        <a href="meem-sakinah.html" class="game-card">
-            <div>
-                <div class="game-number">Level 8</div>
-                <div class="game-title">Meem Sakinah</div>
-                <div class="game-desc">Master Ikhfa Shafawi, Idgham Shafawi, and Izhar Shafawi rules.</div>
-            </div>
-            <div class="game-card-footer">
-                <span>Best: <span id="score-g8">0</span> pts</span>
-                <span class="play-btn">Play ➔</span>
-            </div>
-        </a>
-    </div>
-
-    <!-- Lock Screen Modal -->
-    <div id="paywall-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 max-w-md w-full text-center space-y-6 shadow-2xl">
-            <div class="w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-2xl flex items-center justify-center text-2xl mx-auto">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            
-            <div>
-                <h3 class="text-xl font-bold text-white">Unlock Full Classroom Access</h3>
-                <p class="text-xs text-slate-400 mt-2">
-                    Get full access to all interactive modules.
-                </p>
-            </div>
-
-            <div class="space-y-3">
-                <a id="paystack-btn" href="https://paystack.shop/pay/m4xi3vjowu" target="_blank" class="block w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl transition-colors shadow-lg">
-                    <i class="fa-solid fa-credit-card mr-2"></i> Pay Now to Get Access
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="letter-lab.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Letter Lab</h3><p class="text-xs text-slate-400">Letter Recognition & Formation</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
                 </a>
-
-                <div class="text-slate-500 text-xs font-semibold">OR</div>
-
-                <div class="space-y-2">
-                    <input type="text" id="access-code-input" placeholder="Enter Access Key" class="w-full bg-slate-900 border border-slate-700 text-white text-center rounded-xl py-2.5 text-sm uppercase font-mono focus:outline-none focus:border-emerald-500">
-                    <button onclick="verifyAccessKey()" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs rounded-xl">
-                        Unlock App
-                    </button>
-                </div>
-                <p id="paywall-error" class="text-rose-400 text-xs font-semibold hidden">Invalid Key. Try again.</p>
+                <a href="vowel-master.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Vowel Master</h3><p class="text-xs text-slate-400">Short Vowels & Harakat</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                </a>
+                <a href="sun-moon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Sun & Moon Letters</h3><p class="text-xs text-slate-400">Al-Shamsiyyah & Al-Qamariyyah</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                </a>
+                <a href="sukoon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Sukoon Studio</h3><p class="text-xs text-slate-400">Understanding Static Letters</p></div>
+                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs"></i>
+                </a>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <script>
-        const totalGames = 8;
-        const MASTER_KEY = "ZAHRAH2026";
+        <!-- Phase 2: Elementary Tajweed -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-lg px-2 border-b border-emerald-500/20 pb-2">
+                <i class="fa-solid fa-book-open"></i> Phase 2: Elementary Tajweed (Anatomy & Sound)
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="makharij.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Al-Makhaarij Studio</h3><p class="text-xs text-slate-400">Exit Points of Letters</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                </a>
+                <a href="as-sifat.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">As-Sifāt Studio</h3><p class="text-xs text-slate-400">Letter Characteristics (Hams, Shiddah)</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                </a>
+                <a href="tafkheem.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Tafkheem Studio</h3><p class="text-xs text-slate-400">Heavy Letters & Elevation</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                </a>
+                <a href="tarqeeq.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Tarqeeq Studio</h3><p class="text-xs text-slate-400">Light Letters & Thinning</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                </a>
+                <a href="qalqalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
+                    <div><h3 class="font-bold text-white text-sm">Qalqalah Studio</h3><p class="text-xs text-slate-400">Bouncing Echoing Sounds</p></div>
+                    <i class="fa-solid fa-chevron-right text-emerald-400 text-xs"></i>
+                </a>
+            </div>
+        </section>
 
-        function loadTotalScores() {
-            let grandTotal = 0;
-            for (let i = 1; i <= totalGames; i++) {
-                const gameScore = parseInt(localStorage.getItem(`arabic_game_${i}_score`) || '0', 10);
-                const scoreElement = document.getElementById(`score-g${i}`);
-                if (scoreElement) {
-                    scoreElement.innerText = gameScore;
-                }
-                grandTotal += gameScore;
-            }
-            document.getElementById('total-stars').innerText = grandTotal;
-        }
+        <!-- Phase 3: Intermediate Rules -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 text-amber-400 font-bold text-lg px-2 border-b border-amber-500/20 pb-2">
+                <i class="fa-solid fa-layer-group"></i> Phase 3: Intermediate Rules (Blending and Flow Rules)
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="noon-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Noon Sakinah Studio</h3><p class="text-xs text-slate-400">Ithhar, Idgham, Iqlab, Ikhfa</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                </a>
+                <a href="meem-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Meem Sakinah Studio</h3><p class="text-xs text-slate-400">Rules of Static Meem</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                </a>
+                <a href="shaddah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Shaddah Studio</h3><p class="text-xs text-slate-400">Doubled Letters & Emphasis</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                </a>
+                <a href="madd.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Madd Studio</h3><p class="text-xs text-slate-400">Prolongation & Counts</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                </a>
+                <a href="waqf.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
+                    <div><h3 class="font-bold text-white text-sm">Waqf Studio</h3><p class="text-xs text-slate-400">Stopping Rules & Signs</p></div>
+                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs"></i>
+                </a>
+            </div>
+        </section>
 
-        function confirmResetProgress() {
-            const userConfirmed = confirm("Are you sure you want to reset all high scores to zero?");
-            if (userConfirmed) {
-                for (let i = 1; i <= totalGames; i++) {
-                    localStorage.removeItem(`arabic_game_${i}_score`);
-                }
-                loadTotalScores();
-            }
-        }
+        <!-- Phase 4: Advanced Recitations & Special Articulations -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 text-rose-400 font-bold text-lg px-2 border-b border-rose-500/20 pb-2">
+                <i class="fa-solid fa-graduation-cap"></i> Phase 4: Advanced Recitations (Usool & Special Articulations)
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="hamza.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Hamza Studio</h3><p class="text-xs text-slate-400">Glottal Stops & Carrier Rules</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                </a>
+                <a href="nabr.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Nabr Studio</h3><p class="text-xs text-slate-400">Vocal Accents & Pressure</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                </a>
+                <a href="saktah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Saktah Studio</h3><p class="text-xs text-slate-400">Mandatory Silent Pauses</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                </a>
+                <a href="imalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Imālah Studio</h3><p class="text-xs text-slate-400">Vowel Deflection (Majrehaa)</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                </a>
+                <a href="ishmam-tashil.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2">
+                    <div><h3 class="font-bold text-white text-sm">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-400">Lip-rounding & Softened Hamzah</p></div>
+                    <i class="fa-solid fa-chevron-right text-rose-400 text-xs"></i>
+                </a>
+            </div>
+        </section>
 
-        function checkPaywallStatus() {
-            const isUnlocked = localStorage.getItem("zahrah_app_unlocked");
-            const modal = document.getElementById("paywall-modal");
-            if (isUnlocked === "true") {
-                modal.classList.add("hidden");
-            } else {
-                modal.classList.remove("hidden");
-            }
-        }
+        <!-- Phase 5: Gamified Practice Studios -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 text-purple-400 font-bold text-lg px-2 border-b border-purple-500/20 pb-2">
+                <i class="fa-solid fa-gamepad"></i> Phase 5: Gamified Practice & Challenges
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="spelling-bee.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Spelling Bee</h3><p class="text-xs text-slate-400">Arabic Spelling Challenge</p></div>
+                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
+                </a>
+                <a href="word-builder.html" class="glass-card p-5 rounded-2xl flex justify-between items-center">
+                    <div><h3 class="font-bold text-white text-sm">Word Builder</h3><p class="text-xs text-slate-400">Construct Words & Roots</p></div>
+                    <i class="fa-solid fa-chevron-right text-purple-400 text-xs"></i>
+                </a>
+            </div>
+        </section>
 
-        function verifyAccessKey() {
-            const input = document.getElementById("access-code-input").value.trim().toUpperCase();
-            if (input === MASTER_KEY) {
-                localStorage.setItem("zahrah_app_unlocked", "true");
-                document.getElementById("paywall-modal").classList.add("hidden");
-            } else {
-                document.getElementById("paywall-error").classList.remove("hidden");
-            }
-        }
+    </main>
 
-        window.onload = function() {
-            loadTotalScores();
-            checkPaywallStatus();
-        };
-    </script>
+    <!-- Footer -->
+    <footer class="w-full max-w-4xl text-center text-slate-500 text-xs mt-12 pb-6 border-t border-slate-800 pt-6">
+        Zahrah’s Interactive Online Classroom &copy; 2026. All 22 modules active.
+    </footer>
+
 </body>
 </html>
