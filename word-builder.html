@@ -113,22 +113,34 @@
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm text-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Isolated</span>
                     <div class="my-3 font-arabic text-4xl text-slate-800">ب</div>
-                    <p class="text-xs text-slate-500">Standalone Form</p>
+                    <p class="text-xs text-slate-500 mb-3">Standalone Form</p>
+                    <button onclick="playWordAudio('ب')" class="mx-auto bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm text-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Initial</span>
                     <div class="my-3 font-arabic text-4xl text-slate-800">بـ</div>
-                    <p class="text-xs text-slate-500">Starts a Word</p>
+                    <p class="text-xs text-slate-500 mb-3">Starts a Word</p>
+                    <button onclick="playWordAudio('بـ')" class="mx-auto bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm text-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Medial</span>
                     <div class="my-3 font-arabic text-4xl text-slate-800">ـبـ</div>
-                    <p class="text-xs text-slate-500">Connects Both Sides</p>
+                    <p class="text-xs text-slate-500 mb-3">Connects Both Sides</p>
+                    <button onclick="playWordAudio('ـبـ')" class="mx-auto bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm text-center">
                     <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Final</span>
                     <div class="my-3 font-arabic text-4xl text-slate-800">ـب</div>
-                    <p class="text-xs text-slate-500">Ends a Word</p>
+                    <p class="text-xs text-slate-500 mb-3">Ends a Word</p>
+                    <button onclick="playWordAudio('ـب')" class="mx-auto bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
             </div>
 
@@ -141,15 +153,45 @@
                     <h3 class="font-bold text-lg text-slate-900">The 6 Non-Connecting Letters</h3>
                 </div>
                 <p class="text-slate-600 text-sm mb-6">
-                    These six letters connect to the letter <em>before</em> them, but NEVER to the letter <em>after</em> them. Any letter following one of these six must take an initial or isolated shape.
+                    These six letters connect to the letter <em>before</em> them, but NEVER to the letter <em>after</em> them. Any letter following one of these six must take an initial or isolated shape. Click any letter to listen!
                 </p>
                 <div class="grid grid-cols-2 sm:grid-cols-6 gap-3 text-center">
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">ا</div>
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">د</div>
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">ذ</div>
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">ر</div>
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">ز</div>
-                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 font-arabic text-3xl text-slate-800">و</div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">ا</div>
+                        <button onclick="playWordAudio('ا')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">د</div>
+                        <button onclick="playWordAudio('د')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">ذ</div>
+                        <button onclick="playWordAudio('ذ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">ر</div>
+                        <button onclick="playWordAudio('ر')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">ز</div>
+                        <button onclick="playWordAudio('ز')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
+                    <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-100 flex flex-col items-center justify-center">
+                        <div class="font-arabic text-3xl text-slate-800 mb-2">و</div>
+                        <button onclick="playWordAudio('و')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -193,7 +235,7 @@
                         كَتَبَ
                     </div>
                     <p id="transliteration-display" class="text-sm font-semibold text-slate-600 mt-2">Phonetic: "Kataba" — Meaning: He wrote</p>
-                    <button onclick="playWordSound()" class="mt-4 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-bold inline-flex items-center gap-2 shadow-sm transition-colors">
+                    <button onclick="playWordSound()" class="mt-4 px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-xs font-bold inline-flex items-center gap-2 shadow-sm transition-colors cursor-pointer">
                         <i class="fa-solid fa-volume-high"></i> Pronounce Word
                     </button>
                 </div>
@@ -245,7 +287,7 @@
 
                     <!-- Controls -->
                     <div class="flex justify-end">
-                        <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center gap-2">
+                        <button id="next-btn" onclick="nextQuestion()" class="hidden px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center gap-2 cursor-pointer">
                             Next Question <i class="fa-solid fa-arrow-right text-xs"></i>
                         </button>
                     </div>
@@ -259,10 +301,10 @@
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Assessment Completed!</h3>
                     <p class="text-slate-600 text-sm mb-6">You scored <span id="final-score" class="font-bold text-brand-600">0</span> out of 5.</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-3">
-                        <button onclick="resetQuiz()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition-colors">
+                        <button onclick="resetQuiz()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition-colors cursor-pointer">
                             Retake Assessment
                         </button>
-                        <button onclick="markAsCompleted()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2">
+                        <button onclick="markAsCompleted()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2 cursor-pointer">
                             <i class="fa-solid fa-circle-check"></i> Mark Lesson Complete & Return
                         </button>
                     </div>
@@ -285,8 +327,23 @@
         </div>
     </footer>
 
-    <!-- Logic Engine -->
+    <!-- Logic Engine & Audio Integration -->
     <script>
+        // Global Speech Synthesis Helper Function
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
         // Preset Data Engine
         const presets = {
             kataba: {
@@ -360,13 +417,18 @@
             const key = document.getElementById('preset-select').value;
             const data = presets[key];
 
-            // Render Isolated Chips
+            // Render Isolated Chips with Audio Buttons
             const isoContainer = document.getElementById('isolated-display');
             isoContainer.innerHTML = '';
             data.isolated.forEach(char => {
                 const chip = document.createElement('div');
-                chip.className = 'letter-chip w-16 h-16 bg-white border border-slate-200 rounded-xl shadow-sm flex items-center justify-center font-arabic text-3xl font-bold text-slate-800';
-                chip.innerText = char;
+                chip.className = 'letter-chip p-3 bg-white border border-slate-200 rounded-xl shadow-sm flex flex-col items-center justify-center';
+                chip.innerHTML = `
+                    <div class="font-arabic text-3xl font-bold text-slate-800 mb-2">${char}</div>
+                    <button onclick="playWordAudio('${char}')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                `;
                 isoContainer.appendChild(chip);
             });
 
@@ -374,16 +436,21 @@
             document.getElementById('joined-display').innerText = data.joined;
             document.getElementById('transliteration-display').innerText = data.trans;
 
-            // Render Matrix
+            // Render Matrix with Audio Buttons
             const matrixContainer = document.getElementById('matrix-container');
             matrixContainer.innerHTML = '';
             data.matrix.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'p-4 rounded-xl bg-slate-50 border border-slate-200 text-center';
+                card.className = 'p-4 rounded-xl bg-slate-50 border border-slate-200 text-center flex flex-col items-center justify-between';
                 card.innerHTML = `
-                    <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider block">${item.position}</span>
-                    <div class="font-arabic text-3xl text-slate-800 my-2">${item.form}</div>
-                    <span class="text-xs text-slate-500 font-medium">${item.letter}</span>
+                    <div>
+                        <span class="text-xs font-semibold text-brand-600 uppercase tracking-wider block">${item.position}</span>
+                        <div class="font-arabic text-3xl text-slate-800 my-2">${item.form}</div>
+                        <span class="text-xs text-slate-500 font-medium block mb-3">${item.letter}</span>
+                    </div>
+                    <button onclick="playWordAudio('${item.form}')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-700 border border-cyan-500/40 px-3 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 `;
                 matrixContainer.appendChild(card);
             });
@@ -391,8 +458,11 @@
 
         function playWordSound() {
             const key = document.getElementById('preset-select').value;
+            const data = presets[key];
             const toast = document.getElementById('audio-toast');
             const toastText = document.getElementById('toast-text');
+
+            playWordAudio(data.joined);
 
             toastText.innerText = `Pronouncing preset word (${key})...`;
             toast.classList.remove('opacity-0');
@@ -417,7 +487,7 @@
 
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'w-full py-3.5 px-4 rounded-xl border border-slate-200 hover:border-brand-500 bg-white font-arabic text-2xl text-slate-800 transition-all text-center flex items-center justify-between group';
+                btn.className = 'w-full py-3.5 px-4 rounded-xl border border-slate-200 hover:border-brand-500 bg-white font-arabic text-2xl text-slate-800 transition-all text-center flex items-center justify-between group cursor-pointer';
                 btn.innerHTML = `<span></span> <span>${opt}</span> <i class="fa-regular fa-circle text-sm text-slate-300 group-hover:text-brand-500"></i>`;
                 btn.onclick = () => selectAnswer(btn, opt, q.correct);
                 optionsContainer.appendChild(btn);
