@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App</title>
+    <title>Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -64,6 +64,10 @@
             box-shadow: 0 12px 40px 0 rgba(251, 191, 36, 0.15);
             background: rgba(30, 41, 59, 0.9);
         }
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
@@ -71,12 +75,19 @@
     <!-- Header / Branding -->
     <header class="w-full max-w-4xl text-center space-y-3 mb-10 mt-2">
         <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
-          Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App  
+            Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App  
         </div>
         <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Tajweed Curriculum Hub</h1>
         <p class="text-slate-300 text-sm max-w-xl mx-auto font-medium">
             Welcome! Choose a lesson below to journey step-by-step from foundational letters to advanced recitations.
         </p>
+
+        <!-- Global Audio Demo Trigger -->
+        <div class="pt-2 flex justify-center">
+            <button onclick="playWordAudio('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ')" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
+                <i class="fa-solid fa-volume-high text-sm"></i> Test Recitation: <span class="arabic-text text-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+            </button>
+        </div>
     </header>
 
     <!-- Main App Container -->
@@ -215,8 +226,26 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-4xl text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10">
-        Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App&copy; 2026. All 22 modules linked and active.
+        Zahrah's Arabic Literacy & Tajweed Mastery App &copy; 2026. All 22 modules linked and active.
     </footer>
 
+    <!-- Audio Speech Synthesis Script -->
+    <script>
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any stuck or ongoing speech queue
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                
+                // Force speech trigger
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+    </script>
 </body>
 </html>
