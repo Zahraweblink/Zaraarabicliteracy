@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rumūz al-Awwqāf - Zahrah’s Interactive Online Classroom</title>
+    <title>Rumūz al-Awwqāf - Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -283,7 +283,6 @@
 
         function playWordAudio() {
             const current = sessionQuestions[currentIndex];
-            // Remove HTML tags for clean Web Speech API TTS rendering
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(cleanText);
@@ -301,6 +300,9 @@
                 if (score > highScore) {
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
+                // Mark module as completed in localStorage for dashboard tracking
+                localStorage.setItem("arabic_completed_waqf.html", "true");
+
                 alert(`Rumūz al-Awwqāf Module Complete!\nYour Score: ${score}/100 points`);
                 window.location.href = "index.html";
             }
