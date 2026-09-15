@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamzatul Wasl & Qat' Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-blue: #38bdf8;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-sky-500/10 text-sky-400 border border-sky-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Advanced Tajweed Module
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Hamzatul Wasl & Qat' (همزة الوصل والقطع)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master the two types of Hamzah: the <strong>Connecting Hamzah (Wasl)</strong> which drops when continuing, and the <strong>Cutting Hamzah (Qat')</strong> which is always pronounced.
+            </p>
+        </div>
+
+        <!-- Practical Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-sky-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-sky-300 flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> Key Differences at a Glance:
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">همزة القطع (أَ / إِ / أُ)</span>
+                    <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">Hamzatul Qat' (Cutting)</span>
+                    <p class="text-[11px] text-slate-300 mt-2">
+                        <strong>Always pronounced</strong> whether starting or continuing speech. Carries a written Hamzah symbol (ء).
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">همزة الوصل (ٱ)</span>
+                    <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">Hamzatul Wasl (Connecting)</span>
+                    <p class="text-[11px] text-slate-300 mt-2">
+                        <strong>Pronounced only when starting</strong>. Skipped entirely when connecting from a previous word. Carries a small Saad symbol (صـ).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
+                    ٱهْدِنَا
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300">
+                    What type of Hamzah begins this word?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // 20-Exercise Question Bank for Hamzatul Wasl & Qat'
+        const questionBank = [
+            // --- MODE 1: VISUAL IDENTIFICATION ---
+            {
+                word: "ٱهْدِنَا",
+                prompt: "What type of Hamzah begins <strong>ٱهْدِنَا</strong>?",
+                options: ["Hamzatul Wasl (همزة الوصل)", "Hamzatul Qat' (همزة القطع)"],
+                correctIndex: 0
+            },
+            {
+                word: "أَرْسَلْنَا",
+                prompt: "What type of Hamzah begins <strong>أَرْسَلْنَا</strong>?",
+                options: ["Hamzatul Wasl (همزة الوصل)", "Hamzatul Qat' (همزة القطع)"],
+                correctIndex: 1
+            },
+            {
+                word: "ٱلْحَمْدُ",
+                prompt: "Identify the type of Hamzah in <strong>ٱلْحَمْدُ</strong>:",
+                options: ["Hamzatul Wasl (همزة الوصل)", "Hamzatul Qat' (همزة القطع)"],
+                correctIndex: 0
+            },
+            {
+                word: "إِنَّا",
+                prompt: "Identify the type of Hamzah in <strong>إِنَّا</strong>:",
+                options: ["Hamzatul Wasl (همزة الوصل)", "Hamzatul Qat' (همزة القطع)"],
+                correctIndex: 1
+            },
+            {
+                word: "ٱسْمُ",
+                prompt: "What type of Hamzah begins <strong>ٱسْمُ</strong>?",
+                options: ["Hamzatul Wasl (همزة الوصل)", "Hamzatul Qat' (همزة القطع)"],
+                correctIndex: 0
+            },
+
+            // --- MODE 2: READING & CONTINUITY RULES ---
+            {
+                word: "وَٱهْدِنَا",
+                prompt: "How is the Hamzah pronounced when reading <strong>وَ + ٱهْدِنَا = وَٱهْدِنَا</strong> in full sentence flow?",
+                options: ["It is pronounced with Kasra ('Wah-dina')", "It is completely skipped in pronunciation ('Wahdina')"],
+                correctIndex: 1
+            },
+            {
+                word: "وَأَرْسَلْنَا",
+                prompt: "How is the Hamzah pronounced when reading <strong>وَ + أَرْسَلْنَا = وَأَرْسَلْنَا</strong>?",
+                options: ["It is skipped ('Warsalna')", "It is clearly pronounced ('Wa-arsalna')"],
+                correctIndex: 1
+            },
+            {
+                word: "قُلِ ٱدْعُواْ",
+                prompt: "In <strong>قُلِ ٱدْعُواْ</strong>, what happens to <strong>Hamzatul Wasl</strong> during continuous reading?",
+                options: ["It drops out, connecting Li directly to Daal", "It is spoken firmly with a Kasra"],
+                correctIndex: 0
+            },
+            {
+                word: "وَٱلْفَجْرِ",
+                prompt: "How is <strong>وَٱلْفَجْرِ</strong> recited in Tajweed?",
+                options: ["Wal-Fajr (Wasl drops)", "Wa-Al-Fajr (Wasl pronounced)"],
+                correctIndex: 0
+            },
+            {
+                word: "قُلْ أَعُوذُ",
+                prompt: "In <strong>قُلْ أَعُوذُ</strong>, why is the Hamzah in <strong>أَعُوذُ</strong> explicitly pronounced?",
+                options: ["Because it is Hamzatul Qat'", "Because it is Hamzatul Wasl"],
+                correctIndex: 0
+            },
+
+            // --- MODE 3: STARTING VOWEL RULES FOR WASL ---
+            {
+                word: "ٱدْعُ",
+                prompt: "If you <strong>START</strong> reading from <strong>ٱدْعُ</strong>, which vowel is applied to Hamzatul Wasl? <em>(Hint: Check 3rd letter vowel)</em>",
+                options: ["Damma (ُ) because 3rd letter has Damma", "Kasra (ِ) by default", "Fatha (َ)"],
+                correctIndex: 0
+            },
+            {
+                word: "ٱهْدِنَا",
+                prompt: "If you <strong>START</strong> reading from <strong>ٱهْدِنَا</strong>, which vowel is applied? <em>(Hint: 3rd letter has Kasra)</em>",
+                options: ["Kasra (Ihdina)", "Damma (Uhdina)", "Fatha (Ahdina)"],
+                correctIndex: 0
+            },
+            {
+                word: "ٱلْرَّحْمٰنِ",
+                prompt: "When starting any word beginning with <strong>'Al-' (ٱل)</strong>, what vowel is ALWAYS given to Hamzatul Wasl?",
+                options: ["Fatha (َ)", "Kasra (ِ)", "Damma (ُ)"],
+                correctIndex: 0
+            },
+            {
+                word: "ٱرْجِعِي",
+                prompt: "If you START reading from <strong>ٱرْجِعِي</strong>, how do you pronounce the initial Hamzah?",
+                options: ["Irji'ee (with Kasra)", "Urji'ee (with Damma)", "Arji'ee (with Fatha)"],
+                correctIndex: 0
+            },
+            {
+                word: "ٱكْتُبْ",
+                prompt: "If you START reading from <strong>ٱكْتُبْ</strong>, how is the Hamzah voweled?",
+                options: ["Uktub (with Damma)", "Iktub (with Kasra)", "Aktub (with Fatha)"],
+                correctIndex: 0
+            },
+
+            // --- MODE 4: SPOTTING & TAJWEED RECOGNITION ---
+            {
+                word: "ٱقْرَأْ",
+                prompt: "Analyze <strong>ٱقْرَأْ</strong>: How many Hamzahs are in this word, and of what types?",
+                options: [
+                    "Starts with Wasl, ends with Qat'",
+                    "Starts with Qat', ends with Wasl",
+                    "Both are Hamzatul Qat'"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "أُمِرْتُ",
+                prompt: "The initial letter in <strong>أُمِرْتُ</strong> is:",
+                options: ["Hamzatul Qat' (Always pronounced)", "Hamzatul Wasl (Dropped when continuous)"],
+                correctIndex: 0
+            },
+            {
+                word: "ٱبْنُ",
+                prompt: "The word <strong>ٱبْنُ</strong> is one of the special nouns starting with:",
+                options: ["Hamzatul Wasl", "Hamzatul Qat'"],
+                correctIndex: 0
+            },
+            {
+                word: "إِذَا",
+                prompt: "Which statement is TRUE for <strong>إِذَا</strong>?",
+                options: ["It is Hamzatul Qat' and cannot be dropped", "It is Hamzatul Wasl and drops in sentence flow"],
+                correctIndex: 0
+            },
+            {
+                word: "وَٱسْتَغْفِرْهُ",
+                prompt: "When connecting <strong>وَ + ٱسْتَغْفِرْهُ</strong>, what is the correct reading?",
+                options: ["Wastaghfirhu", "Wa-Istaghfirhu"],
+                correctIndex: 0
+            }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_hamza_score";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("target-arabic").innerText = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = current.options.length > 2 
+                ? "grid grid-cols-1 md:grid-cols-3 gap-4" 
+                : "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(current.word);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                if (score > highScore) {
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                }
+                alert(`Hamzatul Wasl & Qat' Studio Complete!\nYour Score: ${score}/100 points`);
+                window.location.href = "index.html";
+            }
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
