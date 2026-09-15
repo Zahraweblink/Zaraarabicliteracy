@@ -72,7 +72,7 @@
                     <span id="score-display" class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-100">
                         <i class="fa-solid fa-trophy mr-1.5"></i> Progress: <span id="quiz-score-val" class="ml-1">0</span>/5
                     </span>
-                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">
+                    <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">
                         <i class="fa-solid fa-house mr-1"></i> Dashboard
                     </a>
                 </div>
@@ -258,14 +258,25 @@
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-2">Assessment Completed!</h3>
                     <p class="text-slate-600 text-sm mb-6">You scored <span id="final-score" class="font-bold text-brand-600">0</span> out of 5.</p>
-                    <button onclick="resetQuiz()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
-                        Retake Assessment
-                    </button>
+                    <div class="flex flex-col sm:flex-row justify-center gap-3">
+                        <button onclick="resetQuiz()" class="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-semibold rounded-lg transition-colors">
+                            Retake Assessment
+                        </button>
+                        <button onclick="markAsCompleted()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> Mark Lesson Complete & Return
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Success Confirmation Banner Toast -->
+    <div id="completion-banner" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white px-6 py-3 rounded-xl shadow-xl text-sm font-medium flex items-center gap-3 opacity-0 pointer-events-none transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-lg"></i>
+        <span>Lesson completed! Returning to dashboard...</span>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
@@ -462,6 +473,20 @@
             document.getElementById('quiz-complete').classList.add('hidden');
             document.getElementById('quiz-container').classList.remove('hidden');
             loadQuestion();
+        }
+
+        // Progress Tracking & Completion Engine
+        function markAsCompleted() {
+            const path = window.location.pathname.split('/').pop() || 'word-builder.html';
+            localStorage.setItem(`arabic_completed_${path}`, 'true');
+
+            const banner = document.getElementById('completion-banner');
+            banner.classList.remove('opacity-0', 'pointer-events-none');
+            banner.classList.add('opacity-100');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1200);
         }
 
         // Initialize Engine
