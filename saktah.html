@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saktah Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-cyan: #06b6d4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Tajweed & Recitation Mechanics
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Saktah Studio (السَّكْتَة)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master <strong>Saktah</strong>: a brief 2-count silent pause on the symbol <strong class="text-cyan-400">(س)</strong> without taking a new breath.
+            </p>
+        </div>
+
+        <!-- Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-wind"></i> Execution Rules of Saktah
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold text-amber-400 block mb-1">2 Counts</span>
+                    <span class="text-xs font-bold text-slate-200">1. Duration</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Hold the sound briefly for approximately 2 counts (the length of a regular Harakah movement).</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold text-rose-400 block mb-1">NO Breath</span>
+                    <span class="text-xs font-bold text-slate-200">2. Airflow</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Do <strong>not</strong> break or replenish your breath during the pause; hold the remaining air.</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-cyan-400 block mb-1">س</span>
+                    <span class="text-xs font-bold text-slate-200">3. Quranic Notation</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Indicated by a small letter <strong>Seen (س)</strong> placed above the word in Hafs 'an 'Aasim.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word / Verse Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    عِوَجًا <span class="text-cyan-400 text-3xl font-sans font-bold">(س)</span> قَيِّمًا
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    In Surah Al-Kahf (18:1–2), how is the pause between <strong>عِوَجًا</strong> and <strong>قَيِّمًا</strong> performed?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const questionBank = [
+            // --- CORE SAKTAH OBLIGATORY SITES (HAFS 'AN 'AASIM) ---
+            {
+                word: "عِوَجً۠ا ۜ قَيِّمً۠ا",
+                prompt: "In Surah Al-Kahf (18:1–2), what is required when reaching the symbol <strong>ۜ (س)</strong> on <strong>عِوَجًا</strong>?",
+                options: ["A 2-count silent pause WITHOUT taking a breath", "A full stop with a complete intake of breath"],
+                correctIndex: 0
+            },
+            {
+                word: "مِن مَّرْقَدِنَا ۜ هَٰذَا",
+                prompt: "In Surah Ya-Sin (36:52), how must you transition from <strong>مَّرْقَدِنَا</strong> to <strong>هَٰذَا</strong>?",
+                options: ["Pause briefly without breathing (Saktah)", "Connect the words continuously without any pause"],
+                correctIndex: 0
+            },
+            {
+                word: "وَقِيلَ مَنْ ۜ رَاقٍ",
+                prompt: "In Surah Al-Qiyamah (75:27), why is Idgham skipped between <strong>مَنْ</strong> and <strong>رَاقٍ</strong>?",
+                options: ["Because Saktah prevents the connection of the two letters", "Because Raa is a heavy letter"],
+                correctIndex: 0
+            },
+            {
+                word: "كَلَّا بَلْ ۜ رَانَ",
+                prompt: "In Surah Al-Mutaffifin (83:14), what happens to the sound at <strong>بَلْ ۜ رَانَ</strong>?",
+                options: ["Brief hold on the Laam without breathing before saying Raa", "Full merge of Laam into Raa"],
+                correctIndex: 0
+            },
+
+            // --- CONCEPTUAL & MECHANICS QUESTIONS ---
+            {
+                word: "السَّكْتَة",
+                prompt: "What distinguishes a <strong>Saktah (سَكْتَة)</strong> from a regular <strong>Waqf (وَقْف)</strong>?",
+                options: ["Saktah holds the sound WITHOUT taking breath; Waqf allows taking breath", "Saktah requires taking a deep breath"],
+                correctIndex: 0
+            },
+            {
+                word: "س",
+                prompt: "Which small symbol in the Mus-haf identifies an mandatory Saktah location?",
+                options: ["Small Seen (س) above the word", "Small Meem (مـ) above the word"],
+                correctIndex: 0
+            },
+            {
+                word: "2 Counts",
+                prompt: "What is the standard duration for holding a Saktah pause?",
+                options: ["Approximately 2 counts (duration of a normal movement)", "6 full counts"],
+                correctIndex: 0
+            },
+            {
+                word: "مَالِيَهْ ۜ هَلَكَ",
+                prompt: "In Surah Al-Haqqah (69:28–29), between <strong>مَالِيَهْ</strong> and <strong>هَلَكَ</strong>, Saktah is:",
+                options: ["Permissible / Optional (one of two valid recitation paths)", "Forbidden"],
+                correctIndex: 0
+            },
+            {
+                word: "السُّكُونُ وَالإِمْسَاك",
+                prompt: "If a reciter takes a breath during a Saktah position, what rule have they mistakenly performed?",
+                options: ["They performed a full Waqf (Stop) instead of Saktah", "They performed Iqlab"],
+                correctIndex: 0
+            },
+            {
+                word: "بَرَاءَةٌ / الأَنْفَال",
+                prompt: "Between the end of Surah Al-Anfal and the start of Surah At-Tawbah, Saktah is:",
+                options: ["One of the 3 valid ways to connect the two Surahs", "Strictly prohibited"],
+                correctIndex: 0
+            }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_saktah_score";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("target-arabic").innerHTML = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                if (score > highScore) {
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                }
+                alert(`Saktah Studio Complete!\nYour Score: ${score}/100 points`);
+                window.location.href = "index.html";
+            }
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
