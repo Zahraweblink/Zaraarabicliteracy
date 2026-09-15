@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ishmām & Tashīl Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-cyan: #06b6d4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Special Tajweed Articulations
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Ishmām & Tashīl Studio (الإِشْمَام وَالتَّسْهِيل)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master <strong>Ishmām</strong> (lip-rounding without sound) and <strong>Tashīl</strong> (softening the second Hamzah) in Hafs 'an 'Aasim.
+            </p>
+        </div>
+
+        <!-- Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-lips"></i> Articulation Rules & Mechanisms
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
+                    <span class="text-2xl font-bold arabic-text text-amber-400 block">الإِشْمَام (Ishmām)</span>
+                    <span class="text-xs font-bold text-cyan-300 block">Surah Yusuf (12:11) - لَا تَأْمَنَّا</span>
+                    <p class="text-xs text-slate-300">
+                        Rounding the lips (as if making a Dammah) during the silent Sukoon of Noon <strong>without uttering any sound</strong>.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
+                    <span class="text-2xl font-bold arabic-text text-emerald-400 block">التَّسْهِيل (Tashīl)</span>
+                    <span class="text-xs font-bold text-cyan-300 block">Surah Fussilat (41:44) - أَ۠عْجَمِيٌّ</span>
+                    <p class="text-xs text-slate-300">
+                        Softening the second Hamzah between a pure Hamzah and an Alif, avoiding a harsh glottal stop sound.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word / Verse Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    مَا لَكَ لَا <span class="text-cyan-400">تَأْمَنَّا</span>
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    In Surah Yusuf (12:11), what physical action accompanies the pronunciation of <strong class="text-cyan-400">تَأْمَنَّا</strong> during Ishmām?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        To calculate the total number of carbon atoms in a molecule with a 4-carbon main chain and a propyl substituent, we sum the parent chain and the substituent:
+
+4 \text{ (parent chain)} + 3 \text{ (propyl group)} = 7 \text{ carbons}
+
+Thus, a molecule with a 4-carbon main chain bearing a propyl group contains 7 carbon atoms in total (an isomer of heptane, such as 4-propylheptane if named systematically based on the longest chain).
