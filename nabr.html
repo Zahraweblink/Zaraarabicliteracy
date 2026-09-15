@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nabr Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-cyan: #06b6d4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Tajweed Phonetics & Accentuation
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Nabr Studio (النَّبْر)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master <strong>Nabr</strong>: applying a subtle acoustic pressure/lift to ensure certain letters are not dropped or slurred during recitation.
+            </p>
+        </div>
+
+        <!-- Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-bolt"></i> Primary Situations Requiring Nabr
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">الصَّاخَّةُ</span>
+                    <span class="text-xs font-bold text-slate-200">1. Madd to Shaddah</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Lifting the voice when transitioning from long Madd (6 counts) into a doubled letter (Madd Laazim).</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-cyan-400 block mb-1">مُسْتَقِرٌّ</span>
+                    <span class="text-xs font-bold text-slate-200">2. Stopping on Shaddah</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Applying pressure when stopping on a doubled letter so the second hidden letter remains audible.</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">ذَاقَا الشَّجَرَةَ</span>
+                    <span class="text-xs font-bold text-slate-200">3. Dropped Alif of Dual</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Lifting the sound on the previous letter when the Alif of dual is dropped due to meeting another Sukoon.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word / Verse Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    فَإِذَا جَاءَتِ <span class="text-cyan-400">الصَّاخَّةُ</span>
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    Why is <strong>Nabr</strong> applied when reciting <strong class="text-cyan-400">الصَّاخَّةُ</strong> in Surah Abasa?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const questionBank = [
+            // --- MADD TO SHADDAH (MADD LAAZIM) ---
+            {
+                word: "فَإِذَا جَاءَتِ الصَّاخَّةُ",
+                prompt: "Why is <strong>Nabr (النَّبْر)</strong> applied during the transition in <strong class="text-cyan-400">الصَّاخَّةُ</strong>?",
+                options: [
+                    "To transition smoothly from 6-count Madd into the heavy doubled letter (Khaa) without losing the sound",
+                    "To shorten the long Madd to 2 counts"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "وَلاَ الضَّالِّينَ",
+                prompt: "In <strong>وَلاَ الضَّالِّينَ</strong>, where precisely does Nabr occur?",
+                options: [
+                    "At the junction when moving from the lengthened Alif into the doubled Laam (لّ)",
+                    "On the final letter Noon at the end of the word"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "الْحَاقَّةُ",
+                prompt: "When reciting <strong>الْحَاقَّةُ</strong>, Nabr ensures that:",
+                options: [
+                    "The doubled Qaaf (قّ) is distinctly emphasized right after the 6-count Madd",
+                    "The Ha (ح) is pronounced with Tafkheem"
+                ],
+                correctIndex: 0
+            },
+
+            // --- STOPPING ON A SHADDAH (WAFQ) ---
+            {
+                word: "فِي الْمَسَدِ ➔ مَسَدٍّ",
+                prompt: "When stopping upon a word that ends in a doubled letter (e.g., <strong>مُسْتَقِرٌّ</strong>), Nabr is required to:",
+                options: [
+                    "Prevent dropping the second silent letter of the Shaddah upon Waqf",
+                    "Perform Iqlab on the last letter"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "الْحَيُّ الْقَيُّومُ",
+                prompt: "If you stop on the word <strong>الْحَيُّ</strong>, how does Nabr safeguard the pronunciation?",
+                options: [
+                    "It creates an acoustic pressure on Ya' (ي) so both parts of the doubled letter remain clear",
+                    "It turns the Ya' into a Madd letter of 6 counts"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "عَدُوٌّ",
+                prompt: "Stopping on <strong>عَدُوٌّ</strong> without applying Nabr causes what recitational error?",
+                options: [
+                    "The word sounds like it ends in a single Waaw rather than a doubled Waaw",
+                    "The letter 'Ayn receives a Madd"
+                ],
+                correctIndex: 0
+            },
+
+            // --- DUAL ALIF DROPPED DUE TO SUKOON ---
+            {
+                word: "فَلَمَّا ذَاقَا الشَّجَرَةَ",
+                prompt: "In <strong>ذَاقَا الشَّجَرَةَ</strong>, the Alif of dual is dropped in recitation due to consecutive Suhoons. Why apply Nabr to <strong>ق</strong>?",
+                options: [
+                    "To indicate to the listener that the verb represents a dual (two people) despite the Alif being dropped in speech",
+                    "To change the vowel of Qaaf to Kasrah"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "وَقَالَا الْحَمْدُ لِلَّهِ",
+                prompt: "When connecting <strong>وَقَالَا</strong> to <strong>الْحَمْدُ</strong>, Nabr on the Laam alerts the listener that:",
+                options: [
+                    "The original word contained a dual Alif (two speakers) before silent meeting",
+                    "The word is a command verb"
+                ],
+                correctIndex: 0
+            },
+
+            // --- HAMZAH AFTER MADD & GENERAL DEFINITIONS ---
+            {
+                word: "السَّمَاءِ / جَاءَ",
+                prompt: "When stopping on a word ending with Madd followed by Hamzah (e.g., <strong>السَّمَاءِ</strong>), Nabr is used to:",
+                options: [
+                    "Ensure the silent glottal stop of Hamzah is clearly heard without being cut off or lost",
+                    "Recite the Hamzah with Ghunnah"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "مَا هُوَ النَّبْرُ؟",
+                prompt: "What is the general phonetic definition of <strong>Nabr</strong> in Tajweed?",
+                options: [
+                    "A sudden, slight acoustic pressure or elevation of voice on a specific letter or syllable",
+                    "Holding a nasal sound for 2 full beats"
+                ],
+                correctIndex: 0
+            }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_nabr_score";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("target-arabic").innerHTML = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                if (score > highScore) {
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                }
+                alert(`Nabr Studio Complete!\nYour Score: ${score}/100 points`);
+                window.location.href = "index.html";
+            }
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
