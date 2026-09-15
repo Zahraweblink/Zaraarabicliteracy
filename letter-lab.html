@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Letter Lab Master Studio - Zahrah Tajweed</title>
+    <title>Letter Lab Master Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     <script>
-  if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
-    window.location.href = "index.html"; // Redirect back to index if not paid
-  }
-</script>
+        if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
+            window.location.href = "index.html"; // Redirect back to index if not paid
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-dark: #0b1120;
@@ -280,7 +281,7 @@
             <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 
             <h2 style="color:var(--accent-emerald); margin-bottom: 8px;">Letter Lab Master Test</h2>
-            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the correct property or letter shown below:</p>
+            <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the correct property or letter classification shown below:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
             <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
@@ -327,36 +328,36 @@
 
     // 30-Question Test Suite
     const testSuite = [
-        { word: "خ", correct: "Heavy", exp: "Khā’ (خ) is one of the 7 Heavy letters (خُصَّ ضَغْطٍ قِظْ)." },
-        { word: "ب", correct: "Lip", exp: "Bā’ (ب) originates from the lips." },
-        { word: "ع", correct: "Throat", exp: "‘Ayn (ع) originates from the middle of the throat." },
-        { word: "ط", correct: "Heavy", exp: "Ṭā’ (ط) is a heavy full-mouth letter." },
-        { word: "د", correct: "NonConnect", exp: "Dāl (د) is one of the 6 non-connecting letters." },
-        { word: "ص", correct: "Heavy", exp: "Ṣād (ص) is a heavy letter with whistle quality." },
-        { word: "م", correct: "Lip", exp: "Mīm (م) is articulated by closing the lips." },
-        { word: "ح", correct: "Throat", exp: "Ḥā’ (ح) originates from the middle of the throat." },
-        { word: "ر", correct: "NonConnect", exp: "Rā’ (ر) connects only to the letter before it, not after." },
-        { word: "ق", correct: "Heavy", exp: "Qāf (ق) is a heavy letter articulated from deepest tongue." },
-        { word: "ف", correct: "Lip", exp: "Fā’ (ف) is articulated using inner lower lip and upper teeth." },
-        { word: "غ", correct: "Heavy", exp: "Ghayn (غ) is a heavy throat letter." },
-        { word: "و", correct: "NonConnect", exp: "Wāw (و) is a non-connecting letter." },
-        { word: "ذ", correct: "NonConnect", exp: "Dhāl (ذ) is a non-connecting letter." },
-        { word: "ض", correct: "Heavy", exp: "Ḍād (ض) is a heavy full-mouth letter." },
-        { word: "هـ", correct: "Throat", exp: "Hā’ (هـ) originates from the deepest throat." },
-        { word: "ز", correct: "NonConnect", exp: "Zāy (ز) is a non-connecting letter." },
-        { word: "ظ", correct: "Heavy", exp: "Ẓā’ (ظ) is a heavy letter articulated with tongue tip." },
-        { word: "أ", correct: "NonConnect", exp: "Alif (أ) is a non-connecting letter." },
-        { word: "خـ", correct: "InitialForm", exp: "This is the initial connecting form of Khā’." },
-        { word: "ـعـ", correct: "MedialForm", exp: "This is the medial form of ‘Ayn." },
-        { word: "ـب", correct: "FinalForm", exp: "This is the final form of Bā’." },
-        { word: "ك", correct: "Light", exp: "Kāf (ك) is a light letter (contrasting heavy Qaf)." },
-        { word: "س", correct: "Light", exp: "Sīn (س) is a light whistle letter." },
-        { word: "جـ", correct: "InitialForm", exp: "This is the initial form of Jīm." },
-        { word: "ت", correct: "Light", exp: "Tā’ (ت) is a light letter." },
-        { word: "ـمـ", correct: "MedialForm", exp: "This is the medial form of Mīm." },
-        { word: "ث", correct: "Light", exp: "Thā’ (ث) is a light letter pronounced with tip of tongue." },
-        { word: "ـف", correct: "FinalForm", exp: "This is the final form of Fā’." },
-        { word: "ي", correct: "Light", exp: "Yā’ (ي) is a light letter." }
+        { word: "خ", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Khā’ (خ) is one of the 7 Heavy letters (خُصَّ ضَغْطٍ قِظْ)." },
+        { word: "ب", correct: "Lip Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Bā’ (ب) originates from the lips." },
+        { word: "ع", correct: "Throat Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "‘Ayn (ع) originates from the middle of the throat." },
+        { word: "ط", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Ṭā’ (ط) is a heavy full-mouth letter." },
+        { word: "د", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Dāl (د) is one of the 6 non-connecting letters." },
+        { word: "ص", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Ṣād (ص) is a heavy letter with whistle quality." },
+        { word: "م", correct: "Lip Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Mīm (م) is articulated by closing the lips." },
+        { word: "ح", correct: "Throat Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Ḥā’ (ح) originates from the middle of the throat." },
+        { word: "ر", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Rā’ (ر) connects only to the letter before it, not after." },
+        { word: "ق", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Qāf (ق) is a heavy letter articulated from deepest tongue." },
+        { word: "ف", correct: "Lip Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Fā’ (ف) is articulated using inner lower lip and upper teeth." },
+        { word: "غ", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Ghayn (غ) is a heavy throat letter." },
+        { word: "و", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Wāw (و) is a non-connecting letter." },
+        { word: "ذ", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Dhāl (ذ) is a non-connecting letter." },
+        { word: "ض", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Ḍād (ض) is a heavy full-mouth letter." },
+        { word: "هـ", correct: "Throat Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Hā’ (هـ) originates from the deepest throat." },
+        { word: "ز", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Zāy (ز) is a non-connecting letter." },
+        { word: "ظ", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Ẓā’ (ظ) is a heavy letter articulated with tongue tip." },
+        { word: "أ", correct: "Non-Connecting Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Alif (أ) is a non-connecting letter." },
+        { word: "خـ", correct: "Initial Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the initial connecting form of Khā’." },
+        { word: "ـعـ", correct: "Medial Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the medial form of ‘Ayn." },
+        { word: "ـب", correct: "Final Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the final form of Bā’." },
+        { word: "ك", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Kāf (ك) is a light letter (contrasting heavy Qaf)." },
+        { word: "س", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Sīn (س) is a light whistle letter." },
+        { word: "جـ", correct: "Initial Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the initial form of Jīm." },
+        { word: "ت", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Tā’ (ت) is a light letter." },
+        { word: "ـمـ", correct: "Medial Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the medial form of Mīm." },
+        { word: "ث", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Thā’ (ث) is a light letter pronounced with tip of tongue." },
+        { word: "ـف", correct: "Final Form", options: ["Initial Form", "Medial Form", "Final Form", "Isolated Form"], exp: "This is the final form of Fā’." },
+        { word: "ي", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Yā’ (ي) is a light letter." }
     ];
 
     const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
@@ -393,6 +394,16 @@
         playAudioFile(item.audio);
     }
 
+    function playAudioFile(filename) {
+        const audio = new Audio(AUDIO_BASE + filename);
+        audio.play().catch(e => console.log("Audio playback error:", e));
+    }
+
+    function playQuestionAudio() {
+        // Fallback generic or matching audio trigger
+        playAudioFile("001001.mp3");
+    }
+
     function showView(view) {
         document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
         document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
@@ -409,7 +420,7 @@
 
     function loadQuestion() {
         if (currentIndex >= testSuite.length) {
-            alert(`🎉 Congratulations! You Completed the Letter Lab Test!\nYour Score: ${score} / ${testSuite.length * 10}`);
+            alert(`🎉 Congratulations! You Completed the Letter Lab Test!\nYour Final Score: ${score} / ${testSuite.length}`);
             currentIndex = 0; score = 0;
             showView('lesson');
             return;
@@ -417,81 +428,53 @@
 
         const item = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
+        document.getElementById('scoreVal').innerText = score;
         document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
         document.getElementById('wordDisplay').innerText = item.word;
-        document.getElementById('feedbackBox').style.display = 'none';
-
-        const choices = [
-            { label: "Heavy Letter (تَفْخِيم)", val: "Heavy" },
-            { label: "Light Letter (تَرْقِيق)", val: "Light" },
-            { label: "Throat Letter (حَلْقِي)", val: "Throat" },
-            { label: "Lip Letter (شَفَوِي)", val: "Lip" },
-            { label: "Non-Connecting Letter", val: "NonConnect" },
-            { label: "Initial Form (بداية)", val: "InitialForm" },
-            { label: "Medial Form (وسط)", val: "MedialForm" },
-            { label: "Final Form (نهاية)", val: "FinalForm" }
-        ];
-
-        // Pick 4 relevant choices including correct
-        const filtered = choices.filter(c => c.val === item.correct || Math.random() > 0.5).slice(0, 4);
-        if (!filtered.some(c => c.val === item.correct)) {
-            filtered[0] = choices.find(c => c.val === item.correct);
-        }
+        
+        const feedbackBox = document.getElementById('feedbackBox');
+        feedbackBox.style.display = 'none';
 
         const container = document.getElementById('choicesContainer');
         container.innerHTML = "";
 
-        filtered.forEach(choice => {
+        // Shuffle options dynamically
+        const shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
+
+        shuffledOptions.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = "action-btn";
-            btn.innerText = choice.label;
-            btn.onclick = () => checkAnswer(choice.val);
+            btn.className = 'action-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(opt, item.correct, item.exp);
             container.appendChild(btn);
         });
     }
 
-    function checkAnswer(selectedVal) {
-        const item = testSuite[currentIndex];
-        const feedback = document.getElementById('feedbackBox');
-        feedback.style.display = 'block';
+    function checkAnswer(selected, correct, explanation) {
+        const feedbackBox = document.getElementById('feedbackBox');
+        feedbackBox.style.display = 'block';
 
-        if (selectedVal === item.correct) {
-            score += 10;
+        const buttons = document.querySelectorAll('#choicesContainer button');
+        buttons.forEach(b => b.disabled = true);
+
+        if (selected === correct) {
+            score++;
             document.getElementById('scoreVal').innerText = score;
-            feedback.style.background = "rgba(16, 185, 129, 0.2)";
-            feedback.style.color = "var(--accent-emerald)";
-            feedback.innerHTML = `✨ Correct! ${item.exp}`;
+            feedbackBox.style.background = 'rgba(16, 185, 129, 0.2)';
+            feedbackBox.style.color = '#34d399';
+            feedbackBox.innerHTML = `✅ Correct! ${explanation}`;
         } else {
-            feedback.style.background = "rgba(244, 63, 94, 0.2)";
-            feedback.style.color = "var(--accent-rose)";
-            feedback.innerHTML = `❌ Incorrect. ${item.exp}`;
+            feedbackBox.style.background = 'rgba(244, 63, 94, 0.2)';
+            feedbackBox.style.color = '#fb7185';
+            feedbackBox.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong>. ${explanation}`;
         }
 
         currentIndex++;
-        setTimeout(loadQuestion, 1600);
+        setTimeout(() => {
+            loadQuestion();
+        }, 2500);
     }
-
-    function playQuestionAudio() {
-        playAudioFile("001001.mp3");
-    }
-
-    function playAudioFile(fileName) {
-        const audio = new Audio(AUDIO_BASE + fileName);
-        audio.play().catch(() => {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.frequency.setValueAtTime(440, ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(220, ctx.currentTime + 0.18);
-            gain.gain.setValueAtTime(0.5, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.18);
-            osc.connect(gain); gain.connect(ctx.destination);
-            osc.start(); osc.stop(ctx.currentTime + 0.18);
-        });
-    }
-
-    // Initialize default letter state
-    selectLetter(0);
 </script>
+
 </body>
 </html>
