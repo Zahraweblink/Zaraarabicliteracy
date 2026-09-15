@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaddah Studio - Zahrah’s Interactive Online Classroom</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-purple: #c084fc;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8 flex flex-col items-center">
+
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-purple-500/10 text-purple-400 border border-purple-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Level 4 Module
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Shaddah Studio (الشَّدَّة)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master the emphasis mark. Shaddah doubles a letter: the first letter holds a silent <strong>Sukoon</strong>, and the second holds the active vowel.
+            </p>
+        </div>
+
+        <!-- Practical Rule Explainer Card -->
+        <div class="glass-card rounded-3xl p-6 border-purple-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-purple-300 flex items-center gap-2">
+                <i class="fa-solid fa-lightbulb"></i> Understanding the Shaddah Formula:
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-3xl font-bold arabic-text text-purple-400 block mb-1">ـَّ</span>
+                    <span class="text-xs font-bold text-slate-200">The Symbol</span>
+                    <p class="text-[11px] text-slate-400 mt-1">A small 'w' shape over a letter showing emphasis.</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-xl font-bold text-emerald-400 block mb-1">1st = ْ | 2nd = َ ِ ُ</span>
+                    <span class="text-xs font-bold text-slate-200">The Secret Math</span>
+                    <p class="text-[11px] text-slate-400 mt-1">Shaddah = [Silent Sukoon] + [Active Vowel].</p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
+                    <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">رَبَّ = رَبْ + بَ</span>
+                    <span class="text-xs font-bold text-slate-200">Example</span>
+                    <p class="text-[11px] text-slate-400 mt-1"><strong>"Rab-ba"</strong> (Pause on B, then speak Ba).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
+                    رَبَّ
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300">
+                    How is this word broken down with <strong>Shaddah Math</strong>?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-purple-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Expanded Exercise Bank for Shaddah Studio (20 Comprehensive Exercises)
+        const questionBank = [
+            // --- MODE 1: SHADDAH BREAKDOWN (MATH STYLE) ---
+            {
+                word: "رَبَّ",
+                prompt: "How is <strong>رَبَّ</strong> broken down in slow motion?",
+                options: ["رَبْ + بَ", "رَبَ + بَ", "رَبْ + بْ"],
+                correctIndex: 0
+            },
+            {
+                word: "حَقَّ",
+                prompt: "How is <strong>حَقَّ</strong> broken down?",
+                options: ["حَقَ + قَ", "حَقْ + قَ", "حَقْ + قُ"],
+                correctIndex: 1
+            },
+            {
+                word: "عَدَّ",
+                prompt: "How is <strong>عَدَّ</strong> broken down?",
+                options: ["عَدْ + دَ", "عَدَ + دَ", "عَدْ + دِ"],
+                correctIndex: 0
+            },
+            {
+                word: "مَدَّ",
+                prompt: "How is <strong>مَدَّ</strong> broken down?",
+                options: ["مَدَ + دَ", "مَدْ + دُ", "مَدْ + دَ"],
+                correctIndex: 2
+            },
+            {
+                word: "وَدَّ",
+                prompt: "How is <strong>وَدَّ</strong> broken down?",
+                options: ["وَدْ + دَ", "وَدَ + دَ", "وَدْ + دِ"],
+                correctIndex: 0
+            },
+
+            // --- MODE 2: SHADDAH WITH KASRA & DAMMA ---
+            {
+                word: "رَبِّ",
+                prompt: "Identify the correct breakdown for <strong>رَبِّ</strong> (with Kasra):",
+                options: ["رَبْ + بَ", "رَبْ + بِّ", "رَبْ + بِ"],
+                correctIndex: 2
+            },
+            {
+                word: "أُمٌّ",
+                prompt: "Identify the correct breakdown for <strong>أُمٌّ</strong>:",
+                options: ["أُمْ + مُنْ", "أُمَ + مٌ", "أُمْ + مْ"],
+                correctIndex: 0
+            },
+            {
+                word: "كُلُّ",
+                prompt: "Identify the correct breakdown for <strong>كُلُّ</strong> (with Damma):",
+                options: ["كُلَ + لُ", "كُلْ + لُ", "كُلْ + لَ"],
+                correctIndex: 1
+            },
+            {
+                word: "ثُمَّ",
+                prompt: "Identify the correct breakdown for <strong>ثُمَّ</strong>:",
+                options: ["ثُمْ + مَ", "ثُمَ + مَ", "ثُمْ + مُ"],
+                correctIndex: 0
+            },
+            {
+                word: "عِزٌّ",
+                prompt: "Identify the correct breakdown for <strong>عِزٌّ</strong>:",
+                options: ["عِزْ + زَنْ", "عِزْ + زٌ", "عِزَ + زٌ"],
+                correctIndex: 1
+            },
+
+            // --- MODE 3: BLENDING TWO LETTERS INTO SHADDAH ---
+            {
+                word: "سَلَّ",
+                prompt: "Combine <strong>سَلْ + لَ</strong> into one word with Shaddah:",
+                options: ["سَلَّ", "سَلَ", "سَلِّ"],
+                correctIndex: 0
+            },
+            {
+                word: "صَدَّ",
+                prompt: "Combine <strong>صَدْ + دَ</strong> into one word with Shaddah:",
+                options: ["صَدَ", "صَدِّ", "صَدَّ"],
+                correctIndex: 2
+            },
+            {
+                word: "قَدَّرَ",
+                prompt: "Combine <strong>قَدْ + دَ + رَ</strong> into one fluent word:",
+                options: ["قَدَرَ", "قَدَّرَ", "قَدْرَ"],
+                correctIndex: 1
+            },
+            {
+                word: "عَلَّمَ",
+                prompt: "Combine <strong>عَلْ + لَ + مَ</strong> into one word:",
+                options: ["عَلَّمَ", "عَلَمَ", "عَلْمَ"],
+                correctIndex: 0
+            },
+            {
+                word: "سَبَّحَ",
+                prompt: "Combine <strong>سَبْ + بَ + حَ</strong> into one word:",
+                options: ["سَبَحَ", "سَبَّحَ", "سَبْحَ"],
+                correctIndex: 1
+            },
+
+            // --- MODE 4: QURANIC SPOTTING & DISTINCTION ---
+            {
+                word: "إِيَّاكَ",
+                prompt: "Where is the <strong>Shaddah</strong> located in <strong>إِيَّاكَ</strong>?",
+                options: ["On Alif (إِ)", "On Ya (يَّ)", "On Kaf (كَ)"],
+                correctIndex: 1
+            },
+            {
+                word: "الرَّحْمٰنِ",
+                prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الرَّحْمٰنِ</strong>?",
+                options: ["Raa (رَّ)", "Lam (ل)", "Ha (حْ)"],
+                correctIndex: 0
+            },
+            {
+                word: "الَّذِينَ",
+                prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الَّذِينَ</strong>?",
+                options: ["Alif (ا)", "Thal (ذِ)", "Lam (لَّ)"],
+                correctIndex: 2
+            },
+            {
+                word: "إِنَّ",
+                prompt: "What happens to the <strong>Noon (نَّ)</strong> when reading <strong>إِنَّ</strong>?",
+                options: ["It is doubled with Gunnah (nasal hold)", "It is skipped entirely", "It is pronounced like a normal N"],
+                correctIndex: 0
+            },
+            {
+                word: "جَنَّةٍ",
+                prompt: "How many letters are doubled by <strong>Shaddah</strong> in <strong>جَنَّةٍ</strong>?",
+                options: ["Jeem (جَ)", "Noon (نَّ)", "Ta Marbouta (ةٍ)"],
+                correctIndex: 1
+            }
+        ];
+
+        let sessionQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_4_score";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
+
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("target-arabic").innerText = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 rounded-2xl text-lg arabic-text transition-all hover:border-amber-400";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 rounded-2xl text-lg arabic-text";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 rounded-2xl text-lg arabic-text";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(current.word);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                if (score > highScore) {
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                }
+                alert(`Level 4 Complete!\nYour Score: ${score}/100 points`);
+                window.location.href = "index.html";
+            }
+        }
+
+        window.onload = function() {
+            initSession();
+        };
+    </script>
+</body>
+</html>
