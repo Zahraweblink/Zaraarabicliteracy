@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vowel Master | Interactive Studio</title>
+    <title>Vowel Master | Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App</title>
+    
+    <!-- Access Control Guard -->
     <script>
-  if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
-    window.location.href = "index.html"; // Redirect back to index if not paid
-  }
-</script>
+        if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
+            window.location.href = "index.html"; // Redirect back to index if not paid
+        }
+    </script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -40,9 +43,27 @@
         }
     </script>
     <style>
+        :root {
+            --bg-deep: #0f172a;
+            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
+            --card-bg: rgba(30, 41, 59, 0.75);
+        }
+        body {
+            background-color: var(--bg-deep);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
         .tab-btn.active {
-            border-bottom-color: #16a34a;
-            color: #16a34a;
+            border-bottom-color: #22c55e;
+            color: #22c55e;
             font-weight: 600;
         }
         .vowel-card {
@@ -51,57 +72,63 @@
         .vowel-card:hover {
             transform: translateY(-2px);
         }
+        @keyframes successPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        .animate-success {
+            animation: successPulse 0.8s ease-in-out;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="text-slate-100 font-sans antialiased min-h-screen flex flex-col p-4 md:p-8">
 
     <!-- Header Navigation -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        <i class="fa-solid fa-microphone-lines"></i>
-                    </div>
-                    <div>
-                        <h1 class="font-bold text-lg text-slate-900 leading-tight">Vowel Master Studio</h1>
-                        <p class="text-xs text-slate-500">Short Vowels (Harakat) & Long Vowels (Madd)</p>
-                    </div>
+    <header class="glass-card max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 rounded-2xl mb-6 sticky top-4 z-30">
+        <div class="flex justify-between h-20 items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-microphone-lines"></i>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <span id="score-display" class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 border border-brand-100">
-                        <i class="fa-solid fa-trophy mr-1.5"></i> Progress: <span id="quiz-score-val" class="ml-1">0</span>/5
-                    </span>
-                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">
-                        <i class="fa-solid fa-house mr-1"></i> Dashboard
-                    </a>
+                <div>
+                    <h1 class="font-bold text-lg text-white leading-tight">Vowel Master Studio</h1>
+                    <p class="text-xs text-slate-400">Short Vowels (Harakat) & Long Vowels (Madd)</p>
                 </div>
             </div>
-            
-            <!-- Studio Tab Switcher -->
-            <div class="flex space-x-8 -mb-px border-t border-slate-100 sm:border-t-0">
-                <button onclick="switchTab('rules')" id="tab-rules" class="tab-btn active py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-book-open"></i> Rules & Explanations
-                </button>
-                <button onclick="switchTab('soundboard')" id="tab-soundboard" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-sliders"></i> Soundboard Studio
-                </button>
-                <button onclick="switchTab('practice')" id="tab-practice" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:text-slate-700 flex items-center gap-2">
-                    <i class="fa-solid fa-vial"></i> Practice Test Engine
-                </button>
+            <div class="flex items-center space-x-4">
+                <span id="score-display" class="hidden sm:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+                    <i class="fa-solid fa-trophy mr-1.5"></i> Progress: <span id="quiz-score-val" class="ml-1">0</span>/5
+                </span>
+                <a href="index.html" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-brand-500 border border-slate-700 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-house text-brand-400"></i> Dashboard Hub
+                </a>
             </div>
+        </div>
+        
+        <!-- Studio Tab Switcher -->
+        <div class="flex space-x-8 -mb-px border-t border-slate-700/60 overflow-x-auto">
+            <button onclick="switchTab('rules')" id="tab-rules" class="tab-btn active py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-book-open"></i> Rules & Explanations
+            </button>
+            <button onclick="switchTab('soundboard')" id="tab-soundboard" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-sliders"></i> Soundboard Studio
+            </button>
+            <button onclick="switchTab('practice')" id="tab-practice" class="tab-btn py-3 px-1 border-b-2 border-transparent text-sm font-medium text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap">
+                <i class="fa-solid fa-vial"></i> Practice Test 
+            </button>
         </div>
     </header>
 
     <!-- Main Content Area -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 space-y-8">
 
         <!-- VIEW 1: RULES & EXPLANATIONS -->
         <section id="view-rules" class="space-y-8">
-            <div class="bg-gradient-to-r from-brand-900 to-slate-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl">
+            <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-700/60 shadow-xl">
                 <div class="max-w-3xl">
                     <span class="px-3 py-1 bg-brand-500/20 text-brand-300 text-xs font-semibold rounded-full border border-brand-500/30">Foundation Module</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-2">Understanding Arabic Vowel Movements</h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold mt-3 mb-2 text-white">Understanding Arabic Vowel Movements</h2>
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
                         In Arabic, letters carry short vowel marks called <strong>Haraakat</strong> which define their basic phonetic output. Extending these short vowels using Madd letters converts them into long vowels.
                     </p>
@@ -111,88 +138,88 @@
             <!-- Rules Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Fathah Card -->
-                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div class="glass-card rounded-xl border border-slate-700/60 p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">1</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-sm border border-emerald-500/30">1</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700">Short Vowel</span>
                         </div>
-                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
-                            <span class="font-arabic text-5xl text-slate-800">َ</span>
+                        <div class="text-center py-4 bg-slate-900/60 rounded-lg mb-4 border border-slate-800">
+                            <span class="font-arabic text-5xl text-white">َ</span>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900">Fathah (فَتْحَة)</h3>
-                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "a" (as in "cat")</p>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <h3 class="font-bold text-lg text-white">Fathah (فَتْحَة)</h3>
+                        <p class="text-xs text-brand-400 font-semibold uppercase tracking-wider mb-2">Sound: "a" (as in "cat")</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">
                             A small diagonal line placed <strong>above</strong> a letter. It requires opening the mouth vertically to produce a short 'a' sound.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                    <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs text-slate-400 flex justify-between items-center">
                         <span>Anatomical Action:</span>
-                        <span class="font-medium text-slate-700">Open Jaw</span>
+                        <span class="font-medium text-slate-200">Open Jaw</span>
                     </div>
                 </div>
 
                 <!-- Kasrah Card -->
-                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div class="glass-card rounded-xl border border-slate-700/60 p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">2</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-sm border border-emerald-500/30">2</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700">Short Vowel</span>
                         </div>
-                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
-                            <span class="font-arabic text-5xl text-slate-800">ِ</span>
+                        <div class="text-center py-4 bg-slate-900/60 rounded-lg mb-4 border border-slate-800">
+                            <span class="font-arabic text-5xl text-white">ِ</span>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900">Kasrah (كَسْرَة)</h3>
-                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "i" (as in "bit")</p>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <h3 class="font-bold text-lg text-white">Kasrah (كَسْرَة)</h3>
+                        <p class="text-xs text-brand-400 font-semibold uppercase tracking-wider mb-2">Sound: "i" (as in "bit")</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">
                             A small diagonal line placed <strong>below</strong> a letter. It requires lowering the bottom jaw slightly to emit a crisp 'i' sound.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                    <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs text-slate-400 flex justify-between items-center">
                         <span>Anatomical Action:</span>
-                        <span class="font-medium text-slate-700">Lower Jaw</span>
+                        <span class="font-medium text-slate-200">Lower Jaw</span>
                     </div>
                 </div>
 
                 <!-- Dammah Card -->
-                <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                <div class="glass-card rounded-xl border border-slate-700/60 p-6 shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm">3</span>
-                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-md text-slate-600">Short Vowel</span>
+                            <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-sm border border-emerald-500/30">3</span>
+                            <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 rounded-md text-slate-300 border border-slate-700">Short Vowel</span>
                         </div>
-                        <div class="text-center py-4 bg-slate-50 rounded-lg mb-4 border border-slate-100">
-                            <span class="font-arabic text-5xl text-slate-800">ُ</span>
+                        <div class="text-center py-4 bg-slate-900/60 rounded-lg mb-4 border border-slate-800">
+                            <span class="font-arabic text-5xl text-white">ُ</span>
                         </div>
-                        <h3 class="font-bold text-lg text-slate-900">Dammah (ضَمَّة)</h3>
-                        <p class="text-xs text-brand-600 font-semibold uppercase tracking-wider mb-2">Sound: "u" (as in "put")</p>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <h3 class="font-bold text-lg text-white">Dammah (ضَمَّة)</h3>
+                        <p class="text-xs text-brand-400 font-semibold uppercase tracking-wider mb-2">Sound: "u" (as in "put")</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">
                             A small apostrophe-like symbol placed <strong>above</strong> a letter. It requires rounding and circling the lips.
                         </p>
                     </div>
-                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 flex justify-between items-center">
+                    <div class="mt-6 pt-4 border-t border-slate-700/60 text-xs text-slate-400 flex justify-between items-center">
                         <span>Anatomical Action:</span>
-                        <span class="font-medium text-slate-700">Circle Lips</span>
+                        <span class="font-medium text-slate-200">Circle Lips</span>
                     </div>
                 </div>
             </div>
 
             <!-- Long Vowels Rule Section -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 mb-2">Long Vowels (Madd Letters)</h3>
-                <p class="text-slate-600 text-sm mb-6">Short vowels become long vowels (2 counts) when combined with their corresponding natural elongation letters:</p>
+            <div class="glass-card rounded-xl border border-slate-700/60 p-6 shadow-sm">
+                <h3 class="font-bold text-lg text-white mb-2">Long Vowels (Madd Letters)</h3>
+                <p class="text-slate-300 text-sm mb-6">Short vowels become long vowels (2 counts) when combined with their corresponding natural elongation letters:</p>
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
-                        <span class="font-arabic text-3xl text-slate-800">ـَ + ا</span>
-                        <p class="text-xs font-bold text-slate-700 mt-2">Fathah + Alif = "aa"</p>
+                    <div class="p-4 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <span class="font-arabic text-3xl text-white">ـَ + ا</span>
+                        <p class="text-xs font-bold text-brand-400 mt-2">Fathah + Alif = "aa"</p>
                     </div>
-                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
-                        <span class="font-arabic text-3xl text-slate-800">ـِ + ي</span>
-                        <p class="text-xs font-bold text-slate-700 mt-2">Kasrah + Ya = "ee"</p>
+                    <div class="p-4 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <span class="font-arabic text-3xl text-white">ـِ + ي</span>
+                        <p class="text-xs font-bold text-brand-400 mt-2">Kasrah + Ya = "ee"</p>
                     </div>
-                    <div class="p-4 rounded-lg bg-emerald-50/50 border border-emerald-100">
-                        <span class="font-arabic text-3xl text-slate-800">ـُ + و</span>
-                        <p class="text-xs font-bold text-slate-700 mt-2">Dammah + Waw = "oo"</p>
+                    <div class="p-4 rounded-lg bg-slate-900/60 border border-slate-800">
+                        <span class="font-arabic text-3xl text-white">ـُ + و</span>
+                        <p class="text-xs font-bold text-brand-400 mt-2">Dammah + Waw = "oo"</p>
                     </div>
                 </div>
             </div>
@@ -200,15 +227,15 @@
 
         <!-- VIEW 2: SOUNDBOARD STUDIO -->
         <section id="view-soundboard" class="hidden space-y-6">
-            <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="glass-card rounded-xl border border-slate-700/60 p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 class="text-xl font-bold text-slate-900">Interactive Phonetic Soundboard</h2>
-                    <p class="text-slate-500 text-sm">Select a base letter and trigger different vowel combinations to hear the changes.</p>
+                    <h2 class="text-xl font-bold text-white">Interactive Phonetic Soundboard</h2>
+                    <p class="text-slate-400 text-sm">Select a base letter and trigger different vowel combinations to hear the changes.</p>
                 </div>
                 <!-- Letter Selector -->
                 <div class="flex items-center space-x-2">
-                    <label class="text-xs font-semibold text-slate-600 uppercase tracking-wider">Base Letter:</label>
-                    <select id="letter-select" onchange="updateSoundboard()" class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 p-2.5 font-arabic text-lg font-bold">
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Base Letter:</label>
+                    <select id="letter-select" onchange="updateSoundboard()" class="bg-slate-900 border border-slate-700 text-white text-sm rounded-lg focus:ring-brand-500 focus:border-brand-500 p-2.5 font-arabic text-lg font-bold">
                         <option value="ب">ب (Ba)</option>
                         <option value="ت">ت (Ta)</option>
                         <option value="م">م (Meem)</option>
@@ -220,132 +247,132 @@
             <!-- Soundboard Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Fathah Tile -->
-                <div onclick="playSound('Fathah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Fathah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-fathah" class="font-arabic text-6xl text-slate-800">بَ</span>
+                        <span id="display-fathah" class="font-arabic text-6xl text-white">بَ</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Fathah</h4>
-                        <p id="trans-fathah" class="text-xs text-slate-500 mt-1">Phonetic: "Ba"</p>
+                        <h4 class="font-bold text-white">Fathah</h4>
+                        <p id="trans-fathah" class="text-xs text-slate-400 mt-1">Phonetic: "Ba"</p>
                     </div>
                 </div>
 
                 <!-- Kasrah Tile -->
-                <div onclick="playSound('Kasrah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Kasrah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-kasrah" class="font-arabic text-6xl text-slate-800">بِ</span>
+                        <span id="display-kasrah" class="font-arabic text-6xl text-white">بِ</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Kasrah</h4>
-                        <p id="trans-kasrah" class="text-xs text-slate-500 mt-1">Phonetic: "Bi"</p>
+                        <h4 class="font-bold text-white">Kasrah</h4>
+                        <p id="trans-kasrah" class="text-xs text-slate-400 mt-1">Phonetic: "Bi"</p>
                     </div>
                 </div>
 
                 <!-- Dammah Tile -->
-                <div onclick="playSound('Dammah')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Dammah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-50 text-emerald-700 rounded">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-dammah" class="font-arabic text-6xl text-slate-800">بُ</span>
+                        <span id="display-dammah" class="font-arabic text-6xl text-white">بُ</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Dammah</h4>
-                        <p id="trans-dammah" class="text-xs text-slate-500 mt-1">Phonetic: "Bu"</p>
+                        <h4 class="font-bold text-white">Dammah</h4>
+                        <p id="trans-dammah" class="text-xs text-slate-400 mt-1">Phonetic: "Bu"</p>
                     </div>
                 </div>
 
                 <!-- Madd Alif Tile -->
-                <div onclick="playSound('Madd Alif')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Madd Alif')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-madd-alif" class="font-arabic text-6xl text-slate-800">با</span>
+                        <span id="display-madd-alif" class="font-arabic text-6xl text-white">با</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Fathah + Alif</h4>
-                        <p id="trans-madd-alif" class="text-xs text-slate-500 mt-1">Phonetic: "Baa"</p>
+                        <h4 class="font-bold text-white">Fathah + Alif</h4>
+                        <p id="trans-madd-alif" class="text-xs text-slate-400 mt-1">Phonetic: "Baa"</p>
                     </div>
                 </div>
 
                 <!-- Madd Ya Tile -->
-                <div onclick="playSound('Madd Ya')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Madd Ya')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-madd-ya" class="font-arabic text-6xl text-slate-800">بي</span>
+                        <span id="display-madd-ya" class="font-arabic text-6xl text-white">بي</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Kasrah + Ya</h4>
-                        <p id="trans-madd-ya" class="text-xs text-slate-500 mt-1">Phonetic: "Bee"</p>
+                        <h4 class="font-bold text-white">Kasrah + Ya</h4>
+                        <p id="trans-madd-ya" class="text-xs text-slate-400 mt-1">Phonetic: "Bee"</p>
                     </div>
                 </div>
 
                 <!-- Madd Waw Tile -->
-                <div onclick="playSound('Madd Waw')" class="vowel-card bg-white border border-slate-200 rounded-xl p-6 shadow-sm hover:shadow-md hover:border-brand-500 cursor-pointer group">
+                <div onclick="playSound('Madd Waw')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
                     <div class="flex justify-between items-start">
-                        <span class="text-xs font-semibold px-2 py-1 bg-blue-50 text-blue-700 rounded">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-600 group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                        <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
+                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
                             <i class="fa-solid fa-volume-high text-xs"></i>
                         </button>
                     </div>
                     <div class="text-center my-6">
-                        <span id="display-madd-waw" class="font-arabic text-6xl text-slate-800">بو</span>
+                        <span id="display-madd-waw" class="font-arabic text-6xl text-white">بو</span>
                     </div>
                     <div class="text-center">
-                        <h4 class="font-bold text-slate-800">Dammah + Waw</h4>
-                        <p id="trans-madd-waw" class="text-xs text-slate-500 mt-1">Phonetic: "Boo"</p>
+                        <h4 class="font-bold text-white">Dammah + Waw</h4>
+                        <p id="trans-madd-waw" class="text-xs text-slate-400 mt-1">Phonetic: "Boo"</p>
                     </div>
                 </div>
             </div>
 
             <!-- Simulated Audio Feedback Toast -->
-            <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
-                <i class="fa-solid fa-circle-play text-brand-500 text-base"></i>
+            <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
+                <i class="fa-solid fa-circle-play text-brand-400 text-base"></i>
                 <span id="toast-text">Playing Audio...</span>
             </div>
         </section>
 
         <!-- VIEW 3: PRACTICE TEST ENGINE -->
         <section id="view-practice" class="hidden max-w-2xl mx-auto space-y-6">
-            <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm">
+            <div class="glass-card rounded-2xl border border-slate-700/60 p-6 sm:p-8 shadow-sm">
                 <!-- Quiz Header -->
-                <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-700/60">
                     <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Assessment Engine</span>
-                        <h2 class="text-lg font-bold text-slate-900">Vowel Identification Test</h2>
+                        <span class="text-xs font-bold text-brand-400 uppercase tracking-wider">Assessment Engine</span>
+                        <h2 class="text-lg font-bold text-white">Vowel Identification Test</h2>
                     </div>
-                    <span id="question-count" class="text-xs font-medium bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Question 1 of 5</span>
+                    <span id="question-count" class="text-xs font-medium bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">Question 1 of 5</span>
                 </div>
 
                 <!-- Question Area -->
                 <div id="quiz-container">
                     <div class="text-center my-8">
-                        <p class="text-xs text-slate-500 mb-2">Identify the primary vowel mark on this letter:</p>
-                        <div id="quiz-symbol" class="font-arabic text-7xl text-slate-800 py-6 bg-slate-50 rounded-xl border border-slate-100 inline-block px-12 shadow-inner">
+                        <p class="text-xs text-slate-400 mb-2">Identify the primary vowel mark on this letter:</p>
+                        <div id="quiz-symbol" class="font-arabic text-7xl text-white py-6 bg-slate-900/60 rounded-xl border border-slate-800 inline-block px-12 shadow-inner">
                             كُ
                         </div>
                     </div>
@@ -367,15 +394,24 @@
                 </div>
 
                 <!-- Completion Screen (Hidden by default) -->
-                <div id="quiz-complete" class="hidden text-center py-8">
-                    <div class="w-16 h-16 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
+                <div id="quiz-complete" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 bg-brand-500/20 text-brand-400 border border-brand-500/30 rounded-full flex items-center justify-center text-2xl mx-auto mb-4">
                         <i class="fa-solid fa-award"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Assessment Completed!</h3>
-                    <p class="text-slate-600 text-sm mb-6">You scored <span id="final-score" class="font-bold text-brand-600">0</span> out of 5.</p>
-                    <button onclick="resetQuiz()" class="px-6 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors">
-                        Retake Assessment
-                    </button>
+                    <h3 class="text-xl font-bold text-white">Assessment Completed!</h3>
+                    <p class="text-slate-300 text-sm">You scored <span id="final-score" class="font-bold text-brand-400">0</span> out of 5.</p>
+                    
+                    <!-- Completion Sync Trigger Button -->
+                    <div class="pt-4">
+                        <button onclick="markAsCompleted()" class="px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer">
+                            <i class="fa-solid fa-check-circle mr-2"></i> Save Progress & Return to Dashboard Hub
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Notification Banner (Hidden initially) -->
+                <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2 mt-4">
+                    <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
                 </div>
             </div>
         </section>
@@ -383,9 +419,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
-            &copy; 2026 Zahrah Interactive Online Classroom. All rights reserved.
+    <footer class="glass-card max-w-7xl w-full mx-auto rounded-2xl py-6 mt-12 border border-slate-700/60">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
+            Zahrah’s Interactive Classroom &copy; 2026. All rights reserved. Zahrah's Interactive Online Classroom.
         </div>
     </footer>
 
@@ -472,8 +508,8 @@
 
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'w-full py-3 px-4 rounded-xl border border-slate-200 hover:border-brand-500 bg-white font-medium text-slate-700 text-sm transition-all text-left flex items-center justify-between group';
-                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-300 group-hover:text-brand-500"></i>`;
+                btn.className = 'w-full py-3 px-4 rounded-xl border border-slate-700 hover:border-brand-500 bg-slate-900/60 font-medium text-slate-200 text-sm transition-all text-left flex items-center justify-between group';
+                btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-500 group-hover:text-brand-400"></i>`;
                 btn.onclick = () => selectAnswer(btn, opt, q.correct);
                 optionsContainer.appendChild(btn);
             });
@@ -492,14 +528,14 @@
             if (selectedOption === correctOption) {
                 score++;
                 document.getElementById('quiz-score-val').innerText = score;
-                selectedBtn.classList.remove('border-slate-200', 'opacity-60');
-                selectedBtn.classList.add('border-emerald-500', 'bg-emerald-50', 'text-emerald-800');
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-50 text-emerald-800 border border-emerald-200';
+                selectedBtn.classList.remove('border-slate-700', 'opacity-60');
+                selectedBtn.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-200');
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
                 feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent recognition.';
             } else {
-                selectedBtn.classList.remove('border-slate-200', 'opacity-60');
-                selectedBtn.classList.add('border-rose-500', 'bg-rose-50', 'text-rose-800');
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-50 text-rose-800 border border-rose-200';
+                selectedBtn.classList.remove('border-slate-700', 'opacity-60');
+                selectedBtn.classList.add('border-rose-500', 'bg-rose-500/20', 'text-rose-200');
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/20 text-rose-300 border border-rose-500/30';
                 feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. The correct answer was <strong>${correctOption}</strong>.`;
             }
 
@@ -528,6 +564,21 @@
             document.getElementById('quiz-complete').classList.add('hidden');
             document.getElementById('quiz-container').classList.remove('hidden');
             loadQuestion();
+        }
+
+        // Automatic Completion Sync Back to Dashboard Hub
+        function markAsCompleted() {
+            const pathParts = window.location.pathname.split('/');
+            const currentFileName = pathParts[pathParts.length - 1] || 'vowel-master.html';
+
+            localStorage.setItem('arabic_completed_' + currentFileName, 'true');
+
+            const banner = document.getElementById('success-banner');
+            banner.classList.remove('hidden');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
         }
 
         // Initialize Engine
