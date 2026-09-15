@@ -72,14 +72,6 @@
         .vowel-card:hover {
             transform: translateY(-2px);
         }
-        @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
-        .animate-success {
-            animation: successPulse 0.8s ease-in-out;
-        }
     </style>
 </head>
 <body class="text-slate-100 font-sans antialiased min-h-screen flex flex-col p-4 md:p-8">
@@ -247,11 +239,11 @@
             <!-- Soundboard Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Fathah Tile -->
-                <div onclick="playSound('Fathah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-fathah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-fathah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -264,11 +256,11 @@
                 </div>
 
                 <!-- Kasrah Tile -->
-                <div onclick="playSound('Kasrah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-kasrah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-kasrah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -281,11 +273,11 @@
                 </div>
 
                 <!-- Dammah Tile -->
-                <div onclick="playSound('Dammah')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-dammah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-dammah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -298,11 +290,11 @@
                 </div>
 
                 <!-- Madd Alif Tile -->
-                <div onclick="playSound('Madd Alif')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-madd-alif" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-madd-alif').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -315,11 +307,11 @@
                 </div>
 
                 <!-- Madd Ya Tile -->
-                <div onclick="playSound('Madd Ya')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-madd-ya" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-madd-ya').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -332,11 +324,11 @@
                 </div>
 
                 <!-- Madd Waw Tile -->
-                <div onclick="playSound('Madd Waw')" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 cursor-pointer group">
+                <div id="tile-madd-waw" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button class="w-8 h-8 rounded-full bg-slate-800 group-hover:bg-brand-600 group-hover:text-white text-slate-300 flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-volume-high text-xs"></i>
+                        <button onclick="playWordAudio(document.getElementById('display-madd-waw').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                     <div class="text-center my-6">
@@ -347,12 +339,6 @@
                         <p id="trans-madd-waw" class="text-xs text-slate-400 mt-1">Phonetic: "Boo"</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Simulated Audio Feedback Toast -->
-            <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50">
-                <i class="fa-solid fa-circle-play text-brand-400 text-base"></i>
-                <span id="toast-text">Playing Audio...</span>
             </div>
         </section>
 
@@ -425,8 +411,23 @@
         </div>
     </footer>
 
-    <!-- Logic Engine -->
+    <!-- Logic Engine & Pronunciation API -->
     <script>
+        // Web Speech API Pronunciation Engine
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
         // Data structure for Soundboard combinations
         const soundboardData = {
             'ب': { fathah: 'بَ', kasrah: 'بِ', dammah: 'بُ', mAlif: 'با', mYa: 'بي', mWaw: 'بو', name: 'Ba' },
@@ -447,7 +448,6 @@
         let currentQuestionIdx = 0;
         let score = 0;
 
-        // View Switcher Functionality
         function switchTab(tabName) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`tab-${tabName}`).classList.add('active');
@@ -457,9 +457,12 @@
             document.getElementById('view-practice').classList.add('hidden');
 
             document.getElementById(`view-${tabName}`).classList.remove('hidden');
+
+            if (tabName === 'practice' && currentQuestionIdx === 0 && score === 0) {
+                loadQuestion();
+            }
         }
 
-        // Soundboard Update
         function updateSoundboard() {
             const letter = document.getElementById('letter-select').value;
             const data = soundboardData[letter];
@@ -479,21 +482,6 @@
             document.getElementById('trans-madd-waw').innerText = `Phonetic: "${data.name}oo"`;
         }
 
-        // Simulated Audio Trigger
-        function playSound(type) {
-            const letter = document.getElementById('letter-select').value;
-            const toast = document.getElementById('audio-toast');
-            const toastText = document.getElementById('toast-text');
-
-            toastText.innerText = `Playing ${type} sound for (${letter})...`;
-            toast.classList.remove('opacity-0');
-            
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-            }, 1800);
-        }
-
-        // Quiz Engine Functions
         function loadQuestion() {
             const q = questions[currentQuestionIdx];
             document.getElementById('question-count').innerText = `Question ${currentQuestionIdx + 1} of ${questions.length}`;
@@ -528,62 +516,58 @@
             if (selectedOption === correctOption) {
                 score++;
                 document.getElementById('quiz-score-val').innerText = score;
-                selectedBtn.classList.remove('border-slate-700', 'opacity-60');
-                selectedBtn.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-200');
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
-                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent recognition.';
+                selectedBtn.classList.remove('border-slate-700', 'bg-slate-900/60', 'opacity-60');
+                selectedBtn.classList.add('border-emerald-500', 'bg-emerald-500/20', 'text-emerald-300', 'opacity-100');
+                selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+                
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300';
+                feedback.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Correct! Excellent recognition.';
             } else {
-                selectedBtn.classList.remove('border-slate-700', 'opacity-60');
-                selectedBtn.classList.add('border-rose-500', 'bg-rose-500/20', 'text-rose-200');
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/20 text-rose-300 border border-rose-500/30';
-                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. The correct answer was <strong>${correctOption}</strong>.`;
+                selectedBtn.classList.remove('border-slate-700', 'bg-slate-900/60', 'opacity-60');
+                selectedBtn.classList.add('border-rose-500', 'bg-rose-500/20', 'text-rose-300', 'opacity-100');
+                selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-400';
+
+                for (let btn of options) {
+                    if (btn.querySelector('span').innerText === correctOption) {
+                        btn.classList.remove('opacity-60');
+                        btn.classList.add('border-emerald-500/50', 'bg-emerald-500/10', 'opacity-100');
+                    }
+                }
+
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/15 border border-rose-500/30 text-rose-300';
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Incorrect. The correct answer is <strong>${correctOption}</strong>.`;
             }
 
-            document.getElementById('next-btn').classList.remove('hidden');
+            if (currentQuestionIdx < questions.length - 1) {
+                document.getElementById('next-btn').classList.remove('hidden');
+            } else {
+                setTimeout(() => {
+                    document.getElementById('quiz-container').classList.add('hidden');
+                    document.getElementById('quiz-complete').classList.remove('hidden');
+                    document.getElementById('final-score').innerText = score;
+                }, 1000);
+            }
         }
 
         function nextQuestion() {
             currentQuestionIdx++;
-            if (currentQuestionIdx < questions.length) {
-                loadQuestion();
-            } else {
-                showCompletion();
-            }
-        }
-
-        function showCompletion() {
-            document.getElementById('quiz-container').classList.add('hidden');
-            document.getElementById('quiz-complete').classList.remove('hidden');
-            document.getElementById('final-score').innerText = score;
-        }
-
-        function resetQuiz() {
-            currentQuestionIdx = 0;
-            score = 0;
-            document.getElementById('quiz-score-val').innerText = '0';
-            document.getElementById('quiz-complete').classList.add('hidden');
-            document.getElementById('quiz-container').classList.remove('hidden');
             loadQuestion();
         }
 
-        // Automatic Completion Sync Back to Dashboard Hub
         function markAsCompleted() {
-            const pathParts = window.location.pathname.split('/');
-            const currentFileName = pathParts[pathParts.length - 1] || 'vowel-master.html';
+            localStorage.setItem('vowel_master_completed', 'true');
+            localStorage.setItem('vowel_master_score', score);
 
-            localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
-            const banner = document.getElementById('success-banner');
-            banner.classList.remove('hidden');
+            document.getElementById('success-banner').classList.remove('hidden');
+            document.getElementById('quiz-complete').classList.add('opacity-50');
 
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 1500);
         }
 
-        // Initialize Engine
         window.onload = () => {
-            loadQuestion();
+            updateSoundboard();
         };
     </script>
 </body>
