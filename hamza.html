@@ -82,7 +82,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span id="explainer-qat" class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَرْسَلْنَا</span>
+                        <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَرْسَلْنَا</span>
                         <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">Hamzatul Qat' (Cutting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>Always pronounced</strong> whether starting or continuing speech. Carries a written Hamzah symbol (ء).
@@ -96,7 +96,7 @@
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span id="explainer-wasl" class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">ٱهْدِنَا</span>
+                        <span class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">ٱهْدِنَا</span>
                         <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">Hamzatul Wasl (Connecting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>Pronounced only when starting</strong>. Skipped entirely when connecting from a previous word. Carries a small Saad symbol (صـ).
@@ -112,10 +112,10 @@
         </div>
 
         <!-- Interactive Practice Arena -->
-        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 2</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
@@ -145,35 +145,47 @@
             </div>
         </div>
 
+        <!-- Quiz Complete View -->
+        <div id="quiz-complete" class="hidden glass-card rounded-3xl p-8 text-center space-y-4">
+            <h4 class="text-2xl font-bold text-amber-400">Great Job! 🎉</h4>
+            <p class="text-slate-300">You scored <span id="final-score" class="font-bold text-amber-400">0</span> points on this module.</p>
+            <div class="flex justify-center gap-3 pt-2">
+                <button onclick="resetQuiz()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-5 py-2.5 rounded-xl text-xs transition">Retake Module</button>
+                <a href="index.html" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition inline-flex items-center">Return to Dashboard</a>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
     <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
         Zahrah’s Interactive Classroom &copy; 2026. Arabic Literacy & Tajweed Master App.
     </footer>
+
 <script>
     let currentQuestionIdx = 0;
     let score = 0;
     let arabicVoice = null;
+    let answeredCurrent = false;
 
     const quizData = [
         {
-            question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha?",
-            options: ["The Lowest Throat (Aqsa al-Halq)", "The Tip of the Tongue", "The Nasal Passage", "The Two Lips"],
+            word: "ٱهْدِنَا",
+            prompt: "What type of Hamzah begins this word?",
+            options: ["Hamzatul Wasl (Connecting)", "Hamzatul Qat' (Cutting)"],
             correct: 0
         },
         {
-            question: "Which of the following is considered a Qalqalah (echoing) letter when it carries a Sukun?",
-            options: ["س (Sin)", "ط (Ta)", "م (Meem)", "ل (Lam)"],
+            word: "أَرْسَلْنَا",
+            prompt: "What type of Hamzah begins this word?",
+            options: ["Hamzatul Wasl (Connecting)", "Hamzatul Qat' (Cutting)"],
             correct: 1
         }
     ];
 
-    // Preload voices so the browser doesn't choke on first click
     function loadVoices() {
         if ('speechSynthesis' in window) {
             const voices = window.speechSynthesis.getVoices();
-            // Look for an Arabic voice, fallback to any available voice if needed
             arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
         }
     }
@@ -182,45 +194,21 @@
         window.speechSynthesis.onvoiceschanged = loadVoices;
     }
 
-    function loadPreset() {
-        document.getElementById('output-board').innerText = "بَكْر";
+    function speakSpecificText(textToSpeak) {
+        if ('speechSynthesis' in window && textToSpeak) {
+            window.speechSynthesis.cancel();
+            loadVoices();
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            if (arabicVoice) utterance.voice = arabicVoice;
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.85;
+            window.speechSynthesis.speak(utterance);
+        }
     }
 
     function speakWord() {
         const text = document.getElementById('output-board')?.innerText;
-        
-        if (!text || text.trim() === "") {
-            alert("Board is empty!");
-            return;
-        }
-
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            
-            // Apply loaded voice if available
-            loadVoices();
-            if (arabicVoice) {
-                utterance.voice = arabicVoice;
-            }
-            
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.85; 
-
-            utterance.onerror = (e) => {
-                console.error("Speech synthesis error:", e);
-                alert("Audio output blocked by system settings or missing voice pack.");
-            };
-
-            window.speechSynthesis.speak(utterance);
-        } else {
-            alert("Text-to-speech is not supported on this browser.");
-        }
-    }
-
-    function clearBoard() {
-        document.getElementById('output-board').innerText = "";
+        speakSpecificText(text);
     }
 
     function loadQuestion() {
@@ -231,25 +219,62 @@
             return;
         }
 
+        answeredCurrent = false;
         const q = quizData[currentQuestionIdx];
-        document.getElementById('question-text').innerText = q.question;
+        
+        document.getElementById('question-num').innerText = currentQuestionIdx + 1;
+        document.getElementById('output-board').innerText = q.word;
+        document.getElementById('target-prompt').innerText = q.prompt;
+        
+        const feedbackBadge = document.getElementById('feedback-badge');
+        feedbackBadge.classList.add('hidden');
+        feedbackBadge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.disabled = true;
+        nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
 
         q.options.forEach((opt, idx) => {
             const btn = document.createElement('button');
-            btn.className = "p-3 text-left border border-slate-200 rounded-lg hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700";
+            btn.className = "p-4 text-center border border-slate-700 bg-slate-900/60 rounded-xl hover:bg-slate-800 hover:border-amber-500/50 transition text-sm font-semibold text-slate-200 cursor-pointer";
             btn.innerText = opt;
-            btn.onclick = () => checkAnswer(idx, q.correct);
+            btn.onclick = () => checkAnswer(idx, q.correct, btn);
             optionsContainer.appendChild(btn);
         });
     }
 
-    function checkAnswer(selected, correct) {
+    function checkAnswer(selected, correct, selectedBtn) {
+        if (answeredCurrent) return;
+        answeredCurrent = true;
+
+        const allButtons = document.getElementById('options-container').querySelectorAll('button');
+        allButtons.forEach(b => b.disabled = true);
+
+        const feedbackBadge = document.getElementById('feedback-badge');
+        feedbackBadge.classList.remove('hidden');
+
         if (selected === correct) {
             score += 10;
-            document.getElementById('quiz-score-val').innerText = score;
+            document.getElementById('current-score').innerText = score;
+            selectedBtn.className = "p-4 text-center border border-emerald-500 bg-emerald-500/20 rounded-xl text-sm font-semibold text-emerald-300 animate-success";
+            feedbackBadge.innerText = "Correct! 🎉";
+            feedbackBadge.className = "px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold";
+        } else {
+            selectedBtn.className = "p-4 text-center border border-rose-500 bg-rose-500/20 rounded-xl text-sm font-semibold text-rose-300";
+            allButtons[correct].className = "p-4 text-center border border-emerald-500 bg-emerald-500/20 rounded-xl text-sm font-semibold text-emerald-300";
+            feedbackBadge.innerText = "Incorrect";
+            feedbackBadge.className = "px-2.5 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold";
         }
+
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.disabled = false;
+        nextBtn.className = "bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer shadow-lg";
+    }
+
+    function nextQuestion() {
         currentQuestionIdx++;
         loadQuestion();
     }
@@ -257,26 +282,14 @@
     function resetQuiz() {
         currentQuestionIdx = 0;
         score = 0;
-        document.getElementById('quiz-score-val').innerText = score;
+        document.getElementById('current-score').innerText = score;
         document.getElementById('quiz-complete').classList.add('hidden');
         document.getElementById('quiz-container').classList.remove('hidden');
         loadQuestion();
     }
 
-    function markAsCompleted() {
-        localStorage.setItem("word_builder_completed", "true");
-        
-        const banner = document.getElementById('completion-banner');
-        banner.classList.remove('opacity-0', 'pointer-events-none');
-        
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1500);
-    }
-
     window.onload = function() {
         loadVoices();
-        loadPreset();
         loadQuestion();
     };
 </script>
