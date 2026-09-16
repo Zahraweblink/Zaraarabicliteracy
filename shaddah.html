@@ -81,9 +81,15 @@
 
         <!-- Practical Rule Explainer Card -->
         <div class="glass-card rounded-3xl p-6 border-purple-500/30 space-y-4">
-            <h2 class="text-lg font-bold text-purple-300 flex items-center gap-2">
-                <i class="fa-solid fa-lightbulb"></i> Understanding Shaddah:
-            </h2>
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-bold text-purple-300 flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb"></i> Understanding Shaddah:
+                </h2>
+                <!-- Audio Button Template integration example -->
+                <button onclick="playWordAudio('رَبَّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen (رَبَّ)
+                </button>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
                     <span class="text-3xl font-bold arabic-text text-purple-400 block mb-1">ـَّ</span>
@@ -128,7 +134,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-purple-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-purple-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -353,14 +359,22 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function playWordAudio() {
-            const current = sessionQuestions[currentIndex];
+        // Integrated parameter-based Web Speech API Pronunciation Engine
+        function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(current.word);
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
+                utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
             }
+        }
+
+        function playCurrentQuestionAudio() {
+            const current = sessionQuestions[currentIndex];
+            playWordAudio(current.word);
         }
 
         function nextQuestion() {
