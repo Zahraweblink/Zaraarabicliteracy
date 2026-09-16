@@ -334,6 +334,14 @@
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ar-SA';
             utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+            
+            // Optional voice selection alignment
+            const voices = window.speechSynthesis.getVoices();
+            const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+            if (arabicVoice) {
+                utterance.voice = arabicVoice;
+            }
+
             window.speechSynthesis.speak(utterance);
         } else {
             alert("Text-to-speech is not supported on this browser.");
@@ -482,14 +490,14 @@
 
         shuffled.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = "action-btn";
-            btn.innerText = opt;
-            btn.onclick = () => handleAnswer(opt, q.correct, q.exp);
+            btn.className = 'action-btn';
+            btn.innerHTML = `<span>${opt}</span>`;
+            btn.onclick = () => checkAnswer(opt, q.correct, q.exp);
             container.appendChild(btn);
         });
     }
 
-    function handleAnswer(selected, correct, exp) {
+    function checkAnswer(selected, correct, exp) {
         const feedback = document.getElementById('feedbackBox');
         feedback.style.display = 'block';
 
@@ -498,15 +506,15 @@
 
         if (selected === correct) {
             score += 10;
-            feedback.style.background = "rgba(16, 185, 129, 0.2)";
-            feedback.style.color = "var(--accent-emerald)";
-            feedback.style.border = "1px solid var(--accent-emerald)";
-            feedback.innerHTML = `✅ Correct! +10 Stars ⭐<br><span style="font-size: 0.85rem; font-weight: normal; color: #cbd5e1;">${exp}</span>`;
+            feedback.style.background = 'rgba(16, 185, 129, 0.2)';
+            feedback.style.color = 'var(--accent-emerald)';
+            feedback.style.border = '1px solid var(--accent-emerald)';
+            feedback.innerHTML = `✅ Correct! +10 pts — ${exp}`;
         } else {
-            feedback.style.background = "rgba(244, 63, 94, 0.2)";
-            feedback.style.color = "var(--accent-rose)";
-            feedback.style.border = "1px solid var(--accent-rose)";
-            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong><br><span style="font-size: 0.85rem; font-weight: normal; color: #cbd5e1;">${exp}</span>`;
+            feedback.style.background = 'rgba(244, 63, 94, 0.2)';
+            feedback.style.color = 'var(--accent-rose)';
+            feedback.style.border = '1px solid var(--accent-rose)';
+            feedback.innerHTML = `❌ Incorrect. Correct answer was: <strong>${correct}</strong> — ${exp}`;
         }
 
         document.getElementById('scoreVal').innerText = score;
@@ -514,30 +522,29 @@
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
-        }, 2200);
+        }, 3200);
     }
 
     function finishTest() {
-        document.getElementById('progFill').style.width = "100%";
-        document.getElementById('scoreHeader').style.display = 'none';
-        const card = document.querySelector('.game-card');
-        
-        localStorage.setItem('arabic_completed_letter_lab', 'true');
+        const container = document.querySelector('.game-card');
+        const pathParts = window.location.pathname.split('/');
+        const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
+        localStorage.setItem('arabic_completed_' + currentFileName, 'true');
 
-        card.innerHTML = `
-            <h2 class="lesson-title" style="color: var(--accent-emerald);">🎉 Test Completed!</h2>
-            <div style="font-size: 3.5rem; margin: 20px 0; color: var(--accent-gold);">⭐ ${score} / ${testSuite.length * 10} ⭐</div>
-            <p style="color: #cbd5e1; margin-bottom: 25px; font-size: 1.1rem;">
-                Amazing job completing the Letter Lab Master Test! Your foundational Arabic articulation and letter recognition skills are locked in.
-            </p>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <button class="start-test-btn" style="width: auto; margin-top: 0;" onclick="location.reload()">Retake Test 🔄</button>
-                <a href="index.html" class="start-test-btn" style="background: var(--accent-emerald); color: #000; text-decoration: none; width: auto; margin-top: 0; display: inline-block;">Return to Dashboard 🏠</a>
+        container.innerHTML = `
+            <div style="padding: 20px; text-align: center;">
+                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Letter Lab Master Test Completed!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">You scored <strong style="color: var(--accent-emerald);">${score} / ${testSuite.length * 10}</strong> points.</p>
+                <p style="color: #94a3b8; margin-bottom: 30px;">Your mastery of Arabic letters, makhārij, and positional forms has been successfully saved!</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <a href="index.html" class="back-btn" style="background: var(--accent-emerald); color: #000; border: none; font-size: 1rem;">Return to Main Dashboard Hub</a>
+                    <button onclick="location.reload()" class="back-btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-glow); font-size: 1rem;">Retake Test</button>
+                </div>
             </div>
         `;
     }
 
-    // Initialize initial view state
+    // Initialize grid on load
     window.onload = () => {
         renderGrid();
         selectLetter(0);
