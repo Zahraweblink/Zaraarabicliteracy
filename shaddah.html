@@ -35,6 +35,7 @@
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -359,22 +360,30 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated parameter-based Web Speech API Pronunciation Engine
-        function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
+        // Integrated speakWord() core function
+        function speakWord(textOverride) {
+            const text = textOverride || document.getElementById('target-arabic')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                
+                const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("Audio speech synthesis is not supported in this browser.");
+                alert("Text-to-speech is not supported on this browser.");
             }
+        }
+
+        // Adapter wrapper for playing custom words
+        function playWordAudio(textToSpeak) {
+            speakWord(textToSpeak);
         }
 
         function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
-            playWordAudio(current.word);
+            speakWord(current.word);
         }
 
         function nextQuestion() {
