@@ -330,16 +330,15 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord function supporting fallback selectors and current session items
         function speakWord() {
             const current = sessionQuestions[currentIndex];
             const rawText = current ? current.word : '';
             const cleanedWord = rawText.replace(/<[^>]*>?/gm, '');
 
             const text = document.getElementById('target-arabic')?.innerText || 
-                         cleanedWord || 
-                         document.getElementById('output-board')?.innerText || 
-                         document.querySelector('h1, h2, span')?.innerText;
+                       cleanedWord || 
+                       document.getElementById('output-board')?.innerText || 
+                       document.querySelector('h1, h2, span')?.innerText;
 
             if ('speechSynthesis' in window && text) {
                 // Cancel any ongoing speech so the phone doesn't block the new queue
