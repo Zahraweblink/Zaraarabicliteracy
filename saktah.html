@@ -87,7 +87,7 @@
                 <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
                     <i class="fa-solid fa-wind"></i> Execution Rules of Saktah
                 </h2>
-                <!-- Integrated Audio Pronunciation Template Button -->
+                <!-- Audio Pronunciation Button -->
                 <button onclick="playWordAudio('ب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high"></i> Listen (ب)
                 </button>
@@ -121,7 +121,7 @@
 
             <!-- Target Word / Verse Display -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                <div id="output-board" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
                     عِوَجًا <span class="text-cyan-400 text-3xl font-sans font-bold">(س)</span> قَيِّمًا
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
@@ -249,7 +249,7 @@
             const current = sessionQuestions[currentIndex];
             
             document.getElementById("question-num").innerText = currentIndex + 1;
-            document.getElementById("target-arabic").innerHTML = current.word;
+            document.getElementById("output-board").innerHTML = current.word;
             document.getElementById("target-prompt").innerHTML = current.prompt;
             
             const badge = document.getElementById("feedback-badge");
@@ -297,25 +297,32 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Global speech synthesis handler function
-        function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech queue
+        // Integrated speakWord function (aliased/wrapped by playWordAudio for consistency)
+        function speakWord(textOverride) {
+            const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                
+                const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("Audio speech synthesis is not supported in this browser.");
+                alert("Text-to-speech is not supported on this browser.");
             }
+        }
+
+        // Adapter function to connect UI buttons to speakWord() cleanly
+        function playWordAudio(textToSpeak) {
+            speakWord(textToSpeak);
         }
 
         // Helper function for the exercise Arena's "Hear Recitation" button
         function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
-            playWordAudio(cleanText);
+            speakWord(cleanText);
         }
 
         function nextQuestion() {
