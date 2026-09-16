@@ -153,7 +153,6 @@
     </footer>
 
     <script>
-        // 20-Exercise Question Bank for Hamzatul Wasl & Qat'
         const questionBank = [
             // --- MODE 1: VISUAL IDENTIFICATION ---
             {
@@ -324,7 +323,7 @@
             nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
-            optionsContainer.className = current.options.length > 2 
+            optionsContainer.className = current.options.length > 3 
                 ? "grid grid-cols-1 md:grid-cols-3 gap-4" 
                 : "grid grid-cols-1 md:grid-cols-2 gap-4";
             optionsContainer.innerHTML = "";
@@ -363,21 +362,21 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Updated playWordAudio function supporting direct text arguments or falling back to active question
+        // Upgraded robust audio stream TTS function matching your other modules
         function playWordAudio(textToSpeak) {
             if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
                 const current = sessionQuestions[currentIndex];
                 textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : 'ٱهْدِنَا';
             }
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Audio speech synthesis is not supported in this browser.");
-            }
+            
+            const encodedText = encodeURIComponent(textToSpeak);
+            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ar&client=tw-ob`;
+            
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+                console.error("Audio playback error:", error);
+                alert("Unable to play audio stream. Please check your internet connection.");
+            });
         }
 
         function nextQuestion() {
