@@ -125,7 +125,7 @@
                     مَا لَكَ لَا <span class="text-cyan-400">تَأْمَنَّا</span>
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
-                    In Surah Yusuf (12:11), what physical action accompanies the pronunciation of <strong class="text-cyan-400">تَأْمَنَّا</strong> during Ishmām?
+                    In Surah Yusuf (12:11), what physical mouth gesture accompanies the hidden Sukoon during <strong>Ishmām</strong>?
                 </p>
             </div>
 
@@ -153,18 +153,42 @@
     </footer>
 
     <script>
-        // Web Speech API Pronunciation Helper
+        // Bulletproof Web Speech API Pronunciation Helper with voice preloading, fallback handling, and mobile queue locks prevention
         function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech queue
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
-                window.speechSynthesis.speak(utterance);
-            } else {
+            if (!('speechSynthesis' in window)) {
                 alert("Audio speech synthesis is not supported in this browser.");
+                return;
             }
+
+            // Cancel any ongoing speech to prevent overlapping bugs
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.7; // Slower speed for clear pronunciation
+
+            // Handle voice selection for better cross-device compatibility
+            const voices = window.speechSynthesis.getVoices();
+            const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+            if (arabicVoice) {
+                utterance.voice = arabicVoice;
+            }
+
+            utterance.onerror = (event) => {
+                console.error("Speech synthesis error:", event);
+            };
+
+            // Tiny timeout fix to prevent mobile browser freezing on quick taps
+            setTimeout(() => {
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+        }
+
+        // Ensure voices are preloaded properly in browsers like Chrome
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
         }
 
         function playCurrentQuestionAudio() {
