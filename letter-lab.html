@@ -107,6 +107,7 @@
         .studio-header {
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;
+            flex-wrap: wrap; gap: 10px;
         }
         .active-rule-title { font-size: 1.3rem; color: var(--accent-gold); font-weight: 700; }
 
@@ -118,12 +119,14 @@
         .forms-grid {
             display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 15px 0; text-align: center;
         }
+        @media (max-width: 600px) { .forms-grid { grid-template-columns: repeat(2, 1fr); } }
+        
         .form-box {
             background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow);
             border-radius: 12px; padding: 10px;
         }
         .form-box .tag { font-size: 0.75rem; color: #94a3b8; display: block; margin-bottom: 4px; }
-        .form-box .char { font-family: 'Amiri', serif; font-size: 2rem; color: var(--accent-gold); }
+        .form-box .char { font-family: 'Amiri', serif; font-size: 2rem; color: var(--accent-gold); display: block; margin-bottom: 8px; }
 
         .audio-play-btn {
             background: var(--accent-emerald); color: #000; border: none; width: 100%;
@@ -132,6 +135,14 @@
             transition: 0.2s; margin-top: 12px; font-size: 0.95rem;
         }
         .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+        .speech-btn {
+            background: rgba(6, 182, 212, 0.2); hover: bg-cyan-500/30; color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.4); padding: 6px 12px; border-radius: 10px;
+            font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;
+            cursor: pointer; transition: 0.2s;
+        }
+        .speech-btn:hover { background: rgba(6, 182, 212, 0.35); color: #fff; }
 
         .pitfalls-card {
             background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3);
@@ -256,7 +267,12 @@
             <div class="studio-card">
                 <div class="studio-header">
                     <span class="active-rule-title" id="letterTitle">Letter: Alif (أ)</span>
-                    <span style="font-size: 0.85rem; color: #94a3b8;" id="letterCategory">Category: Light Letter</span>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button onclick="playWordAudio(currentLetterChar)" class="speech-btn">
+                            <i class="fa-solid fa-volume-high"></i> Listen Speech
+                        </button>
+                        <span style="font-size: 0.85rem; color: #94a3b8;" id="letterCategory">Category: Light Letter</span>
+                    </div>
                 </div>
 
                 <div class="makhraj-box" id="makhrajDesc">
@@ -264,13 +280,29 @@
                 </div>
 
                 <div class="forms-grid">
-                    <div class="form-box"><span class="tag">Isolated</span><span class="char" id="fIso">أ</span></div>
-                    <div class="form-box"><span class="tag">Initial</span><span class="char" id="fIni">أـ</span></div>
-                    <div class="form-box"><span class="tag">Medial</span><span class="char" id="fMed">ـأـ</span></div>
-                    <div class="form-box"><span class="tag">Final</span><span class="char" id="fFin">ـأ</span></div>
+                    <div class="form-box">
+                        <span class="tag">Isolated</span>
+                        <span class="char" id="fIso">أ</span>
+                        <button onclick="playWordAudio(document.getElementById('fIso').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <div class="form-box">
+                        <span class="tag">Initial</span>
+                        <span class="char" id="fIni">أـ</span>
+                        <button onclick="playWordAudio(document.getElementById('fIni').innerText.replace('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <div class="form-box">
+                        <span class="tag">Medial</span>
+                        <span class="char" id="fMed">ـأـ</span>
+                        <button onclick="playWordAudio(document.getElementById('fMed').innerText.replaceAll('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <div class="form-box">
+                        <span class="tag">Final</span>
+                        <span class="char" id="fFin">ـأ</span>
+                        <button onclick="playWordAudio(document.getElementById('fFin').innerText.replace('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
                 </div>
 
-                <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Listen to Letter Audio</button>
+                <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Listen to Reciter Audio (Alafasy)</button>
             </div>
 
             <button class="start-test-btn" onclick="showView('test')">I Am Ready - Start 30-Question Test →</button>
@@ -284,7 +316,12 @@
             <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the correct property or letter classification shown below:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
-            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+            <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 5px;">
+                <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+                <button onclick="playWordAudio(document.getElementById('wordDisplay').innerText.replace(/ـ/g, ''))" class="speech-btn" style="padding: 10px 16px; font-size: 0.9rem;">
+                    <i class="fa-solid fa-volume-high"></i> Pronounce Word
+                </button>
+            </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
 
@@ -293,6 +330,19 @@
     </div>
 
 <script>
+    // Speech Synthesis Integration Helper
+    function playWordAudio(textToSpeak) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.7; // Slower pace for clarity
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Audio speech synthesis is not supported in this browser.");
+        }
+    }
+
     const lettersData = [
         { name: "Alif", ar: "أ", cat: "Light", makhraj: "Empty space in mouth/throat (Al-Jawf)", forms: ["أ", "أـ", "ـأـ", "ـأ"], audio: "001001.mp3" },
         { name: "Bā’", ar: "ب", cat: "Light / Lip Letter", makhraj: "Between both lips (wet part)", forms: ["ب", "بـ", "ـبـ", "ـب"], audio: "002003.mp3" },
@@ -325,6 +375,7 @@
     ];
 
     let activeIndex = 0;
+    let currentLetterChar = "أ";
 
     // 30-Question Test Suite
     const testSuite = [
@@ -380,6 +431,7 @@
         activeIndex = index;
         renderGrid();
         const item = lettersData[index];
+        currentLetterChar = item.ar;
         document.getElementById('letterTitle').innerText = `Letter: ${item.name} (${item.ar})`;
         document.getElementById('letterCategory').innerText = `Category: ${item.cat}`;
         document.getElementById('makhrajDesc').innerHTML = `<strong>Makhraj (Point of Origin):</strong> ${item.makhraj}`;
@@ -387,6 +439,9 @@
         document.getElementById('fIni').innerText = item.forms[1];
         document.getElementById('fMed').innerText = item.forms[2];
         document.getElementById('fFin').innerText = item.forms[3];
+        
+        // Auto speech trigger on selection for immersive learning
+        playWordAudio(item.ar);
     }
 
     function playStudioAudio() {
@@ -400,7 +455,6 @@
     }
 
     function playQuestionAudio() {
-        // Fallback generic or matching audio trigger
         playAudioFile("001001.mp3");
     }
 
@@ -438,7 +492,6 @@
         const container = document.getElementById('choicesContainer');
         container.innerHTML = "";
 
-        // Shuffle options dynamically
         const shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
 
         shuffledOptions.forEach(opt => {
@@ -466,15 +519,14 @@
         } else {
             feedbackBox.style.background = 'rgba(244, 63, 94, 0.2)';
             feedbackBox.style.color = '#fb7185';
-            feedbackBox.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong>. ${explanation}`;
+            feedbackBox.innerHTML = `❌ Incorrect. The correct answer is <strong>${correct}</strong>. ${explanation}`;
         }
 
-        currentIndex++;
         setTimeout(() => {
+            currentIndex++;
             loadQuestion();
-        }, 2500);
+        }, 3500);
     }
 </script>
-
 </body>
 </html>
