@@ -360,7 +360,7 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord() core function
+        // Integrated speakWord function supporting optional text overrides
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('target-arabic')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
@@ -376,7 +376,7 @@
             }
         }
 
-        // Adapter wrapper for playing custom words
+        // Adapter wrappers for playing audio
         function playWordAudio(textToSpeak) {
             speakWord(textToSpeak);
         }
