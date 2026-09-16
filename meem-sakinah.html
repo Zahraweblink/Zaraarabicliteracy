@@ -211,7 +211,7 @@
                     <div>
                         <div class="flex justify-between items-start mb-1">
                             <h3 class="text-amber-400 font-bold text-base">1. Ikhfa' Shafawi</h3>
-                            <button onclick="playWordAudio('ب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <button onclick="speakWord('ب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                                 <i class="fa-solid fa-volume-high"></i> ب
                             </button>
                         </div>
@@ -226,7 +226,7 @@
                     <div>
                         <div class="flex justify-between items-start mb-1">
                             <h3 class="text-cyan-400 font-bold text-base">2. Idgham Shafawi</h3>
-                            <button onclick="playWordAudio('م')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <button onclick="speakWord('م')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                                 <i class="fa-solid fa-volume-high"></i> م
                             </button>
                         </div>
@@ -241,7 +241,7 @@
                     <div>
                         <div class="flex justify-between items-start mb-1">
                             <h3 class="text-emerald-400 font-bold text-base">3. Izhar Shafawi</h3>
-                            <button onclick="playWordAudio('و ف')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                            <button onclick="speakWord('و ف')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
                                 <i class="fa-solid fa-volume-high"></i> و ف
                             </button>
                         </div>
@@ -295,12 +295,12 @@
                 <div class="sound-card">
                     <div>
                         <span class="sound-badge" id="ruleBadge">Ikhfa' Shafawi Demo</span>
-                        <div class="arabic-demo-text" id="demoArabic">تَرْمِي<span class="hl">هِم بِ</span>حِجَارَةٍ</div>
+                        <div class="arabic-demo-text" id="output-board">تَرْمِي<span class="hl">هِم بِ</span>حِجَارَةٍ</div>
                         <p class="text-xs text-slate-300 mt-1" id="demoDesc">Listen to the soft blend between Mīm and Baa with full nasal hum.</p>
                     </div>
                     <div class="flex gap-2 w-full mt-3">
                         <button class="audio-play-btn flex-1" onclick="playStudioAudio()">🔊 Play Full Recitation Audio</button>
-                        <button class="audio-play-btn flex-1 bg-cyan-600 hover:bg-cyan-500" onclick="playStudioSpeech()">🗣️ Speech Synthesis Demo</button>
+                        <button class="audio-play-btn flex-1 bg-cyan-600 hover:bg-cyan-500" onclick="speakWord()">🗣️ Speech Synthesis Demo</button>
                     </div>
                 </div>
             </div>
@@ -318,7 +318,7 @@
             <div class="arabic-display" id="wordDisplay">...</div>
             <div class="flex justify-center gap-3">
                 <div class="audio-btn" onclick="playQuestionAudio()" title="Play Audio Recitation">🔊</div>
-                <div class="audio-btn bg-cyan-600/30 text-cyan-300 border-cyan-500/40 text-base" onclick="playCurrentWordSpeech()" title="Speak Word">🗣️</div>
+                <div class="audio-btn bg-cyan-600/30 text-cyan-300 border-cyan-500/40 text-base" onclick="speakWord()" title="Speak Word">🗣️</div>
             </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
@@ -335,18 +335,26 @@
 
     <!-- Script that handles rules, audio playback, and quiz flow -->
     <script>
-        // Web Speech API Pronunciation Function with HTML Sanitizer
-        function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
+        // Integrated speakWord() function using fallback selectors and HTML cleaning
+        function speakWord(customText) {
+            const rawText = typeof customText === 'string' ? customText : '';
+            const cleanCustom = rawText.replace(/<[^>]*>?/gm, '');
+
+            const text = document.getElementById('output-board')?.innerText || 
+                         cleanCustom || 
+                         document.getElementById('wordDisplay')?.innerText || 
+                         document.querySelector('h1, h2, span')?.innerText;
+
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
-                // Strip HTML tags so the speech engine reads clean Arabic text
-                const cleanText = typeof textToSpeak === 'string' ? textToSpeak.replace(/<[^>]*>?/gm, '') : '';
-                const utterance = new SpeechSynthesisUtterance(cleanText);
+                
+                const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("Audio speech synthesis is not supported in this browser.");
+                alert("Text-to-speech is not supported on this browser.");
             }
         }
 
@@ -425,7 +433,7 @@
             document.getElementById('lipState').innerText = data.lipState;
             document.getElementById('makhrajDesc').innerHTML = `<strong>Rule Mechanism:</strong> ${data.makhraj}`;
             document.getElementById('ruleBadge').innerText = data.badge;
-            document.getElementById('demoArabic').innerHTML = data.word;
+            document.getElementById('output-board').innerHTML = data.word;
             document.getElementById('demoDesc').innerText = data.desc;
         }
 
@@ -443,22 +451,10 @@
             playAudioFile(item.audio);
         }
 
-        function playStudioSpeech() {
-            const item = ruleDatabase[activeRuleKey];
-            playWordAudio(item.word);
-        }
-
         function playQuestionAudio() {
             const item = testSuite[currentIndex];
             if (item && item.audio) {
                 playAudioFile(item.audio);
-            }
-        }
-
-        function playCurrentWordSpeech() {
-            const item = testSuite[currentIndex];
-            if (item && item.word) {
-                playWordAudio(item.word);
             }
         }
 
@@ -531,17 +527,13 @@
             } else {
                 feedback.style.background = "rgba(244, 63, 94, 0.2)";
                 feedback.style.color = "var(--accent-rose)";
-                feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${getRuleName(item.correct)}</strong>.<br><small>${item.exp}</small>`;
+                feedback.innerHTML = `❌ Incorrect. ${item.exp}`;
             }
 
-            currentIndex++;
-            setTimeout(loadQuestion, 1600);
-        }
-
-        function getRuleName(val) {
-            if (val === "Ikhfa") return "Ikhfa' Shafawi (Concealment before Baa)";
-            if (val === "Idgham") return "Idgham Shafawi (Merging before Meem)";
-            return "Izhar Shafawi (Clear Pronunciation)";
+            setTimeout(() => {
+                currentIndex++;
+                loadQuestion();
+            }, 1800);
         }
     </script>
 </body>
