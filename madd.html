@@ -542,8 +542,9 @@
 
         const q = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
-        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
         document.getElementById('wordDisplay').innerText = q.word;
+        document.getElementById('progFill').style.width = ((currentIndex / testSuite.length) * 100) + '%';
+        
         document.getElementById('feedbackBox').style.display = 'none';
 
         const choicesContainer = document.getElementById('choicesContainer');
@@ -553,51 +554,56 @@
             { label: "1. Madd Aṣlī (Natural)", val: "Asli" },
             { label: "2. Madd Muttaṣil (Connected)", val: "Muttasil" },
             { label: "3. Madd Munfaṣil (Disconnected)", val: "Munfasil" },
-            { label: "4. Madd ‘Āriḍ li-s-Sukūn", val: "Arid" },
+            { label: "4. Madd ‘Āriḍ (Sukūn Pause)", val: "Arid" },
             { label: "5. Madd Lāzim (Compulsory)", val: "Lazim" }
         ];
 
         options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'action-btn';
-            btn.innerText = opt.label;
-            btn.onclick = () => checkAnswer(opt.val, q.correct, q.exp);
+            btn.innerHTML = `<span>${opt.label}</span>`;
+            btn.onclick = () => submitAnswer(opt.val, q.correct, q.exp);
             choicesContainer.appendChild(btn);
         });
     }
 
-    function checkAnswer(selected, correct, explanation) {
-        const feedbackBox = document.getElementById('feedbackBox');
-        feedbackBox.style.display = 'block';
+    function submitAnswer(selected, correct, explanation) {
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
 
-        const buttons = document.querySelectorAll('#choicesContainer button');
+        const buttons = document.querySelectorAll('#choicesContainer .action-btn');
         buttons.forEach(b => b.disabled = true);
 
         if (selected === correct) {
-            score += 10;
+            score++;
             document.getElementById('scoreVal').innerText = score;
-            feedbackBox.style.background = 'rgba(16, 185, 129, 0.2)';
-            feedbackBox.style.color = 'var(--accent-emerald)';
-            feedbackBox.innerHTML = `✅ Correct! ${explanation}`;
+            feedback.style.background = 'rgba(16, 185, 129, 0.2)';
+            feedback.style.color = 'var(--accent-emerald)';
+            feedback.innerHTML = `✅ Correct! ${explanation}`;
         } else {
-            feedbackBox.style.background = 'rgba(244, 63, 94, 0.2)';
-            feedbackBox.style.color = 'var(--accent-rose)';
-            feedbackBox.innerHTML = `❌ Incorrect. ${explanation}`;
+            feedback.style.background = 'rgba(244, 63, 94, 0.2)';
+            feedback.style.color = 'var(--accent-rose)';
+            feedback.innerHTML = `❌ Incorrect. ${explanation}`;
         }
 
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
-        }, 3500);
+        }, 3200);
     }
 
     function showFinalResults() {
-        document.getElementById('testView').innerHTML = `
-            <div style="text-align: center; padding: 30px;">
-                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
-                <p style="font-size: 1.2rem; color: #cbd5e1; margin-bottom: 25px;">You have successfully finished the 30-Question Madd Rules Mastery Test.</p>
-                <div style="font-size: 1.5rem; color: var(--accent-emerald); font-weight: bold; margin-bottom: 30px;">Final Score: ${score} / 300 ⭐</div>
-                <button class="start-test-btn" onclick="location.reload()">Restart Practice Studio</button>
+        const container = document.getElementById('testView');
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Mastery Test Completed!</h2>
+                <p style="font-size: 1.2rem; color: #cbd5e1; margin-bottom: 25px;">
+                    Your final score: <strong style="color: var(--accent-emerald); font-size: 1.5rem;">${score} / ${testSuite.length}</strong> ⭐
+                </p>
+                <p style="color: #94a3b8; margin-bottom: 30px;">
+                    ${score >= 25 ? "Masha'Allah! You have demonstrated exceptional mastery over Tajweed Madd rules." : "Good effort! Review the rules tab and audio studio to strengthen your precision."}
+                </p>
+                <button class="start-test-btn" onclick="location.reload()">Restart Mastery Studio</button>
             </div>
         `;
     }
