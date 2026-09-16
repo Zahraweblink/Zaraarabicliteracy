@@ -237,13 +237,12 @@
             </div>
 
             <!-- Soundboard Grid -->
-            <div id="output-board" class="hidden"></div> <!-- Hook element for text reading if needed -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Fathah Tile -->
                 <div id="tile-fathah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-fathah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -260,7 +259,7 @@
                 <div id="tile-kasrah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-kasrah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -277,7 +276,7 @@
                 <div id="tile-dammah" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">Short</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-dammah').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -294,7 +293,7 @@
                 <div id="tile-madd-alif" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-madd-alif').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -311,7 +310,7 @@
                 <div id="tile-madd-ya" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-madd-ya').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -328,7 +327,7 @@
                 <div id="tile-madd-waw" class="vowel-card glass-card border border-slate-700/60 rounded-xl p-6 shadow-sm hover:border-brand-500 group">
                     <div class="flex justify-between items-start">
                         <span class="text-xs font-semibold px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">Long (2 Counts)</span>
-                        <button onclick="speakWord()" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
+                        <button onclick="speakWord(document.getElementById('display-madd-waw').innerText)" class="bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-200 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -415,8 +414,8 @@
     <!-- Logic Engine & Pronunciation API -->
     <script>
         // Integrated Web Speech API Pronunciation Engine
-        function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+        function speakWord(customText) {
+            const text = customText || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
                 // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
@@ -505,36 +504,36 @@
             });
         }
 
-        function selectAnswer(btnElement, selected, correct) {
-            const optionsContainer = document.getElementById('quiz-options');
-            const buttons = optionsContainer.getElementsByTagName('button');
-            for (let b of buttons) {
+        function selectAnswer(selectedBtn, selectedOpt, correctOpt) {
+            const allBtns = document.getElementById('quiz-options').getElementsByTagName('button');
+            for (let b of allBtns) {
                 b.disabled = true;
             }
 
             const feedback = document.getElementById('quiz-feedback');
             feedback.classList.remove('hidden');
 
-            if (selected === correct) {
+            if (selectedOpt === correctOpt) {
                 score++;
-                document.getElementById('quiz-score-val').innerText = score;
-                btnElement.className = 'w-full py-3 px-4 rounded-xl border border-emerald-500 bg-emerald-500/20 font-medium text-emerald-300 text-sm text-left flex items-center justify-between';
-                btnElement.innerHTML = `<span>${selected}</span> <i class="fa-solid fa-circle-check text-emerald-400"></i>`;
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
-                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent job.';
+                selectedBtn.className = 'w-full py-3 px-4 rounded-xl border border-emerald-500 bg-emerald-500/20 font-medium text-emerald-200 text-sm transition-all text-left flex items-center justify-between';
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300';
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent pronunciation awareness.';
             } else {
-                btnElement.className = 'w-full py-3 px-4 rounded-xl border border-rose-500 bg-rose-500/20 font-medium text-rose-300 text-sm text-left flex items-center justify-between';
-                btnElement.innerHTML = `<span>${selected}</span> <i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
-                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/20 text-rose-300 border border-rose-500/30';
-                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Incorrect. The correct answer is <strong>${correct}</strong>.`;
+                selectedBtn.className = 'w-full py-3 px-4 rounded-xl border border-rose-500 bg-rose-500/20 font-medium text-rose-200 text-sm transition-all text-left flex items-center justify-between';
+                feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/20 border border-rose-500/40 text-rose-300';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Not quite. The correct answer is <strong>${correctOpt}</strong>.`;
             }
+
+            document.getElementById('quiz-score-val').innerText = score;
 
             if (currentQuestionIdx < questions.length - 1) {
                 document.getElementById('next-btn').classList.remove('hidden');
             } else {
-                document.getElementById('quiz-container').classList.add('hidden');
-                document.getElementById('quiz-complete').classList.remove('hidden');
-                document.getElementById('final-score').innerText = score;
+                setTimeout(() => {
+                    document.getElementById('quiz-container').classList.add('hidden');
+                    document.getElementById('quiz-complete').classList.remove('hidden');
+                    document.getElementById('final-score').innerText = score;
+                }, 1000);
             }
         }
 
