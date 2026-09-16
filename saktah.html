@@ -83,9 +83,15 @@
 
         <!-- Rule Explainer Card -->
         <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
-            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-wind"></i> Execution Rules of Saktah
-            </h2>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                    <i class="fa-solid fa-wind"></i> Execution Rules of Saktah
+                </h2>
+                <!-- Integrated Audio Pronunciation Template Button -->
+                <button onclick="playWordAudio('ب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen (ب)
+                </button>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
                     <span class="text-2xl font-bold text-amber-400 block mb-1">2 Counts</span>
@@ -130,7 +136,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -291,15 +297,25 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function playWordAudio() {
+        // Global speech synthesis handler function
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
+        // Helper function for the exercise Arena's "Hear Recitation" button
+        function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
-                window.speechSynthesis.speak(utterance);
-            }
+            playWordAudio(cleanText);
         }
 
         function nextQuestion() {
