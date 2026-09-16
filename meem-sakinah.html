@@ -335,7 +335,7 @@
 
     <!-- Script that handles rules, audio playback, and quiz flow -->
     <script>
-        // Integrated speakWord() function using fallback selectors and HTML cleaning
+        // Integrated speakWord() function with clean HTML tag removal and fallback support
         function speakWord(customText) {
             const rawText = typeof customText === 'string' ? customText : '';
             const cleanCustom = rawText.replace(/<[^>]*>?/gm, '');
@@ -533,7 +533,7 @@
             setTimeout(() => {
                 currentIndex++;
                 loadQuestion();
-            }, 1800);
+            }, 2500);
         }
     </script>
 </body>
