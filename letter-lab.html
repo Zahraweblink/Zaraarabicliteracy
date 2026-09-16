@@ -172,14 +172,6 @@
             border: 1px solid var(--border-glow); position: relative;
         }
 
-        .audio-btn {
-            cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%;
-            width: 60px; height: 60px; display: inline-flex; align-items: center;
-            justify-content: center; font-size: 1.8rem; margin: 5px auto 0; transition: 0.2s;
-            border: 1px solid rgba(255,255,255,0.2); color: var(--accent-gold);
-        }
-        .audio-btn:hover { background: var(--accent-gold); color: #000; transform: scale(1.05); }
-
         .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
         @media (max-width: 600px) { .btn-grid { grid-template-columns: 1fr; } }
 
@@ -266,9 +258,9 @@
 
             <div class="studio-card">
                 <div class="studio-header">
-                    <span class="active-rule-title" id="letterTitle" id="output-board">Letter: Alif (أ)</span>
+                    <span class="active-rule-title" id="letterTitle">Letter: Alif (أ)</span>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <button onclick="speakWord()" class="speech-btn">
+                        <button onclick="speakWord(currentLetterChar)" class="speech-btn">
                             <i class="fa-solid fa-volume-high"></i> Listen Speech
                         </button>
                         <span style="font-size: 0.85rem; color: #94a3b8;" id="letterCategory">Category: Light Letter</span>
@@ -283,26 +275,29 @@
                     <div class="form-box">
                         <span class="tag">Isolated</span>
                         <span class="char" id="fIso">أ</span>
-                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord(document.getElementById('fIso').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Initial</span>
                         <span class="char" id="fIni">أـ</span>
-                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord(document.getElementById('fIni').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Medial</span>
                         <span class="char" id="fMed">ـأـ</span>
-                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord(document.getElementById('fMed').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Final</span>
                         <span class="char" id="fFin">ـأ</span>
-                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord(document.getElementById('fFin').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                 </div>
 
-                <button class="audio-play-btn" onclick="speakWord()">🔊 Listen via Text-to-Speech Engine</button>
+                <!-- Hidden output board span so generic element fallbacks target current letter cleanly -->
+                <span id="output-board" style="display:none;">أ</span>
+
+                <button class="audio-play-btn" onclick="speakWord(currentLetterChar)">🔊 Listen via Text-to-Speech Engine</button>
             </div>
 
             <button class="start-test-btn" onclick="showView('test')">I Am Ready - Start 30-Question Test →</button>
@@ -317,7 +312,7 @@
 
             <div class="arabic-display" id="wordDisplay">...</div>
             <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 5px;">
-                <button onclick="speakWord()" class="speech-btn" style="padding: 10px 16px; font-size: 0.9rem;">
+                <button onclick="speakWord(document.getElementById('wordDisplay').innerText)" class="speech-btn" style="padding: 10px 16px; font-size: 0.9rem;">
                     <i class="fa-solid fa-volume-high"></i> Pronounce Word
                 </button>
             </div>
@@ -329,9 +324,9 @@
     </div>
 
 <script>
-    // Integrated custom speakWord function as provided
-    function speakWord() {
-        const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+    // Integrated custom speakWord function as requested
+    function speakWord(customText) {
+        const text = customText || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
         if ('speechSynthesis' in window && text) {
             // Cancel any ongoing speech so the phone doesn't block the new queue
             window.speechSynthesis.cancel();
@@ -352,34 +347,34 @@
     }
 
     const lettersData = [
-        { name: "Alif", ar: "أ", cat: "Light", makhraj: "Empty space in mouth/throat (Al-Jawf)", forms: ["أ", "أـ", "ـأـ", "ـأ"], audio: "001001.mp3" },
-        { name: "Bā’", ar: "ب", cat: "Light / Lip Letter", makhraj: "Between both lips (wet part)", forms: ["ب", "بـ", "ـبـ", "ـب"], audio: "002003.mp3" },
-        { name: "Tā’", ar: "ت", cat: "Light Letter", makhraj: "Tip of tongue touching roots of upper front teeth", forms: ["ت", "تـ", "ـتـ", "ـت"], audio: "002003.mp3" },
-        { name: "Thā’", ar: "ث", cat: "Light / Tip Tongue", makhraj: "Tip of tongue touching edges of upper front teeth", forms: ["ث", "ثـ", "ـثـ", "ـث"], audio: "002017.mp3" },
-        { name: "Jīm", ar: "ج", cat: "Light Letter", makhraj: "Middle of tongue against hard palate", forms: ["ج", "جـ", "ـجـ", "ـج"], audio: "002025.mp3" },
-        { name: "Ḥā’", ar: "ح", cat: "Light / Throat", makhraj: "Middle of the throat (Al-Halq)", forms: ["ح", "حـ", "ـحـ", "ـح"], audio: "001001.mp3" },
-        { name: "Khā’", ar: "خ", cat: "Heavy Letter (Tafkhīm)", makhraj: "Top of the throat closest to mouth", forms: ["خ", "خـ", "ـخـ", "ـخ"], audio: "002019.mp3" },
-        { name: "Dāl", ar: "د", cat: "Light / Non-Connecting", makhraj: "Tip of tongue against upper tooth roots", forms: ["د", "دـ", "ـدـ", "ـد"], audio: "002004.mp3" },
-        { name: "Dhāl", ar: "ذ", cat: "Light / Non-Connecting", makhraj: "Tip of tongue against upper front teeth edges", forms: ["ذ", "ذـ", "ـذـ", "ـذ"], audio: "002016.mp3" },
-        { name: "Rā’", ar: "ر", cat: "Flexible (Heavy/Light)", makhraj: "Tip of tongue slightly rolled against palate", forms: ["ر", "رـ", "ـرـ", "ـر"], audio: "002007.mp3" },
-        { name: "Zāy", ar: "ز", cat: "Light / Whistle", makhraj: "Tip of tongue near inner edge of lower front teeth", forms: ["ز", "زـ", "ـزـ", "ـز"], audio: "002041.mp3" },
-        { name: "Sīn", ar: "س", cat: "Light / Whistle", makhraj: "Tip of tongue near inner lower teeth", forms: ["س", "سـ", "ـسـ", "ـس"], audio: "001001.mp3" },
-        { name: "Shīn", ar: "ش", cat: "Light Letter", makhraj: "Middle of tongue against upper palate", forms: ["ش", "شـ", "ـشـ", "ـش"], audio: "002020.mp3" },
-        { name: "Ṣād", ar: "ص", cat: "Heavy / Whistle", makhraj: "Tip of tongue near lower teeth, back tongue raised", forms: ["ص", "صـ", "ـصـ", "ـص"], audio: "002017.mp3" },
-        { name: "Ḍād", ar: "ض", cat: "Heavy / Full-Mouth", makhraj: "Side edge of tongue against upper molars", forms: ["ض", "ضـ", "ـضـ", "ـض"], audio: "001007.mp3" },
-        { name: "Ṭā’", ar: "ط", cat: "Heavy Letter", makhraj: "Tip of tongue against roots of upper front teeth", forms: ["ط", "طـ", "ـطـ", "ـط"], audio: "002020.mp3" },
-        { name: "Ẓā’", ar: "ظ", cat: "Heavy Letter", makhraj: "Tip of tongue against edges of upper front teeth", forms: ["ظ", "ظـ", "ـظـ", "ـظ"], audio: "002017.mp3" },
-        { name: "‘Ayn", ar: "ع", cat: "Light / Throat", makhraj: "Middle of the throat", forms: ["ع", "عـ", "ـعـ", "ـع"], audio: "001002.mp3" },
-        { name: "Ghayn", ar: "غ", cat: "Heavy / Throat", makhraj: "Top of the throat", forms: ["غ", "غـ", "ـغـ", "ـغ"], audio: "001007.mp3" },
-        { name: "Fā’", ar: "ف", cat: "Light / Lip Letter", makhraj: "Inner edge of lower lip with upper front teeth", forms: ["ف", "فـ", "ـفـ", "ـف"], audio: "002019.mp3" },
-        { name: "Qāf", ar: "ق", cat: "Heavy Letter", makhraj: "Deepest part of tongue against soft palate", forms: ["ق", "قـ", "ـقـ", "ـق"], audio: "002020.mp3" },
-        { name: "Kāf", ar: "ك", cat: "Light Letter", makhraj: "Back of tongue against hard palate below Qaf", forms: ["ك", "كـ", "ـكـ", "ـك"], audio: "002020.mp3" },
-        { name: "Lām", ar: "ل", cat: "Light / Flexible", makhraj: "Front side edges of tongue to gums of upper teeth", forms: ["ل", "لـ", "ـلـ", "ـل"], audio: "001001.mp3" },
-        { name: "Mīm", ar: "م", cat: "Light / Lip Letter", makhraj: "Between outer dry parts of both lips", forms: ["م", "مـ", "ـمـ", "ـم"], audio: "001001.mp3" },
-        { name: "Nūn", ar: "ن", cat: "Light Letter", makhraj: "Tip of tongue touching gums of upper front teeth", forms: ["ن", "نـ", "ـنـ", "ـن"], audio: "002005.mp3" },
-        { name: "Hā’", ar: "هـ", cat: "Light / Deep Throat", makhraj: "Deepest part of throat (Bottom Halq)", forms: ["هـ", "هـ", "ـهـ", "ـه"], audio: "002007.mp3" },
-        { name: "Wāw", ar: "و", cat: "Light / Lip Letter", makhraj: "Rounding both lips with space in middle", forms: ["و", "وـ", "ـوـ", "ـو"], audio: "002004.mp3" },
-        { name: "Yā’", ar: "ي", cat: "Light Letter", makhraj: "Middle of tongue touching upper palate", forms: ["ي", "يـ", "ـيـ", "ـي"], audio: "002003.mp3" }
+        { name: "Alif", ar: "أ", cat: "Light", makhraj: "Empty space in mouth/throat (Al-Jawf)", forms: ["أ", "أـ", "ـأـ", "ـأ"] },
+        { name: "Bā’", ar: "ب", cat: "Light / Lip Letter", makhraj: "Between both lips (wet part)", forms: ["ب", "بـ", "ـبـ", "ـب"] },
+        { name: "Tā’", ar: "ت", cat: "Light Letter", makhraj: "Tip of tongue touching roots of upper front teeth", forms: ["ت", "تـ", "ـتـ", "ـت"] },
+        { name: "Thā’", ar: "ث", cat: "Light / Tip Tongue", makhraj: "Tip of tongue touching edges of upper front teeth", forms: ["ث", "ثـ", "ـثـ", "ـث"] },
+        { name: "Jīm", ar: "ج", cat: "Light Letter", makhraj: "Middle of tongue against hard palate", forms: ["ج", "جـ", "ـجـ", "ـج"] },
+        { name: "Ḥā’", ar: "ح", cat: "Light / Throat", makhraj: "Middle of the throat (Al-Halq)", forms: ["ح", "حـ", "ـحـ", "ـح"] },
+        { name: "Khā’", ar: "خ", cat: "Heavy Letter (Tafkhīm)", makhraj: "Top of the throat closest to mouth", forms: ["خ", "خـ", "ـخـ", "ـخ"] },
+        { name: "Dāl", ar: "د", cat: "Light / Non-Connecting", makhraj: "Tip of tongue against upper tooth roots", forms: ["د", "دـ", "ـدـ", "ـد"] },
+        { name: "Dhāl", ar: "ذ", cat: "Light / Non-Connecting", makhraj: "Tip of tongue against upper front teeth edges", forms: ["ذ", "ذـ", "ـذـ", "ـذ"] },
+        { name: "Rā’", ar: "ر", cat: "Flexible (Heavy/Light)", makhraj: "Tip of tongue slightly rolled against palate", forms: ["ر", "رـ", "ـرـ", "ـر"] },
+        { name: "Zāy", ar: "ز", cat: "Light / Whistle", makhraj: "Tip of tongue near inner edge of lower front teeth", forms: ["ز", "زـ", "ـزـ", "ـز"] },
+        { name: "Sīn", ar: "س", cat: "Light / Whistle", makhraj: "Tip of tongue near inner lower teeth", forms: ["س", "سـ", "ـسـ", "ـس"] },
+        { name: "Shīn", ar: "ش", cat: "Light Letter", makhraj: "Middle of tongue against upper palate", forms: ["ش", "شـ", "ـشـ", "ـش"] },
+        { name: "Ṣād", ar: "ص", cat: "Heavy / Whistle", makhraj: "Tip of tongue near lower teeth, back tongue raised", forms: ["ص", "صـ", "ـصـ", "ـص"] },
+        { name: "Ḍād", ar: "ض", cat: "Heavy / Full-Mouth", makhraj: "Side edge of tongue against upper molars", forms: ["ض", "ضـ", "ـضـ", "ـض"] },
+        { name: "Ṭā’", ar: "ط", cat: "Heavy Letter", makhraj: "Tip of tongue against roots of upper front teeth", forms: ["ط", "طـ", "ـطـ", "ـط"] },
+        { name: "Ẓā’", ar: "ظ", cat: "Heavy Letter", makhraj: "Tip of tongue against edges of upper front teeth", forms: ["ظ", "ظـ", "ـظـ", "ـظ"] },
+        { name: "‘Ayn", ar: "ع", cat: "Light / Throat", makhraj: "Middle of the throat", forms: ["ع", "عـ", "ـعـ", "ـع"] },
+        { name: "Ghayn", ar: "غ", cat: "Heavy / Throat", makhraj: "Top of the throat", forms: ["غ", "غـ", "ـغـ", "ـغ"] },
+        { name: "Fā’", ar: "ف", cat: "Light / Lip Letter", makhraj: "Inner edge of lower lip with upper front teeth", forms: ["ف", "فـ", "ـفـ", "ـف"] },
+        { name: "Qāf", ar: "ق", cat: "Heavy Letter", makhraj: "Deepest part of tongue against soft palate", forms: ["ق", "قـ", "ـقـ", "ـق"] },
+        { name: "Kāf", ar: "ك", cat: "Light Letter", makhraj: "Back of tongue against hard palate below Qaf", forms: ["ك", "كـ", "ـكـ", "ـك"] },
+        { name: "Lām", ar: "ل", cat: "Light / Flexible", makhraj: "Front side edges of tongue to gums of upper teeth", forms: ["ل", "لـ", "ـلـ", "ـل"] },
+        { name: "Mīm", ar: "م", cat: "Light / Lip Letter", makhraj: "Between outer dry parts of both lips", forms: ["م", "مـ", "ـمـ", "ـم"] },
+        { name: "Nūn", ar: "ن", cat: "Light Letter", makhraj: "Tip of tongue touching gums of upper front teeth", forms: ["ن", "نـ", "ـنـ", "ـن"] },
+        { name: "Hā’", ar: "هـ", cat: "Light / Deep Throat", makhraj: "Deepest part of throat (Bottom Halq)", forms: ["هـ", "هـ", "ـهـ", "ـه"] },
+        { name: "Wāw", ar: "و", cat: "Light / Lip Letter", makhraj: "Rounding both lips with space in middle", forms: ["و", "وـ", "ـوـ", "ـو"] },
+        { name: "Yā’", ar: "ي", cat: "Light Letter", makhraj: "Middle of tongue touching upper palate", forms: ["ي", "يـ", "ـيـ", "ـي"] }
     ];
 
     let activeIndex = 0;
@@ -445,6 +440,7 @@
         document.getElementById('fIni').innerText = item.forms[1];
         document.getElementById('fMed').innerText = item.forms[2];
         document.getElementById('fFin').innerText = item.forms[3];
+        document.getElementById('output-board').innerText = item.ar;
     }
 
     function showView(viewName) {
@@ -455,62 +451,97 @@
         document.getElementById('tabLesson').className = `tab-btn ${viewName === 'lesson' ? 'active' : ''}`;
         document.getElementById('tabStudio').className = `tab-btn ${viewName === 'studio' ? 'active' : ''}`;
         document.getElementById('tabTest').className = `tab-btn ${viewName === 'test' ? 'active' : ''}`;
-        
+
         document.getElementById('scoreHeader').style.display = viewName === 'test' ? 'block' : 'none';
-        if (viewName === 'studio') renderGrid();
-        if (viewName === 'test') loadQuestion();
+
+        if (viewName === 'test') {
+            loadQuestion();
+        }
     }
 
     function loadQuestion() {
         if (currentIndex >= testSuite.length) {
-            document.getElementById('testView').innerHTML = `
-                <div style="text-align:center; padding: 40px;">
-                    <h2 style="color:var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
-                    <p style="font-size: 1.2rem; margin-bottom: 25px;">Your Final Score: <strong style="color:var(--accent-emerald);">${score}</strong> / 30 ⭐</p>
-                    <button class="start-test-btn" onclick="currentIndex=0; score=0; loadQuestion();">Retake Test</button>
-                </div>
-            `;
+            finishTest();
             return;
         }
 
         const q = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
         document.getElementById('scoreVal').innerText = score;
-        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
         document.getElementById('wordDisplay').innerText = q.word;
-        document.getElementById('feedbackBox').style.display = 'none';
+        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
+
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'none';
 
         const container = document.getElementById('choicesContainer');
         container.innerHTML = "";
-        
-        q.options.sort(() => Math.random() - 0.5).forEach(opt => {
+
+        // Shuffle options
+        const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+
+        shuffled.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'action-btn';
-            btn.innerHTML = `<span>${opt}</span>`;
+            btn.className = "action-btn";
+            btn.innerText = opt;
             btn.onclick = () => handleAnswer(opt, q.correct, q.exp);
             container.appendChild(btn);
         });
     }
 
-    function handleAnswer(selected, correct, explanation) {
-        const fb = document.getElementById('feedbackBox');
-        fb.style.display = 'block';
+    function handleAnswer(selected, correct, exp) {
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
+
+        const buttons = document.querySelectorAll('#choicesContainer button');
+        buttons.forEach(b => b.disabled = true);
+
         if (selected === correct) {
-            score++;
-            fb.style.background = 'rgba(16, 185, 129, 0.2)';
-            fb.style.color = 'var(--accent-emerald)';
-            fb.innerHTML = `✅ Correct! ${explanation}`;
+            score += 10;
+            feedback.style.background = "rgba(16, 185, 129, 0.2)";
+            feedback.style.color = "var(--accent-emerald)";
+            feedback.style.border = "1px solid var(--accent-emerald)";
+            feedback.innerHTML = `✅ Correct! +10 Stars ⭐<br><span style="font-size: 0.85rem; font-weight: normal; color: #cbd5e1;">${exp}</span>`;
         } else {
-            fb.style.background = 'rgba(244, 63, 94, 0.2)';
-            fb.style.color = 'var(--accent-rose)';
-            fb.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong>. ${explanation}`;
+            feedback.style.background = "rgba(244, 63, 94, 0.2)";
+            feedback.style.color = "var(--accent-rose)";
+            feedback.style.border = "1px solid var(--accent-rose)";
+            feedback.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong><br><span style="font-size: 0.85rem; font-weight: normal; color: #cbd5e1;">${exp}</span>`;
         }
-        
+
+        document.getElementById('scoreVal').innerText = score;
+
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
         }, 2200);
     }
+
+    function finishTest() {
+        document.getElementById('progFill').style.width = "100%";
+        document.getElementById('scoreHeader').style.display = 'none';
+        const card = document.querySelector('.game-card');
+        
+        localStorage.setItem('arabic_completed_letter_lab', 'true');
+
+        card.innerHTML = `
+            <h2 class="lesson-title" style="color: var(--accent-emerald);">🎉 Test Completed!</h2>
+            <div style="font-size: 3.5rem; margin: 20px 0; color: var(--accent-gold);">⭐ ${score} / ${testSuite.length * 10} ⭐</div>
+            <p style="color: #cbd5e1; margin-bottom: 25px; font-size: 1.1rem;">
+                Amazing job completing the Letter Lab Master Test! Your foundational Arabic articulation and letter recognition skills are locked in.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="start-test-btn" style="width: auto; margin-top: 0;" onclick="location.reload()">Retake Test 🔄</button>
+                <a href="index.html" class="start-test-btn" style="background: var(--accent-emerald); color: #000; text-decoration: none; width: auto; margin-top: 0; display: inline-block;">Return to Dashboard 🏠</a>
+            </div>
+        `;
+    }
+
+    // Initialize initial view state
+    window.onload = () => {
+        renderGrid();
+        selectLetter(0);
+    };
 </script>
 </body>
 </html>
