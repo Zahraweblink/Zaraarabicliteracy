@@ -362,7 +362,7 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord() core function
+        // Integrated speakWord() core function with text-override support
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
