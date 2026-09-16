@@ -266,9 +266,9 @@
 
             <div class="studio-card">
                 <div class="studio-header">
-                    <span class="active-rule-title" id="letterTitle">Letter: Alif (أ)</span>
+                    <span class="active-rule-title" id="letterTitle" id="output-board">Letter: Alif (أ)</span>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <button onclick="playWordAudio(currentLetterChar)" class="speech-btn">
+                        <button onclick="speakWord()" class="speech-btn">
                             <i class="fa-solid fa-volume-high"></i> Listen Speech
                         </button>
                         <span style="font-size: 0.85rem; color: #94a3b8;" id="letterCategory">Category: Light Letter</span>
@@ -283,26 +283,26 @@
                     <div class="form-box">
                         <span class="tag">Isolated</span>
                         <span class="char" id="fIso">أ</span>
-                        <button onclick="playWordAudio(document.getElementById('fIso').innerText)" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Initial</span>
                         <span class="char" id="fIni">أـ</span>
-                        <button onclick="playWordAudio(document.getElementById('fIni').innerText.replace('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Medial</span>
                         <span class="char" id="fMed">ـأـ</span>
-                        <button onclick="playWordAudio(document.getElementById('fMed').innerText.replaceAll('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                     <div class="form-box">
                         <span class="tag">Final</span>
                         <span class="char" id="fFin">ـأ</span>
-                        <button onclick="playWordAudio(document.getElementById('fFin').innerText.replace('ـ',''))" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
+                        <button onclick="speakWord()" class="speech-btn" style="width:100%; justify-content:center;"><i class="fa-solid fa-volume-high"></i></button>
                     </div>
                 </div>
 
-                <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Listen to Reciter Audio (Alafasy)</button>
+                <button class="audio-play-btn" onclick="speakWord()">🔊 Listen via Text-to-Speech Engine</button>
             </div>
 
             <button class="start-test-btn" onclick="showView('test')">I Am Ready - Start 30-Question Test →</button>
@@ -317,8 +317,7 @@
 
             <div class="arabic-display" id="wordDisplay">...</div>
             <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 5px;">
-                <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
-                <button onclick="playWordAudio(document.getElementById('wordDisplay').innerText.replace(/ـ/g, ''))" class="speech-btn" style="padding: 10px 16px; font-size: 0.9rem;">
+                <button onclick="speakWord()" class="speech-btn" style="padding: 10px 16px; font-size: 0.9rem;">
                     <i class="fa-solid fa-volume-high"></i> Pronounce Word
                 </button>
             </div>
@@ -330,32 +329,20 @@
     </div>
 
 <script>
-    // Bulletproof Web Speech API Pronunciation Helper with voice preloading, fallback handling, and mobile queue locks prevention
-    function playWordAudio(textToSpeak) {
-        if (!('speechSynthesis' in window)) {
-            alert("Audio speech synthesis is not supported in this browser.");
-            return;
-        }
-
-        window.speechSynthesis.cancel();
-
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.lang = 'ar-SA';
-        utterance.rate = 0.7; // Slower speed for clear pronunciation
-
-        const voices = window.speechSynthesis.getVoices();
-        const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
-        if (arabicVoice) {
-            utterance.voice = arabicVoice;
-        }
-
-        utterance.onerror = (event) => {
-            console.error("Speech synthesis error:", event);
-        };
-
-        setTimeout(() => {
+    // Integrated custom speakWord function as provided
+    function speakWord() {
+        const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+        if ('speechSynthesis' in window && text) {
+            // Cancel any ongoing speech so the phone doesn't block the new queue
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
             window.speechSynthesis.speak(utterance);
-        }, 50);
+        } else {
+            alert("Text-to-speech is not supported on this browser.");
+        }
     }
 
     if ('speechSynthesis' in window) {
@@ -431,7 +418,6 @@
         { word: "ي", correct: "Light Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Light Letter"], exp: "Yā’ (ي) is a light letter." }
     ];
 
-    const AUDIO_BASE = "https://www.everyayah.com/data/audio/128/ar.alafasy/";
     let currentIndex = 0;
     let score = 0;
 
@@ -459,112 +445,72 @@
         document.getElementById('fIni').innerText = item.forms[1];
         document.getElementById('fMed').innerText = item.forms[2];
         document.getElementById('fFin').innerText = item.forms[3];
+    }
+
+    function showView(viewName) {
+        document.getElementById('lessonView').style.display = viewName === 'lesson' ? 'block' : 'none';
+        document.getElementById('studioView').style.display = viewName === 'studio' ? 'block' : 'none';
+        document.getElementById('testView').style.display = viewName === 'test' ? 'block' : 'none';
         
-        playWordAudio(item.ar);
-    }
-
-    function playStudioAudio() {
-        const item = lettersData[activeIndex];
-        playAudioFile(item.audio);
-    }
-
-    function playAudioFile(filename) {
-        const audio = new Audio(AUDIO_BASE + filename);
-        audio.play().catch(e => console.log("Audio playback error:", e));
-    }
-
-    function playQuestionAudio() {
-        playAudioFile("001001.mp3");
-    }
-
-    function showView(view) {
-        document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
-        document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
-        document.getElementById('testView').style.display = view === 'test' ? 'block' : 'none';
-        document.getElementById('scoreHeader').style.display = view === 'test' ? 'block' : 'none';
-
-        document.getElementById('tabLesson').classList.toggle('active', view === 'lesson');
-        document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
-        document.getElementById('tabTest').classList.toggle('active', view === 'test');
-
-        if (view === 'test') {
-            loadQuestion();
-        }
+        document.getElementById('tabLesson').className = `tab-btn ${viewName === 'lesson' ? 'active' : ''}`;
+        document.getElementById('tabStudio').className = `tab-btn ${viewName === 'studio' ? 'active' : ''}`;
+        document.getElementById('tabTest').className = `tab-btn ${viewName === 'test' ? 'active' : ''}`;
+        
+        document.getElementById('scoreHeader').style.display = viewName === 'test' ? 'block' : 'none';
+        if (viewName === 'studio') renderGrid();
+        if (viewName === 'test') loadQuestion();
     }
 
     function loadQuestion() {
         if (currentIndex >= testSuite.length) {
-            finishTest();
+            document.getElementById('testView').innerHTML = `
+                <div style="text-align:center; padding: 40px;">
+                    <h2 style="color:var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 25px;">Your Final Score: <strong style="color:var(--accent-emerald);">${score}</strong> / 30 ⭐</p>
+                    <button class="start-test-btn" onclick="currentIndex=0; score=0; loadQuestion();">Retake Test</button>
+                </div>
+            `;
             return;
         }
 
-        const currentQ = testSuite[currentIndex];
+        const q = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
         document.getElementById('scoreVal').innerText = score;
-        document.getElementById('wordDisplay').innerText = currentQ.word;
         document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
-
-        const feedback = document.getElementById('feedbackBox');
-        feedback.style.display = 'none';
+        document.getElementById('wordDisplay').innerText = q.word;
+        document.getElementById('feedbackBox').style.display = 'none';
 
         const container = document.getElementById('choicesContainer');
-        container.innerHTML = '';
-
-        // Shuffle options
-        const shuffled = [...currentQ.options].sort(() => Math.random() - 0.5);
-
-        shuffled.forEach(opt => {
+        container.innerHTML = "";
+        
+        q.options.sort(() => Math.random() - 0.5).forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'action-btn';
             btn.innerHTML = `<span>${opt}</span>`;
-            btn.onclick = () => checkAnswer(opt, currentQ.correct, currentQ.exp);
+            btn.onclick = () => handleAnswer(opt, q.correct, q.exp);
             container.appendChild(btn);
         });
     }
 
-    function checkAnswer(selected, correct, exp) {
-        const feedback = document.getElementById('feedbackBox');
-        feedback.style.display = 'block';
-
-        const buttons = document.querySelectorAll('#choicesContainer button');
-        buttons.forEach(b => b.disabled = true);
-
+    function handleAnswer(selected, correct, explanation) {
+        const fb = document.getElementById('feedbackBox');
+        fb.style.display = 'block';
         if (selected === correct) {
-            score += 10;
-            feedback.style.background = 'rgba(16, 185, 129, 0.2)';
-            feedback.style.color = 'var(--accent-emerald)';
-            feedback.style.border = '1px solid var(--accent-emerald)';
-            feedback.innerHTML = `✅ Correct! +10 ⭐<br><span style="font-size:0.85rem; color:#cbd5e1; font-weight:normal;">${exp}</span>`;
+            score++;
+            fb.style.background = 'rgba(16, 185, 129, 0.2)';
+            fb.style.color = 'var(--accent-emerald)';
+            fb.innerHTML = `✅ Correct! ${explanation}`;
         } else {
-            feedback.style.background = 'rgba(244, 63, 94, 0.2)';
-            feedback.style.color = 'var(--accent-rose)';
-            feedback.style.border = '1px solid var(--accent-rose)';
-            feedback.innerHTML = `❌ Incorrect. The correct answer was: <strong>${correct}</strong><br><span style="font-size:0.85rem; color:#cbd5e1; font-weight:normal;">${exp}</span>`;
+            fb.style.background = 'rgba(244, 63, 94, 0.2)';
+            fb.style.color = 'var(--accent-rose)';
+            fb.innerHTML = `❌ Incorrect. Correct answer: <strong>${correct}</strong>. ${explanation}`;
         }
-
-        document.getElementById('scoreVal').innerText = score;
-
+        
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
-        }, 3000);
+        }, 2200);
     }
-
-    function finishTest() {
-        document.getElementById('testView').innerHTML = `
-            <div style="text-align: center; padding: 40px 20px;">
-                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 25px;">You finished all 30 questions with a total score of <strong style="color: var(--accent-gold);">${score} / 300 ⭐</strong></p>
-                <button class="start-test-btn" onclick="location.reload()">Restart Lab & Test</button>
-            </div>
-        `;
-        localStorage.setItem('arabic_completed_letter_lab', 'true');
-    }
-
-    window.onload = () => {
-        renderGrid();
-        selectLetter(0);
-    };
 </script>
 </body>
 </html>
