@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ishmām & Tashīl Studio \ Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Ishmām & Tashīl Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -80,19 +80,33 @@
                 <i class="fa-solid fa-lips"></i> Articulation Rules & Mechanisms
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
-                    <span class="text-2xl font-bold arabic-text text-amber-400 block">الإِشْمَام (Ishmām)</span>
-                    <span class="text-xs font-bold text-cyan-300 block">Surah Yusuf (12:11) - لَا تَأْمَنَّا</span>
-                    <p class="text-xs text-slate-300">
-                        Rounding the lips (as if making a Dammah) during the silent Sukoon of Noon <strong>without uttering any sound</strong>.
-                    </p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-amber-400 block">الإِشْمَام (Ishmām)</span>
+                        <span class="text-xs font-bold text-cyan-300 block mb-2">Surah Yusuf (12:11) - لَا تَأْمَنَّا</span>
+                        <p class="text-xs text-slate-300">
+                            Rounding the lips (as if making a Dammah) during the silent Sukoon of Noon <strong>without uttering any sound</strong>.
+                        </p>
+                    </div>
+                    <div class="pt-2 flex justify-center">
+                        <button onclick="playWordAudio('لَا تَأْمَنَّا')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2">
-                    <span class="text-2xl font-bold arabic-text text-emerald-400 block">التَّسْهِيل (Tashīl)</span>
-                    <span class="text-xs font-bold text-cyan-300 block">Surah Fussilat (41:44) - أَ۠عْجَمِيٌّ</span>
-                    <p class="text-xs text-slate-300">
-                        Softening the second Hamzah between a pure Hamzah and an Alif, avoiding a harsh glottal stop sound.
-                    </p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-emerald-400 block">التَّسْهِيل (Tashīl)</span>
+                        <span class="text-xs font-bold text-cyan-300 block mb-2">Surah Fussilat (41:44) - أَ۠عْجَمِيٌّ</span>
+                        <p class="text-xs text-slate-300">
+                            Softening the second Hamzah between a pure Hamzah and an Alif, avoiding a harsh glottal stop sound.
+                        </p>
+                    </div>
+                    <div class="pt-2 flex justify-center">
+                        <button onclick="playWordAudio('أَعْجَمِيّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,7 +136,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -139,6 +153,27 @@
     </footer>
 
     <script>
+        // Web Speech API Pronunciation Helper
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
+        function playCurrentQuestionAudio() {
+            const q = quizQuestions[currentIdx];
+            // Strip HTML tags out of the arabic property for cleaner speech synthesis
+            const cleanText = q.arabic.replace(/<\/?[^>]+(>|$)/g, "");
+            playWordAudio(cleanText);
+        }
+
         // Dataset of Tajweed questions focusing on Ishmām, Tashīl, and related major Hafs 'an 'Aasim rules
         const quizQuestions = [
             {
@@ -219,7 +254,7 @@
                 explanation: "Jeem is one of the 15 letters of Ikhfā', requiring a nasal concealment of the Noon Sakinah."
             },
             {
-                arabic: "إِنَّ اللَّهَ لَا يَسْتَحْيِي أَنْ يَضْرِبَ <span class='text-cyan-400'>مَثَلًا</span>",
+                arabic: "إِنَّ اللَّهَ لَا يَسْتَحْيِي أَنْ يَضْرِبَ <span class='text-cyan-400'>مَثَلًا</span>",
                 prompt: "When stopping on <strong class='text-cyan-400'>مَثَلًا</strong> at the end of an ayah, what rule applies?",
                 options: [
                     { text: "Madd 'Iwad (Compensating for Tanween Fath with an elongated Alif)", correct: true },
@@ -353,15 +388,6 @@
                     </div>
                 `;
             }
-        }
-
-        function playWordAudio() {
-            const audioBtn = event.currentTarget;
-            const originalHTML = audioBtn.innerHTML;
-            audioBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-sm"></i> Playing Recitation...`;
-            setTimeout(() => {
-                audioBtn.innerHTML = originalHTML;
-            }, 1200);
         }
 
         // Initialize quiz on load
