@@ -335,12 +335,13 @@
 
     <!-- Script that handles rules, audio playback, and quiz flow -->
     <script>
-        // Web Speech API Pronunciation Function
+        // Web Speech API Pronunciation Function with HTML Sanitizer
         function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                // Strip HTML tags so the speech engine reads clean Arabic text
+                const cleanText = typeof textToSpeak === 'string' ? textToSpeak.replace(/<[^>]*>?/gm, '') : '';
+                const utterance = new SpeechSynthesisUtterance(cleanText);
                 utterance.lang = 'ar-SA';
                 utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
@@ -444,9 +445,7 @@
 
         function playStudioSpeech() {
             const item = ruleDatabase[activeRuleKey];
-            // Clean HTML tags for speech synthesis
-            const cleanText = item.word.replace(/<[^>]*>?/gm, '');
-            playWordAudio(cleanText);
+            playWordAudio(item.word);
         }
 
         function playQuestionAudio() {
@@ -482,7 +481,6 @@
             if (currentIndex >= testSuite.length) {
                 alert(`🎉 Congratulations! You Completed the Mīm Sakinah Master Test!\nYour Score: ${score} / ${testSuite.length * 10}`);
                 
-                // Mark completion in localStorage for dashboard sync
                 const pathParts = window.location.pathname.split('/');
                 const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
                 localStorage.setItem('arabic_completed_' + currentFileName, 'true');
