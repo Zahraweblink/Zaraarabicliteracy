@@ -258,7 +258,7 @@
             }
         }
 
-        // Integrated speakWord() core function
+        // Integrated speakWord() core function supporting text overrides
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
