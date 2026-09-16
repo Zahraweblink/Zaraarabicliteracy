@@ -82,28 +82,28 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَرْسَلْنَا</span>
+                        <span id="explainer-qat" class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَرْسَلْنَا</span>
                         <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">Hamzatul Qat' (Cutting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>Always pronounced</strong> whether starting or continuing speech. Carries a written Hamzah symbol (ء).
                         </p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('أَرْسَلْنَا')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakSpecificText('أَرْسَلْنَا')" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">ٱهْدِنَا</span>
+                        <span id="explainer-wasl" class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">ٱهْدِنَا</span>
                         <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">Hamzatul Wasl (Connecting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>Pronounced only when starting</strong>. Skipped entirely when connecting from a previous word. Carries a small Saad symbol (صـ).
                         </p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('ٱهْدِنَا')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakSpecificText('ٱهْدِنَا')" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -121,7 +121,7 @@
 
             <!-- Target Word Display -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
+                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
                     ٱهْدِنَا
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300">
@@ -136,7 +136,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -312,7 +312,7 @@
             const current = sessionQuestions[currentIndex];
             
             document.getElementById("question-num").innerText = currentIndex + 1;
-            document.getElementById("target-arabic").innerText = current.word;
+            document.getElementById("output-board").innerText = current.word;
             document.getElementById("target-prompt").innerHTML = current.prompt;
             
             const badge = document.getElementById("feedback-badge");
@@ -362,21 +362,31 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated Google TTS audio stream fallback function
-        function playWordAudio(textToSpeak) {
-            if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
-                const current = sessionQuestions[currentIndex];
-                textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : 'ٱهْدِنَا';
+        // Your exact requested speakWord function
+        function speakWord() {
+            const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported on this browser.");
             }
-            
-            const encodedText = encodeURIComponent(textToSpeak);
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ar&client=tw-ob`;
-            
-            const audio = new Audio(audioUrl);
-            audio.play().catch(error => {
-                console.error("Audio playback error:", error);
-                alert("Unable to play audio stream. Please check your internet connection.");
-            });
+        }
+
+        // Helper wrapper for the explainer buttons
+        function speakSpecificText(text) {
+            if ('speechSynthesis' in window && text) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            }
         }
 
         function nextQuestion() {
