@@ -330,12 +330,12 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated flexible speech synthesis function
-        function playWordAudio(textToSpeak) {
-            if (!textToSpeak) {
-                const current = sessionQuestions[currentIndex];
-                textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : '';
-            }
+        // Audio playback function grabbing text dynamically from current session data
+        function playWordAudio() {
+            const current = sessionQuestions[currentIndex];
+            if (!current) return;
+            
+            const textToSpeak = current.word.replace(/<[^>]*>?/gm, '');
 
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
