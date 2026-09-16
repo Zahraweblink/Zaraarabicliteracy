@@ -177,260 +177,133 @@
     </footer>
 
     <script>
-        const questionBank = [
-            // --- HAMS (WHISPER) ---
-            {
-                word: "فَحَثَّهُ شَخْصٌ سَكَتَ",
-                prompt: "Which characteristic is shared by all the letters in the mnemonic phrase <strong>فَحَثَّهُ شَخْصٌ سَكَتَ</strong>?",
-                options: [
-                    "Hams (Whisper / Flow of breath due to weakness in the articulation point)",
-                    "Shiddah (Complete blockage of sound)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "حَرْفُ السِّين",
-                prompt: "When pronouncing the letter <strong>Seen (س)</strong> with a Sukoon, what happens to the breath?",
-                options: [
-                    "Breath flows freely because it is a letter of Hams",
-                    "Breath is entirely locked inside the mouth"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "أَنْعَمْتَ",
-                prompt: "The letter <strong>Taa (ت)</strong> possesses the attribute of Hams. What does this mean for the reciter when pronouncing <strong>أَنْعَمْتَ</strong>?",
-                options: [
-                    "A subtle breath sound escapes when pronouncing a sakin Taa",
-                    "The letter must be recited with loud shouting"
-                ],
-                correctIndex: 0
-            },
+    let currentQuestionIdx = 0;
+    let score = 0;
+    let arabicVoice = null;
 
-            // --- SHIDDAH (STRENGTH) ---
-            {
-                word: "أَجِدُ قَطْ بَكَتْ",
-                prompt: "What acoustic phenomenon defines the letters in the phrase <strong>أَجِدُ قَطْ بَكَتْ</strong>?",
-                options: [
-                    "Shiddah (Strength / Complete blockage of sound flow upon a sakin letter)",
-                    "Rikhawah (Complete freedom of sound flow)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "أَقْـ",
-                prompt: "Why does the letter <strong>Qaaf (ق)</strong> cause a blockage of sound when sakin (e.g., <strong>أَقْـ</strong>)?",
-                options: [
-                    "Because it is a letter of Shiddah where the articulation point closes tightly",
-                    "Because it is a soft letter with continuous breath"
-                ],
-                correctIndex: 0
-            },
-
-            // --- RIKHAWAH (SOFTNESS) ---
-            {
-                word: "صِفَةُ الرَّخَاوَة",
-                prompt: "What is the primary definition of <strong>Rikhawah (Softness)</strong> in letter characteristics?",
-                options: [
-                    "The continuous flow of sound when pronouncing a letter due to a weak obstruction",
-                    "The complete stopping of breath and voice"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "ز و ش",
-                prompt: "Letters like <strong>Zay (ز)</strong> and <strong>Sheen (ش)</strong> are classified under which primary sound category?",
-                options: [
-                    "Rikhawah (Softness / Flow of sound)",
-                    "Shiddah (Strength / Blocked sound)"
-                ],
-                correctIndex: 0
-            },
-
-            // --- ITBAQ (STICKINESS / ENCOMPASSING) ---
-            {
-                word: "ص ض ط ظ",
-                prompt: "What do the four letters <strong>ص، ض، ط، ظ</strong> share regarding tongue position?",
-                options: [
-                    "Itbāq (Stickiness / The tongue arches and flattens against the roof of the mouth)",
-                    "Infitāh (Total separation of the tongue from the palate)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "حَرْفُ الطَّاء",
-                prompt: "How does <strong>Itbāq</strong> directly affect the pronunciation of a letter like <strong>Taa (ط)</strong>?",
-                options: [
-                    "It creates strong Tafkheem (heavy resonance) because the palate is enclosed",
-                    "It softens the letter into a light Tarqeeq sound"
-                ],
-                correctIndex: 0
-            },
-
-            // --- GENERAL COMPARATIVE PHONETICS ---
-            {
-                word: "صِفَات لَهَا ضِدّ",
-                prompt: "In Tajweed science, how are complementary pairs like <strong>Shiddah</strong> and <strong>Rikhawah</strong> classified?",
-                options: [
-                    "As opposing characteristics (Sifāt Lazimah Mutaddidah)",
-                    "As temporary vowel signs (Tashkeel)"
-                ],
-                correctIndex: 0
-            }
-        ];
-
-        let sessionQuestions = [];
-        let currentIndex = 0;
-        let score = 0;
-        let answered = false;
-
-        const SAVED_SCORE_KEY = "arabic_game_sifat_score";
-        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
-
-        function shuffleArray(array) {
-            return array.sort(() => Math.random() - 0.5);
+    const quizData = [
+        {
+            question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha?",
+            options: ["The Lowest Throat (Aqsa al-Halq)", "The Tip of the Tongue", "The Nasal Passage", "The Two Lips"],
+            correct: 0
+        },
+        {
+            question: "Which of the following is considered a Qalqalah (echoing) letter when it carries a Sukun?",
+            options: ["س (Sin)", "ط (Ta)", "م (Meem)", "ل (Lam)"],
+            correct: 1
         }
+    ];
 
-        function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
-            currentIndex = 0;
-            score = 0;
-            document.getElementById("current-score").innerText = score;
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            answered = false;
-            const current = sessionQuestions[currentIndex];
-            
-            document.getElementById("question-num").innerText = currentIndex + 1;
-            document.getElementById("target-arabic").innerHTML = current.word;
-            document.getElementById("target-prompt").innerHTML = current.prompt;
-            
-            const badge = document.getElementById("feedback-badge");
-            badge.className = "px-2.5 py-0.5 rounded-md hidden";
-
-            const nextBtn = document.getElementById("next-btn");
-            nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
-
-            const optionsContainer = document.getElementById("options-container");
-            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
-            optionsContainer.innerHTML = "";
-
-            current.options.forEach((optText, idx) => {
-                const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer text-left";
-                btn.innerText = optText;
-                btn.onclick = () => selectOption(idx, btn);
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function selectOption(selectedIndex, btnElement) {
-            if (answered) return;
-            answered = true;
-
-            const current = sessionQuestions[currentIndex];
-            const badge = document.getElementById("feedback-badge");
-            const nextBtn = document.getElementById("next-btn");
-
-            if (selectedIndex === current.correctIndex) {
-                score += 10;
-                badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base text-left";
-            } else {
-                badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base text-left";
-            }
-
-            document.getElementById("current-score").innerText = score;
-
-            nextBtn.disabled = false;
-            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
-        }
-
-        // Integrated speech synthesis functions
-        function speakWord() {
-            const current = sessionQuestions[currentIndex];
-            const rawText = current ? current.word.replace(/<[^>]*>?/gm, '') : '';
-            executeSpeech(rawText);
-        }
-
-        function speakCustomText(textToSpeak) {
-            executeSpeech(textToSpeak);
-        }
-
-        function executeSpeech(text) {
-            const cleanText = text ? text.trim() : '';
-            
-            if ('speechSynthesis' in window && cleanText) {
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                
-                // Force explicit Arabic voice configuration if available
-                const voices = window.speechSynthesis.getVoices();
-                const arabicVoice = voices.find(voice => voice.lang.includes('ar') || voice.lang.includes('AR'));
-                if (arabicVoice) {
-                    utterance.voice = arabicVoice;
-                }
-                
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.8; // Slow down slightly for clear articulation
-                
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Text-to-speech is not supported on this browser.");
-            }
-        }
-
-        // Ensure voices are loaded asynchronously in some browsers
+    // Preload voices so the browser doesn't choke on first click
+    function loadVoices() {
         if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                window.speechSynthesis.getVoices();
-            };
+            const voices = window.speechSynthesis.getVoices();
+            // Look for an Arabic voice, fallback to any available voice if needed
+            arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+        }
+    }
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function loadPreset() {
+        document.getElementById('output-board').innerText = "بَكْر";
+    }
+
+    function speakWord() {
+        const text = document.getElementById('output-board')?.innerText;
+        
+        if (!text || text.trim() === "") {
+            alert("Board is empty!");
+            return;
         }
 
-        function nextQuestion() {
-            if (currentIndex < sessionQuestions.length - 1) {
-                currentIndex++;
-                loadQuestion();
-            } else {
-                if (score > highScore) {
-                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
-                }
-
-                // Save completion status back to main dashboard hub tracking
-                const pathParts = window.location.pathname.split('/');
-                const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
-                localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
-                const mainArea = document.querySelector('main');
-                mainArea.innerHTML = `
-                    <div class="glass-card rounded-3xl p-8 text-center space-y-6 border border-amber-500/40 shadow-2xl animate-success">
-                        <div class="inline-block p-4 bg-amber-500/20 rounded-full text-amber-400 text-4xl mb-2">
-                            <i class="fa-solid fa-award"></i>
-                        </div>
-                        <h2 class="text-3xl font-extrabold text-white">As-Sifāt Studio Completed!</h2>
-                        <p class="text-slate-300 text-sm max-w-md mx-auto">
-                            Wonderful work! You successfully completed this module with a score of <strong class="text-amber-400">${score} / 100 points</strong>. Progress saved!
-                        </p>
-                        <div class="pt-4 flex justify-center gap-4">
-                            <a href="index.html" class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg hover:brightness-110 transition-all">
-                                <i class="fa-solid fa-house mr-2"></i> Return to Dashboard Hub
-                            </a>
-                        </div>
-                    </div>
-                `;
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            
+            // Apply loaded voice if available
+            loadVoices();
+            if (arabicVoice) {
+                utterance.voice = arabicVoice;
             }
+            
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.85; 
+
+            utterance.onerror = (e) => {
+                console.error("Speech synthesis error:", e);
+                alert("Audio output blocked by system settings or missing voice pack.");
+            };
+
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Text-to-speech is not supported on this browser.");
+        }
+    }
+
+    function clearBoard() {
+        document.getElementById('output-board').innerText = "";
+    }
+
+    function loadQuestion() {
+        if (currentQuestionIdx >= quizData.length) {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('quiz-complete').classList.remove('hidden');
+            document.getElementById('final-score').innerText = score;
+            return;
         }
 
-        window.onload = function() {
-            initSession();
-        };
-    </script>
+        const q = quizData[currentQuestionIdx];
+        document.getElementById('question-text').innerText = q.question;
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = "p-3 text-left border border-slate-200 rounded-lg hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700";
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(idx, q.correct);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selected, correct) {
+        if (selected === correct) {
+            score += 10;
+            document.getElementById('quiz-score-val').innerText = score;
+        }
+        currentQuestionIdx++;
+        loadQuestion();
+    }
+
+    function resetQuiz() {
+        currentQuestionIdx = 0;
+        score = 0;
+        document.getElementById('quiz-score-val').innerText = score;
+        document.getElementById('quiz-complete').classList.add('hidden');
+        document.getElementById('quiz-container').classList.remove('hidden');
+        loadQuestion();
+    }
+
+    function markAsCompleted() {
+        localStorage.setItem("word_builder_completed", "true");
+        
+        const banner = document.getElementById('completion-banner');
+        banner.classList.remove('opacity-0', 'pointer-events-none');
+        
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+    }
+
+    window.onload = function() {
+        loadVoices();
+        loadPreset();
+        loadQuestion();
+    };
+</script>
 </body>
 </html>
