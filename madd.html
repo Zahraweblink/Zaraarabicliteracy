@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Madd Rules Master Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <!-- Font Awesome CDN for volume icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
             window.location.href = "index.html"; // Redirect back to index if not paid
@@ -126,13 +128,25 @@
         .arabic-demo-text { font-family: 'Amiri', serif; font-size: 2.8rem; color: #fff; margin: 8px 0; }
         .hl { color: var(--accent-gold); font-weight: bold; }
 
+        .audio-actions-row {
+            display: flex; gap: 10px; width: 100%; margin-top: 12px; flex-wrap: wrap; justify-content: center;
+        }
+
         .audio-play-btn {
-            background: var(--accent-emerald); color: #000; border: none; width: 100%;
+            background: var(--accent-emerald); color: #000; border: none; flex: 1; min-width: 160px;
             padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: 0.2s; margin-top: 12px; font-size: 0.95rem;
+            transition: 0.2s; font-size: 0.95ln;
         }
         .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+        .speech-btn {
+            background: rgba(6, 182, 212, 0.2); hover: bg-cyan-500/30; color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.4); padding: 12px 16px; border-radius: 12px;
+            font-size: 0.95rem; font-weight: 700; display: flex; align-items: center; gap: 8px;
+            transition: all 0.2s; cursor: pointer;
+        }
+        .speech-btn:hover { background: rgba(6, 182, 212, 0.35); transform: translateY(-2px); }
 
         .pitfalls-card {
             background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3);
@@ -225,43 +239,68 @@
             
             <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي / طَبِيعِي) — Natural Madd</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Duration:</strong> Exactly <strong>2 counts</strong>.<br>
-                        Natural stretching inherent to the letter without any Hamzah or Sukūn following it.
-                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي / طَبِيعِي) — Natural Madd</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Duration:</strong> Exactly <strong>2 counts</strong>.<br>
+                                Natural stretching inherent to the letter without any Hamzah or Sukūn following it.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('قَالَ')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Madd Muttaṣil (مَدّ مُتَّصِل) — Connected Obligatory Madd</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Duration:</strong> <strong>4 or 5 counts</strong>.<br>
-                        Occurs when a Madd letter is followed by a <strong>Hamzah (ء) inside the SAME single word</strong>.
-                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Madd Muttaṣil (مَدّ مُتَّصِل) — Connected Obligatory Madd</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Duration:</strong> <strong>4 or 5 counts</strong>.<br>
+                                Occurs when a Madd letter is followed by a <strong>Hamzah (ء) inside the SAME single word</strong>.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('جَاءَ')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Madd Munfaṣil (مَدّ مُنْفَصِل) — Disconnected Permissible Madd</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Duration:</strong> <strong>4 or 5 counts</strong> (2 allowed in specific riwāyāt).<br>
-                        Occurs when the Madd letter ends one word, and the <strong>Hamzah (ء) begins the NEXT word</strong>.
-                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Madd Munfaṣil (مَدّ مُنْفَصِل) — Disconnected Permissible Madd</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Duration:</strong> <strong>4 or 5 counts</strong> (2 allowed in specific riwāyāt).<br>
+                                Occurs when the Madd letter ends one word, and the <strong>Hamzah (ء) begins the NEXT word</strong>.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('إِنَّا أَعْطَيْنَاكَ')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Madd ‘Āriḍ li-s-Sukūn (مَدّ عَارِض لِلسُّكُون) — Presented Sukūn Madd</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Duration:</strong> <strong>2, 4, or 6 counts</strong>.<br>
-                        Occurs when stopping at the end of an Āyah creates a temporary Sukūn right after a Madd letter.
-                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Madd ‘Āriḍ li-s-Sukūn (مَدّ عَارِض لِلسُّكُون) — Presented Sukūn Madd</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Duration:</strong> <strong>2, 4, or 6 counts</strong>.<br>
+                                Occurs when stopping at the end of an Āyah creates a temporary Sukūn right after a Madd letter.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('الْعَالَمِينَ')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-rose); margin-bottom: 6px;">5. Madd Lāzim (مَدّ لازِم) — Compulsory Madd</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Duration:</strong> Strictly <strong>6 counts</strong>.<br>
-                        Occurs when an original (permanent) Sukūn or Shaddah directly follows a Madd letter.
-                    </p>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div>
+                            <h3 style="color: var(--accent-rose); margin-bottom: 6px;">5. Madd Lāzim (مَدّ لازِم) — Compulsory Madd</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Duration:</strong> Strictly <strong>6 counts</strong>.<br>
+                                Occurs when an original (permanent) Sukūn or Shaddah directly follows a Madd letter.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('الصَّاخَّةُ')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+                    </div>
                 </div>
             </div>
 
@@ -311,7 +350,10 @@
                         <div class="arabic-demo-text" id="demoArabic">قَا<span class="hl">لَ</span></div>
                         <p style="font-size: 0.88rem; color:#cbd5e1;" id="demoDesc">Listen to the clean 2-count elongation on the Alif.</p>
                     </div>
-                    <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Play Recitation Audio</button>
+                    <div class="audio-actions-row">
+                        <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Reciter Audio (Qur'an)</button>
+                        <button class="speech-btn" id="speechDemoBtn" onclick="playCurrentStudioSpeech()"><i class="fa-solid fa-volume-high"></i> Web Speech (Slow)</button>
+                    </div>
                 </div>
             </div>
 
@@ -326,7 +368,10 @@
             <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the type of Madd applied in this word/phrase:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
-            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+            <div style="display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                <div class="audio-btn" onclick="playQuestionAudio()" title="Play Reciter Audio">🔊</div>
+                <button class="speech-btn" onclick="playCurrentQuestionSpeech()"><i class="fa-solid fa-volume-high"></i> Listen (Speech Synthesis)</button>
+            </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
 
@@ -335,12 +380,27 @@
     </div>
 
 <script>
+    // Audio speech synthesis helper
+    function playWordAudio(textToSpeak) {
+        if ('speechSynthesis' in window) {
+            // Cancel any ongoing speech queue
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.7; // Slower pace for clarity
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("Audio speech synthesis is not supported in this browser.");
+        }
+    }
+
     const ruleDatabase = {
         'asli': {
             title: "Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي)",
             ruleState: "Stretch duration: Exactly 2 counts.",
             makhraj: "Standard elongation of Alif, Waw, or Ya without Hamzah or Sukūn.",
             word: "قَا<span class='hl'>لَ</span>",
+            rawWord: "قَالَ",
             audio: "002033.mp3",
             badge: "Natural Madd (2 Counts)",
             desc: "Listen to the exact 2-count measure of natural Alif stretching."
@@ -350,6 +410,7 @@
             ruleState: "Stretch duration: Obligatory 4 or 5 counts.",
             makhraj: "Madd letter followed by Hamzah (ء) in the SAME single word.",
             word: "جَا<span class='hl'>ءَ</span>",
+            rawWord: "جَاءَ",
             audio: "002019.mp3",
             badge: "Connected Madd (4-5 Counts)",
             desc: "Notice the prolonged mandatory extension because Hamzah shares the word."
@@ -359,6 +420,7 @@
             ruleState: "Stretch duration: Permissible 4 or 5 counts.",
             makhraj: "Madd letter ends first word, Hamzah (ء) begins the subsequent word.",
             word: "إِنَّا أَعْ<span class='hl'>طَيْنَاكَ</span>",
+            rawWord: "إِنَّا أَعْطَيْنَاكَ",
             audio: "108001.mp3",
             badge: "Disconnected Madd (4-5 Counts)",
             desc: "Listen to the long Madd spanning across the word boundary."
@@ -368,6 +430,7 @@
             ruleState: "Stretch duration: Optional 2, 4, or 6 counts when stopping.",
             makhraj: "A temporary Sukūn is introduced at the end of an Āyah during pause.",
             word: "الْعَالَمِ<span class='hl'>ينَ</span>",
+            rawWord: "الْعَالَمِينَ",
             audio: "001002.mp3",
             badge: "Presented Sukūn Madd (2/4/6 Counts)",
             desc: "Notice how stopping at verse-end extends the Ya before Nuun."
@@ -377,6 +440,7 @@
             ruleState: "Stretch duration: Strictly 6 counts.",
             makhraj: "Original Sukūn or Shaddah following a Madd letter permanently.",
             word: "الصَّا<span class='hl'>خَّةُ</span>",
+            rawWord: "الصَّاخَّةُ",
             audio: "080033.mp3",
             badge: "Compulsory Madd (6 Counts)",
             desc: "Listen to the full 6-count compulsory stretch preceding the Shaddah."
@@ -440,6 +504,17 @@
     function playStudioAudio() {
         const item = ruleDatabase[activeRuleKey];
         playAudioFile(item.audio);
+    }
+
+    function playCurrentStudioSpeech() {
+        const item = ruleDatabase[activeRuleKey];
+        playWordAudio(item.rawWord);
+    }
+
+    function playCurrentQuestionSpeech() {
+        if (testSuite[currentIndex]) {
+            playWordAudio(testSuite[currentIndex].word);
+        }
     }
 
     function showView(view) {
