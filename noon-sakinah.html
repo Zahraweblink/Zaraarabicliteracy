@@ -213,6 +213,21 @@
             animation: successPulse 0.8s ease-in-out;
         }
     </style>
+    <script>
+        // Web Speech API Pronunciation Utility
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -251,36 +266,64 @@
             
             <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Izhar Halqi (إِظْهَار حَلْقِي) — Absolute Clarity</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>6 Throat Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-gold);">ء, هـ, ع, ح, غ, خ</span><br>
-                        Pronounce the Nūn Sakinah or Tanween clearly from its origin without extra nasal stretching.
-                    </p>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 style="color: var(--accent-gold); margin-bottom: 6px;">1. Izhar Halqi (إِظْهَار حَلْقِي) — Absolute Clarity</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>6 Throat Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-gold);">ء, هـ, ع, ح, غ, خ</span><br>
+                                Pronounce the Nūn Sakinah or Tanween clearly from its origin without extra nasal stretching.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('مَنْ أَمَنَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Idgham (إِدْغَام) — Merging</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>6 Letters (يَرْمَلُونَ):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-cyan);">ي, ر, م, ل, و, ن</span><br>
-                        • <strong>With Ghunnah (2 counts):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-gold);">ي, ن, م, و</span> (YAMNW)<br>
-                        • <strong>Without Ghunnah:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-rose);">ر, ل</span> (R, L)
-                    </p>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 style="color: var(--accent-cyan); margin-bottom: 6px;">2. Idgham (إِدْغَام) — Merging</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>6 Letters (يَرْمَلُونَ):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-cyan);">ي, ر, م, ل, و, ن</span><br>
+                                • <strong>With Ghunnah (2 counts):</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-gold);">ي, ن, م, و</span> (YAMNW)<br>
+                                • <strong>Without Ghunnah:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-rose);">ر, ل</span> (R, L)
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('مَنْ يَقُولُ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Iqlab (إِقْلَاب) — Conversion</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>1 Letter:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-purple);">ب</span> (Baa)<br>
-                        Convert the Nūn sound into a hidden <strong>Mīm (م)</strong> accompanied by a 2-count Ghunnah.
-                    </p>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 style="color: var(--accent-purple); margin-bottom: 6px;">3. Iqlab (إِقْلَاب) — Conversion</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>1 Letter:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--accent-purple);">ب</span> (Baa)<br>
+                                Convert the Nūn sound into a hidden <strong>Mīm (م)</strong> accompanied by a 2-count Ghunnah.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('مِنْ بَعْدِ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
 
                 <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-glow); border-radius: 16px; padding: 18px;">
-                    <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Ikhfa' Haqiqi (إِخْفَاء حَقِيقِي) — Concealment</h3>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">
-                        <strong>Remaining 15 Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-emerald);">ت, ث, ج, د, ذ, ز, س, ش, ص, ض, ط, ظ, ف, ق, ك</span><br>
-                        Conceal the Nūn tongue placement while sustaining nasal resonance for 2 counts.
-                    </p>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 style="color: var(--accent-emerald); margin-bottom: 6px;">4. Ikhfa' Haqiqi (إِخْفَاء حَقِيقِي) — Concealment</h3>
+                            <p style="font-size: 0.9rem; color: #cbd5e1;">
+                                <strong>Remaining 15 Letters:</strong> <span style="font-family: 'Amiri', serif; font-size: 1.1rem; color: var(--accent-emerald);">ت, ث, ج, د, ذ, ز, س, ش, ص, ض, ط, ظ, ف, ق, ك</span><br>
+                                Conceal the Nūn tongue placement while sustaining nasal resonance for 2 counts.
+                            </p>
+                        </div>
+                        <button onclick="playWordAudio('مِنْ دُونِ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -330,7 +373,14 @@
                         <div class="arabic-demo-text" id="demoArabic">مَ<span class="hl">نْ أَمَ</span>نَ</div>
                         <p style="font-size: 0.88rem; color:#cbd5e1;" id="demoDesc">Listen to the sharp, clear Nūn before Hamzah.</p>
                     </div>
-                    <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Play Recitation Audio</button>
+                    
+                    <!-- Integrated Speech Synthesis Pronunciation Button -->
+                    <div class="flex gap-2 w-full mt-3">
+                        <button class="audio-play-btn flex-1" onclick="playStudioAudio()">🔊 Recitation Audio (Alafasy)</button>
+                        <button onclick="playWordAudio('مَنْ أَمَنَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen (TTS)
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -345,7 +395,10 @@
             <p id="questionPrompt" style="color:#94a3b8; font-weight: 600;">Identify the rule applied in this word/phrase:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
-            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+            <div class="flex justify-center gap-3 mt-2">
+                <div class="audio-btn" onclick="playQuestionAudio()" title="Recitation Audio">🔊</div>
+                <div class="audio-btn" onclick="playWordAudio(testSuite[currentIndex].word)" title="Browser Speech Synthesis"><i class="fa-solid fa-volume-high text-cyan-300"></i></div>
+            </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
 
@@ -523,62 +576,56 @@
             document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
             document.getElementById('feedbackBox').style.display = 'none';
 
-            const options = [
-                { label: "1. Izhar Halqi", val: "Izhar" },
-                { label: "2a. Idgham (Ghunnah)", val: "Idgham_G" },
-                { label: "2b. Idgham (No Ghunnah)", val: "Idgham_NoG" },
-                { label: "3. Iqlab", val: "Iqlab" },
-                { label: "4. Ikhfa' Haqiqi", val: "Ikhfa" }
+            // Build Choices
+            const choices = [
+                { id: 'Izhar', label: '1. Izhar (Clarity)' },
+                { id: 'Idgham_G', label: '2a. Idgham + Ghunnah' },
+                { id: 'Idgham_NoG', label: '2b. Idgham (No Ghunnah)' },
+                { id: 'Iqlab', label: '3. Iqlab (Conversion)' },
+                { id: 'Ikhfa', label: "4. Ikhfa' (Concealment)" }
             ];
 
-            const container = document.getElementById('choicesContainer');
-            container.innerHTML = '';
-
-            options.forEach(opt => {
+            const grid = document.getElementById('choicesContainer');
+            grid.innerHTML = '';
+            choices.forEach(c => {
                 const btn = document.createElement('button');
                 btn.className = 'action-btn';
-                btn.innerHTML = `<span>${opt.label}</span>`;
-                btn.onclick = () => checkAnswer(opt.val, q.correct);
-                container.appendChild(btn);
+                btn.innerHTML = `<span>${c.label}</span>`;
+                btn.onclick = () => submitAnswer(c.id, q.correct, q.exp);
+                grid.appendChild(btn);
             });
         }
 
-        function checkAnswer(selected, correct) {
+        function submitAnswer(selected, correct, explanation) {
             const feedback = document.getElementById('feedbackBox');
             feedback.style.display = 'block';
-
-            if (selected === correct) {
+            
+            const isCorrect = selected === correct || (selected.startsWith('Idgham') && correct.startsWith('Idgham'));
+            if (isCorrect) {
                 score++;
-                feedback.className = 'feedback-banner bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
-                feedback.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Correct! ${testSuite[currentIndex].exp}`;
+                feedback.className = 'feedback-banner bg-emerald-500/20 border border-emerald-500 text-emerald-300';
+                feedback.innerHTML = `✅ Correct! ${explanation}`;
             } else {
-                feedback.className = 'feedback-banner bg-rose-500/20 text-rose-300 border border-rose-500/40';
-                feedback.innerHTML = `<i class="fa-solid fa-xmark mr-1"></i> Incorrect. ${testSuite[currentIndex].exp}`;
+                feedback.className = 'feedback-banner bg-rose-500/20 border border-rose-500 text-rose-300';
+                feedback.innerHTML = `❌ Not quite. ${explanation}`;
             }
 
-            currentIndex++;
+            document.getElementById('scoreVal').innerText = score;
+
+            // Disable buttons temporarily and advance
             setTimeout(() => {
+                currentIndex++;
                 loadQuestion();
             }, 1800);
         }
 
         function markAsCompleted() {
-            const pathParts = window.location.pathname.split('/');
-            const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
-
-            localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
-            const container = document.getElementById('main-game-container');
-            const banner = document.getElementById('success-banner');
-            
-            container.classList.add('animate-success');
-            banner.classList.remove('hidden');
-
+            localStorage.setItem("nun_sakinah_completed", "true");
+            document.getElementById('success-banner').classList.remove('hidden');
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = "index.html";
             }, 1500);
         }
     </script>
-
 </body>
 </html>
