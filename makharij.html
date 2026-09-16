@@ -330,9 +330,9 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function speakWord() {
+        function speakWord(customText) {
             const current = sessionQuestions[currentIndex];
-            const rawText = current ? current.word : '';
+            const rawText = customText || (current ? current.word : '');
             const cleanedWord = rawText.replace(/<[^>]*>?/gm, '');
 
             const text = document.getElementById('target-arabic')?.innerText || 
@@ -341,16 +341,29 @@
                        document.querySelector('h1, h2, span')?.innerText;
 
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
+                // Cancel any ongoing speech so the browser doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
                 utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+                if (arabicVoice) {
+                    utterance.voice = arabicVoice;
+                }
+
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
         }
 
         function nextQuestion() {
