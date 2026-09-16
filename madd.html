@@ -330,7 +330,7 @@
                 <button class="rule-btn" onclick="selectRule('lazim', this)">5. Lāzim (6 Counts)</button>
             </div>
 
-            <div class="studio-card">
+            <div class="studio-card" id="output-board">
                 <div class="studio-header">
                     <span class="active-rule-title" id="studioRuleTitle">Madd Aṣlī / Ṭabī‘ī (مَدّ أَصْلِي)</span>
                     <span style="font-size: 0.85rem; color: #94a3b8;">Click audio player below</span>
@@ -352,7 +352,7 @@
                     </div>
                     <div class="audio-actions-row">
                         <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Reciter Audio (Qur'an)</button>
-                        <button class="speech-btn" id="speechDemoBtn" onclick="playCurrentStudioSpeech()"><i class="fa-solid fa-volume-high"></i> Web Speech (Slow)</button>
+                        <button class="speech-btn" id="speechDemoBtn" onclick="speakWord()"><i class="fa-solid fa-volume-high"></i> Web Speech (Slow)</button>
                     </div>
                 </div>
             </div>
@@ -370,7 +370,7 @@
             <div class="arabic-display" id="wordDisplay">...</div>
             <div style="display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap;">
                 <div class="audio-btn" onclick="playQuestionAudio()" title="Play Reciter Audio">🔊</div>
-                <button class="speech-btn" onclick="playCurrentQuestionSpeech()"><i class="fa-solid fa-volume-high"></i> Listen (Speech Synthesis)</button>
+                <button class="speech-btn" onclick="speakWord()"><i class="fa-solid fa-volume-high"></i> Listen (Speech Synthesis)</button>
             </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
@@ -380,16 +380,19 @@
     </div>
 
 <script>
-    // Audio speech synthesis helper
-    function playWordAudio(textToSpeak) {
-        if ('speechSynthesis' in window) {
+    // Integrated speakWord function
+    function speakWord() {
+        const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+        if ('speechSynthesis' in window && text) {
+            // Cancel any ongoing speech so the phone doesn't block the new queue
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ar-SA';
-            utterance.rate = 0.7; // Slower pace for clarity
+            utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
             window.speechSynthesis.speak(utterance);
         } else {
-            alert("Audio speech synthesis is not supported in this browser.");
+            alert("Text-to-speech is not supported on this browser.");
         }
     }
 
@@ -505,17 +508,6 @@
         playAudioFile(item.audio);
     }
 
-    function playCurrentStudioSpeech() {
-        const item = ruleDatabase[activeRuleKey];
-        playWordAudio(item.rawWord);
-    }
-
-    function playCurrentQuestionSpeech() {
-        if (testSuite[currentIndex]) {
-            playWordAudio(testSuite[currentIndex].word);
-        }
-    }
-
     function showView(view) {
         document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
         document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
@@ -550,75 +542,65 @@
 
         const q = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
-        document.getElementById('scoreVal').innerText = score;
-        document.getElementById('progFill').style.width = ((currentIndex / testSuite.length) * 100) + '%';
+        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
         document.getElementById('wordDisplay').innerText = q.word;
+        document.getElementById('feedbackBox').style.display = 'none';
 
-        const feedback = document.getElementById('feedbackBox');
-        feedback.style.display = 'none';
-        feedback.className = 'feedback-banner';
+        const choicesContainer = document.getElementById('choicesContainer');
+        choicesContainer.innerHTML = '';
 
-        const choices = [
-            { key: 'Asli', label: '1. Madd Aṣlī (Natural - 2 counts)' },
-            { key: 'Muttasil', label: '2. Madd Muttaṣil (Connected - 4/5 counts)' },
-            { key: 'Munfasil', label: '3. Madd Munfaṣil (Disconnected - 4/5 counts)' },
-            { key: 'Arid', label: '4. Madd ‘Āriḍ li-s-Sukūn (Pause Sukūn)' },
-            { key: 'Lazim', label: '5. Madd Lāzim (Compulsory - 6 counts)' }
+        const options = [
+            { label: "1. Madd Aṣlī (Natural)", val: "Asli" },
+            { label: "2. Madd Muttaṣil (Connected)", val: "Muttasil" },
+            { label: "3. Madd Munfaṣil (Disconnected)", val: "Munfasil" },
+            { label: "4. Madd ‘Āriḍ li-s-Sukūn", val: "Arid" },
+            { label: "5. Madd Lāzim (Compulsory)", val: "Lazim" }
         ];
 
-        let html = '';
-        choices.forEach(c => {
-            html += `<button class="action-btn" onclick="checkAnswer('${c.key}')"><span>${c.label}</span></button>`;
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'action-btn';
+            btn.innerText = opt.label;
+            btn.onclick = () => checkAnswer(opt.val, q.correct, q.exp);
+            choicesContainer.appendChild(btn);
         });
-        document.getElementById('choicesContainer').innerHTML = html;
-
-        playQuestionAudio();
     }
 
-    function checkAnswer(selectedKey) {
-        const q = testSuite[currentIndex];
-        const feedback = document.getElementById('feedbackBox');
-        feedback.style.display = 'block';
+    function checkAnswer(selected, correct, explanation) {
+        const feedbackBox = document.getElementById('feedbackBox');
+        feedbackBox.style.display = 'block';
 
-        const buttons = document.querySelectorAll('#choicesContainer .action-btn');
-        buttons.forEach(btn => btn.disabled = true);
+        const buttons = document.querySelectorAll('#choicesContainer button');
+        buttons.forEach(b => b.disabled = true);
 
-        if (selectedKey === q.correct) {
-            score++;
-            feedback.style.background = 'rgba(16, 185, 129, 0.2)';
-            feedback.style.color = 'var(--accent-emerald)';
-            feedback.style.border = '1px solid var(--accent-emerald)';
-            feedback.innerHTML = `✅ Correct! ${q.exp}`;
+        if (selected === correct) {
+            score += 10;
+            document.getElementById('scoreVal').innerText = score;
+            feedbackBox.style.background = 'rgba(16, 185, 129, 0.2)';
+            feedbackBox.style.color = 'var(--accent-emerald)';
+            feedbackBox.innerHTML = `✅ Correct! ${explanation}`;
         } else {
-            feedback.style.background = 'rgba(244, 63, 94, 0.2)';
-            feedback.style.color = 'var(--accent-rose)';
-            feedback.style.border = '1px solid var(--accent-rose)';
-            feedback.innerHTML = `❌ Incorrect. ${q.exp}`;
+            feedbackBox.style.background = 'rgba(244, 63, 94, 0.2)';
+            feedbackBox.style.color = 'var(--accent-rose)';
+            feedbackBox.innerHTML = `❌ Incorrect. ${explanation}`;
         }
 
-        document.getElementById('scoreVal').innerText = score;
-        currentIndex++;
-
         setTimeout(() => {
+            currentIndex++;
             loadQuestion();
-        }, 2500);
+        }, 3500);
     }
 
     function showFinalResults() {
-        document.getElementById('scoreHeader').style.display = 'none';
-        const pct = Math.round((score / testSuite.length) * 100);
-        let msg = pct >= 80 ? "🏆 Outstanding Mastery! You have mastered Madd rules!" : "Keep practicing the rules in the Studio to refine your Tajweed!";
-
         document.getElementById('testView').innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">Test Completed! 🎉</h2>
-              <p style="font-size: 1.3rem; margin-bottom: 10px;">Your Final Score: <span style="color: var(--accent-emerald); font-weight: bold;">${score} / ${testSuite.length}</span> (${pct}%)</p>
-              <p style="color: #94a3b8; margin-bottom: 25px;">${msg}</p>
-              <button class="start-test-btn" onclick="location.reload()">🔄 Retake Test / Return to Studio</button>
+            <div style="text-align: center; padding: 30px;">
+                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
+                <p style="font-size: 1.2rem; color: #cbd5e1; margin-bottom: 25px;">You have successfully finished the 30-Question Madd Rules Mastery Test.</p>
+                <div style="font-size: 1.5rem; color: var(--accent-emerald); font-weight: bold; margin-bottom: 30px;">Final Score: ${score} / 300 ⭐</div>
+                <button class="start-test-btn" onclick="location.reload()">Restart Practice Studio</button>
             </div>
         `;
     }
 </script>
 </body>
 </html>
-
