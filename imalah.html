@@ -80,20 +80,41 @@
                 <i class="fa-solid fa-sliders"></i> Mechanics & Occurrence in Hafs 'an 'Aasim
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
-                    <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">مَجْر۪ىٰهَا</span>
-                    <span class="text-xs font-bold text-slate-200">1. Sole Location</span>
-                    <p class="text-[11px] text-slate-400 mt-1">Occurs in <strong>only one word</strong> in Hafs recitation: <em>Surah Hud (11:41)</em>.</p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">مَجْر۪ىٰهَا</span>
+                        <span class="text-xs font-bold text-slate-200">1. Sole Location</span>
+                        <p class="text-[11px] text-slate-400 mt-1">Occurs in <strong>only one word</strong> in Hafs recitation: <em>Surah Hud (11:41)</em>.</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('مَجْر۪ىٰهَا')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
-                    <span class="text-2xl font-bold text-cyan-400 block mb-1">Fathah ➔ Kasrah</span>
-                    <span class="text-xs font-bold text-slate-200">2. Vocal Shift</span>
-                    <p class="text-[11px] text-slate-400 mt-1">The vowel sound tilts halfway between "A" (Fathah) and "E/I" (Kasrah), sounding like "Maj-ray-ha".</p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold text-cyan-400 block mb-1">Fathah ➔ Kasrah</span>
+                        <span class="text-xs font-bold text-slate-200">2. Vocal Shift</span>
+                        <p class="text-[11px] text-slate-400 mt-1">The vowel sound tilts halfway between "A" (Fathah) and "E/I" (Kasrah), sounding like "Maj-ray-ha".</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('مَجْرَاهَا')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
-                    <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">◊  or  ۪</span>
-                    <span class="text-xs font-bold text-slate-200">3. Mus-haf Notation</span>
-                    <p class="text-[11px] text-slate-400 mt-1">Marked by a <strong>solid diamond symbol (◊)</strong> under the letter Raa (ر۪).</p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">◊  or  ۪</span>
+                        <span class="text-xs font-bold text-slate-200">3. Mus-haf Notation</span>
+                        <p class="text-[11px] text-slate-400 mt-1">Marked by a <strong>solid diamond symbol (◊)</strong> under the letter Raa (ر۪).</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('الإِمَالَة الكُبْرَى')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,7 +157,7 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
-        Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App .
+        Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App.
     </footer>
 
     <script>
@@ -281,14 +302,20 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function playWordAudio() {
-            const current = sessionQuestions[currentIndex];
-            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
+        // Integrated speech synthesis function handling both explicit text arguments or falling back to current question word
+        function playWordAudio(textToSpeak) {
+            if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
+                const current = sessionQuestions[currentIndex];
+                textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : 'مَجْر۪ىٰهَا';
+            }
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(cleanText);
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
+                utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
             }
         }
 
