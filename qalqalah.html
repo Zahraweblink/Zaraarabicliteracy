@@ -225,7 +225,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h2 class="lesson-title !mb-0">Understanding Qalqalah (قَلْقَلَة)</h2>
                 <!-- Audio Button Template integration -->
-                <button onclick="playWordAudio('قُطْبُ جَدٍّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord('قُطْبُ جَدٍّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high"></i> Listen Phrase
                 </button>
             </div>
@@ -235,7 +235,7 @@
 
             <div class="mnemonic-banner">
                 The 5 Qalqalah Letters are in this historic phrase:
-                <span class="mnemonic-letters">قُطْبُ جَدٍّ</span>
+                <span class="mnemonic-letters" id="output-board">قُطْبُ جَدٍّ</span>
                 <span style="font-size: 0.9rem; color: #94a3b8;">(Qaf ق, Taa ط, Baa ب, Jeem ج, Dal د)</span>
             </div>
 
@@ -249,7 +249,7 @@
                         </p>
                         <div class="arabic-demo-text">يَ<span class="hl">قْ</span>طَعُونَ</div>
                     </div>
-                    <button onclick="playWordAudio('يَقْطَعُونَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer mt-2">
+                    <button onclick="speakWord('يَقْطَعُونَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer mt-2">
                         <i class="fa-solid fa-volume-high"></i> Listen Word
                     </button>
                 </div>
@@ -261,7 +261,7 @@
                         </p>
                         <div class="arabic-demo-text">الْفَلَ<span class="hl">قِ</span></div>
                     </div>
-                    <button onclick="playWordAudio('الْفَلَقِ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer mt-2">
+                    <button onclick="speakWord('الْفَلَقِ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer mt-2">
                         <i class="fa-solid fa-volume-high"></i> Listen Word
                     </button>
                 </div>
@@ -313,7 +313,7 @@
                         </div>
                         <div class="flex flex-col gap-2 w-full mt-3">
                             <button class="audio-play-btn" onclick="playCurrentAudio('sughra')">🔊 Listen Recitation Audio</button>
-                            <button onclick="playWordAudio(document.getElementById('sughraArabic').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <button onclick="speakWord(document.getElementById('sughraArabic').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
                                 <i class="fa-solid fa-volume-high"></i> Speech Synthesis Pronunciation
                             </button>
                         </div>
@@ -327,7 +327,7 @@
                         </div>
                         <div class="flex flex-col gap-2 w-full mt-3">
                             <button class="audio-play-btn kubra-btn" onclick="playCurrentAudio('kubra')">🔊 Listen Recitation Audio</button>
-                            <button onclick="playWordAudio(document.getElementById('kubraArabic').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                            <button onclick="speakWord(document.getElementById('kubraArabic').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
                                 <i class="fa-solid fa-volume-high"></i> Speech Synthesis Pronunciation
                             </button>
                         </div>
@@ -348,7 +348,7 @@
             <div class="arabic-display" id="wordDisplay">...</div>
             <div class="flex justify-center gap-3 items-center mt-2">
                 <div class="audio-btn" onclick="playQuestionAudio()" title="Play Recitation Audio">🔊</div>
-                <button onclick="playWordAudio(document.getElementById('wordDisplay').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-3 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord(document.getElementById('wordDisplay').innerText)" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-3 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high"></i> Listen Speech Pronunciation
                 </button>
             </div>
@@ -371,16 +371,18 @@
 
 <script>
     // Integrated Text-to-Speech audio pronunciation function
-    function playWordAudio(textToSpeak) {
-        if ('speechSynthesis' in window) {
-            // Cancel any ongoing speech queue
+    function speakWord(textToSpeak) {
+        const text = textToSpeak || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+        if ('speechSynthesis' in window && text) {
+            // Cancel any ongoing speech so the phone doesn't block the new queue
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            
+            const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ar-SA';
-            utterance.rate = 0.7; // Slower pace for clarity
+            utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
             window.speechSynthesis.speak(utterance);
         } else {
-            alert("Audio speech synthesis is not supported in this browser.");
+            alert("Text-to-speech is not supported on this browser.");
         }
     }
 
