@@ -177,7 +177,7 @@
             Question <span id="qNum">1</span>/25 | Score: <span id="scoreVal">0</span> ⭐
         </div>
         <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
-            Zahrah’s Interactive Classroom
+            Zahrah's Interactive Online Classroom
         </div>
     </header>
 
@@ -330,7 +330,7 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-4xl text-center text-slate-500 text-xs mt-6">
-        Zahrah’s Interactive Classroom &copy; 2026. Arabic Literacy & Tajweed Master App.
+        Zahrah's Interactive Online Classroom &copy; 2026. Arabic Literacy & Tajweed Master App.
     </footer>
 
     <!-- Script that handles rules, audio playback, and quiz flow -->
@@ -341,9 +341,9 @@
             const cleanCustom = rawText.replace(/<[^>]*>?/gm, '');
 
             const text = document.getElementById('output-board')?.innerText || 
-                         cleanCustom || 
-                         document.getElementById('wordDisplay')?.innerText || 
-                         document.querySelector('h1, h2, span')?.innerText;
+                       cleanCustom || 
+                       document.getElementById('wordDisplay')?.innerText || 
+                       document.querySelector('h1, h2, span')?.innerText;
 
             if ('speechSynthesis' in window && text) {
                 // Cancel any ongoing speech so the phone doesn't block the new queue
