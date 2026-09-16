@@ -78,25 +78,47 @@
 
         <!-- Rule Explainer Card -->
         <div class="bg-slate-900/60 rounded-2xl p-5 border border-cyan-500/30 space-y-4 text-left">
-            <h2 class="text-base font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-bolt"></i> Primary Situations Requiring Nabr
+            <h2 class="text-base font-bold text-cyan-300 flex items-center justify-between">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt"></i> Primary Situations Requiring Nabr</span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">الصَّاخَّةُ</span>
-                    <span class="text-xs font-bold text-slate-200">1. Madd to Shaddah</span>
-                    <p class="text-[11px] text-slate-400 mt-1">Lifting the voice when transitioning from long Madd (6 counts) into a doubled letter.</p>
+                
+                <!-- Card 1 -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">الصَّاخَّةُ</span>
+                        <span class="text-xs font-bold text-slate-200">1. Madd to Shaddah</span>
+                        <p class="text-[11px] text-slate-400 mt-1">Lifting the voice when transitioning from long Madd (6 counts) into a doubled letter.</p>
+                    </div>
+                    <button onclick="playWordAudio('الصَّاخَّةُ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">مُسْتَقِرٌّ</span>
-                    <span class="text-xs font-bold text-slate-200">2. Stopping on Shaddah</span>
-                    <p class="text-[11px] text-slate-400 mt-1">Applying pressure when stopping on a doubled letter so the second hidden letter remains audible.</p>
+
+                <!-- Card 2 -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">مُسْتَقِرٌّ</span>
+                        <span class="text-xs font-bold text-slate-200">2. Stopping on Shaddah</span>
+                        <p class="text-[11px] text-slate-400 mt-1">Applying pressure when stopping on a doubled letter so the second hidden letter remains audible.</p>
+                    </div>
+                    <button onclick="playWordAudio('مُسْتَقِرٌّ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                    <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">ذَاقَا الشَّجَرَةَ</span>
-                    <span class="text-xs font-bold text-slate-200">3. Dropped Alif of Dual</span>
-                    <p class="text-[11px] text-slate-400 mt-1">Lifting the sound on the previous letter when the Alif of dual is dropped due to meeting a Sukoon.</p>
+
+                <!-- Card 3 -->
+                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">ذَاقَا الشَّجَرَةَ</span>
+                        <span class="text-xs font-bold text-slate-200">3. Dropped Alif of Dual</span>
+                        <p class="text-[11px] text-slate-400 mt-1">Lifting the sound on the previous letter when the Alif of dual is dropped due to meeting a Sukoon.</p>
+                    </div>
+                    <button onclick="playWordAudio('ذَاقَا الشَّجَرَةَ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
                 </div>
+
             </div>
         </div>
 
@@ -125,7 +147,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -320,16 +342,25 @@
             nextBtn.className = "px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer";
         }
 
-        function playWordAudio() {
+        // Web Speech API Pronunciation Function
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
+        // Helper to play current active question text
+        function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
-                window.speechSynthesis.speak(utterance);
-            }
+            playWordAudio(cleanText);
         }
 
         function nextQuestion() {
