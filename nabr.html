@@ -342,12 +342,13 @@
             nextBtn.className = "px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer";
         }
 
-        // Web Speech API Pronunciation Function
+        // Web Speech API Pronunciation Function with HTML Sanitizer
         function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                // Strip HTML tags so the speech engine reads clean Arabic text
+                const cleanText = typeof textToSpeak === 'string' ? textToSpeak.replace(/<[^>]*>?/gm, '') : '';
+                const utterance = new SpeechSynthesisUtterance(cleanText);
                 utterance.lang = 'ar-SA';
                 utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
@@ -356,7 +357,7 @@
             }
         }
 
-        // Helper to play current active question text
+        // Helper to play current active question text safely
         function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
