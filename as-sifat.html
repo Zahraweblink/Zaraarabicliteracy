@@ -74,27 +74,63 @@
             </p>
         </div>
 
-        <!-- Rule Explainer Card -->
+        <!-- Rule Explainer Card with Integrated Audio Buttons -->
         <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
             <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
                 <i class="fa-solid fa-graduation-cap"></i> Core Letter Characteristics
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-lg font-bold arabic-text text-amber-400 block">الهَمْس (Hams / Whisper)</span>
-                    <p class="text-[11px] text-slate-300">Flow of breath due to weakness in articulation when pronouncing letters (e.g., فَحَثَّهُ شَخْصٌ سَكَتَ).</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                <!-- Hams Card -->
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">فَحَثَّهُ شَخْصٌ سَكَتَ</span>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">الهَمْس (Hams / Whisper)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">Flow of breath due to weakness in articulation when pronouncing letters.</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('فَحَثَّهُ شَخْصٌ سَكَتَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-lg font-bold arabic-text text-cyan-400 block">الشِّدَّة (Shiddah / Strength)</span>
-                    <p class="text-[11px] text-slate-300">Complete blockage of sound flow due to strong reliance on the articulation point (e.g., أَجِدُ قَطْ بَكَتْ).</p>
+                <!-- Shiddah Card -->
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">أَجِدُ قَطْ بَكَتْ</span>
+                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">الشِّدَّة (Shiddah / Strength)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">Complete blockage of sound flow due to strong reliance on the articulation point.</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('أَجِدُ قَطْ بَكَتْ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-lg font-bold arabic-text text-emerald-400 block">الرَّخَاوَة (Rikhawah / Softness)</span>
-                    <p class="text-[11px] text-slate-300">Free flow of sound through the articulation point when pronouncing soft letters (e.g., س, ش, ز).</p>
+                <!-- Rikhawah Card -->
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">س، ش، ز</span>
+                        <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">الرَّخَاوَة (Rikhawah / Softness)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">Free flow of sound through the articulation point when pronouncing soft letters.</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('س ش ز')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-lg font-bold arabic-text text-amber-300 block">الإِطْبَاق (Itbāq / Stickiness)</span>
-                    <p class="text-[11px] text-slate-300">Flattening and raising a large portion of the tongue toward the roof of the mouth (ص, ض, ط, ظ).</p>
+                <!-- Itbaq Card -->
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-amber-300 block mb-1">ص، ض، ط، ظ</span>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">الإِطْبَاق (Itbāq / Stickiness)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">Flattening and raising a large portion of the tongue toward the roof of the mouth.</p>
+                    </div>
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="playWordAudio('ص ض ط ظ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                            <i class="fa-solid fa-volume-high"></i> Listen
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,7 +189,7 @@
                 correctIndex: 0
             },
             {
-                word: "حَرْفُ السِّين (س)",
+                word: "حَرْفُ السِّين",
                 prompt: "When pronouncing the letter <strong>Seen (س)</strong> with a Sukoon, what happens to the breath?",
                 options: [
                     "Breath flows freely because it is a letter of Hams",
@@ -162,10 +198,10 @@
                 correctIndex: 0
             },
             {
-                word: "حَرْفُ التَّاء (ت)",
-                prompt: "The letter <strong>Taa (ت)</strong> possesses the attribute of Hams. What does this mean for the reciter?",
+                word: "أَنْعَمْتَ",
+                prompt: "The letter <strong>Taa (ت)</strong> possesses the attribute of Hams. What does this mean for the reciter when pronouncing <strong>أَنْعَمْتَ</strong>?",
                 options: [
-                    "A subtle breath sound escapes when pronouncing a sakin Taa (e.g., أَنْعَمْتَ)",
+                    "A subtle breath sound escapes when pronouncing a sakin Taa",
                     "The letter must be recited with loud shouting"
                 ],
                 correctIndex: 0
@@ -182,8 +218,8 @@
                 correctIndex: 0
             },
             {
-                word: "حَرْفُ القَاف (ق)",
-                prompt: "Why does the letter <strong>Qaaf (ق)</strong> cause a blockage of sound when sakin (e.g., أَقْـ)?",
+                word: "أَقْـ",
+                prompt: "Why does the letter <strong>Qaaf (ق)</strong> cause a blockage of sound when sakin (e.g., <strong>أَقْـ</strong>)?",
                 options: [
                     "Because it is a letter of Shiddah where the articulation point closes tightly",
                     "Because it is a soft letter with continuous breath"
@@ -202,7 +238,7 @@
                 correctIndex: 0
             },
             {
-                word: "حَرْفُ الزَّاي (ز) / الشِّين (ش)",
+                word: "ز و ش",
                 prompt: "Letters like <strong>Zay (ز)</strong> and <strong>Sheen (ش)</strong> are classified under which primary sound category?",
                 options: [
                     "Rikhawah (Softness / Flow of sound)",
@@ -213,7 +249,7 @@
 
             // --- ITBAQ (STICKINESS / ENCOMPASSING) ---
             {
-                word: "ص, ض, ط, ظ",
+                word: "ص ض ط ظ",
                 prompt: "What do the four letters <strong>ص، ض، ط، ظ</strong> share regarding tongue position?",
                 options: [
                     "Itbāq (Stickiness / The tongue arches and flattens against the roof of the mouth)",
@@ -222,7 +258,7 @@
                 correctIndex: 0
             },
             {
-                word: "الإِطْبَاق وَالتَّفْخِيم",
+                word: "حَرْفُ الطَّاء",
                 prompt: "How does <strong>Itbāq</strong> directly affect the pronunciation of a letter like <strong>Taa (ط)</strong>?",
                 options: [
                     "It creates strong Tafkheem (heavy resonance) because the palate is enclosed",
@@ -316,14 +352,20 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function playWordAudio() {
-            const current = sessionQuestions[currentIndex];
-            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
+        // Updated playWordAudio function supporting direct text arguments or falling back to active question
+        function playWordAudio(textToSpeak) {
+            if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
+                const current = sessionQuestions[currentIndex];
+                textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : 'فَحَثَّهُ';
+            }
             if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(cleanText);
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
+                utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
             }
         }
 
