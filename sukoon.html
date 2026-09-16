@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sun & Moon Letters Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Sukoon & Stillness Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -71,33 +72,42 @@
             <div class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                 Essential Tajweed Module
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Sun & Moon Letters (الحُرُوفُ الشَّمْسِيَّة وَالقَمَرِيَّة)</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Sukoon & Stillness (السُّكُون)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master how the definite article <strong>AL (الـ)</strong> behaves before the 28 Arabic letters.
+                Master how vowelless letters are blended with preceding vowels and how Qalqalah bounce works.
             </p>
         </div>
 
-        <!-- Practical Rule Explainer Card -->
+        <!-- Practical Rule Explainer Card with Audio Templates -->
         <div class="glass-card rounded-3xl p-6 border-amber-500/30 space-y-4">
             <h2 class="text-lg font-bold text-amber-300 flex items-center gap-2">
-                <i class="fa-solid fa-lightbulb"></i> Rules of "AL" (الـ):
+                <i class="fa-solid fa-lightbulb"></i> Rules of Sukoon (سُكُون):
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/30">
-                    <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">الشَّمْس (Ash-Shams)</span>
-                    <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">☀️ Sun Letters (14 Letters)</span>
-                    <p class="text-[11px] text-slate-300 mt-2">
-                        The <strong>"L" sound is silent</strong> and merges into the next letter, creating a <strong>Shaddah</strong>. <br>
-                        <em>Example: ال + شَمْس = <strong>الشَّمْس</strong> ("Ash-Shams")</em>
-                    </p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/30 flex flex-col items-center justify-between">
+                    <div>
+                        <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَبْ</span>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">🔗 Static Sound Blending</span>
+                        <p class="text-[11px] text-slate-300 mt-2">
+                            A letter with a Sukoon (ْ) attaches directly to the letter before it.
+                        </p>
+                    </div>
+                    <button onclick="playWordAudio('أَبْ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen (أَبْ)
+                    </button>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-sky-500/30">
-                    <span class="text-3xl font-bold arabic-text text-sky-400 block mb-1">الْقَمَر (Al-Qamar)</span>
-                    <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">🌙 Moon Letters (14 Letters)</span>
-                    <p class="text-[11px] text-slate-300 mt-2">
-                        The <strong>"L" sound is clear</strong> with a Sukoon (الْـ). <br>
-                        <em>Example: ال + قَمَر = <strong>الْقَمَر</strong> ("Al-Qamar")</em>
-                    </p>
+
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-sky-500/30 flex flex-col items-center justify-between">
+                    <div>
+                        <span class="text-3xl font-bold arabic-text text-sky-400 block mb-1">أَحَدْ</span>
+                        <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">⭐ Qalqalah Bounce (قطب جد)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">
+                            Produce a distinct echo or bouncing sound when stopping on Qalqalah letters.
+                        </p>
+                    </div>
+                    <button onclick="playWordAudio('أَحَدْ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen (أَحَدْ)
+                    </button>
                 </div>
             </div>
         </div>
@@ -110,13 +120,16 @@
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
-            <!-- Target Word Display -->
-            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
-                    الشَّمْسُ
+            <!-- Target Word Display with Integrated Audio Button Template -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center space-y-3">
+                <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide">
+                    أَبْ
                 </div>
-                <p id="target-prompt" class="text-sm text-slate-300">
-                    Is the letter following 'AL' a Sun Letter or a Moon Letter?
+                <button onclick="playCurrentWord()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
+                    <i class="fa-solid fa-volume-high"></i> Listen to Target Word
+                </button>
+                <p id="target-prompt" class="text-sm text-slate-300 max-w-md px-4 pt-1">
+                    Identify the rule or sound associated with this Sukoon exercise.
                 </p>
             </div>
 
@@ -126,10 +139,7 @@
             </div>
 
             <!-- Action Controls -->
-            <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-sky-400 border border-sky-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
-                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
-                </button>
+            <div class="flex justify-end items-center pt-2">
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
@@ -149,133 +159,133 @@
     </footer>
 
     <script>
-        // 20-Exercise Question Bank for Sun & Moon Letters
+        // 20-Exercise Question Bank for Sukoon and Stillness
         const questionBank = [
-            // --- MODE 1: IDENTIFICATION ---
+            // --- MODE 1: BASIC SUKOON BLENDING ---
             {
-                word: "الشَّمْسُ",
-                prompt: "In <strong>الشَّمْسُ</strong>, the letter <strong>ش</strong> is a:",
-                options: ["☀️ Sun Letter (حرف شمسي)", "🌙 Moon Letter (حرف قمري)"],
+                word: "أَبْ",
+                prompt: "In <strong>أَبْ</strong>, how does the letter <strong>بْ</strong> with Sukoon behave?",
+                options: ["It attaches to the preceding vowel (Ab)", "It is read with an independent vowel sound"],
                 correctIndex: 0
             },
             {
-                word: "الْقَمَرُ",
-                prompt: "In <strong>الْقَمَرُ</strong>, the letter <strong>ق</strong> is a:",
-                options: ["☀️ Sun Letter (حرف شمسي)", "🌙 Moon Letter (حرف قمري)"],
-                correctIndex: 1
-            },
-            {
-                word: "الرَّحْمٰنُ",
-                prompt: "In <strong>الرَّحْمٰنُ</strong>, the letter <strong>ر</strong> is a:",
-                options: ["☀️ Sun Letter (حرف شمسي)", "🌙 Moon Letter (حرف قمري)"],
+                word: "مَنْ",
+                prompt: "In <strong>مَنْ</strong>, the Noon with Sukoon (نْ) combines with Meem to sound like:",
+                options: ["Man", "Ma-na"],
                 correctIndex: 0
             },
             {
-                word: "الْكِتَابُ",
-                prompt: "In <strong>الْكِتَابُ</strong>, the letter <strong>ك</strong> is a:",
-                options: ["☀️ Sun Letter (حرف شمسي)", "🌙 Moon Letter (حرف قمري)"],
-                correctIndex: 1
-            },
-            {
-                word: "التَّوَّابُ",
-                prompt: "In <strong>التَّوَّابُ</strong>, the letter <strong>ت</strong> is a:",
-                options: ["☀️ Sun Letter (حرف شمسي)", "🌙 Moon Letter (حرف قمري)"],
-                correctIndex: 0
-            },
-
-            // --- MODE 2: PRONUNCIATION / MERGING RULES ---
-            {
-                word: "السَّمَاءُ",
-                prompt: "How is <strong>السَّمَاءُ</strong> pronounced?",
-                options: ["As-Samaa' (Lam merges into Seen)", "Al-Samaa' (Lam is pronounced)"],
+                word: "عَنْ",
+                prompt: "What is the primary function of the Sukoon sign (ْ) on <strong>نْ</strong> in <strong>عَنْ</strong>?",
+                options: ["Indicates stillness / vowellessness", "Adds a long 'aa' vowel sound"],
                 correctIndex: 0
             },
             {
-                word: "الْأَرْضُ",
-                prompt: "How is <strong>الْأَرْضُ</strong> pronounced?",
-                options: ["As-Ard (Lam merges)", "Al-Ard (Lam is clearly spoken)"],
-                correctIndex: 1
-            },
-            {
-                word: "النُّورُ",
-                prompt: "What happens to the <strong>Lam (ل)</strong> in <strong>النُّورُ</strong>?",
-                options: ["It becomes silent and merges into Noon", "It is pronounced with Sukoon"],
+                word: "قَدْ",
+                prompt: "In <strong>قَدْ</strong>, the Dal with Sukoon (دْ) produces what quality because it is a Qalqalah letter?",
+                options: ["A clear echo / bounce sound", "A nasal hum (Ghunnah)"],
                 correctIndex: 0
             },
             {
-                word: "الْجَنَّةُ",
-                prompt: "What happens to the <strong>Lam (ل)</strong> in <strong>الْجَنَّةُ</strong>?",
-                options: ["It is pronounced clearly ('Al-Jannah')", "It merges silently ('Aj-Jannah')"],
-                correctIndex: 0
-            },
-            {
-                word: "الصَّلٰاةُ",
-                prompt: "How is <strong>الصَّلٰاةُ</strong> recited?",
-                options: ["As-Salaah (Sun Letter Rule)", "Al-Salaah (Moon Letter Rule)"],
+                word: "بَلْ",
+                prompt: "How is the Lam with Sukoon (لْ) in <strong>بَلْ</strong> pronounced?",
+                options: ["Stilled and linked directly to Baa", "Pronounced with a short Kasrah"],
                 correctIndex: 0
             },
 
-            // --- MODE 3: SPOTTING SUN VS MOON MARKS ---
+            // --- MODE 2: QALQALAH BOUNCE (قطب جد) ---
             {
-                word: "الذِّكْرُ",
-                prompt: "Why does the <strong>Thal (ذ)</strong> have a <strong>Shaddah</strong> in <strong>الذِّكْرُ</strong>?",
-                options: ["Because Thal is a Sun Letter", "Because Thal is a Moon Letter"],
+                word: "أَحَدْ",
+                prompt: "When stopping on <strong>أَحَدْ</strong>, why does Dal (د) bounce?",
+                options: ["It is a Qalqalah letter (د from قطب جد)", "It is a Sun letter"],
                 correctIndex: 0
             },
             {
-                word: "الْحَمْدُ",
-                prompt: "Why does the <strong>Lam (لْ)</strong> have a <strong>Sukoon</strong> in <strong>الْحَمْدُ</strong>?",
-                options: ["Because Ha (ح) is a Moon Letter", "Because Ha (ح) is a Sun Letter"],
+                word: "الْفَلَقْ",
+                prompt: "In <strong>الْفَلَقْ</strong>, the Qaf (قْ) at the end requires:",
+                options: ["Strong Qalqalah (echo bounce)", "Silent merging into the next word"],
                 correctIndex: 0
             },
             {
-                word: "الظَّالِمِينَ",
-                prompt: "In <strong>الظَّالِمِينَ</strong>, the letter <strong>ظ</strong> is a:",
-                options: ["☀️ Sun Letter", "🌙 Moon Letter"],
+                word: "مُحِيطْ",
+                prompt: "In <strong>مُحِيطْ</strong>, the Taa (طْ) is stilled. Since Ṭaa is part of قُطْبِ جَدٍ, it has:",
+                options: ["Qalqalah (bouncing echo)", "No vocal vibration"],
                 correctIndex: 0
             },
             {
-                word: "الْغَفُورُ",
-                prompt: "In <strong>الْغَفُورُ</strong>, the letter <strong>غ</strong> is a:",
-                options: ["☀️ Sun Letter", "🌙 Moon Letter"],
-                correctIndex: 1
+                word: "يَجْعَلْ",
+                prompt: "In <strong>يَجْعَلْ</strong>, the Jeem (جْ) in the middle has a Sukoon. Is it bounced?",
+                options: ["Yes, it exhibits mild inner Qalqalah", "No, only letters at the end bounce"],
+                correctIndex: 0
             },
             {
-                word: "الدِّينُ",
-                prompt: "How is <strong>الدِّينُ</strong> pronounced?",
-                options: ["Ad-Deen", "Al-Deen"],
+                word: "خَلَقَ",
+                prompt: "Which of these words contains a letter with explicit Sukoon?",
+                options: ["Look for static letter combinations in connected reading", "Every letter has a Harakah"],
                 correctIndex: 0
             },
 
-            // --- MODE 4: QURANIC APPLICATION ---
+            // --- MODE 3: IDENTIFYING SYLLABLES & BLENDING ---
             {
-                word: "مَلِكِ النَّاسِ",
-                prompt: "In <strong>مَلِكِ النَّاسِ</strong>, how is the 'AL' before <strong>نَّاسِ</strong> recited?",
-                options: ["Malikin-Naas (Lam merges into Noon)", "Malikil-Naas"],
+                word: "يْت",
+                prompt: "When a Ya with Sukoon (يْ) is preceded by a Fathah (e.g., كَيْ), it forms a:",
+                options: ["Diphthong / Soft Letter (Layin)", "Sun letter merge"],
                 correctIndex: 0
             },
             {
-                word: "رَبِّ الْعَالَمِينَ",
-                prompt: "In <strong>رَبِّ الْعَالَمِينَ</strong>, the letter <strong>ع</strong> in Al-'Aalameen is a:",
-                options: ["🌙 Moon Letter (Lam is spoken)", "☀️ Sun Letter (Lam merges)"],
+                word: "وْ",
+                prompt: "When a Waw with Sukoon (وْ) is preceded by a Fathah (e.g., خَوْ), what sound does it make?",
+                options: ["'Aw' sound", "Long 'Oo' sound"],
                 correctIndex: 0
             },
             {
-                word: "وَالضُّحٰى",
-                prompt: "In <strong>وَالضُّحٰى</strong>, how is the word recited?",
-                options: ["Wad-Duhaa (Lam merges into Dhad)", "Wal-Duhaa"],
+                word: "أَكْ",
+                prompt: "In the syllable <strong>أَكْ</strong>, the Kaf (كْ) requires the breath to:",
+                options: ["Stop cleanly against the palate (Hams/Jazm)", "Flow continuously with a nasal hum"],
+                correctIndex: 0
+            },
+            {
+                word: "إِسْ",
+                prompt: "In <strong>إِسْ</strong>, the Seen with Sukoon (سْ) produces a:",
+                options: ["Hissing fricative sound attached to Kasrah", "Bouncing echo"],
+                correctIndex: 0
+            },
+            {
+                word: "عَلْم",
+                prompt: "How do you transition from Laam with Fathah to Meem with Sukoon in <strong>عَلْم</strong>?",
+                options: ["Smoothly blend 'La' into closed 'm'", "Pronounce an extra vowel between them"],
+                correctIndex: 0
+            },
+
+            // --- MODE 4: ADVANCED TAFKHEEM & QURANIC CONTEXTS ---
+            {
+                word: "مَرْ",
+                prompt: "When Ra with Sukoon (رْ) is preceded by a Fathah (e.g., مَرْ), the Ra is pronounced:",
+                options: ["Heavy / Thick (Tafkheem)", "Light / Thin (Tarqeeq)"],
+                correctIndex: 0
+            },
+            {
+                word: "فِرْعَوْن",
+                prompt: "In <strong>فِرْعَوْن</strong>, the Ra with Sukoon (رْ) is preceded by a Kasrah. How is it read?",
+                options: ["Light / Thin (Tarqeeq)", "Heavy / Thick (Tafkheem)"],
+                correctIndex: 0
+            },
+            {
+                word: "لَمْ يَلِدْ",
+                prompt: "In <strong>لَمْ يَلِدْ</strong>, how many Sukoon signs appear?",
+                options: ["Two (on Meem and Dal)", "Zero"],
                 correctIndex: 0
             },
             {
                 word: "وَالْفَجْرِ",
-                prompt: "In <strong>وَالْفَجْرِ</strong>, the letter <strong>ف</strong> is a:",
-                options: ["🌙 Moon Letter (Wal-Fajr)", "☀️ Sun Letter (Waf-Fajr)"],
+                prompt: "In <strong>وَالْفَجْرِ</strong>, the Lam has a Sukoon (لْ). Why?",
+                options: ["Because Fa is a Moon Letter", "Because it is a Sun Letter"],
                 correctIndex: 0
             },
             {
-                word: "الصِّرَاطَ",
-                prompt: "In <strong>الصِّرَاطَ</strong>, the letter <strong>ص</strong> is a:",
-                options: ["☀️ Sun Letter", "🌙 Moon Letter"],
+                word: "الصَّمَدْ",
+                prompt: "When stopping on <strong>الصَّمَدْ</strong>, the Dal with Sukoon requires:",
+                options: ["Qalqalah (clear echo)", "Complete silence with no vibration"],
                 correctIndex: 0
             }
         ];
@@ -285,7 +295,7 @@
         let score = 0;
         let answered = false;
 
-        const SAVED_SCORE_KEY = "arabic_game_sun_moon_score";
+        const SAVED_SCORE_KEY = "arabic_game_sukoon_score";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
         function shuffleArray(array) {
@@ -353,12 +363,12 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Web Speech API Pronunciation Engine
-        function playWordAudio() {
-            const current = sessionQuestions[currentIndex];
+        // Integrated parameter-based Web Speech API Pronunciation Engine
+        function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(current.word);
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'ar-SA';
                 utterance.rate = 0.7; // Slower pace for clarity
                 window.speechSynthesis.speak(utterance);
@@ -367,9 +377,16 @@
             }
         }
 
+        // Helper trigger for the active quiz card item
+        function playCurrentWord() {
+            const current = sessionQuestions[currentIndex];
+            playWordAudio(current.word);
+        }
+
+        // API LocalStorage state tracking for hub dashboard completion and score updates
         function markAsCompleted() {
             const pathParts = window.location.pathname.split('/');
-            const currentFileName = pathParts[pathParts.length - 1] || 'sun_moon.html';
+            const currentFileName = pathParts[pathParts.length - 1] || 'sukoon.html';
 
             localStorage.setItem('arabic_completed_' + currentFileName, 'true');
 
