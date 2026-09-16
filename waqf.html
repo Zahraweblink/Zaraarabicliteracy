@@ -322,7 +322,7 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated exact speakWord() function with toast notification support
+        // Integrated exact speakWord() function with HTML tag stripping and toast support
         function speakWord() {
             const rawElementText = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             const text = rawElementText ? rawElementText.replace(/<[^>]*>?/gm, '') : '';
@@ -385,7 +385,7 @@
                 // Mark module as completed in localStorage for dashboard tracking
                 localStorage.setItem("arabic_completed_waqf.html", "true");
 
-                alert(`Rumūz al-Awwqāf Module Complete!\nYour Score: ${score}/100 points`);
+                alert(`Rumūz al-Awwقāf Module Complete!\nYour Score: ${score}/100 points`);
                 window.location.href = "index.html";
             }
         }
