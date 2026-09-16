@@ -153,35 +153,33 @@
     </footer>
 
     <script>
-        // Bulletproof Web Speech API Pronunciation Helper with voice preloading, fallback handling, and mobile queue locks prevention
-        function playWordAudio(textToSpeak) {
-            if (!('speechSynthesis' in window)) {
-                alert("Audio speech synthesis is not supported in this browser.");
-                return;
-            }
+        // Integrated speakWord() function as requested
+        function speakWord(customText) {
+            const text = customText || document.getElementById('target-arabic')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                
+                // Optional voice selection alignment
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+                if (arabicVoice) {
+                    utterance.voice = arabicVoice;
+                }
 
-            // Cancel any ongoing speech to prevent overlapping bugs
-            window.speechSynthesis.cancel();
-
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.7; // Slower speed for clear pronunciation
-
-            // Handle voice selection for better cross-device compatibility
-            const voices = window.speechSynthesis.getVoices();
-            const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
-            if (arabicVoice) {
-                utterance.voice = arabicVoice;
-            }
-
-            utterance.onerror = (event) => {
-                console.error("Speech synthesis error:", event);
-            };
-
-            // Tiny timeout fix to prevent mobile browser freezing on quick taps
-            setTimeout(() => {
                 window.speechSynthesis.speak(utterance);
-            }, 50);
+            } else {
+                alert("Text-to-speech is not supported on this browser.");
+            }
+        }
+
+        // Wrapper to maintain compatibility with existing audio buttons
+        function playWordAudio(textToSpeak) {
+            speakWord(textToSpeak);
         }
 
         // Ensure voices are preloaded properly in browsers like Chrome
@@ -195,7 +193,7 @@
             const q = quizQuestions[currentIdx];
             // Strip HTML tags out of the arabic property for cleaner speech synthesis
             const cleanText = q.arabic.replace(/<\/?[^>]+(>|$)/g, "");
-            playWordAudio(cleanText);
+            speakWord(cleanText);
         }
 
         // Dataset of Tajweed questions focusing on Ishmām, Tashīl, and related major Hafs 'an 'Aasim rules
@@ -419,4 +417,3 @@
     </script>
 </body>
 </html>
-      
