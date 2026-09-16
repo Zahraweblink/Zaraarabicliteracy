@@ -108,12 +108,16 @@
             </div>
         </div>
 
-        <!-- Audio Section -->
-        <div class="audio-section py-4">
+        <!-- Audio Section with Integrated Audio Button Template -->
+        <div class="audio-section py-4 flex flex-col items-center justify-center gap-3">
             <button onclick="playCurrentWord()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 px-6 py-3 rounded-full text-base font-bold shadow-lg transition-transform transform active:scale-95 inline-flex items-center gap-2 cursor-pointer">
                 <i class="fa-solid fa-volume-high"></i> Hear Word
             </button>
-            <div class="meaning-hint text-cyan-400 text-sm mt-3 font-semibold italic" id="meaning-hint">Meaning: "Book"</div>
+            <!-- Integrated Audio Button Template Example -->
+            <button onclick="playWordAudio('كِتَاب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <i class="fa-solid fa-volume-high"></i> Listen Pronunciation
+            </button>
+            <div class="meaning-hint text-cyan-400 text-sm mt-1 font-semibold italic" id="meaning-hint">Meaning: "Book"</div>
         </div>
 
         <!-- Construction Area -->
@@ -254,15 +258,23 @@
             }
         }
 
+        // Integrated parameter-based Web Speech API Pronunciation Engine
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
         function playCurrentWord() {
             const wordObj = wordList[currentIndex];
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(wordObj.target);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.75;
-                window.speechSynthesis.speak(utterance);
-            }
+            playWordAudio(wordObj.target);
         }
 
         function markAsCompleted() {
