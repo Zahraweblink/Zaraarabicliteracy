@@ -133,7 +133,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -330,21 +330,27 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Audio playback function grabbing text dynamically from current session data
-        function playWordAudio() {
+        // Integrated speakWord function supporting fallback selectors and current session items
+        function speakWord() {
             const current = sessionQuestions[currentIndex];
-            if (!current) return;
-            
-            const textToSpeak = current.word.replace(/<[^>]*>?/gm, '');
+            const rawText = current ? current.word : '';
+            const cleanedWord = rawText.replace(/<[^>]*>?/gm, '');
 
-            if ('speechSynthesis' in window) {
+            const text = document.getElementById('target-arabic')?.innerText || 
+                         cleanedWord || 
+                         document.getElementById('output-board')?.innerText || 
+                         document.querySelector('h1, h2, span')?.innerText;
+
+            if ('speechSynthesis' in window && text) {
+                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                
+                const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; // Slower pace for clarity
+                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("Audio speech synthesis is not supported in this browser.");
+                alert("Text-to-speech is not supported on this browser.");
             }
         }
 
