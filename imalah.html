@@ -306,19 +306,17 @@
         function speakWord() {
             const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        // Optional auxiliary online TTS fallback function for specific helper cards
         function playWordAudio(textToSpeak) {
             if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
                 speakWord();
@@ -345,7 +343,6 @@
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
 
-                // Save completion status back to main dashboard hub tracking
                 const pathParts = window.location.pathname.split('/');
                 const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
                 localStorage.setItem('arabic_completed_' + currentFileName, 'true');
