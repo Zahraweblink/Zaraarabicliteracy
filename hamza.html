@@ -362,7 +362,7 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Upgraded robust audio stream TTS function matching your other modules
+        // Integrated Google TTS audio stream fallback function
         function playWordAudio(textToSpeak) {
             if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
                 const current = sessionQuestions[currentIndex];
