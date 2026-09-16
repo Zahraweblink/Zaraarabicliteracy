@@ -217,7 +217,6 @@
         // Web Speech API Pronunciation Utility
         function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech queue
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(textToSpeak);
                 utterance.lang = 'ar-SA';
@@ -374,7 +373,6 @@
                         <p style="font-size: 0.88rem; color:#cbd5e1;" id="demoDesc">Listen to the sharp, clear Nūn before Hamzah.</p>
                     </div>
                     
-                    <!-- Integrated Speech Synthesis Pronunciation Button -->
                     <div class="flex gap-2 w-full mt-3">
                         <button class="audio-play-btn flex-1" onclick="playStudioAudio()">🔊 Recitation Audio (Alafasy)</button>
                         <button onclick="playWordAudio('مَنْ أَمَنَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
@@ -525,102 +523,126 @@
         }
 
         function playStudioAudio() {
-            const item = ruleDatabase[activeRuleKey];
-            playAudioFile(item.audio);
+            const audioFile = ruleDatabase[activeRuleKey].audio;
+            const audio = new Audio(AUDIO_BASE + audioFile);
+            audio.play().catch(e => {
+                console.log("Audio playback error:", e);
+                playWordAudio(ruleDatabase[activeRuleKey].word.replace(/<[^>]*>?/gm, ''));
+            });
         }
 
-        function playAudioFile(filename) {
-            const audio = new Audio(AUDIO_BASE + filename);
-            audio.play().catch(e => console.log("Audio playback blocked or failed", e));
-        }
+        function showView(viewName) {
+            document.getElementById('lessonView').style.display = 'none';
+            document.getElementById('studioView').style.display = 'none';
+            document.getElementById('testView').style.display = 'none';
+            document.getElementById('scoreHeader').style.display = 'none';
 
-        function playQuestionAudio() {
-            if (testSuite[currentIndex]) {
-                playAudioFile(testSuite[currentIndex].audio);
-            }
-        }
+            document.getElementById('tabLesson').classList.remove('active');
+            document.getElementById('tabStudio').classList.remove('active');
+            document.getElementById('tabTest').classList.remove('active');
 
-        function showView(view) {
-            document.getElementById('lessonView').style.display = view === 'lesson' ? 'block' : 'none';
-            document.getElementById('studioView').style.display = view === 'studio' ? 'block' : 'none';
-            document.getElementById('testView').style.display = view === 'test' ? 'block' : 'none';
-            document.getElementById('scoreHeader').style.display = view === 'test' ? 'block' : 'none';
-
-            document.getElementById('tabLesson').classList.toggle('active', view === 'lesson');
-            document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
-            document.getElementById('tabTest').classList.toggle('active', view === 'test');
-
-            if (view === 'test') {
+            if (viewName === 'lesson') {
+                document.getElementById('lessonView').style.display = 'block';
+                document.getElementById('tabLesson').classList.add('active');
+            } else if (viewName === 'studio') {
+                document.getElementById('studioView').style.display = 'block';
+                document.getElementById('tabStudio').classList.add('active');
+            } else if (viewName === 'test') {
+                document.getElementById('testView').style.display = 'block';
+                document.getElementById('scoreHeader').style.display = 'block';
+                document.getElementById('tabTest').classList.add('active');
                 loadQuestion();
             }
         }
 
         function loadQuestion() {
             if (currentIndex >= testSuite.length) {
-                document.getElementById('testView').innerHTML = `
-                    <div class="text-center space-y-4 py-8">
-                        <h2 class="text-3xl font-extrabold text-amber-300">🎉 Master Test Complete!</h2>
-                        <p class="text-slate-300 text-lg">Your Final Score: <span class="text-emerald-400 font-bold">${score}</span> / ${testSuite.length}</p>
-                        <button onclick="markAsCompleted()" class="px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all cursor-pointer">
-                            <i class="fa-solid fa-check-circle mr-2"></i> Save Progress & Return to Hub
-                        </button>
-                    </div>
-                `;
-                return;
+                currentIndex = testSuite.length - 1;
             }
 
             const q = testSuite[currentIndex];
             document.getElementById('qNum').innerText = currentIndex + 1;
             document.getElementById('scoreVal').innerText = score;
-            document.getElementById('wordDisplay').innerText = q.word;
-            document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
+            document.getElementById('progFill').style.width = ((currentIndex / testSuite.length) * 100) + '%';
+            document.getElementById('wordDisplay').innerHTML = q.word;
             document.getElementById('feedbackBox').style.display = 'none';
 
-            // Build Choices
-            const choices = [
-                { id: 'Izhar', label: '1. Izhar (Clarity)' },
-                { id: 'Idgham_G', label: '2a. Idgham + Ghunnah' },
-                { id: 'Idgham_NoG', label: '2b. Idgham (No Ghunnah)' },
-                { id: 'Iqlab', label: '3. Iqlab (Conversion)' },
-                { id: 'Ikhfa', label: "4. Ikhfa' (Concealment)" }
+            const choicesContainer = document.getElementById('choicesContainer');
+            choicesContainer.innerHTML = '';
+
+            const options = [
+                { key: 'Izhar', label: '1. Izhar (Clear / Throat)' },
+                { key: 'Idgham_G', label: '2a. Idgham with Ghunnah' },
+                { key: 'Idgham_NoG', label: '2b. Idgham (No Ghunnah)' },
+                { key: 'Iqlab', label: '3. Iqlab (Turns to Mīm)' },
+                { key: 'Ikhfa', label: '4. Ikhfa\' (Concealment)' }
             ];
 
-            const grid = document.getElementById('choicesContainer');
-            grid.innerHTML = '';
-            choices.forEach(c => {
+            options.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'action-btn';
-                btn.innerHTML = `<span>${c.label}</span>`;
-                btn.onclick = () => submitAnswer(c.id, q.correct, q.exp);
-                grid.appendChild(btn);
+                btn.innerHTML = `<span style="font-size: 1.05rem; font-weight: 700;">${opt.label}</span>`;
+                btn.onclick = () => checkAnswer(opt.key, q.correct, q.exp);
+                choicesContainer.appendChild(btn);
             });
         }
 
-        function submitAnswer(selected, correct, explanation) {
-            const feedback = document.getElementById('feedbackBox');
-            feedback.style.display = 'block';
-            
-            const isCorrect = selected === correct || (selected.startsWith('Idgham') && correct.startsWith('Idgham'));
+        function checkAnswer(selected, correct, explanation) {
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.style.display = 'block';
+
+            const isCorrect = (selected === correct);
             if (isCorrect) {
-                score++;
-                feedback.className = 'feedback-banner bg-emerald-500/20 border border-emerald-500 text-emerald-300';
-                feedback.innerHTML = `✅ Correct! ${explanation}`;
+                score += 10;
+                document.getElementById('scoreVal').innerText = score;
+                feedbackBox.className = 'feedback-banner bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+                feedbackBox.innerHTML = `<i class="fa-solid fa-check mr-2"></i> Correct! ${explanation}`;
+                
+                const container = document.getElementById('main-game-container');
+                container.classList.add('animate-success');
+                setTimeout(() => container.classList.remove('animate-success'), 800);
             } else {
-                feedback.className = 'feedback-banner bg-rose-500/20 border border-rose-500 text-rose-300';
-                feedback.innerHTML = `❌ Not quite. ${explanation}`;
+                feedbackBox.className = 'feedback-banner bg-rose-500/20 text-rose-300 border border-rose-500/40';
+                feedbackBox.innerHTML = `<i class="fa-solid fa-xmark mr-2"></i> Not quite. Correct rule: <strong>${correct}</strong>. ${explanation}`;
             }
 
-            document.getElementById('scoreVal').innerText = score;
-
-            // Disable buttons temporarily and advance
             setTimeout(() => {
                 currentIndex++;
-                loadQuestion();
-            }, 1800);
+                if (currentIndex < testSuite.length) {
+                    loadQuestion();
+                } else {
+                    showCompletionSummary();
+                }
+            }, 2200);
+        }
+
+        function playQuestionAudio() {
+            const audioFile = testSuite[currentIndex].audio;
+            const audio = new Audio(AUDIO_BASE + audioFile);
+            audio.play().catch(e => {
+                console.log("Audio playback error:", e);
+                playWordAudio(testSuite[currentIndex].word);
+            });
+        }
+
+        function showCompletionSummary() {
+            document.getElementById('testView').innerHTML = `
+                <div class="text-center py-8">
+                    <div class="inline-flex bg-amber-500/20 text-amber-300 p-4 rounded-full text-4xl mb-4 border border-amber-500/40">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold text-amber-300 mb-3">Test Completed!</h2>
+                    <p class="text-slate-300 text-lg mb-6">You successfully completed all 30 Nūn Sakinah & Tanween mastery questions.</p>
+                    <div class="text-2xl font-bold text-emerald-400 mb-8">Final Score: ${score} Stars ⭐</div>
+                    <button onclick="markAsCompleted()" class="px-8 py-4 bg-emerald-500 text-slate-950 font-extrabold text-base rounded-2xl shadow-xl hover:brightness-110 transition-all cursor-pointer w-full max-w-md">
+                        <i class="fa-solid fa-check-circle mr-2"></i> Save Progress & Return to Hub
+                    </button>
+                </div>
+            `;
         }
 
         function markAsCompleted() {
-            localStorage.setItem("nun_sakinah_completed", "true");
+            localStorage.setItem("zahrah_noon_sakinah_completed", "true");
             document.getElementById('success-banner').classList.remove('hidden');
             setTimeout(() => {
                 window.location.href = "index.html";
