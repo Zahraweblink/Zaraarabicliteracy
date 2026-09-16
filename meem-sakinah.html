@@ -207,28 +207,49 @@
             <div class="section-header">Breakdown of the 3 Rules</div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-2">
-                    <h3 class="text-amber-400 font-bold text-base">1. Ikhfa' Shafawi</h3>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                        <strong class="text-amber-300">Letter: ب (Baa)</strong><br>
-                        Followed by Baa, partially conceal the Mīm by gently closing the lips without heavy pressure, with a 2-count nasal Ghunnah.
-                    </p>
+                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="text-amber-400 font-bold text-base">1. Ikhfa' Shafawi</h3>
+                            <button onclick="playWordAudio('ب')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                                <i class="fa-solid fa-volume-high"></i> ب
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong class="text-amber-300">Letter: ب (Baa)</strong><br>
+                            Followed by Baa, partially conceal the Mīm by gently closing the lips without heavy pressure, with a 2-count nasal Ghunnah.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-2">
-                    <h3 class="text-cyan-400 font-bold text-base">2. Idgham Shafawi</h3>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                        <strong class="text-cyan-300">Letter: م (Meem)</strong><br>
-                        Followed by another Mīm, merge them completely into a single doubled Mīm (مّ) with a strong 2-count Ghunnah.
-                    </p>
+                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="text-cyan-400 font-bold text-base">2. Idgham Shafawi</h3>
+                            <button onclick="playWordAudio('م')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                                <i class="fa-solid fa-volume-high"></i> م
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong class="text-cyan-300">Letter: م (Meem)</strong><br>
+                            Followed by another Mīm, merge them completely into a single doubled Mīm (مّ) with a strong 2-count Ghunnah.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-2">
-                    <h3 class="text-emerald-400 font-bold text-base">3. Izhar Shafawi</h3>
-                    <p class="text-xs text-slate-300 leading-relaxed">
-                        <strong class="text-emerald-300">Letters: 26 Letters</strong><br>
-                        Pronounce the Mīm Sakinah clearly and quickly with firm lip closure and <strong>no extra Ghunnah length</strong>.
-                    </p>
+                <div class="bg-slate-900/50 border border-slate-700/60 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="text-emerald-400 font-bold text-base">3. Izhar Shafawi</h3>
+                            <button onclick="playWordAudio('و ف')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-2.5 py-1 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                                <i class="fa-solid fa-volume-high"></i> و ف
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong class="text-emerald-300">Letters: 26 Letters</strong><br>
+                            Pronounce the Mīm Sakinah clearly and quickly with firm lip closure and <strong>no extra Ghunnah length</strong>.
+                        </p>
+                    </div>
                 </div>
             </div>
 
@@ -277,7 +298,10 @@
                         <div class="arabic-demo-text" id="demoArabic">تَرْمِي<span class="hl">هِم بِ</span>حِجَارَةٍ</div>
                         <p class="text-xs text-slate-300 mt-1" id="demoDesc">Listen to the soft blend between Mīm and Baa with full nasal hum.</p>
                     </div>
-                    <button class="audio-play-btn" onclick="playStudioAudio()">🔊 Play Recitation Audio</button>
+                    <div class="flex gap-2 w-full mt-3">
+                        <button class="audio-play-btn flex-1" onclick="playStudioAudio()">🔊 Play Full Recitation Audio</button>
+                        <button class="audio-play-btn flex-1 bg-cyan-600 hover:bg-cyan-500" onclick="playStudioSpeech()">🗣️ Speech Synthesis Demo</button>
+                    </div>
                 </div>
             </div>
 
@@ -292,7 +316,10 @@
             <p id="questionPrompt" class="text-slate-300 text-sm font-semibold">Identify the Mīm Sakinah rule applied in this word/phrase:</p>
 
             <div class="arabic-display" id="wordDisplay">...</div>
-            <div class="audio-btn" onclick="playQuestionAudio()">🔊</div>
+            <div class="flex justify-center gap-3">
+                <div class="audio-btn" onclick="playQuestionAudio()" title="Play Audio Recitation">🔊</div>
+                <div class="audio-btn bg-cyan-600/30 text-cyan-300 border-cyan-500/40 text-base" onclick="playCurrentWordSpeech()" title="Speak Word">🗣️</div>
+            </div>
 
             <div class="feedback-banner" id="feedbackBox"></div>
 
@@ -308,6 +335,20 @@
 
     <!-- Script that handles rules, audio playback, and quiz flow -->
     <script>
+        // Web Speech API Pronunciation Function
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech queue
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; // Slower pace for clarity
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
         const ruleDatabase = {
             'ikhfa': {
                 title: "Ikhfa' Shafawi (إِخْفَاء شَفَوِي)",
@@ -401,10 +442,24 @@
             playAudioFile(item.audio);
         }
 
+        function playStudioSpeech() {
+            const item = ruleDatabase[activeRuleKey];
+            // Clean HTML tags for speech synthesis
+            const cleanText = item.word.replace(/<[^>]*>?/gm, '');
+            playWordAudio(cleanText);
+        }
+
         function playQuestionAudio() {
             const item = testSuite[currentIndex];
             if (item && item.audio) {
                 playAudioFile(item.audio);
+            }
+        }
+
+        function playCurrentWordSpeech() {
+            const item = testSuite[currentIndex];
+            if (item && item.word) {
+                playWordAudio(item.word);
             }
         }
 
