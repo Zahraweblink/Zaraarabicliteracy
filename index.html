@@ -229,22 +229,17 @@
         Zahrah's Arabic Literacy & Tajweed Mastery App &copy; 2026. All 22 modules linked and active.
     </footer>
 
-    <!-- Audio Speech Synthesis Script -->
+    <!-- Reliable Audio Stream Fallback Script -->
     <script>
         function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
-                // Cancel any stuck or ongoing speech queue
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
-                
-                // Force speech trigger
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Audio speech synthesis is not supported in this browser.");
-            }
+            const encodedText = encodeURIComponent(textToSpeak);
+            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ar&client=tw-ob`;
+            
+            const audio = new Audio(audioUrl);
+            audio.play().catch(error => {
+                console.error("Audio playback error:", error);
+                alert("Unable to play audio stream. Please check your internet connection.");
+            });
         }
     </script>
 </body>
