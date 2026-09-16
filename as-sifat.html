@@ -83,12 +83,12 @@
                 <!-- Hams Card -->
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">فَحَثَّهُ شَخْصٌ سَكَتَ</span>
+                        <span id="text-hams" class="text-xl font-bold arabic-text text-amber-400 block mb-1">فَحَثَّهُ شَخْصٌ سَكَتَ</span>
                         <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">الهَمْس (Hams / Whisper)</span>
                         <p class="text-[11px] text-slate-300 mt-2">Flow of breath due to weakness in articulation when pronouncing letters.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('فَحَثَّهُ شَخْصٌ سَكَتَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakCustomText('فَحَثَّهُ شَخْصٌ سَكَتَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -96,12 +96,12 @@
                 <!-- Shiddah Card -->
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
-                        <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">أَجِدُ قَطْ بَكَتْ</span>
+                        <span id="text-shiddah" class="text-xl font-bold arabic-text text-cyan-400 block mb-1">أَجِدُ قَطْ بَكَتْ</span>
                         <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">الشِّدَّة (Shiddah / Strength)</span>
                         <p class="text-[11px] text-slate-300 mt-2">Complete blockage of sound flow due to strong reliance on the articulation point.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('أَجِدُ قَطْ بَكَتْ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakCustomText('أَجِدُ قَطْ بَكَتْ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -114,7 +114,7 @@
                         <p class="text-[11px] text-slate-300 mt-2">Free flow of sound through the articulation point when pronouncing soft letters.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('س ش ز')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakCustomText('س ش ز')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -127,7 +127,7 @@
                         <p class="text-[11px] text-slate-300 mt-2">Flattening and raising a large portion of the tongue toward the roof of the mouth.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
-                        <button onclick="playWordAudio('ص ض ط ظ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <button onclick="speakCustomText('ص ض ط ظ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                             <i class="fa-solid fa-volume-high"></i> Listen
                         </button>
                     </div>
@@ -160,7 +160,7 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="playWordAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
@@ -352,21 +352,46 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Upgraded robust audio stream TTS function matching your other modules
-        function playWordAudio(textToSpeak) {
-            if (typeof textToSpeak !== 'string' || !textToSpeak.trim()) {
-                const current = sessionQuestions[currentIndex];
-                textToSpeak = current ? current.word.replace(/<[^>]*>?/gm, '') : 'فَحَثَّهُ';
+        // Integrated speech synthesis functions
+        function speakWord() {
+            const current = sessionQuestions[currentIndex];
+            const rawText = current ? current.word.replace(/<[^>]*>?/gm, '') : '';
+            executeSpeech(rawText);
+        }
+
+        function speakCustomText(textToSpeak) {
+            executeSpeech(textToSpeak);
+        }
+
+        function executeSpeech(text) {
+            const cleanText = text ? text.trim() : '';
+            
+            if ('speechSynthesis' in window && cleanText) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                
+                // Force explicit Arabic voice configuration if available
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(voice => voice.lang.includes('ar') || voice.lang.includes('AR'));
+                if (arabicVoice) {
+                    utterance.voice = arabicVoice;
+                }
+                
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8; // Slow down slightly for clear articulation
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech is not supported on this browser.");
             }
-            
-            const encodedText = encodeURIComponent(textToSpeak);
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ar&client=tw-ob`;
-            
-            const audio = new Audio(audioUrl);
-            audio.play().catch(error => {
-                console.error("Audio playback error:", error);
-                alert("Unable to play audio stream. Please check your internet connection.");
-            });
+        }
+
+        // Ensure voices are loaded asynchronously in some browsers
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
         }
 
         function nextQuestion() {
