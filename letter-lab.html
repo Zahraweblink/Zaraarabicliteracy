@@ -137,7 +137,7 @@
         .audio-play-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
 
         .speech-btn {
-            background: rgba(6, 182, 212, 0.2); hover: bg-cyan-500/30; color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan);
             border: 1px solid rgba(6, 182, 212, 0.4); padding: 6px 12px; border-radius: 10px;
             font-size: 0.75rem; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;
             cursor: pointer; transition: 0.2s;
@@ -330,17 +330,38 @@
     </div>
 
 <script>
-    // Speech Synthesis Integration Helper
+    // Bulletproof Web Speech API Pronunciation Helper with voice preloading, fallback handling, and mobile queue locks prevention
     function playWordAudio(textToSpeak) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = 'ar-SA';
-            utterance.rate = 0.7; // Slower pace for clarity
-            window.speechSynthesis.speak(utterance);
-        } else {
+        if (!('speechSynthesis' in window)) {
             alert("Audio speech synthesis is not supported in this browser.");
+            return;
         }
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.7; // Slower speed for clear pronunciation
+
+        const voices = window.speechSynthesis.getVoices();
+        const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
+        if (arabicVoice) {
+            utterance.voice = arabicVoice;
+        }
+
+        utterance.onerror = (event) => {
+            console.error("Speech synthesis error:", event);
+        };
+
+        setTimeout(() => {
+            window.speechSynthesis.speak(utterance);
+        }, 50);
+    }
+
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => {
+            window.speechSynthesis.getVoices();
+        };
     }
 
     const lettersData = [
@@ -377,7 +398,6 @@
     let activeIndex = 0;
     let currentLetterChar = "أ";
 
-    // 30-Question Test Suite
     const testSuite = [
         { word: "خ", correct: "Heavy Letter (Tafkhīm)", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Khā’ (خ) is one of the 7 Heavy letters (خُصَّ ضَغْطٍ قِظْ)." },
         { word: "ب", correct: "Lip Letter", options: ["Heavy Letter (Tafkhīm)", "Lip Letter", "Throat Letter", "Non-Connecting Letter"], exp: "Bā’ (ب) originates from the lips." },
@@ -440,7 +460,6 @@
         document.getElementById('fMed').innerText = item.forms[2];
         document.getElementById('fFin').innerText = item.forms[3];
         
-        // Auto speech trigger on selection for immersive learning
         playWordAudio(item.ar);
     }
 
@@ -468,65 +487,84 @@
         document.getElementById('tabStudio').classList.toggle('active', view === 'studio');
         document.getElementById('tabTest').classList.toggle('active', view === 'test');
 
-        if (view === 'studio') renderGrid();
-        if (view === 'test' && currentIndex === 0) loadQuestion();
+        if (view === 'test') {
+            loadQuestion();
+        }
     }
 
     function loadQuestion() {
         if (currentIndex >= testSuite.length) {
-            alert(`🎉 Congratulations! You Completed the Letter Lab Test!\nYour Final Score: ${score} / ${testSuite.length}`);
-            currentIndex = 0; score = 0;
-            showView('lesson');
+            finishTest();
             return;
         }
 
-        const item = testSuite[currentIndex];
+        const currentQ = testSuite[currentIndex];
         document.getElementById('qNum').innerText = currentIndex + 1;
         document.getElementById('scoreVal').innerText = score;
-        document.getElementById('progFill').style.width = `${((currentIndex + 1) / testSuite.length) * 100}%`;
-        document.getElementById('wordDisplay').innerText = item.word;
-        
-        const feedbackBox = document.getElementById('feedbackBox');
-        feedbackBox.style.display = 'none';
+        document.getElementById('wordDisplay').innerText = currentQ.word;
+        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
+
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'none';
 
         const container = document.getElementById('choicesContainer');
-        container.innerHTML = "";
+        container.innerHTML = '';
 
-        const shuffledOptions = [...item.options].sort(() => Math.random() - 0.5);
+        // Shuffle options
+        const shuffled = [...currentQ.options].sort(() => Math.random() - 0.5);
 
-        shuffledOptions.forEach(opt => {
+        shuffled.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'action-btn';
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(opt, item.correct, item.exp);
+            btn.innerHTML = `<span>${opt}</span>`;
+            btn.onclick = () => checkAnswer(opt, currentQ.correct, currentQ.exp);
             container.appendChild(btn);
         });
     }
 
-    function checkAnswer(selected, correct, explanation) {
-        const feedbackBox = document.getElementById('feedbackBox');
-        feedbackBox.style.display = 'block';
+    function checkAnswer(selected, correct, exp) {
+        const feedback = document.getElementById('feedbackBox');
+        feedback.style.display = 'block';
 
         const buttons = document.querySelectorAll('#choicesContainer button');
         buttons.forEach(b => b.disabled = true);
 
         if (selected === correct) {
-            score++;
-            document.getElementById('scoreVal').innerText = score;
-            feedbackBox.style.background = 'rgba(16, 185, 129, 0.2)';
-            feedbackBox.style.color = '#34d399';
-            feedbackBox.innerHTML = `✅ Correct! ${explanation}`;
+            score += 10;
+            feedback.style.background = 'rgba(16, 185, 129, 0.2)';
+            feedback.style.color = 'var(--accent-emerald)';
+            feedback.style.border = '1px solid var(--accent-emerald)';
+            feedback.innerHTML = `✅ Correct! +10 ⭐<br><span style="font-size:0.85rem; color:#cbd5e1; font-weight:normal;">${exp}</span>`;
         } else {
-            feedbackBox.style.background = 'rgba(244, 63, 94, 0.2)';
-            feedbackBox.style.color = '#fb7185';
-            feedbackBox.innerHTML = `❌ Incorrect. The correct answer is <strong>${correct}</strong>. ${explanation}`;
+            feedback.style.background = 'rgba(244, 63, 94, 0.2)';
+            feedback.style.color = 'var(--accent-rose)';
+            feedback.style.border = '1px solid var(--accent-rose)';
+            feedback.innerHTML = `❌ Incorrect. The correct answer was: <strong>${correct}</strong><br><span style="font-size:0.85rem; color:#cbd5e1; font-weight:normal;">${exp}</span>`;
         }
+
+        document.getElementById('scoreVal').innerText = score;
 
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
-        }, 3500);
+        }, 3000);
     }
+
+    function finishTest() {
+        document.getElementById('testView').innerHTML = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <h2 style="color: var(--accent-gold); font-size: 2.2rem; margin-bottom: 15px;">🎉 Test Completed!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 25px;">You finished all 30 questions with a total score of <strong style="color: var(--accent-gold);">${score} / 300 ⭐</strong></p>
+                <button class="start-test-btn" onclick="location.reload()">Restart Lab & Test</button>
+            </div>
+        `;
+        localStorage.setItem('arabic_completed_letter_lab', 'true');
+    }
+
+    window.onload = () => {
+        renderGrid();
+        selectLetter(0);
+    };
 </script>
 </body>
 </html>
