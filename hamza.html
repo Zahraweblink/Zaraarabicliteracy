@@ -216,6 +216,10 @@
             document.getElementById('quiz-container').classList.add('hidden');
             document.getElementById('quiz-complete').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
+            
+            // Saves completion status for your index.html dashboard badge
+            localStorage.setItem('hamzatul_wasl_completed', 'true');
+            localStorage.setItem('score_hamzatul_wasl', score);
             return;
         }
 
