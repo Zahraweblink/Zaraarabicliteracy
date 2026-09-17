@@ -52,15 +52,15 @@
 
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
-        <!-- Change 'index.html' here if your main menu file has a different name -->
-        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+        <!-- CRITICAL FIX: Change 'index.html' below to whatever your main hub file is called (e.g., 'dashboard.html', 'home.html', etc.) -->
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
         <div class="flex items-center gap-4">
             <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
                 <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
             </div>
-            <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
+            <div class="hidden md:inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
                 Zahrah’s Interactive Online Classroom
             </div>
         </div>
@@ -372,7 +372,7 @@
                 container.classList.add('animate-success');
                 banner.classList.remove('hidden');
 
-                // Cleanly redirects back to your main menu page
+                // CHANGE THIS FILENAME IF YOUR MAIN MENU PAGE IS CALLED SOMETHING ELSE (e.g., 'dashboard.html')
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
@@ -380,7 +380,6 @@
         }
 
         window.onload = function() {
-            initSection(); // Fixed function call safety check
             initSession();
         };
     </script>
