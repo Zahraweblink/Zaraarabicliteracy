@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spelling Bee | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Spelling Bee | Zahrah Interactive Online Classroom</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,6 +33,11 @@
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            direction: rtl;
         }
 
         .glass-card {
@@ -85,7 +90,7 @@
             <i class="fa-solid fa-arrow-left text-cyan-400"></i> Back to Dashboard Hub
         </a>
         <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full">
-           Zahrah's Arabic Literacy & Tajweed Mastery App
+           Zahrah Interactive Online Classroom
         </div>
     </header>
 
@@ -126,7 +131,7 @@
         </div>
 
         <!-- Scrambled Letter Bank -->
-        <div id="bank-grid" class="flex flex-wrap justify-center gap-3 pt-2" style="direction: rtl;">
+        <div id="bank-grid" class="flex flex-wrap justify-center gap-3 pt-2 arabic-text" style="direction: rtl;">
             <!-- Scrambled letter tiles -->
         </div>
 
@@ -152,7 +157,7 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
-        Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App.
+        Zahrah Interactive Online Classroom &copy; 2026. Arabic Literacy & Tajweed Mastery App.
     </footer>
 
     <!-- Script that automatically syncs completion back to the main dashboard -->
@@ -188,7 +193,7 @@
             bankContainer.innerHTML = '';
             shuffled.forEach((char, idx) => {
                 const tile = document.createElement('div');
-                tile.className = 'tile';
+                tile.className = 'tile arabic-text';
                 tile.innerText = char;
                 tile.dataset.id = idx;
                 tile.onclick = () => selectTile(char, tile);
@@ -218,7 +223,7 @@
             
             currentSelection.forEach((item, idx) => {
                 const tile = document.createElement('div');
-                tile.className = 'tile answer-tile';
+                tile.className = 'tile answer-tile arabic-text';
                 tile.innerText = item.char;
                 tile.onclick = () => deselectTile(idx);
                 display.appendChild(tile);
