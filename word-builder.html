@@ -3,131 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah's Interactive Arabic Literacy & Tajweed App</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Rumūz al-Awwqāf | Zahrah Interactive Online Classroom</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        .arabic-font {
-            font-family: 'Amiri', 'Traditional Arabic', serif;
+        :root {
+            --bg-dark: #0a111e;
+            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
+            --card-bg: rgba(27, 38, 59, 0.8);
+            --accent-gold: #ffb703;
+            --accent-cyan: #06b6d4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="p-4 md:p-8 flex flex-col items-center">
 
-    <!-- Header / Navigation Hub -->
-    <header class="bg-emerald-700 text-white shadow-md py-4 px-6 flex justify-between items-center">
-        <div>
-            <span class="text-[10px] uppercase tracking-wider bg-emerald-800/80 px-2.5 py-1 rounded-full text-emerald-200 font-bold block sm:inline-block mb-1 sm:mb-0 sm:mr-2">ZAHRAH INTERACTIVE ONLINE CLASSROOM</span>
-            <h1 class="text-lg font-bold tracking-wide inline-block">Zahrah's Interactive Arabic Literacy & Tajweed App</h1>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="hidden sm:flex items-center gap-1.5 bg-emerald-800/60 px-3 py-1.5 rounded-lg text-xs font-medium">
-                <i class="fa-solid fa-trophy text-amber-300"></i> Best: <span id="high-score-val" class="text-amber-300 font-bold">0</span>
+    <!-- Header Navigation -->
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-4">
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 text-xs font-medium">
+                <i class="fa-solid fa-trophy text-amber-400"></i> Best: <span id="high-score" class="text-amber-400 font-bold">0</span> pts
             </div>
-            <a href="index.html" class="bg-emerald-800 hover:bg-emerald-900 text-sm px-4 py-2 rounded-lg transition">Back to Dashboard</a>
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+                <i class="fa-solid fa-star"></i> Score: <span id="current-score">0</span> pts
+            </div>
         </div>
     </header>
 
-    <!-- Main Studio Container -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-6 space-y-6">
-        
-        <!-- Section Title -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h2 class="text-2xl font-bold text-emerald-800">Arabic Word Builder & Tajweed Practice</h2>
-            <p class="text-slate-600 mt-1">Combine letters, test your knowledge, and track your literacy progress.</p>
+    <!-- Main Workspace -->
+    <main class="w-full max-w-3xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                ZAHRAH INTERACTIVE ONLINE CLASSROOM
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Stopping & Pausing Signs (رُمُوزُ الأَوْقَافِ)</h1>
+            <p class="text-slate-300 text-sm max-w-lg mx-auto">
+                Master the rules of stopping (Waqf) to preserve meaning and recite with precision.
+            </p>
         </div>
 
-        <!-- Interactive Studio Board -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
-            <h3 class="text-lg font-semibold text-slate-700">Studio Workspace</h3>
-            <div id="output-board" class="min-h-[100px] bg-slate-100 rounded-lg flex items-center justify-center text-5xl arabic-font text-emerald-900 border-2 border-dashed border-slate-300">
-                <!-- Dynamic Letter Output -->
+        <!-- Rule Explainer Cards with Audio Buttons -->
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
+                <i class="fa-solid fa-pause"></i> Key Stopping Signs Reference
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-rose-400 block mb-1">مـ</span>
+                        <span class="text-xs font-bold text-slate-200 block">Mandatory Stop</span>
+                        <p class="text-[10px] text-slate-400 mt-1">Stopping is compulsory to prevent distorting meaning.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('مـ')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">قلي</span>
+                        <span class="text-xs font-bold text-slate-200 block">Preferred Stop</span>
+                        <p class="text-[10px] text-slate-400 mt-1">Stopping is better, though continuing is allowed.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('قلي')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">صلي</span>
+                        <span class="text-xs font-bold text-slate-200 block">Preferred Continuation</span>
+                        <p class="text-[10px] text-slate-400 mt-1">Continuing is better, though stopping is allowed.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('صلي')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-red-500 block mb-1">لا</span>
+                        <span class="text-xs font-bold text-slate-200 block">Forbidden Stop</span>
+                        <p class="text-[10px] text-slate-400 mt-1">Do not stop; sentence structure requires continuing.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('لا')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 col-span-2 md:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xl font-bold arabic-text text-purple-400 block mb-1">∴  ∴</span>
+                        <span class="text-xs font-bold text-slate-200 block">Paired / Linked Stops</span>
+                        <p class="text-[10px] text-slate-400 mt-1">Stop at one of the two places, but not at both.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('معانقة')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
             </div>
-            <div class="flex flex-wrap gap-3">
-                <button onclick="speakWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-sm flex items-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-volume-high"></i> Listen / Pronounce
+        </div>
+
+        <!-- Interactive Practice Arena -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 10</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
+            </div>
+
+            <!-- Target Word / Verse Display -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="output-board" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ <span class="text-rose-400 font-extrabold">مـ</span>
+                </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    What does the sign <strong class="text-rose-400">مـ</strong> mean at this position?
+                </p>
+            </div>
+
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
-                <button onclick="clearBoard()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition cursor-pointer">Clear Board</button>
-            </div>
-        </div>
-
-        <!-- Assessment / Quiz Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-slate-700">Interactive Assessment</h3>
-                <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Score: <span id="quiz-score-val">0</span></span>
-            </div>
-
-            <div id="quiz-container" class="space-y-4">
-                <div class="text-xs text-slate-500 font-medium">Question <span id="current-q-num">1</span> of <span id="total-q-num">5</span></div>
-                <p id="question-text" class="text-base font-semibold text-slate-800">Loading question...</p>
-                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Dynamic Options -->
-                </div>
-            </div>
-
-            <!-- Quiz Complete View -->
-            <div id="quiz-complete" class="hidden text-center py-6 space-y-3">
-                <h4 class="text-xl font-bold text-emerald-800">Great Job! 🎉</h4>
-                <p class="text-slate-600">You scored <span id="final-score" class="font-bold text-emerald-700">0</span> points on this module.</p>
-                <div class="flex justify-center gap-3 pt-2">
-                    <button onclick="resetQuiz()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition cursor-pointer">Retake Quiz</button>
-                    <button onclick="markAsCompleted()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer">Save & Finish</button>
-                </div>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
             </div>
         </div>
 
     </main>
 
-    <!-- Success Completion Toast / Banner -->
-    <div id="completion-banner" class="fixed bottom-5 right-5 bg-emerald-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 border border-emerald-600 z-50">
-        Progress saved successfully! Returning to dashboard...
+    <!-- Audio Toast Feedback -->
+    <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 border border-cyan-500/30">
+        <i class="fa-solid fa-circle-play text-cyan-400 text-base"></i>
+        <span id="toast-text">Playing Audio...</span>
     </div>
 
-    <!-- Application Script Engine -->
     <script>
-        const quizData = [
+        const questionBank = [
+            // --- MANDATORY STOP (مـ) ---
             {
-                question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha (الْهَمْزَة وَالْهَاء)?",
-                options: ["The Lowest Throat (Aqsa al-Halq)", "The Tip of the Tongue", "The Nasal Passage", "The Two Lips"],
-                correct: 0
+                word: "إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ مـ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ",
+                prompt: "What does the symbol <strong class='text-rose-400'>مـ</strong> indicate after يَسْمَعُونَ?",
+                options: ["Compulsory/Mandatory Stop (Waqf Lazim)", "Forbidden Stop"],
+                correctIndex: 0
             },
             {
-                question: "Which of the following is considered a Qalqalah (echoing) letter when it carries a Sukun?",
-                options: ["س (Sin)", "ط (Ta)", "م (Meem)", "ل (Lam)"],
-                correct: 1
+                word: "فَلَا يَحْزُنكَ قَوْلُهُمْ مـ إِنَّا نَعْلَمُ مَا يُسِرُّونَ وَمَا يُعْلِنُونَ",
+                prompt: "In this verse, why is the sign <strong class='text-rose-400'>مـ</strong> used?",
+                options: ["Mandatory Stop to avoid changing the meaning", "Preferred Continuation"],
+                correctIndex: 0
+            },
+
+            // --- PREFERRED STOP (قلي) ---
+            {
+                word: "قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ قلي",
+                prompt: "What does the sign <strong class='text-amber-400'>قلي</strong> mean at this stopping point?",
+                options: ["Stopping is preferred (Al-Waqf Awla)", "Continuation is preferred"],
+                correctIndex: 0
             },
             {
-                question: "How many letters make up the permanent heavy letters group (Isti'la / خُصَ ضَغْطٍ قِظْ)?",
-                options: ["5 letters", "7 letters", "4 letters", "10 letters"],
-                correct: 1
+                word: "مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ قلي",
+                prompt: "When encountering <strong class='text-amber-400'>قلي</strong>, what is the best choice for the reciter?",
+                options: ["Pause and take a breath (Stopping is better)", "Do not pause under any circumstances"],
+                correctIndex: 0
+            },
+
+            // --- PREFERRED CONTINUATION (صلي) ---
+            {
+                word: "وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ صلي",
+                prompt: "What does the sign <strong class='text-emerald-400'>صلي</strong> indicate?",
+                options: ["Continuing without stopping is preferred (Al-Wasl Awla)", "Mandatory Stop"],
+                correctIndex: 0
             },
             {
-                question: "What rule applies when a non-vowelled Noon (نْ) or Tanween meets the letter Ba (ب)?",
-                options: ["Idgham (Merging)", "Iqlab (Conversion to Meem)", "Izhar (Clear Pronunciation)", "Ikhfa (Concealment)"],
-                correct: 1
+                word: "فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا صلي",
+                prompt: "If you read <strong class='text-emerald-400'>صلي</strong>, stopping is allowed, but what is better?",
+                options: ["Continuing to read without pausing", "Stopping and repeating the phrase"],
+                correctIndex: 0
+            },
+
+            // --- FORBIDDEN STOP (لا) ---
+            {
+                word: "الَّذِينَ تَتَوَفَّاهُمُ الْمَلَائِكَةُ طَيِّبِينَ لا يَقُولُونَ سَلَامٌ عَلَيْكُمُ",
+                prompt: "What does the sign <strong class='text-red-500'>لا</strong> signal at this point?",
+                options: ["Forbidden Stop (Do not pause here)", "Preferred Stop"],
+                correctIndex: 0
             },
             {
-                question: "What is the correct articulation point (Makhraj) for lip letters like Ba (ب), Meem (م), and Waw (و)?",
-                options: ["The tongue tip", "The lips (Ash-Shafatayn)", "The nasal cavity", "The throat cavity"],
-                correct: 1
+                word: "وَمَا يَعْلَمُ تَأْوِيلَهُ إِلَّا اللَّهُ لا وَالرَّاسِخُونَ فِي الْعِلْمِ",
+                prompt: "Why must you NOT stop when encountering <strong class='text-red-500'>لا</strong> in a continuous phrase?",
+                options: ["Because stopping breaks the complete grammatical meaning", "Because it is the end of the Surah"],
+                correctIndex: 0
+            },
+
+            // --- PAIRED STOPS / EMBRACING STOP (∴ ∴) ---
+            {
+                word: "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ∴ فِيهِ ∴ هُدًى لِّلْمُتَّقِينَ",
+                prompt: "How must you handle the paired dots <strong class='text-purple-400'>∴  ∴</strong> (Mu'anaqah)?",
+                options: ["Stop at one of the two marks, but NOT both", "Stop at both places back to back"],
+                correctIndex: 0
+            },
+            {
+                word: "قَالُوا يَا مُوسَىٰ إِنَّا لَن نَّدْخُلَهَا أَبَدًا مَّا دَامُوا فِيهَا ∴ فَاذْهَبْ أَنْتَ وَرَبُّكَ ∴",
+                prompt: "If you choose to stop at the first <strong class='text-purple-400'>∴</strong> sign, what should you do at the second?",
+                options: ["Continue reading without stopping at the second", "Stop again at the second sign"],
+                correctIndex: 0
             }
         ];
 
-        let currentQuestionIdx = 0;
+        let sessionQuestions = [];
+        let currentIndex = 0;
         let score = 0;
-        
-        const SAVED_SCORE_KEY = "arabic_word_builder_highscore";
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_waqf_score";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
-        function loadPreset() {
-            document.getElementById('output-board').innerText = "بَكْر";
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initSession() {
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            document.getElementById("high-score").innerText = highScore;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("output-board").innerHTML = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
+                btn.innerText = optText;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            const buttons = document.getElementById("options-container").children;
+            for (let b of buttons) {
+                b.classList.add('opacity-70', 'cursor-not-allowed');
+            }
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                
+                buttons[current.correctIndex].className = "bg-emerald-600/20 border-2 border-emerald-500/60 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
         function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || '';
+            const rawElementText = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            const text = rawElementText ? rawElementText.replace(/<[^>]*>?/gm, '') : '';
+            
             if ('speechSynthesis' in window && text) {
                 window.speechSynthesis.cancel();
                 
@@ -135,92 +337,63 @@
                 utterance.lang = 'ar-SA';
                 utterance.rate = 0.85; 
                 window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Reciting verse...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 1800);
+                }
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        function clearBoard() {
-            document.getElementById('output-board').innerText = "";
+        function playSnippetAudio(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.7; 
+                
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = `Playing sign: ${text}`;
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 1800);
+                }
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
         }
 
-        function loadQuestion() {
-            document.getElementById('total-q-num').innerText = quizData.length;
-            if (currentQuestionIdx >= quizData.length) {
-                document.getElementById('quiz-container').classList.add('hidden');
-                document.getElementById('quiz-complete').classList.remove('hidden');
-                document.getElementById('final-score').innerText = score;
-                
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
                 if (score > highScore) {
                     highScore = score;
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
-                    document.getElementById('high-score-val').innerText = highScore;
                 }
-                return;
-            }
+                localStorage.setItem("arabic_completed_waqf.html", "true");
 
-            document.getElementById('current-q-num').innerText = currentQuestionIdx + 1;
-            const q = quizData[currentQuestionIdx];
-            document.getElementById('question-text').innerText = q.question;
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "p-3.5 text-left border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700 cursor-pointer shadow-xs";
-                btn.innerText = opt;
-                btn.onclick = () => checkAnswer(idx, q.correct);
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(selected, correct) {
-            const optionsContainer = document.getElementById('options-container');
-            const buttons = optionsContainer.children;
-
-            for (let b of buttons) {
-                b.style.pointerEvents = 'none';
-            }
-
-            if (selected === correct) {
-                score += 10;
-                document.getElementById('quiz-score-val').innerText = score;
-                buttons[selected].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
-            } else {
-                buttons[selected].className = "p-3.5 text-left border-2 border-rose-500 bg-rose-50 text-rose-900 rounded-xl text-sm font-bold shadow-xs";
-                buttons[correct].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
-            }
-
-            setTimeout(() => {
-                currentQuestionIdx++;
-                loadQuestion();
-            }, 1200);
-        }
-
-        function resetQuiz() {
-            currentQuestionIdx = 0;
-            score = 0;
-            document.getElementById('quiz-score-val').innerText = score;
-            document.getElementById('quiz-complete').classList.add('hidden');
-            document.getElementById('quiz-container').classList.remove('hidden');
-            loadQuestion();
-        }
-
-        function markAsCompleted() {
-            localStorage.setItem("word_builder_completed", "true");
-            
-            const banner = document.getElementById('completion-banner');
-            banner.classList.remove('opacity-0', 'pointer-events-none');
-            
-            setTimeout(() => {
+                alert(`Rumūz al-Awwqāf Module Complete!\nYour Score: ${score}/100 points`);
                 window.location.href = "index.html";
-            }, 1500);
+            }
         }
 
         window.onload = function() {
-            document.getElementById('high-score-val').innerText = highScore;
-            loadPreset();
-            loadQuestion();
+            initSession();
         };
     </script>
 </body>
