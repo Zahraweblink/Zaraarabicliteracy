@@ -258,6 +258,10 @@
             document.getElementById('quiz-container').classList.add('hidden');
             document.getElementById('quiz-complete').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
+            
+            // Saves completion status for your index.html dashboard badge
+            localStorage.setItem('arabic_completed_as_sifat', 'true');
+            localStorage.setItem('score_as_sifat', score);
             return;
         }
 
