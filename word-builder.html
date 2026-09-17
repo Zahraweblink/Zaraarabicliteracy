@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah's Interactive Online Classroom - Arabic & Tajweed Studio</title>
+    <title>Zahrah's Interactive Arabic Literacy & Tajweed App</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .arabic-font {
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
 
     <!-- Header / Navigation Hub -->
     <header class="bg-emerald-700 text-white shadow-md py-4 px-6 flex justify-between items-center">
-        <h1 class="text-xl font-bold tracking-wide">ZAHRAH INTERACTIVE ONLINE CLASSROOM</h1>
-        <a href="index.html" class="bg-emerald-800 hover:bg-emerald-900 text-sm px-4 py-2 rounded-lg transition">Back to Dashboard</a>
+        <div>
+            <span class="text-[10px] uppercase tracking-wider bg-emerald-800/80 px-2.5 py-1 rounded-full text-emerald-200 font-bold block sm:inline-block mb-1 sm:mb-0 sm:mr-2">ZAHRAH INTERACTIVE ONLINE CLASSROOM</span>
+            <h1 class="text-lg font-bold tracking-wide inline-block">Arabic Literacy & Tajweed</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <div class="hidden sm:flex items-center gap-1.5 bg-emerald-800/60 px-3 py-1.5 rounded-lg text-xs font-medium">
+                <i class="fa-solid fa-trophy text-amber-300"></i> Best: <span id="high-score-val" class="text-amber-300 font-bold">0</span>
+            </div>
+            <a href="index.html" class="bg-emerald-800 hover:bg-emerald-900 text-sm px-4 py-2 rounded-lg transition">Back to Dashboard</a>
+        </div>
     </header>
 
     <!-- Main Studio Container -->
@@ -27,12 +42,14 @@
         <!-- Interactive Studio Board -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
             <h3 class="text-lg font-semibold text-slate-700">Studio Workspace</h3>
-            <div id="output-board" class="min-h-[100px] bg-slate-100 rounded-lg flex items-center justify-center text-4xl font-arabic text-emerald-900 border-2 border-dashed border-slate-300">
+            <div id="output-board" class="min-h-[100px] bg-slate-100 rounded-lg flex items-center justify-center text-5xl arabic-font text-emerald-900 border-2 border-dashed border-slate-300">
                 <!-- Dynamic Letter Output -->
             </div>
-            <div class="flex gap-3">
-                <button onclick="speakWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-sm">🔊 Listen / Pronounce</button>
-                <button onclick="clearBoard()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition">Clear Board</button>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="speakWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-sm flex items-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen / Pronounce
+                </button>
+                <button onclick="clearBoard()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition cursor-pointer">Clear Board</button>
             </div>
         </div>
 
@@ -40,11 +57,12 @@
         <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-slate-700">Interactive Assessment</h3>
-                <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">Score: <span id="quiz-score-val">0</span></span>
+                <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Score: <span id="quiz-score-val">0</span></span>
             </div>
 
             <div id="quiz-container" class="space-y-4">
-                <p id="question-text" class="text-base font-medium text-slate-800">Loading question...</p>
+                <div class="text-xs text-slate-500 font-medium">Question <span id="current-q-num">1</span> of <span id="total-q-num">5</span></div>
+                <p id="question-text" class="text-base font-semibold text-slate-800">Loading question...</p>
                 <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <!-- Dynamic Options -->
                 </div>
@@ -53,10 +71,10 @@
             <!-- Quiz Complete View -->
             <div id="quiz-complete" class="hidden text-center py-6 space-y-3">
                 <h4 class="text-xl font-bold text-emerald-800">Great Job! 🎉</h4>
-                <p class="text-slate-600">You scored <span id="final-score" class="font-bold">0</span> points on this module.</p>
+                <p class="text-slate-600">You scored <span id="final-score" class="font-bold text-emerald-700">0</span> points on this module.</p>
                 <div class="flex justify-center gap-3 pt-2">
-                    <button onclick="resetQuiz()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition">Retake Quiz</button>
-                    <button onclick="markAsCompleted()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">Save & Finish</button>
+                    <button onclick="resetQuiz()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition cursor-pointer">Retake Quiz</button>
+                    <button onclick="markAsCompleted()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer">Save & Finish</button>
                 </div>
             </div>
         </div>
@@ -64,18 +82,15 @@
     </main>
 
     <!-- Success Completion Toast / Banner -->
-    <div id="completion-banner" class="fixed bottom-5 right-5 bg-emerald-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-opacity duration-300">
+    <div id="completion-banner" class="fixed bottom-5 right-5 bg-emerald-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 border border-emerald-600 z-50">
         Progress saved successfully! Returning to dashboard...
     </div>
 
     <!-- Application Script Engine -->
     <script>
-        let currentQuestionIdx = 0;
-        let score = 0;
-
         const quizData = [
             {
-                question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha?",
+                question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha (الْهَمْزَة وَالْهَاء)?",
                 options: ["The Lowest Throat (Aqsa al-Halq)", "The Tip of the Tongue", "The Nasal Passage", "The Two Lips"],
                 correct: 0
             },
@@ -83,22 +98,42 @@
                 question: "Which of the following is considered a Qalqalah (echoing) letter when it carries a Sukun?",
                 options: ["س (Sin)", "ط (Ta)", "م (Meem)", "ل (Lam)"],
                 correct: 1
+            },
+            {
+                question: "How many letters make up the permanent heavy letters group (Isti'la / ُخصَ ضَغْطٍ قِظْ)?",
+                options: ["5 letters", "7 letters", "4 letters", "10 letters"],
+                correct: 1
+            },
+            {
+                question: "What rule applies when a non-vowelled Noon (نْ) or Tanween meets the letter Ba (ب)?",
+                options: ["Idgham (Merging)", "Iqlab (Conversion to Meem)", "Izhar (Clear Pronunciation)", "Ikhfa (Concealment)"],
+                correct: 1
+            },
+            {
+                question: "What is the correct articulation point (Makhraj) for lip letters like Ba (ب), Meem (م), and Waw (و)?",
+                options: ["The tongue tip", "The lips (Ash-Shafatayn)", "The nasal cavity", "The throat cavity"],
+                correct: 1
             }
         ];
+
+        let currentQuestionIdx = 0;
+        let score = 0;
+        
+        const SAVED_SCORE_KEY = "arabic_word_builder_highscore";
+        let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
         function loadPreset() {
             document.getElementById('output-board').innerText = "بَكْر";
         }
 
         function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            const text = document.getElementById('output-board')?.innerText || '';
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85; 
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
@@ -110,13 +145,21 @@
         }
 
         function loadQuestion() {
+            document.getElementById('total-q-num').innerText = quizData.length;
             if (currentQuestionIdx >= quizData.length) {
                 document.getElementById('quiz-container').classList.add('hidden');
                 document.getElementById('quiz-complete').classList.remove('hidden');
                 document.getElementById('final-score').innerText = score;
+                
+                if (score > highScore) {
+                    highScore = score;
+                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+                    document.getElementById('high-score-val').innerText = highScore;
+                }
                 return;
             }
 
+            document.getElementById('current-q-num').innerText = currentQuestionIdx + 1;
             const q = quizData[currentQuestionIdx];
             document.getElementById('question-text').innerText = q.question;
             const optionsContainer = document.getElementById('options-container');
@@ -124,7 +167,7 @@
 
             q.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
-                btn.className = "p-3 text-left border border-slate-200 rounded-lg hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700";
+                btn.className = "p-3.5 text-left border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700 cursor-pointer shadow-xs";
                 btn.innerText = opt;
                 btn.onclick = () => checkAnswer(idx, q.correct);
                 optionsContainer.appendChild(btn);
@@ -132,12 +175,27 @@
         }
 
         function checkAnswer(selected, correct) {
+            const optionsContainer = document.getElementById('options-container');
+            const buttons = optionsContainer.children;
+
+            // Disable buttons to prevent multi-clicks
+            for (let b of buttons) {
+                b.style.pointerEvents = 'none';
+            }
+
             if (selected === correct) {
                 score += 10;
                 document.getElementById('quiz-score-val').innerText = score;
+                buttons[selected].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
+            } else {
+                buttons[selected].className = "p-3.5 text-left border-2 border-rose-500 bg-rose-50 text-rose-900 rounded-xl text-sm font-bold shadow-xs";
+                buttons[correct].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
             }
-            currentQuestionIdx++;
-            loadQuestion();
+
+            setTimeout(() => {
+                currentQuestionIdx++;
+                loadQuestion();
+            }, 1200);
         }
 
         function resetQuiz() {
@@ -161,6 +219,7 @@
         }
 
         window.onload = function() {
+            document.getElementById('high-score-val').innerText = highScore;
             loadPreset();
             loadQuestion();
         };
