@@ -52,6 +52,7 @@
 
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+        <!-- Change 'index.html' here if your main menu file has a different name -->
         <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
@@ -144,7 +145,7 @@
 
         <!-- Success Notification Banner (Hidden initially) -->
         <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
+            <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Returning to menu...
         </div>
 
     </main>
@@ -156,7 +157,6 @@
 
     <script>
         const questionBank = [
-            // --- PRIMARY ZONES & TOTALS ---
             {
                 word: "الْمَخَارِج الأَصْلِيَّة",
                 prompt: "How many <strong>primary exit zones (Al-Makhaarij Al-Asliyyah)</strong> span the human vocal apparatus in Tajweed?",
@@ -175,8 +175,6 @@
                 ],
                 correctIndex: 0
             },
-
-            // --- AL-JAWF (EMPTY SPACE) ---
             {
                 word: "حُرُوفُ الْمَدِّ وَاللِّين",
                 prompt: "Which letters originate from <strong>Al-Jawf (The empty space of mouth and throat)</strong>?",
@@ -195,8 +193,6 @@
                 ],
                 correctIndex: 0
             },
-
-            // --- AL-HALQ (THROAT) ---
             {
                 word: "أَقْصَى، وَسَط، وَأَدْنَى الحَلْق",
                 prompt: "How many specific exit points are located within <strong>Al-Halq (The Throat)</strong>?",
@@ -215,8 +211,6 @@
                 ],
                 correctIndex: 0
             },
-
-            // --- AL-LISAN (TONGUE) ---
             {
                 word: "لِسَانُ الإِنْسَان",
                 prompt: "Which vocal organ contains the largest number of specific exit points and letters?",
@@ -235,8 +229,6 @@
                 ],
                 correctIndex: 0
             },
-
-            // --- ASH-SHAFATAN (LIPS) & KHYASHOOM ---
             {
                 word: "الشَّفَتَان (ف، و، ب، م)",
                 prompt: "Which letters emerge from <strong>Ash-Shafatan (The Lips)</strong>?",
@@ -341,12 +333,11 @@
                        document.querySelector('h1, h2, span')?.innerText;
 
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the browser doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85;
                 
                 const voices = window.speechSynthesis.getVoices();
                 const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
@@ -375,17 +366,13 @@
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
                 
-                const pathParts = window.location.pathname.split('/');
-                const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
-
-                localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
                 const container = document.getElementById('exercise-area');
                 const banner = document.getElementById('success-banner');
                 
                 container.classList.add('animate-success');
                 banner.classList.remove('hidden');
 
+                // Cleanly redirects back to your main menu page
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 1500);
@@ -393,6 +380,7 @@
         }
 
         window.onload = function() {
+            initSection(); // Fixed function call safety check
             initSession();
         };
     </script>
