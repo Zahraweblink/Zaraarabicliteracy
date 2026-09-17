@@ -3,419 +3,490 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nabr Studio | Zahrah’s Arabic Literacy & Tajweed Mastery App</title>
+    <title>Noon Sakinah Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
     <script>
         if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
-            window.location.href = "index.html"; // Redirect back to index if not paid
+            window.location.href = "index.html"; 
         }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         :root {
-            --bg-deep: #0f172a;
-            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
-            --card-bg: rgba(30, 41, 59, 0.75);
-            --accent-gold: #ffb703;
-            --accent-cyan: #06b6d4;
-            --white: #ffffff;
+            --bg-dark: #0f172a;
+            --panel-bg: rgba(15, 23, 42, 0.88);
+            --accent-gold: #fcd34d;
+            --accent-cyan: #38bdf8;
+            --accent-rose: #fb7185;
+            --accent-emerald: #34d399;
+            --accent-purple: #c084fc;
+            --text-light: #f8fafc;
+            --border-glow: rgba(252, 211, 77, 0.25);
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-deep);
-            background-image: var(--bg-gradient);
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #064e3b 100%);
             background-attachment: fixed;
-            color: var(--white);
+            color: var(--text-light);
             min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        .arabic-text {
-            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
-            direction: rtl;
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px; left: -100px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.15) 0%, transparent 70%);
+            z-index: 0; border-radius: 50%; pointer-events: none;
         }
 
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        .nav-header {
+            width: 100%; max-width: 900px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 20px; z-index: 10;
         }
 
-        @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        .back-btn {
+            background: rgba(255,255,255,0.12); color: var(--text-light);
+            text-decoration: none; padding: 10px 20px; border-radius: 14px;
+            font-weight: 600; border: 1px solid rgba(255,255,255,0.2); transition: 0.2s;
+            backdrop-filter: blur(8px);
         }
-        .animate-success {
-            animation: successPulse 0.8s ease-in-out;
+        .back-btn:hover { background: var(--accent-gold); color: #000; }
+
+        .score-box { font-size: 1.1rem; font-weight: 700; color: var(--accent-gold); text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+        .game-card {
+            background: var(--panel-bg); backdrop-filter: blur(20px);
+            border: 2px solid var(--border-glow); border-radius: 28px;
+            padding: 30px; width: 100%; max-width: 900px; text-align: center;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 1px 1px rgba(255,255,255,0.2);
+            z-index: 10; position: relative;
         }
+
+        .view-tabs { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border-glow);
+            color: #cbd5e1; padding: 12px 24px; border-radius: 16px; cursor: pointer;
+            font-weight: 600; font-size: 0.95rem; transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .tab-btn.active { background: var(--accent-purple); color: #fff; border-color: var(--accent-purple); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(192, 132, 252, 0.4); }
+
+        .lesson-box { text-align: left; line-height: 1.6; }
+        .lesson-title { font-size: 2rem; color: var(--accent-gold); margin-bottom: 12px; text-align: center; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+        .rules-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px; margin: 20px 0;
+        }
+        .rule-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px; padding: 18px; text-align: center; cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .rule-card:hover, .rule-card.active {
+            background: linear-gradient(135deg, var(--accent-purple), #7e22ce); color: #fff;
+            transform: translateY(-4px); border-color: #fff; box-shadow: 0 10px 25px rgba(192, 132, 252, 0.4);
+        }
+        .rule-card .rule-ar { font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 6px; color: var(--accent-gold); }
+        .rule-card.active .rule-ar { color: #fff; }
+        .rule-card .rule-name { font-weight: 700; font-size: 1rem; }
+        .rule-card .rule-sub { font-size: 0.8rem; color: #cbd5e1; margin-top: 4px; }
+
+        .studio-card {
+            background: rgba(0, 0, 0, 0.45); border: 2px solid var(--accent-purple);
+            border-radius: 22px; padding: 24px; margin-top: 20px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.6);
+        }
+        .studio-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;
+            flex-wrap: wrap; gap: 10px;
+        }
+        .active-rule-title { font-size: 1.4rem; color: var(--accent-gold); font-weight: 700; }
+
+        .desc-box {
+            background: rgba(255,255,255,0.04); border-radius: 14px; padding: 16px;
+            margin-bottom: 15px; font-size: 0.95rem; color: #e2e8f0; border-left: 4px solid var(--accent-cyan);
+            line-height: 1.6;
+        }
+
+        .examples-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 15px 0;
+        }
+        .example-box {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px; padding: 14px; text-align: center; transition: 0.2s;
+        }
+        .example-box:hover { border-color: var(--accent-gold); background: rgba(255,255,255,0.08); }
+        .example-box .ex-ar { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 6px; }
+        .example-box .ex-tr { font-size: 0.85rem; color: #94a3b8; font-weight: 600; margin-bottom: 8px; }
+
+        .speech-btn {
+            background: rgba(56, 189, 248, 0.2); color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.4); padding: 7px 14px; border-radius: 12px;
+            font-size: 0.8rem; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;
+            cursor: pointer; transition: 0.2s; width: 100%; justify-content: center;
+        }
+        .speech-btn:hover { background: rgba(56, 189, 248, 0.35); color: #fff; transform: scale(1.02); }
+
+        .audio-status {
+            font-size: 0.85rem; color: var(--accent-emerald); font-weight: 600;
+            margin-top: 10px; text-align: center; min-height: 20px;
+        }
+
+        .start-test-btn {
+            background: linear-gradient(135deg, var(--accent-gold), #f59e0b); color: #000; border: none;
+            padding: 16px 32px; border-radius: 16px; font-size: 1.15rem;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 25px; transition: 0.25s;
+            box-shadow: 0 10px 25px rgba(252, 211, 77, 0.3);
+        }
+        .start-test-btn:hover { background: #fbbf24; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(252, 211, 77, 0.5); }
+
+        /* Test mode styles */
+        .progress-bar {
+            width: 100%; height: 12px; background: rgba(255,255,255,0.1);
+            border-radius: 6px; margin-bottom: 20px; overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); width: 0%; transition: width 0.3s ease; }
+
+        .arabic-display {
+            font-family: 'Amiri', serif; font-size: 4rem;
+            color: var(--accent-gold); margin: 20px 0;
+            background: rgba(0,0,0,0.4); padding: 25px; border-radius: 24px;
+            border: 1px solid var(--border-glow); position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .btn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }
+        @media (max-width: 600px) { .btn-grid { grid-template-columns: 1fr; } }
+
+        .action-btn {
+            background: rgba(255,255,255,0.06); border: 2px solid rgba(255,255,255,0.15);
+            color: var(--text-light); padding: 18px 14px; border-radius: 16px;
+            font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.25s ease;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+        }
+        .action-btn:hover { background: var(--accent-purple); color: #fff; transform: translateY(-3px); border-color: var(--accent-purple); }
+
+        .feedback-banner {
+            margin-top: 15px; padding: 14px; border-radius: 14px; font-weight: 700;
+            display: none; animation: fadeIn 0.3s ease; text-align: center;
+            font-size: 1.05rem;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="p-4 md:p-8 flex flex-col items-center justify-between min-h-screen">
+<body>
 
-    <!-- Header Navigation -->
-    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
-        <a href="index.html" class="glass-card px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-cyan-400 transition-all flex items-center gap-2">
-            <i class="fa-solid fa-arrow-left text-cyan-400"></i> Back to Dashboard Hub
-        </a>
-        <div class="flex items-center gap-3">
-            <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
-                Zahrah's Interactive Online Classroom
-            </div>
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
-                <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
-            </div>
-        </div>
-    </header>
+    <div class="nav-header">
+        <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Main Menu</a>
+        <div class="score-box" id="scoreHeader" style="display: none;">Question <span id="qNum">1</span>/40 | Score: <span id="scoreVal">0</span> ⭐</div>
+    </div>
 
-    <!-- Main Workspace -->
-    <main class="w-full max-w-3xl glass-card p-6 md:p-10 rounded-3xl space-y-6 text-center border border-slate-700/60 my-auto">
-
-        <!-- Title Banner -->
-        <div class="space-y-2">
-            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                Tajweed Phonetics & Accentuation
-            </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Nabr Studio (النَّبْر)</h1>
-            <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master <strong>Nabr</strong>: applying a subtle acoustic pressure/lift to ensure certain letters are not dropped or slurred during recitation.
-            </p>
+    <div class="game-card">
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tabStudio" onclick="showView('studio')">🎧 Tajweed Rules Studio</button>
+            <button class="tab-btn" id="tabTest" onclick="showView('test')">🎯 40-Question Master Quiz</button>
         </div>
 
-        <!-- Rule Explainer Card -->
-        <div class="bg-slate-900/60 rounded-2xl p-5 border border-cyan-500/30 space-y-4 text-left">
-            <h2 class="text-base font-bold text-cyan-300 flex items-center justify-between">
-                <span class="flex items-center gap-2"><i class="fa-solid fa-bolt"></i> Primary Situations Requiring Nabr</span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                
-                <!-- Card 1 -->
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">الصَّاخَّةُ</span>
-                        <span class="text-xs font-bold text-slate-200">1. Madd to Shaddah</span>
-                        <p class="text-[11px] text-slate-400 mt-1">Lifting the voice when transitioning from long Madd (6 counts) into a doubled letter.</p>
-                    </div>
-                    <button onclick="playWordAudio('الصَّاخَّةُ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
-                    </button>
+        <!-- VIEW 1: RULES STUDIO -->
+        <div id="studioView" class="lesson-box">
+            <h2 class="lesson-title"><i class="fa-solid fa-book-quran" style="color: var(--accent-gold);"></i> Noon Sakinah & Tanween Studio</h2>
+            <p style="color: #cbd5e1; text-align: center; margin-bottom: 20px;">Select a Tajweed rule below to learn its definition, letter conditions, and listen to verified examples:</p>
+
+            <div class="rules-grid" id="rulesGrid"></div>
+
+            <div class="studio-card">
+                <div class="studio-header">
+                    <span class="active-rule-title" id="ruleTitle">1. Izhar (إِظْهَار) - Clarity</span>
+                    <span style="font-size: 0.85rem; color: #94a3b8;" id="ruleLetters">Trigger Letters: ء , هـ , ع , ح , غ , خ</span>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">مُسْتَقِرٌّ</span>
-                        <span class="text-xs font-bold text-slate-200">2. Stopping on Shaddah</span>
-                        <p class="text-[11px] text-slate-400 mt-1">Applying pressure when stopping on a doubled letter so the second hidden letter remains audible.</p>
-                    </div>
-                    <button onclick="playWordAudio('مُسْتَقِرٌّ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
-                    </button>
+                <div class="desc-box" id="ruleDesc">
+                    <strong>Definition:</strong> Pronouncing the Noon Sakinah (نْ) or Tanween clearly and distinctly from its articulation point without any extra nasal sound (Ghunnah). This occurs when followed by any of the 6 throat letters.
                 </div>
 
-                <!-- Card 3 -->
-                <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">ذَاقَا الشَّجَرَةَ</span>
-                        <span class="text-xs font-bold text-slate-200">3. Dropped Alif of Dual</span>
-                        <p class="text-[11px] text-slate-400 mt-1">Lifting the sound on the previous letter when the Alif of dual is dropped due to meeting a Sukoon.</p>
-                    </div>
-                    <button onclick="playWordAudio('ذَاقَا الشَّجَرَةَ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
-                    </button>
-                </div>
+                <div style="font-size: 0.95rem; color: var(--accent-gold); margin-bottom: 8px; font-weight: 600;">Practice Examples:</div>
+                <div class="examples-container" id="examplesContainer"></div>
 
+                <div class="audio-status" id="audioStatusText"></div>
             </div>
+
+            <button class="start-test-btn" onclick="showView('test')">Ready for the 40-Question Quiz? Start Challenge →</button>
         </div>
 
-        <!-- Interactive Practice Arena -->
-        <div id="exercise-area" class="p-6 md:p-8 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
-            
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
-                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
-            </div>
+        <!-- VIEW 2: PRACTICE TEST -->
+        <div id="testView" style="display: none;">
+            <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
 
-            <!-- Target Word / Verse Display -->
-            <div class="py-4 bg-slate-950/80 rounded-xl border border-slate-800/80 shadow-inner">
-                <div id="target-arabic" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-2 px-4">
-                    فَإِذَا جَاءَتِ <span class="text-cyan-400">الصَّاخَّةُ</span>
-                </div>
-                <p id="target-prompt" class="text-sm text-slate-300 px-4">
-                    Why is <strong>Nabr (النَّبْر)</strong> applied during the transition in <strong class="text-cyan-400">الصَّاخَّةُ</strong>?
-                </p>
-            </div>
+            <h2 style="color:var(--accent-purple); margin-bottom: 8px;">Noon Sakinah 40-Question Master Quiz</h2>
+            <p id="questionPrompt" style="color:#cbd5e1; font-weight: 600;">Identify the correct Tajweed rule applied in the word/phrase below:</p>
 
-            <!-- Choice Options -->
-            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-left">
-                <!-- Buttons injected dynamically -->
-            </div>
-
-            <!-- Action Controls -->
-            <div class="flex justify-between items-center pt-2">
-                <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
-                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
-                </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
-                    Next Exercise ➔
+            <div class="arabic-display" id="wordDisplay">...</div>
+            <div style="display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 5px;">
+                <button onclick="speakWord(document.getElementById('wordDisplay').innerText)" class="speech-btn" style="width: auto; padding: 10px 16px; font-size: 0.9rem;">
+                    <i class="fa-solid fa-volume-high"></i> Pronounce Word
                 </button>
             </div>
+
+            <div class="feedback-banner" id="feedbackBox"></div>
+
+            <div class="btn-grid" id="choicesContainer"></div>
         </div>
+    </div>
 
-        <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
-        </div>
+<script>
+    // Bulletproof Audio Engine with context unlocking and fallback synthesis
+    let audioCtx = null;
 
-    </main>
+    function unlockAudioContext() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
 
-    <!-- Footer -->
-    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
-        Zahrah's Interactive Online Classroom &copy; 2026. Zahrah’s Arabic Literacy & Tajweed Mastery App.
-    </footer>
+    function speakWord(customText) {
+        unlockAudioContext();
+        const text = customText || document.querySelector('h1, h2, span')?.innerText;
+        const statusEl = document.getElementById('audioStatusText');
 
-    <script>
-        const questionBank = [
-            // --- MADD TO SHADDAH (MADD LAAZIM) ---
-            {
-                word: "فَإِذَا جَاءَتِ الصَّاخَّةُ",
-                prompt: "Why is <strong>Nabr (النَّبْر)</strong> applied during the transition in <strong class="text-cyan-400">الصَّاخَّةُ</strong>?",
-                options: [
-                    "To transition smoothly from 6-count Madd into the heavy doubled letter (Khaa) without losing the sound",
-                    "To shorten the long Madd to 2 counts"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "وَلاَ الضَّالِّينَ",
-                prompt: "In <strong>وَلاَ الضَّالِّينَ</strong>, where precisely does Nabr occur?",
-                options: [
-                    "At the junction when moving from the lengthened Alif into the doubled Laam (لّ)",
-                    "On the final letter Noon at the end of the word"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "الْحَاقَّةُ",
-                prompt: "When reciting <strong>الْحَاقَّةُ</strong>, Nabr ensures that:",
-                options: [
-                    "The doubled Qaaf (قّ) is distinctly emphasized right after the 6-count Madd",
-                    "The Ha (ح) is pronounced with Tafkheem"
-                ],
-                correctIndex: 0
-            },
-
-            // --- STOPPING ON A SHADDAH (WAFQ) ---
-            {
-                word: "فِي الْمَسَدِ ➔ مَسَدٍّ",
-                prompt: "When stopping upon a word that ends in a doubled letter (e.g., <strong>مُسْتَقِرٌّ</strong>), Nabr is required to:",
-                options: [
-                    "Prevent dropping the second silent letter of the Shaddah upon Waqf",
-                    "Perform Iqlab on the last letter"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "الْحَيُّ الْقَيُّومُ",
-                prompt: "If you stop on the word <strong>الْحَيُّ</strong>, how does Nabr safeguard the pronunciation?",
-                options: [
-                    "It creates an acoustic pressure on Ya' (ي) so both parts of the doubled letter remain clear",
-                    "It turns the Ya' into a Madd letter of 6 counts"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "عَدُوٌّ",
-                prompt: "Stopping on <strong>عَدُوٌّ</strong> without applying Nabr causes what recitational error?",
-                options: [
-                    "The word sounds like it ends in a single Waaw rather than a doubled Waaw",
-                    "The letter 'Ayn receives a Madd"
-                ],
-                correctIndex: 0
-            },
-
-            // --- DUAL ALIF DROPPED DUE TO SUKOON ---
-            {
-                word: "فَلَمَّا ذَاقَا الشَّجَرَةَ",
-                prompt: "In <strong>ذَاقَا الشَّجَرَةَ</strong>, the Alif of dual is dropped in recitation due to consecutive Suhoons. Why apply Nabr to <strong>ق</strong>?",
-                options: [
-                    "To indicate to the listener that the verb represents a dual (two people) despite the Alif being dropped in speech",
-                    "To change the vowel of Qaaf to Kasrah"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "وَقَالَا الْحَمْدُ لِلَّهِ",
-                prompt: "When connecting <strong>وَقَالَا</strong> to <strong>الْحَمْدُ</strong>, Nabr on the Laam alerts the listener that:",
-                options: [
-                    "The original word contained a dual Alif (two speakers) before silent meeting",
-                    "The word is a command verb"
-                ],
-                correctIndex: 0
-            },
-
-            // --- HAMZAH AFTER MADD & GENERAL DEFINITIONS ---
-            {
-                word: "السَّمَاءِ / جَاءَ",
-                prompt: "When stopping on a word ending with Madd followed by Hamzah (e.g., <strong>السَّمَاءِ</strong>), Nabr is used to:",
-                options: [
-                    "Ensure the silent glottal stop of Hamzah is clearly heard without being cut off or lost",
-                    "Recite the Hamzah with Ghunnah"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "مَا هُوَ النَّبْرُ؟",
-                prompt: "What is the general phonetic definition of <strong>Nabr</strong> in Tajweed?",
-                options: [
-                    "A sudden, slight acoustic pressure or elevation of voice on a specific letter or syllable",
-                    "Holding a nasal sound for 2 full beats"
-                ],
-                correctIndex: 0
-            }
-        ];
-
-        let sessionQuestions = [];
-        let currentIndex = 0;
-        let score = 0;
-        let answered = false;
-
-        function shuffleArray(array) {
-            return array.sort(() => Math.random() - 0.5);
+        if (!('speechSynthesis' in window)) {
+            if (statusEl) statusEl.innerText = "⚠️ Audio not supported on this device/browser.";
+            return;
         }
 
-        function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
-            currentIndex = 0;
-            score = 0;
-            document.getElementById("current-score").innerText = score;
-            loadQuestion();
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.8;
+
+        const voices = window.speechSynthesis.getVoices();
+        const arabicVoice = voices.find(v => v.lang.toLowerCase().includes('ar')) || voices[0];
+        if (arabicVoice) {
+            utterance.voice = arabicVoice;
         }
 
-        function loadQuestion() {
-            answered = false;
-            const current = sessionQuestions[currentIndex];
-            
-            document.getElementById("question-num").innerText = currentIndex + 1;
-            document.getElementById("target-arabic").innerHTML = current.word;
-            document.getElementById("target-prompt").innerHTML = current.prompt;
-            
-            const badge = document.getElementById("feedback-badge");
-            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+        utterance.onstart = () => { if (statusEl) statusEl.innerText = "🔊 Playing sound..."; };
+        utterance.onend = () => { if (statusEl) statusEl.innerText = ""; };
+        utterance.onerror = () => { if (statusEl) statusEl.innerText = "⚠️ Audio playback skipped."; };
 
-            const nextBtn = document.getElementById("next-btn");
-            nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+        window.speechSynthesis.speak(utterance);
+    }
 
-            const optionsContainer = document.getElementById("options-container");
-            optionsContainer.innerHTML = "";
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+    }
 
-            current.options.forEach((optText, idx) => {
-                const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all hover:border-amber-400 cursor-pointer text-left";
-                btn.innerText = optText;
-                btn.onclick = () => selectOption(idx, btn);
-                optionsContainer.appendChild(btn);
-            });
+    const rulesData = [
+        {
+            id: 0,
+            name: "Izhar (إِظْهَار)",
+            sub: "Clarity",
+            ar: "هـ ع ح غ خ ء",
+            desc: "<strong>Definition:</strong> Pronouncing the Noon Sakinah (نْ) or Tanween clearly and distinctly from its mouth/throat origin without any extra nasal sound (Ghunnah). Occurs when followed by any of the 6 throat letters.",
+            examples: [
+                { ar: "مِنْ حَكِيمٍ", tr: "Min Hakeem", desc: "Noon Sakinah followed by Haa (ح)" },
+                { ar: "أَنْعَمْتَ", tr: "An'amta", desc: "Noon Sakinah followed by Ayn (ع)" },
+                { ar: "عَلِيمٌ حَكِيمٌ", tr: "Aleemun Hakeem", desc: "Tanween followed by Haa (ح)" }
+            ]
+        },
+        {
+            id: 1,
+            name: "Idgham (إِدْغَام)",
+            sub: "Merging (يَرْمُلُون)",
+            ar: "ي ر م ل و ن",
+            desc: "<strong>Definition:</strong> Merging the Noon Sakinah or Tanween into the succeeding letter so they become one doubled letter. Divided into two types: With Ghunnah (ي ن م و) and Without Ghunnah (ل ر).",
+            examples: [
+                { ar: "مَنْ يَعْمَلْ", tr: "May-ya'mal", desc: "Idgham with Ghunnah (Yaama)" },
+                { ar: "مِنْ لَدُنْكَ", tr: "Mil-ladunka", desc: "Idgham without Ghunnah (Laam)" },
+                { ar: "خَيْرًا لَهُمْ", tr: "Khayral-lahum", desc: "Tanween Idgham without Ghunnah" }
+            ]
+        },
+        {
+            id: 2,
+            name: "Iqlab (إِقْلَاب)",
+            sub: "Conversion (ب)",
+            ar: "ب",
+            desc: "<strong>Definition:</strong> Converting the sound of Noon Sakinah or Tanween into a hidden Meem (م) with a nasal Ghunnah when it is followed strictly by the letter Baa (ب).",
+            examples: [
+                { ar: "مِنْ بَعْدِ", tr: "Mim-ba'di", desc: "Noon converted to Meem before Baa" },
+                { ar: "سَمِيعٌ بَصِيرٌ", tr: "Samee-um Baseer", desc: "Tanween converted before Baa" }
+            ]
+        },
+        {
+            id: 3,
+            name: "Ikhfa (إِخْفَاء)",
+            sub: "Hiding / Concealment",
+            ar: "15 Letters",
+            desc: "<strong>Definition:</strong> Concealing the Noon Sakinah or Tanween between Izhar and Idgham, maintaining a heavy nasal Ghunnah (2 counts) when followed by any of the 15 remaining letters.",
+            examples: [
+                { ar: "مِنْ شَرِّ", tr: "Min sharri", desc: "Ikhfa before Sheen (ش)" },
+                { ar: "كَنْزٌ", tr: "Kanzun", desc: "Ikhfa before Zay (ز)" },
+                { ar: "قَوْلًا سَدِيدًا", tr: "Qawlan sadeeda", desc: "Tanween Ikhfa before Seen (س)" }
+            ]
         }
+    ];
 
-        function selectOption(selectedIndex, btnElement) {
-            if (answered) return;
-            answered = true;
+    let activeRuleIndex = 0;
 
-            const current = sessionQuestions[currentIndex];
-            const badge = document.getElementById("feedback-badge");
-            const nextBtn = document.getElementById("next-btn");
+    function renderRulesGrid() {
+        const grid = document.getElementById('rulesGrid');
+        grid.innerHTML = "";
+        rulesData.forEach((rule, index) => {
+            const card = document.createElement('div');
+            card.className = `rule-card ${index === activeRuleIndex ? 'active' : ''}`;
+            card.onclick = () => selectRule(index);
+            card.innerHTML = `<div class="rule-ar">${rule.ar}</div><div class="rule-name">${rule.name}</div><div class="rule-sub">${rule.sub}</div>`;
+            grid.appendChild(card);
+        });
+    }
 
-            if (selectedIndex === current.correctIndex) {
-                score += 10;
-                badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
-            } else {
-                badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
-            }
+    function selectRule(index) {
+        activeRuleIndex = index;
+        renderRulesGrid();
+        const rule = rulesData[index];
+        document.getElementById('ruleTitle').innerText = `${index + 1}. ${rule.name} - ${rule.sub}`;
+        document.getElementById('ruleLetters').innerText = `Trigger Letters: ${rule.ar}`;
+        document.getElementById('ruleDesc').innerHTML = rule.desc;
 
-            document.getElementById("current-score").innerText = score;
+        const exContainer = document.getElementById('examplesContainer');
+        exContainer.innerHTML = '';
+        rule.examples.forEach(ex => {
+            const box = document.createElement('div');
+            box.className = 'example-box';
+            box.innerHTML = `
+                <div class="ex-ar">${ex.ar}</div>
+                <div class="ex-tr">${ex.tr}</div>
+                <div style="font-size:0.78rem; color:#cbd5e1; margin-bottom:8px;">${ex.desc}</div>
+                <button onclick="speakWord('${ex.ar}')" class="speech-btn"><i class="fa-solid fa-volume-high"></i> Listen</button>
+            `;
+            exContainer.appendChild(box);
+        });
+    }
 
-            if (currentIndex === sessionQuestions.length - 1) {
-                nextBtn.innerText = "Complete Module 🎉";
-            }
+    function showView(viewName) {
+        document.getElementById('studioView').style.display = viewName === 'studio' ? 'block' : 'none';
+        document.getElementById('testView').style.display = viewName === 'test' ? 'block' : 'none';
+        
+        document.getElementById('tabStudio').className = `tab-btn ${viewName === 'studio' ? 'active' : ''}`;
+        document.getElementById('tabTest').className = `tab-btn ${viewName === 'test' ? 'active' : ''}`;
+        document.getElementById('scoreHeader').style.display = viewName === 'test' ? 'block' : 'none';
 
-            nextBtn.disabled = false;
-            nextBtn.className = "px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer";
+        if (viewName === 'test') loadQuestion();
+    }
+
+    const testSuite = [
+        // IZHAR QUESTIONS (1-10)
+        { word: "مِنْ حَكِيمٍ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Haa (ح) is a throat letter, requiring Izhar (Clarity)." },
+        { word: "أَنْعَمْتَ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Ayn (ع) is a throat letter, triggering clear pronunciation (Izhar)." },
+        { word: "مَنْ هُوَ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Haa (هـ) is part of the 6 throat letters, requiring Izhar." },
+        { word: "عَلِيمٌ حَكِيمٌ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Haa (ح) requires explicit Izhar." },
+        { word: "مِنْ خَوْفٍ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Khaa (خ) is a throat letter triggering Izhar." },
+        { word: "يَنْحِتُونَ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Noon Sakinah followed by Ḥā’ (ح) within the word requires Izhar." },
+        { word: "مِنْ غِلٍّ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Ghayn (غ) is a throat letter, triggering Izhar." },
+        { word: "فَسَيُنْغِضُونَ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Noon Sakinah followed by Ghayn (غ) requires clear pronunciation." },
+        { word: "جُرُفٍ هَارٍ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Haa (هـ) requires Izhar." },
+        { word: "يَنْأَوْنَ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Hamza (ء) following Noon Sakinah triggers Izhar." },
+
+        // IDGHAM QUESTIONS (11-20)
+        { word: "مَنْ يَعْمَلْ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Ya (ي) is part of Yarmuloon, requiring Idgham with Ghunnah." },
+        { word: "مِنْ لَدُنْكَ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Laam (ل) triggers Idgham without Ghunnah." },
+        { word: "خَيْرًا لَهُمْ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Laam (ل) triggers Idgham without Ghunnah." },
+        { word: "مِنْ مَاءِ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Meem (م) is part of Yarmuloon, triggering Idgham with Ghunnah." },
+        { word: "رَحْمَةً وَمَغْفِرَةً", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Waw (و) triggers Idgham with Ghunnah." },
+        { word: "مِنْ رَبِّهِمْ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Raa (ر) triggers Idgham without Ghunnah." },
+        { word: "وُجُوهٌ يَوْمَئِذٍ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Ya (ي) triggers Idgham with Ghunnah." },
+        { word: "مِنْ نِعْمَةٍ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Noon followed by Noon triggers Idgham with Ghunnah." },
+        { word: "عَذَابٌ مُهِينٌ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Meem (م) triggers Idgham with Ghunnah." },
+        { word: "مَنْ وَجَدَ", correct: "Idgham (Merging)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Waw (و) triggers Idgham with Ghunnah." },
+
+        // IQLAB QUESTIONS (21-25)
+        { word: "مِنْ بَعْدِ", correct: "Iqlab (Conversion)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Baa (ب) triggers Iqlab, converting the Noon into a hidden Meem." },
+        { word: "سَمِيعٌ بَصِيرٌ", correct: "Iqlab (Conversion)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Baa (ب) converts to Meem sound." },
+        { word: "أَنْبِئْهُمْ", correct: "Iqlab (Conversion)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Noon Sakinah followed by Baa (ب) triggers Iqlab." },
+        { word: "كَرِيمٌ بَرَرَةٍ", correct: "Iqlab (Conversion)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Baa (ب) requires Iqlab rule." },
+        { word: "مِنْ بَقِيَّةٍ", correct: "Iqlab (Conversion)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Baa (ب) following Noon triggers Iqlab conversion." },
+
+        // IKHFA QUESTIONS (26-40)
+        { word: "مِنْ شَرِّ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Sheen (ش) is an Ikhfa letter, requiring concealment with Ghunnah." },
+        { word: "كَنْزٌ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Zay (ز) is an Ikhfa letter." },
+        { word: "قَوْلًا سَدِيدًا", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Seen (س) triggers Ikhfa." },
+        { word: "أَنْتُمْ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Taa (ت) is an Ikhfa letter." },
+        { word: "مِنْ طِينٍ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Taa (ط) triggers Ikhfa with heavy Ghunnah." },
+        { word: "صُرُفًا تَمْشُونَ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Taa (ت) triggers Ikhfa." },
+        { word: "أَنْزَلْنَاهُ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Zay (ز) triggers Ikhfa concealment." },
+        { word: "مِنْ صَلْصَالٍ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Saad (ص) triggers Ikhfa." },
+        { word: "رِيحًا صَرْصَرًا", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Saad (ص) triggers Ikhfa." },
+        { word: "مِنْ جُوعٍ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Jeem (ج) is an Ikhfa letter." },
+        { word: "أَنْجَيْنَاكُمْ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Jeem (ج) triggers Ikhfa." },
+        { word: "مِنْ دُونِ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Daal (د) triggers Ikhfa." },
+        { word: "جَزَاءً دِفْءًا", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Daal (د) triggers Ikhfa." },
+        { word: "مِنْ ثَمَرَةٍ", correct: "Ikhfa (Concealment)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Thaa (ث) triggers Ikhfa." },
+        { word: "عَذَابٌ أَلِيمٌ", correct: "Izhar (Clarity)", options: ["Izhar (Clarity)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"], exp: "Tanween followed by Hamza (ء) triggers Izhar." }
+    ];
+
+    let currentIndex = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        if (currentIndex >= testSuite.length) { currentIndex = 0; }
+        const q = testSuite[currentIndex];
+        document.getElementById('qNum').innerText = currentIndex + 1;
+        document.getElementById('scoreVal').innerText = score;
+        document.getElementById('wordDisplay').innerText = q.word;
+        document.getElementById('progFill').style.width = `${((currentIndex) / testSuite.length) * 100}%`;
+        
+        const feedbackBox = document.getElementById('feedbackBox');
+        feedbackBox.style.display = 'none';
+
+        const container = document.getElementById('choicesContainer');
+        container.innerHTML = '';
+
+        [...q.options].sort(() => Math.random() - 0.5).forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'action-btn';
+            btn.innerText = opt;
+            btn.onclick = () => handleAnswer(opt, q.correct, q.exp);
+            container.appendChild(btn);
+        });
+    }
+
+    function handleAnswer(selected, correct, explanation) {
+        const feedbackBox = document.getElementById('feedbackBox');
+        feedbackBox.style.display = 'block';
+        document.querySelectorAll('#choicesContainer button').forEach(b => b.disabled = true);
+
+        if (selected === correct) {
+            score += 10;
+            feedbackBox.style.background = 'rgba(52, 211, 153, 0.2)';
+            feedbackBox.style.color = 'var(--accent-emerald)';
+            feedbackBox.innerHTML = `✅ Correct! ${explanation}`;
+        } else {
+            feedbackBox.style.background = 'rgba(251, 113, 133, 0.2)';
+            feedbackBox.style.color = 'var(--accent-rose)';
+            feedbackBox.innerHTML = `❌ Incorrect. The correct answer was "${correct}". ${explanation}`;
         }
+        document.getElementById('scoreVal').innerText = score;
+        setTimeout(() => { currentIndex++; loadQuestion(); }, 3000);
+    }
 
-        // Integrated speakWord() function
-        function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
-            if ('speechSynthesis' in window && text) {
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.85;
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Text-to-speech is not supported on this browser.");
-            }
-        }
-
-        // Web Speech API Pronunciation Function with HTML Sanitizer for individual word buttons
-        function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const cleanText = typeof textToSpeak === 'string' ? textToSpeak.replace(/<[^>]*>?/gm, '') : '';
-                const utterance = new SpeechSynthesisUtterance(cleanText);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.7;
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Audio speech synthesis is not supported in this browser.");
-            }
-        }
-
-        // Helper to play current active question text safely
-        function playCurrentQuestionAudio() {
-            const current = sessionQuestions[currentIndex];
-            const cleanText = current.word.replace(/<[^>]*>?/gm, '');
-            playWordAudio(cleanText);
-        }
-
-        function nextQuestion() {
-            if (currentIndex < sessionQuestions.length - 1) {
-                currentIndex++;
-                loadQuestion();
-            } else {
-                markAsCompleted();
-            }
-        }
-
-        function markAsCompleted() {
-            const pathParts = window.location.pathname.split('/');
-            const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
-
-            localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
-            const container = document.getElementById('exercise-area');
-            const banner = document.getElementById('success-banner');
-            
-            container.classList.add('animate-success');
-            banner.classList.remove('hidden');
-
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
-        }
-
-        window.onload = function() {
-            initSession();
-        };
-    </script>
+    renderRulesGrid();
+    selectRule(0);
+</script>
 </body>
 </html>
