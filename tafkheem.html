@@ -88,21 +88,31 @@
                 <i class="fa-solid fa-lightbulb"></i> Core Rules of Tafkheem & Tarqeeq:
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-orange-500/30">
-                    <span class="text-3xl font-bold arabic-text text-orange-400 block mb-1">خُصَّ ضَغْطٍ قِظْ</span>
-                    <span class="text-xs font-bold text-orange-300 uppercase tracking-wide">🔥 Always Heavy (7 Letters)</span>
-                    <p class="text-[11px] text-slate-300 mt-2">
-                        <strong>خ ، ص ، ض ، غ ، ط ، ق ، ظ</strong> <br>
-                        Always pronounced heavy regardless of vowels.
-                    </p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-orange-500/30 flex flex-col items-center justify-between">
+                    <div>
+                        <span class="text-3xl font-bold arabic-text text-orange-400 block mb-1">خُصَّ ضَغْطٍ قِظْ</span>
+                        <span class="text-xs font-bold text-orange-300 uppercase tracking-wide">🔥 Always Heavy (7 Letters)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">
+                            <strong>خ ، ص ، ض ، غ ، ط ، ق ، ظ</strong> <br>
+                            Always pronounced heavy regardless of vowels.
+                        </p>
+                    </div>
+                    <button onclick="playWordAudio('خُصَّ ضَغْطٍ قِظْ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen (Rule Group)
+                    </button>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-cyan-500/30">
-                    <span class="text-2xl font-bold arabic-text text-cyan-400 block mb-1">ر  /  اللَّه</span>
-                    <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">⚖️ Conditionally Heavy/Light</span>
-                    <p class="text-[11px] text-slate-300 mt-2">
-                        <strong>Lam in Allah:</strong> Heavy after Fatha/Damma; Light after Kasra. <br>
-                        <strong>Raa (ر):</strong> Heavy with Fatha/Damma; Light with Kasra.
-                    </p>
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-cyan-500/30 flex flex-col items-center justify-between">
+                    <div>
+                        <span class="text-2xl font-bold arabic-text text-cyan-400 block mb-1">ر  /  اللَّه</span>
+                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">⚖️ Conditionally Heavy/Light</span>
+                        <p class="text-[11px] text-slate-300 mt-2">
+                            <strong>Lam in Allah:</strong> Heavy after Fatha/Damma; Light after Kasra. <br>
+                            <strong>Raa (ر):</strong> Heavy with Fatha/Damma; Light with Kasra.
+                        </p>
+                    </div>
+                    <button onclick="playWordAudio('اللَّه')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen (اللَّه)
+                    </button>
                 </div>
             </div>
         </div>
@@ -115,12 +125,15 @@
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
-            <!-- Target Word Display -->
-            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
+            <!-- Target Word Display with Integrated Audio Button Template -->
+            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center space-y-3">
+                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide">
                     قَالَ
                 </div>
-                <p id="target-prompt" class="text-sm text-slate-300">
+                <button onclick="playCurrentWord()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
+                    <i class="fa-solid fa-volume-high"></i> Listen to Target Word
+                </button>
+                <p id="target-prompt" class="text-sm text-slate-300 max-w-md px-4 pt-1">
                     Is the targeted letter pronounced Heavy (Tafkheem) or Light (Tarqeeq)?
                 </p>
             </div>
@@ -131,10 +144,7 @@
             </div>
 
             <!-- Action Controls -->
-            <div class="flex justify-between items-center pt-2">
-                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
-                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
-                </button>
+            <div class="flex justify-end items-center pt-2">
                 <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
@@ -351,9 +361,9 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord function
-        function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+        // Integrated speakWord() core function with text-override support
+        function speakWord(textOverride) {
+            const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
                 // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
@@ -367,30 +377,44 @@
             }
         }
 
+        // Adapter wrapper for custom word pronunciation
+        function playWordAudio(textToSpeak) {
+            speakWord(textToSpeak);
+        }
+
+        // Helper trigger for the active quiz card item
+        function playCurrentWord() {
+            const current = sessionQuestions[currentIndex];
+            speakWord(current.word);
+        }
+
+        function markAsCompleted() {
+            const pathParts = window.location.pathname.split('/');
+            const currentFileName = pathParts[pathParts.length - 1] || 'tafkheem.html';
+
+            localStorage.setItem('arabic_completed_' + currentFileName, 'true');
+
+            if (score > highScore) {
+                localStorage.setItem(SAVED_SCORE_KEY, score.toString());
+            }
+
+            const container = document.getElementById('exercise-area');
+            const banner = document.getElementById('success-banner');
+            
+            container.classList.add('animate-success');
+            banner.classList.remove('hidden');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
         function nextQuestion() {
             if (currentIndex < sessionQuestions.length - 1) {
                 currentIndex++;
                 loadQuestion();
             } else {
-                if (score > highScore) {
-                    localStorage.setItem(SAVED_SCORE_KEY, score.toString());
-                }
-                
-                // Automatically save completion state for the dashboard hub
-                const pathParts = window.location.pathname.split('/');
-                const currentFileName = pathParts[pathParts.length - 1] || 'tafkheem.html';
-                localStorage.setItem('arabic_completed_' + currentFileName, 'true');
-
-                // Trigger visual feedback and redirect
-                const container = document.getElementById('exercise-area');
-                const banner = document.getElementById('success-banner');
-                
-                container.classList.add('animate-success');
-                banner.classList.remove('hidden');
-
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1500);
+                markAsCompleted();
             }
         }
 
