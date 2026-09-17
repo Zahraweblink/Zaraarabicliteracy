@@ -417,12 +417,11 @@
         function speakWord(customText) {
             const text = customText || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85; 
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
@@ -497,7 +496,7 @@
 
             q.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.className = 'w-full py-3 px-4 rounded-xl border border-slate-700 hover:border-brand-500 bg-slate-900/60 font-medium text-slate-200 text-sm transition-all text-left flex items-center justify-between group';
+                btn.className = 'w-full py-3 px-4 rounded-xl border border-slate-700 hover:border-brand-500 bg-slate-900/60 font-medium text-slate-200 text-sm transition-all text-left flex items-center justify-between group cursor-pointer';
                 btn.innerHTML = `<span>${opt}</span> <i class="fa-regular fa-circle text-slate-500 group-hover:text-brand-400"></i>`;
                 btn.onclick = () => selectAnswer(btn, opt, q.correct);
                 optionsContainer.appendChild(btn);
@@ -515,25 +514,24 @@
 
             if (selectedOpt === correctOpt) {
                 score++;
+                document.getElementById('quiz-score-val').innerText = score;
                 selectedBtn.className = 'w-full py-3 px-4 rounded-xl border border-emerald-500 bg-emerald-500/20 font-medium text-emerald-200 text-sm transition-all text-left flex items-center justify-between';
+                selectedBtn.innerHTML = `<span>${selectedOpt}</span> <i class="fa-solid fa-circle-check text-emerald-400"></i>`;
                 feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-emerald-500/20 border border-emerald-500/40 text-emerald-300';
-                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> Correct! Excellent pronunciation awareness.';
+                feedback.innerHTML = '<i class="fa-solid fa-check mr-2"></i> Correct! Excellent recognition.';
             } else {
                 selectedBtn.className = 'w-full py-3 px-4 rounded-xl border border-rose-500 bg-rose-500/20 font-medium text-rose-200 text-sm transition-all text-left flex items-center justify-between';
+                selectedBtn.innerHTML = `<span>${selectedOpt}</span> <i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
                 feedback.className = 'p-4 rounded-xl text-sm font-medium mb-6 bg-rose-500/20 border border-rose-500/40 text-rose-300';
-                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Not quite. The correct answer is <strong>${correctOpt}</strong>.`;
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Not quite. The correct answer is <strong>${correctOpt}</strong>.`;
             }
-
-            document.getElementById('quiz-score-val').innerText = score;
 
             if (currentQuestionIdx < questions.length - 1) {
                 document.getElementById('next-btn').classList.remove('hidden');
             } else {
-                setTimeout(() => {
-                    document.getElementById('quiz-container').classList.add('hidden');
-                    document.getElementById('quiz-complete').classList.remove('hidden');
-                    document.getElementById('final-score').innerText = score;
-                }, 1000);
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('final-score').innerText = score;
+                document.getElementById('quiz-complete').classList.remove('hidden');
             }
         }
 
@@ -543,7 +541,7 @@
         }
 
         function markAsCompleted() {
-            localStorage.setItem("vowel_master_completed", "true");
+            localStorage.setItem("zahrah_vowel_master_completed", "true");
             document.getElementById('success-banner').classList.remove('hidden');
             setTimeout(() => {
                 window.location.href = "index.html";
