@@ -15,10 +15,11 @@
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
-            --accent-gold: #ffb703;
+            --bg-dark: #070d18;
+            --bg-gradient: radial-gradient(circle at 50% 15%, #112238 0%, #070d18 85%),
+                           linear-gradient(135deg, rgba(13, 27, 42, 0.9) 0%, rgba(7, 13, 24, 0.95) 100%);
+            --card-bg: rgba(19, 31, 51, 0.75);
+            --accent-gold: #f59e0b;
             --accent-purple: #c084fc;
             --white: #ffffff;
         }
@@ -32,6 +33,22 @@
             min-height: 100vh;
         }
 
+        /* Fluid Aurora Mesh Background Overlay with Matte Texture & Glassmorphic Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(20, 184, 166, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(76, 29, 149, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 90%, rgba(30, 41, 59, 0.2) 0%, transparent 60%);
+            opacity: 1;
+        }
+
         .arabic-text {
             font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
             direction: rtl;
@@ -39,15 +56,16 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(192, 132, 252, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -58,11 +76,11 @@
 
     <!-- Top Navigation Bar -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
-        <a href="index.html" class="glass-card px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-cyan-400 transition-all flex items-center gap-2">
-            <i class="fa-solid fa-arrow-left text-cyan-400"></i> Back to Dashboard Hub
+        <a href="index.html" class="glass-card px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-purple-400 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left text-purple-400"></i> Back to Dashboard Hub
         </a>
         <div class="flex items-center gap-3">
-            <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full">
+            <div class="inline-block bg-purple-500/15 text-purple-300 border border-purple-500/30 text-xs font-bold px-3 py-1 rounded-full">
                Zahrah Interactive Online Classroom
             </div>
             <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-amber-400 font-bold text-xs">
@@ -91,8 +109,7 @@
                 <h2 class="text-lg font-bold text-purple-300 flex items-center gap-2">
                     <i class="fa-solid fa-lightbulb"></i> Understanding Shaddah:
                 </h2>
-                <!-- Audio Button Template integration example -->
-                <button onclick="playWordAudio('رَبَّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="playWordAudio('رَبَّ')" class="bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high"></i> Listen (رَبَّ)
                 </button>
             </div>
@@ -103,7 +120,7 @@
                     <p class="text-[11px] text-slate-400 mt-1">A small 'w' shape over a letter showing emphasis.</p>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
-                    <span class="text-xl font-bold text-emerald-400 block mb-1">1st = ْ | 2nd = َ ِ ُ</span>
+                    <span class="text-xl font-bold text-cyan-400 block mb-1">1st = ْ | 2nd = َ ِ ُ</span>
                     <span class="text-xs font-bold text-slate-200">The Secret To Pronouncing Shaddah</span>
                     <p class="text-[11px] text-slate-400 mt-1">Shaddah = [Silent Sukoon] + [Active Vowel].</p>
                 </div>
@@ -143,14 +160,14 @@
                 <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-purple-400 border border-purple-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Word
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-purple-500/30 text-slate-400 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-purple-500/15 border border-purple-500/40 text-purple-300 font-bold text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
         </div>
 
@@ -162,135 +179,55 @@
     </footer>
 
     <script>
-        // Expanded Exercise Bank for Shaddah Studio (20 Comprehensive Exercises)
+        // Expanded Full Exercise Bank for Shaddah Studio (40 Comprehensive Exercises)
         const questionBank = [
             // --- MODE 1: SHADDAH BREAKDOWN (MATH STYLE) ---
-            {
-                word: "رَبَّ",
-                prompt: "How is <strong>رَبَّ</strong> broken down in slow motion?",
-                options: ["رَبْ + بَ", "رَبَ + بَ", "رَبْ + بْ"],
-                correctIndex: 0
-            },
-            {
-                word: "حَقَّ",
-                prompt: "How is <strong>حَقَّ</strong> broken down?",
-                options: ["حَقَ + قَ", "حَقْ + قَ", "حَقْ + قُ"],
-                correctIndex: 1
-            },
-            {
-                word: "عَدَّ",
-                prompt: "How is <strong>عَدَّ</strong> broken down?",
-                options: ["عَدْ + دَ", "عَدَ + دَ", "عَدْ + دِ"],
-                correctIndex: 0
-            },
-            {
-                word: "مَدَّ",
-                prompt: "How is <strong>مَدَّ</strong> broken down?",
-                options: ["مَدَ + دَ", "مَدْ + دُ", "مَدْ + دَ"],
-                correctIndex: 2
-            },
-            {
-                word: "وَدَّ",
-                prompt: "How is <strong>وَدَّ</strong> broken down?",
-                options: ["وَدْ + دَ", "وَدَ + دَ", "وَدْ + دِ"],
-                correctIndex: 0
-            },
+            { word: "رَبَّ", prompt: "How is <strong>رَبَّ</strong> broken down in slow motion?", options: ["رَبْ + بَ", "رَبَ + بَ", "رَبْ + بْ"], correctIndex: 0 },
+            { word: "حَقَّ", prompt: "How is <strong>حَقَّ</strong> broken down?", options: ["حَقَ + قَ", "حَقْ + قَ", "حَقْ + قُ"], correctIndex: 1 },
+            { word: "عَدَّ", prompt: "How is <strong>عَدَّ</strong> broken down?", options: ["عَدْ + دَ", "عَدَ + دَ", "عَدْ + دِ"], correctIndex: 0 },
+            { word: "مَدَّ", prompt: "How is <strong>مَدَّ</strong> broken down?", options: ["مَدَ + دَ", "مَدْ + دُ", "مَدْ + دَ"], correctIndex: 2 },
+            { word: "وَدَّ", prompt: "How is <strong>وَدَّ</strong> broken down?", options: ["وَدْ + دَ", "وَدَ + دَ", "وَدْ + دِ"], correctIndex: 0 },
+            { word: "جَّ", prompt: "What is the breakdown of a letter with Shaddah and Fatha?", options: ["Silent Letter + Fatha", "Vowel + Vowel", "Kasra + Damma"], correctIndex: 0 },
+            { word: "بَّ", prompt: "The first component of any Shaddah sound is always:", options: ["A sound with Sukoon (pause)", "A long Madd sound", "An empty Kasra"], correctIndex: 0 },
+            { word: "ضَّ", prompt: "When pronouncing Dad with a Shaddah, how do you treat the first Dhad?", options: ["Hold it flat with Sukoon", "Skip it entirely", "Add a full Alif"], correctIndex: 0 },
+            { word: "سَّ", prompt: "What makes Shaddah distinct from normal letters?", options: ["It occupies twice the rhythmic beat (temporal duration)", "It is always silent", "It shortens word length"], correctIndex: 0 },
+            { word: "لَّ", prompt: "In Tajweed, doubling the Lam in Lam Shamsiyyah uses:", options: ["Shaddah connection", "Qalqalah bounce", "Ghunnah nasal hum"], correctIndex: 0 },
 
             // --- MODE 2: SHADDAH WITH KASRA & DAMMA ---
-            {
-                word: "رَبِّ",
-                prompt: "Identify the correct breakdown for <strong>رَبِّ</strong> (with Kasra):",
-                options: ["رَبْ + بَ", "رَبْ + بِّ", "رَبْ + بِ"],
-                correctIndex: 2
-            },
-            {
-                word: "أُمٌّ",
-                prompt: "Identify the correct breakdown for <strong>أُمٌّ</strong>:",
-                options: ["أُمْ + مُنْ", "أُمَ + مٌ", "أُمْ + مْ"],
-                correctIndex: 0
-            },
-            {
-                word: "كُلُّ",
-                prompt: "Identify the correct breakdown for <strong>كُلُّ</strong> (with Damma):",
-                options: ["كُلَ + لُ", "كُلْ + لُ", "كُلْ + لَ"],
-                correctIndex: 1
-            },
-            {
-                word: "ثُمَّ",
-                prompt: "Identify the correct breakdown for <strong>ثُمَّ</strong>:",
-                options: ["ثُمْ + مَ", "ثُمَ + مَ", "ثُمْ + مُ"],
-                correctIndex: 0
-            },
-            {
-                word: "عِزٌّ",
-                prompt: "Identify the correct breakdown for <strong>عِزٌّ</strong>:",
-                options: ["عِزْ + زَنْ", "عِزْ + زٌ", "عِزَ + زٌ"],
-                correctIndex: 1
-            },
+            { word: "رَبِّ", prompt: "Identify the correct breakdown for <strong>رَبِّ</strong> (with Kasra):", options: ["رَبْ + بَ", "رَبْ + بِّ", "رَبْ + بِ"], correctIndex: 2 },
+            { word: "أُمٌّ", prompt: "Identify the correct breakdown for <strong>أُمٌّ</strong>:", options: ["أُمْ + مُنْ", "أُمَ + مٌ", "أُمْ + مْ"], correctIndex: 0 },
+            { word: "كُلُّ", prompt: "Identify the correct breakdown for <strong>كُلُّ</strong> (with Damma):", options: ["كُلَ + لُ", "كُلْ + لُ", "كُلْ + لَ"], correctIndex: 1 },
+            { word: "ثُمَّ", prompt: "Identify the correct breakdown for <strong>ثُمَّ</strong>:", options: ["ثُمْ + مَ", "ثُمَ + مَ", "ثُمْ + مُ"], correctIndex: 0 },
+            { word: "عِزٌّ", prompt: "Identify the correct breakdown for <strong>عِزٌّ</strong>:", options: ["عِزْ + زَنْ", "عِزْ + زٌ", "عِزَ + زٌ"], correctIndex: 1 },
+            { word: "جِنِّ", prompt: "How do you vocalize the Kasra under the Shaddah in <strong>جِنِّ</strong>?", options: ["As a crisp 'ni' after a resting 'jin'", "As a standalone vowel", "As a silent stop"], correctIndex: 0 },
+            { word: "حُبِّ", prompt: "In <strong>حُبِّ</strong>, what vowel rests on the second part of the Baa?", options: ["Kasra (ِ)", "Fatha (َ)", "Damma (ُ)"], correctIndex: 0 },
+            { word: "بُدُّ", prompt: "What is the vowel structure on the final Dhal in <strong>بُدُّ</strong>?", options: ["Damma (ُ)", "Sukoon (ْ)", "Tanween (ٌ)"], correctIndex: 0 },
+            { word: "قُلُلْ", prompt: "Does a standard Shaddah ever take three parts?", options: ["No, it always combines exactly two identical letters", "Yes, up to four", "Only in poetry"], correctIndex: 0 },
+            { word: "نَبِيِّ", prompt: "In <strong>نَبِيِّ</strong>, the Shaddah sits over which letter?", options: ["Ya (ي)", "Noon (ن)", "Ba (ب)"], correctIndex: 0 },
 
             // --- MODE 3: BLENDING TWO LETTERS INTO SHADDAH ---
-            {
-                word: "سَلَّ",
-                prompt: "Combine <strong>سَلْ + لَ</strong> into one word with Shaddah:",
-                options: ["سَلَّ", "سَلَ", "سَلِّ"],
-                correctIndex: 0
-            },
-            {
-                word: "صَدَّ",
-                prompt: "Combine <strong>صَدْ + دَ</strong> into one word with Shaddah:",
-                options: ["صَدَ", "صَدِّ", "صَدَّ"],
-                correctIndex: 2
-            },
-            {
-                word: "قَدَّرَ",
-                prompt: "Combine <strong>قَدْ + دَ + رَ</strong> into one fluent word:",
-                options: ["قَدَرَ", "قَدَّرَ", "قَدْرَ"],
-                correctIndex: 1
-            },
-            {
-                word: "عَلَّمَ",
-                prompt: "Combine <strong>عَلْ + لَ + مَ</strong> into one word:",
-                options: ["عَلَّمَ", "عَلَمَ", "عَلْمَ"],
-                correctIndex: 0
-            },
-            {
-                word: "سَبَّحَ",
-                prompt: "Combine <strong>سَبْ + بَ + حَ</strong> into one word:",
-                options: ["سَبَحَ", "سَبَّحَ", "سَبْحَ"],
-                correctIndex: 1
-            },
+            { word: "سَلَّ", prompt: "Combine <strong>سَلْ + لَ</strong> into one word with Shaddah:", options: ["سَلَّ", "سَلَ", "سَلِّ"], correctIndex: 0 },
+            { word: "صَدَّ", prompt: "Combine <strong>صَدْ + دَ</strong> into one word with Shaddah:", options: ["صَدَ", "صَدِّ", "صَدَّ"], correctIndex: 2 },
+            { word: "قَدَّرَ", prompt: "Combine <strong>قَدْ + دَ + رَ</strong> into one fluent word:", options: ["قَدَرَ", "قَدَّرَ", "قَدْرَ"], correctIndex: 1 },
+            { word: "عَلَّمَ", prompt: "Combine <strong>عَلْ + لَ + مَ</strong> into one word:", options: ["عَلَّمَ", "عَلَمَ", "عَلْمَ"], correctIndex: 0 },
+            { word: "سَبَّحَ", prompt: "Combine <strong>سَبْ + بَ + حَ</strong> into one word:", options: ["سَبَحَ", "سَبَّحَ", "سَبْحَ"], correctIndex: 1 },
+            { word: "فَعَّلَ", prompt: "What pattern does <strong>فَعَّلَ</strong> represent in Arabic morphology?", options: ["Intensity or repetition verb form (Form II)", "Past passive tense", "A plural noun"], correctIndex: 0 },
+            { word: "كَسَّرَ", prompt: "Which letter is emphasized with Shaddah in <strong>كَسَّرَ</strong>?", options: ["Seen (س)", "Kaf (ك)", "Ra (ر)"], correctIndex: 0 },
+            { word: "جَوَّزَ", prompt: "How should the Waw be articulated in <strong>جَوَّزَ</strong>?", options: ["With firm doubling weight", "Softly skipped", "Like a long Alif"], correctIndex: 0 },
+            { word: "بَضَّ", prompt: "Merging two Dads results in:", options: ["ضَّ", "دّ", "طّ"], correctIndex: 0 },
+            { word: "مَجَّ", prompt: "What is the root action when merging <strong>مَجْ + جَ</strong>?", options: ["Double-struck Jeem sound", "Nasal hum", "Breath slip"], correctIndex: 0 },
 
             // --- MODE 4: QURANIC SPOTTING & DISTINCTION ---
-            {
-                word: "إِيَّاكَ",
-                prompt: "Where is the <strong>Shaddah</strong> located in <strong>إِيَّاكَ</strong>?",
-                options: ["On Alif (إِ)", "On Ya (يَّ)", "On Kaf (كَ)"],
-                correctIndex: 1
-            },
-            {
-                word: "الرَّحْمٰنِ",
-                prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الرَّحْمٰنِ</strong>?",
-                options: ["Raa (رَّ)", "Lam (ل)", "Ha (حْ)"],
-                correctIndex: 0
-            },
-            {
-                word: "الَّذِينَ",
-                prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الَّذِينَ</strong>?",
-                options: ["Alif (ا)", "Thal (ذِ)", "Lam (لَّ)"],
-                correctIndex: 2
-            },
-            {
-                word: "إِنَّ",
-                prompt: "What happens to the <strong>Noon (نَّ)</strong> when reading <strong>إِنَّ</strong>?",
-                options: ["It is doubled with Gunnah (nasal hold)", "It is skipped entirely", "It is pronounced like a normal N"],
-                correctIndex: 0
-            },
-            {
-                word: "جَنَّةٍ",
-                prompt: "How many letters are doubled by <strong>Shaddah</strong> in <strong>جَنَّةٍ</strong>?",
-                options: ["Jeem (جَ)", "Noon (نَّ)", "Ta Marbouta (ةٍ)"],
-                correctIndex: 1
-            }
+            { word: "إِيَّاكَ", prompt: "Where is the <strong>Shaddah</strong> located in <strong>إِيَّاكَ</strong>?", options: ["On Alif (إِ)", "On Ya (يَّ)", "On Kaf (كَ)"], correctIndex: 1 },
+            { word: "الرَّحْمٰنِ", prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الرَّحْمٰنِ</strong>?", options: ["Raa (رَّ)", "Lam (ل)", "Ha (حْ)"], correctIndex: 0 },
+            { word: "الَّذِينَ", prompt: "Which letter carries the <strong>Shaddah</strong> in <strong>الَّذِينَ</strong>?", options: ["Alif (ا)", "Thal (ذِ)", "Lam (لَّ)"], correctIndex: 2 },
+            { word: "إِنَّ", prompt: "What happens to the <strong>Noon (نَّ)</strong> when reading <strong>إِنَّ</strong>?", options: ["It is doubled with Gunnah (nasal hold)", "It is skipped entirely", "It is pronounced like a normal N"], correctIndex: 0 },
+            { word: "جَنَّةٍ", prompt: "How many letters are doubled by <strong>Shaddah</strong> in <strong>جَنَّةٍ</strong>?", options: ["Jeem (جَ)", "Noon (نَّ)", "Ta Marbouta (ةٍ)"], correctIndex: 1 },
+            { word: "مُحَمَّدٌ", prompt: "Which letter features the Shaddah in the blessed name <strong>مُحَمَّدٌ</strong>?", options: ["Meem (م)", "Ha (ح)", "Dal (د)"], correctIndex: 1 },
+            { word: "الْبَيْتُ", prompt: "Does the definite article in normal Qamari words like <strong>الْبَيْتُ</strong> use a Shaddah on the Lam?", options: ["No, Lam is pronounced clearly (clear Lam)", "Yes, always", "Only at stop points"], correctIndex: 0 },
+            { word: "وَالنَّجْمِ", prompt: "In <strong>وَالنَّجْمِ</strong>, why is there a Shaddah on the Noon?", options: ["Because Noon is a Shamsiyyah letter following Lam", "It is a typo", "It indicates Qalqalah"], correctIndex: 0 },
+            { word: "بِسْمِ", prompt: "Is there a Shaddah in the opening word <strong>بِسْمِ</strong>?", options: ["No Shaddah present", "Yes on Seen", "Yes on Meem"], correctIndex: 0 },
+            { word: "الصَّلَاةَ", prompt: "What rule applies to the Sad in <strong>الصَّلَاةَ</strong>?", options: ["It carries a Shaddah because it is a Shamsiyyah letter", "It has a permanent Sukoon", "It is silent"], correctIndex: 0 }
         ];
 
         let sessionQuestions = [];
@@ -326,14 +263,14 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-purple-500/30 text-slate-400 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.innerHTML = "";
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 rounded-2xl text-lg arabic-text transition-all hover:border-amber-400 cursor-pointer";
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 rounded-2xl text-lg arabic-text transition-all hover:border-purple-400 cursor-pointer";
                 btn.innerText = optText;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
@@ -351,8 +288,8 @@
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 rounded-2xl text-lg arabic-text";
+                badge.className = "px-2.5 py-0.5 rounded-md text-purple-300 bg-purple-500/10 border border-purple-500/30 text-xs font-bold block";
+                btnElement.className = "bg-purple-600/30 border-2 border-purple-500 text-purple-200 font-bold py-4 rounded-2xl text-lg arabic-text";
             } else {
                 badge.innerText = "Incorrect";
                 badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
@@ -365,23 +302,21 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord function supporting optional text overrides
+        // Speech synthesis setup ensuring clarity for Tajweed listening
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('target-arabic')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85; // Slower rate for pristine Tajweed enunciation
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        // Adapter wrappers for playing audio
         function playWordAudio(textToSpeak) {
             speakWord(textToSpeak);
         }
@@ -400,12 +335,10 @@
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
                 
-                // Automatically mark completion in localStorage for dashboard syncing
                 const pathParts = window.location.pathname.split('/');
                 const currentFileName = pathParts[pathParts.length - 1] || 'shaddah.html';
                 localStorage.setItem('arabic_completed_' + currentFileName, 'true');
 
-                // Trigger success visual feedback and redirect
                 const container = document.getElementById('exercise-area');
                 const banner = document.getElementById('success-banner');
                 
@@ -419,7 +352,6 @@
         }
 
         window.onload = function() {
-            // Guard clause: Ensure access token check runs
             if (localStorage.getItem("zahrah_app_unlocked") !== "true") {
                 window.location.href = "index.html";
                 return;
