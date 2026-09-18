@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ishmām & Tashīl Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Ishmām & Tashīl Studio | Zahrah's Interactive Online Classroom</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
+            --bg-dark: #062329;
+            --bg-gradient: radial-gradient(circle at 50% 15%, #13122b 0%, #0d0814 50%, #062329 100%);
+            --card-bg: rgba(13, 20, 33, 0.75);
             --accent-gold: #ffb703;
             --accent-cyan: #06b6d4;
             --white: #ffffff;
@@ -27,6 +27,17 @@
             min-height: 100vh;
         }
 
+        /* Fluid Aurora Mesh Subtle Background Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
         .arabic-text {
             font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
             direction: rtl;
@@ -34,17 +45,30 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 20px rgba(52, 211, 153, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
+        }
+
+        /* Custom Scrollbar for clean mobile UI */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(6, 35, 41, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -53,9 +77,9 @@
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
         <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
-            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
-        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm shadow-inner">
             <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
         </div>
     </header>
@@ -66,45 +90,45 @@
         <!-- Title Banner -->
         <div class="text-center space-y-2">
             <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                Special Tajweed Articulations
+                Zahrah's Interactive Online Classroom
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Ishmām & Tashīl Studio (الإِشْمَام وَالتَّسْهِيل)</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Ishmām & Tashīl Master Studio (الإِشْمَام وَالتَّسْهِيل)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master <strong>Ishmām</strong> (lip-rounding without sound) and <strong>Tashīl</strong> (softening the second Hamzah) in Hafs 'an 'Aasim.
+                Comprehensive 40-Question Advanced Articulation Module for Hafs 'an 'Aasim Quranic Phonetics.
             </p>
         </div>
 
-        <!-- Rule Explainer Card -->
+        <!-- Rule Explainer & Examples Card -->
         <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
             <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-lips"></i> Articulation Rules & Mechanisms
+                <i class="fa-solid fa-book-open-reader"></i> Comprehensive Module Breakdown & Examples
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2 flex flex-col justify-between">
                     <div>
-                        <span class="text-2xl font-bold arabic-text text-amber-400 block">الإِشْمَام (Ishmām)</span>
-                        <span class="text-xs font-bold text-cyan-300 block mb-2">Surah Yusuf (12:11) - لَا تَأْمَنَّا</span>
-                        <p class="text-xs text-slate-300">
-                            Rounding the lips (as if making a Dammah) during the silent Sukoon of Noon <strong>without uttering any sound</strong>.
+                        <span class="text-xl font-bold arabic-text text-amber-400 block">الإِشْمَام (Ishmām)</span>
+                        <span class="text-xs font-bold text-cyan-300 block mb-2">Example: Surah Yusuf (12:11) - لَا تَأْمَنَّا</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Definition & Mechanism:</strong> Pointing the lips outward into a Dammah formation instantly after pronouncing the silent Noon Sukoon without producing a vocalized vowel sound. It visually communicates the underlying grammar without altering the acoustic count.
                         </p>
                     </div>
-                    <div class="pt-2 flex justify-center">
+                    <div class="pt-3 flex justify-center">
                         <button onclick="playWordAudio('لَا تَأْمَنَّا')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
-                            <i class="fa-solid fa-volume-high"></i> Listen
+                            <i class="fa-solid fa-volume-high"></i> Listen to Articulation
                         </button>
                     </div>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 space-y-2 flex flex-col justify-between">
                     <div>
-                        <span class="text-2xl font-bold arabic-text text-emerald-400 block">التَّسْهِيل (Tashīl)</span>
-                        <span class="text-xs font-bold text-cyan-300 block mb-2">Surah Fussilat (41:44) - أَ۠عْجَمِيٌّ</span>
-                        <p class="text-xs text-slate-300">
-                            Softening the second Hamzah between a pure Hamzah and an Alif, avoiding a harsh glottal stop sound.
+                        <span class="text-xl font-bold arabic-text text-emerald-400 block">التَّسْهِيل (Tashīl)</span>
+                        <span class="text-xs font-bold text-cyan-300 block mb-2">Example: Surah Fussilat (41:44) - أَ۠عْجَمِيٌّ</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Definition & Mechanism:</strong> Softening the second consecutive Hamzah so that it falls midway between a harsh glottal stop (Hamzah) and a soft elongating vowel (Alif), avoiding vocal fatigue or unnatural harshness.
                         </p>
                     </div>
-                    <div class="pt-2 flex justify-center">
+                    <div class="pt-3 flex justify-center">
                         <button onclick="playWordAudio('أَعْجَمِيّ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
-                            <i class="fa-solid fa-volume-high"></i> Listen
+                            <i class="fa-solid fa-volume-high"></i> Listen to Articulation
                         </button>
                     </div>
                 </div>
@@ -115,13 +139,13 @@
         <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
             <!-- Target Word / Verse Display -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                <div id="target-arabic" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
                     مَا لَكَ لَا <span class="text-cyan-400">تَأْمَنَّا</span>
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
@@ -131,7 +155,7 @@
 
             <!-- Choice Options -->
             <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Buttons injected dynamically -->
+                <!-- Injected dynamically -->
             </div>
 
             <!-- Action Controls -->
@@ -139,7 +163,7 @@
                 <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
@@ -148,23 +172,21 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
-        Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App.
+    <footer class="w-full max-w-3xl text-center text-slate-400 text-xs mt-6">
+        Zahrah’s Interactive Online Classroom &copy; 2026. Arabic Literacy & Tajweed Mastery App.
     </footer>
 
     <script>
-        // Integrated speakWord() function as requested
+        // High-precision Speech Synthesis engine configured for clear Quranic Arabic articulation
         function speakWord(customText) {
-            const text = customText || document.getElementById('target-arabic')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            const text = customText || document.getElementById('target-arabic')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.78; // Calibrated slower rate for exact phonetic clarity
                 
-                // Optional voice selection alignment
                 const voices = window.speechSynthesis.getVoices();
                 const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
                 if (arabicVoice) {
@@ -177,12 +199,10 @@
             }
         }
 
-        // Wrapper to maintain compatibility with existing audio buttons
         function playWordAudio(textToSpeak) {
             speakWord(textToSpeak);
         }
 
-        // Ensure voices are preloaded properly in browsers like Chrome
         if ('speechSynthesis' in window) {
             window.speechSynthesis.onvoiceschanged = () => {
                 window.speechSynthesis.getVoices();
@@ -191,12 +211,11 @@
 
         function playCurrentQuestionAudio() {
             const q = quizQuestions[currentIdx];
-            // Strip HTML tags out of the arabic property for cleaner speech synthesis
             const cleanText = q.arabic.replace(/<\/?[^>]+(>|$)/g, "");
             speakWord(cleanText);
         }
 
-        // Dataset of Tajweed questions focusing on Ishmām, Tashīl, and related major Hafs 'an 'Aasim rules
+        // Full 40 Test Questions Dataset covering Ishmām, Tashīl, Sakt, and Hafs Tajweed rules
         const quizQuestions = [
             {
                 arabic: "مَا لَكَ لَا <span class='text-cyan-400'>تَأْمَنَّا</span>",
@@ -218,7 +237,7 @@
                     { text: "It is clearly declared with an Izhar rule", correct: false },
                     { text: "It is converted into a Meem sound (Iqlab)", correct: false }
                 ],
-                explanation: "Hafs 'an 'Aasim introduces a light Sakt (silent pause of about 2 seconds without breathing) over the Noon, preventing Idgham into the Raa."
+                explanation: "Hafs 'an 'Aasim introduces a light Sakt (silent pause without breathing) over the Noon, preventing Idgham into the Raa."
             },
             {
                 arabic: "ءَ۠<span class='text-emerald-400'>عْجَمِيٌّ</span> وَعَرَبِيّ",
@@ -227,7 +246,7 @@
                     { text: "Omitted completely as if it were absent", correct: false },
                     { text: "Softened between a pure Hamzah and an Alif sound", correct: true },
                     { text: "Strongly emphasized with a deep throat contraction", correct: false },
-                    { text: "Changed into a heavy letters like Waw or Yaa", correct: false }
+                    { text: "Changed into heavy letters like Waw or Yaa", correct: false }
                 ],
                 explanation: "Tashīl means easing the second Hamzah so it sounds intermediate between a full Hamzah and a soft Alif vowel."
             },
@@ -240,7 +259,7 @@
                     { text: "It takes a Dammah on the Hamzah because the third letter has a Dammah", correct: true },
                     { text: "It is pronounced with a silent breath", correct: false }
                 ],
-                explanation: "Notice the third letter 'Seen' has a Kasrah (derived from the original verb pattern), making the starting Hamzatul Wasl take a Kasrah: الإِسْم."
+                explanation: "Notice the third letter 'Seen' has a Kasrah, making the starting Hamzatul Wasl take a Kasrah: الإِسْم."
             },
             {
                 arabic: "وَمَنْ يَبْتَغِ غَيْرَ <span class='text-amber-400'>الْإِسْلَامِ</span>",
@@ -255,7 +274,7 @@
             },
             {
                 arabic: "<span class='text-cyan-400'>مَجْرَاهَا</span> وَمُرْسَاهَا",
-                prompt: "In Surah Hud (11:41), how is the vowel of the letter Ba in <strong class='text-cyan-400'>مجرىها</strong> pronounced (Imālah)?",
+                prompt: "In Surah Hud (11:41), how is the vowel of the letter Ra in <strong class='text-cyan-400'>مجرىها</strong> pronounced (Imālah)?",
                 options: [
                     { text: "Poured fully toward an 'ee' sound (Imālah Kubrā)", correct: true },
                     { text: "Opened widely like a normal fat-ha", correct: false },
@@ -268,7 +287,7 @@
                 arabic: "وَكَذَلِكَ نُنْجِي <span class='text-amber-400'>الْمُؤْمِنِينَ</span>",
                 prompt: "What is the primary characteristic of the Noon in <strong class='text-amber-400'>نُنْجِي</strong> followed by Jeem?",
                 options: [
-                    { text: "Ikhfā' Haqīqī (Hidden with nasal sound)", correct: true },
+                    { text: "Ikhfā' Haqīقī (Hidden with nasal sound)", correct: true },
                     { text: "Izhar Halqi (Clear throat articulation)", correct: false },
                     { text: "Idgham Bila Ghunnah", correct: false },
                     { text: "Iqlab converted to Meem", correct: false }
@@ -306,7 +325,337 @@
                     { text: "Complete omission of the Ra sound", correct: false },
                     { text: "Double echoing (Qalqalah)", correct: false }
                 ],
-                explanation: "When pausing on a Ra preceded by a quiescent letter which is preceded by a Dammah (or Fathah), the Ra is heavy (Mufakhkham)."
+                explanation: "When pausing on a Ra preceded by a quiescent letter which is preceded by a Dammah, the Ra is heavy (Mufakhkham)."
+            },
+            {
+                arabic: "عِوَجًا ۝ قَيِّمًا <span class='text-amber-400'>لِيُنْذِرَ</span>",
+                prompt: "In Surah Al-Kahf (18:1-2), what specific Sakt occurs between <span class='text-cyan-400'>عِوَجًا</span> and <span class='text-amber-400'>قَيِّمًا</span>?",
+                options: [
+                    { text: "A 2-second silent pause without breathing to protect the meaning 'Straight' from being an adjective of 'Crooked'", correct: true },
+                    { text: "A full Idgham with ghunnah", correct: false },
+                    { text: "An immediate assimilation into Qaf", correct: false },
+                    { text: "A complete breath restart", correct: false }
+                ],
+                explanation: "Hafs 'an 'Aasim implements a mandatory Sakt here to clarify that 'Qayyimam' is a new sentence independent of 'Iwaja'."
+            },
+            {
+                arabic: "وَمَا لِي لا <span class='text-emerald-400'>أَعْبُدُ</span>",
+                prompt: "What Qalqalah level applies to the letter Ba in <strong class='text-emerald-400'>أَعْبُدُ</strong> when reciting in continuity?",
+                options: [
+                    { text: "Sugbra (Minor echo because the Sukoon is in the middle of the word)", correct: true },
+                    { text: "Kubra (Major echo because it is at the end of an ayah)", correct: false },
+                    { text: "Akbar (Super heavy echo)", correct: false },
+                    { text: "No echo at all", correct: false }
+                ],
+                explanation: "When a Qalqalah letter is mid-word with a Sukoon, it is Qalqalah Sughra."
+            },
+            {
+                arabic: "قُلْ هُوَ اللَّهُ <span class='text-cyan-400'>أَحَدٌ</span>",
+                prompt: "When stopping on <strong class='text-cyan-400'>أَحَدٌ</strong> at the end of Surah Al-Ikhlas, what is the Qalqalah category?",
+                options: [
+                    { text: "Qalqalah Kubra (Major echo due to pausing on a moving letter turning it into Sukoon)", correct: true },
+                    { text: "Qalqalah Sughra", correct: false },
+                    { text: "No echo", correct: false },
+                    { text: "Idgham Shafawi", correct: false }
+                ],
+                explanation: "Pausing on a Qalqalah letter at an ayah boundary elevates it to Qalqalah Kubra."
+            },
+            {
+                arabic: "مِنْ شَرِّ مَا <span class='text-amber-400'>خَلَقَ</span>",
+                prompt: "How must the Qaf in <strong class='text-amber-400'>خَلَقَ</strong> be pronounced when stopping on it?",
+                options: [
+                    { text: "Echoed clearly with Qalqalah Kubra and Tafkheem (heavy)", correct: true },
+                    { text: "Softened into a Kaf sound", correct: false },
+                    { text: "Swallowed completely into the throat", correct: false },
+                    { text: "Lengthened with 6 vowel counts", correct: false }
+                ],
+                explanation: "Qaf is among the five Qalqalah letters (Qutb Jadd) and is inherently heavy (Mufakhkham)."
+            },
+            {
+                arabic: "تَبَّتْ يَدَا <span class='text-cyan-400'>أَبِي</span> لَهَبٍ",
+                prompt: "What Madd rule applies to the prolonged Ya in <strong class='text-cyan-400'>أَبِي</strong>?",
+                options: [
+                    { text: "Madd Tabii (Natural Madd stretched for 2 vowel counts)", correct: true },
+                    { text: "Madd Muttasil (Obligatory 4-5 counts)", correct: false },
+                    { text: "Madd Lazim (6 counts)", correct: false },
+                    { text: "Madd Badal", correct: false }
+                ],
+                explanation: "A Kasrah followed by a quiescent Ya without hamza or suoon after it is a standard Madd Tabii."
+            },
+            {
+                arabic: "إِذَا جَاءَ <span class='text-amber-400'>نَصْرُ</span> اللَّهِ",
+                prompt: "What Madd rule governs the elongation in <span class='text-cyan-400'>جَاءَ</span> before the Hamzah in the same word?",
+                options: [
+                    { text: "Madd Wajib Muttasil (Obligatory connected elongation of 4-5 counts)", correct: true },
+                    { text: "Madd Jaiz Munfasil", correct: false },
+                    { text: "Madd Lazim", correct: false },
+                    { text: "Madd Tabii", correct: false }
+                ],
+                explanation: "When an Alif is followed by a Hamzah in the exact same word, it is Madd Muttasil."
+            },
+            {
+                arabic: "يَا أَيُّهَا <span class='text-cyan-400'>الَّذِينَ</span> آمَنُوا",
+                prompt: "How is the Lam in <strong class='text-cyan-400'>الَّذِينَ</strong> classified?",
+                options: [
+                    { text: "Lam Shamsiyyah (Assimilated into the Lam of the word without clear pronunciation)", correct: true },
+                    { text: "Lam Qamariyyah (Clearly pronounced)", correct: false },
+                    { text: "Lam Sakinah with Izhar", correct: false },
+                    { text: "Lam Qutbiyyah", correct: false }
+                ],
+                explanation: "The letter 'Dhal' after the definite article is a Shamsi letter, causing the Lam to assimilate."
+            },
+            {
+                arabic: "إِنَّا أَعْطَيْنَاكَ <span class='text-amber-400'>الْكَوْثَرَ</span>",
+                prompt: "What is the Tajweed designation of the Lam in <strong class='text-amber-400'>الْكَوْثَرَ</strong>?",
+                options: [
+                    { text: "Lam Qamariyyah (Pronounced clearly and sharply)", correct: true },
+                    { text: "Lam Shamsiyyah", correct: false },
+                    { text: "Idgham Shafawi", correct: false },
+                    { text: "Ikhfawu Shafawi", correct: false }
+                ],
+                explanation: "Kaf is a Qamari letter, so the definite article Lam is pronounced distinctly."
+            },
+            {
+                arabic: "وَمِنْ شَرِّ <span class='text-cyan-400'>حَاسِدٍ</span> إِذَا حَسَدَ",
+                prompt: "What Tajweed rule governs the Tanween Kasrah on <strong class='text-cyan-400'>حَاسِدٍ</strong> followed by an Alif (Hamzah)?",
+                options: [
+                    { text: "Izhar Halqi (Clear pronunciation of Tanween because Hamza is a throat letter)", correct: true },
+                    { text: "Idgham with Ghunnah", correct: false },
+                    { text: "Iqlab converted to Meem", correct: false },
+                    { text: "Ikhfa Haqiqi", correct: false }
+                ],
+                explanation: "Hamza is one of the six throat letters of Izhar Halqi, requiring clear rendering of the Tanween."
+            },
+            {
+                arabic: "قُلْ أَعُوذُ بِرَبِّ <span class='text-amber-400'>النَّاسِ</span>",
+                prompt: "What rule applies to the Noon in <strong class='text-amber-400'>النَّاسِ</strong>?",
+                options: [
+                    { text: "Ghunnah Mushaddadah (Nasal resonance held for 2 counts on the doubled Noon)", correct: true },
+                    { text: "Izhar Shafawi", correct: false },
+                    { text: "Qalqalah Sughra", correct: false },
+                    { text: "Idgham Bila Ghunnah", correct: false }
+                ],
+                explanation: "Any Noon or Meem carrying a Shaddah must be recited with a 2-vowel-count Ghunnah."
+            },
+            {
+                arabic: "مِنْ <span class='text-cyan-400'>جِسْمِكَ</span>",
+                prompt: "What rule applies to the Noon Sakinah in <strong class='text-cyan-400'>مِنْ</strong> followed by Jeem?",
+                options: [
+                    { text: "Ikhfā' Haqīqī (Concealment with a nasal sound)", correct: true },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Idgham with Ghunnah", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "Jeem is part of the 15 Ikhfa letters."
+            },
+            {
+                arabic: "سَمِيعٌ <span class='text-amber-400'>بَصِيرٌ</span>",
+                prompt: "What rule governs the Tanween Dammah on <strong class='text-amber-400'>سَمِيعٌ</strong> followed by Ba?",
+                options: [
+                    { text: "Iqlab (Converting the Tanween sound into a hidden Meem with Ghunnah)", correct: true },
+                    { text: "Idgham with Ghunnah", correct: false },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Ikhfa Shafawi", correct: false }
+                ],
+                explanation: "When a Noon Sakinah or Tanween meets a Ba, Iqlab is mandatory."
+            },
+            {
+                arabic: "فَمَنْ يَعْمَلْ <span class='text-cyan-400'>مِثْقَالَ</span> ذَرَّةٍ خَيْرًا يَرَهُ",
+                prompt: "In <strong class='text-cyan-400'>مِثْقَالَ</strong>, how is the Thaa pronounced?",
+                options: [
+                    { text: "Softly with the tip of the tongue touching the edge of the front upper teeth", correct: true },
+                    { text: "Deep in the throat like a Haa", correct: false },
+                    { text: "Explosively like a Taa", correct: false },
+                    { text: "With heavy whistling like a Seen", correct: false }
+                ],
+                explanation: "Thaa is a dental fricative (Lisanur-Rasam) articulated with the tongue tip against the upper teeth."
+            },
+            {
+                arabic: "أَلَمْ <span class='text-amber-400'>تَرَ</span> كَيْفَ فَعَلَ رَبُّكَ",
+                prompt: "What rule governs the Meem Sakinah in <strong class='text-amber-400'>أَلَمْ</strong> followed by Taa?",
+                options: [
+                    { text: "Izhar Shafawi (Clear articulation of Meem without ghunnah mixing)", correct: true },
+                    { text: "Idgham Shafawi", correct: false },
+                    { text: "Ikhfa Shafawi", correct: false },
+                    { text: "Qalqalah", correct: false }
+                ],
+                explanation: "When Meem Sakinah meets any letter other than Ba or Meem, it is Izhar Shafawi."
+            },
+            {
+                arabic: "وَهُمْ <span class='text-cyan-400'>مُعْرِضُونَ</span>",
+                prompt: "What rule governs the Meem Sakinah in <strong class='text-cyan-400'>وَهُمْ</strong> followed by Meem in <strong class='text-cyan-400'>مُعْرِضُونَ</strong>?",
+                options: [
+                    { text: "Idgham Shafawi (Merging into the Meem with 2-count Ghunnah)", correct: true },
+                    { text: "Izhar Shafawi", correct: false },
+                    { text: "Ikhfa Shafawi", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "Meem Sakinah meeting a moving Meem creates Idgham Shafawi (Idgham Mithlayn Saghir)."
+            },
+            {
+                arabic: "تَرْمِيهِمْ <span class='text-amber-400'>بِحِجَارَةٍ</span>",
+                prompt: "What rule governs the Meem Sakinah in <strong class='text-amber-400'>تَرْمِيهِمْ</strong> followed by Ba in <strong class='text-amber-400'>بِحِجَارَةٍ</strong>?",
+                options: [
+                    { text: "Ikhfā' Shafawī (Concealing the Meem with mild lip closure and Ghunnah)", correct: true },
+                    { text: "Izhar Shafawi", correct: false },
+                    { text: "Idgham Shafawi", correct: false },
+                    { text: "Izhar Halqi", correct: false }
+                ],
+                explanation: "When Meem Sakinah is followed by Ba, it is Ikhfa Shafawi."
+            },
+            {
+                arabic: "صِرَاطَ <span class='text-cyan-400'>الَّذِينَ</span> أَنْعَمْتَ عَلَيْهِمْ",
+                prompt: "What Tajweed rule governs the Noon in <strong class='text-cyan-400'>أَنْعَمْتَ</strong> followed by 'Ain?",
+                options: [
+                    { text: "Izhar Halqi (Clear and crisp pronunciation of Noon without nasal stretch)", correct: true },
+                    { text: "Ikhfa Haqiqi", correct: false },
+                    { text: "Idgham with Ghunnah", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "'Ain is a throat letter, triggering Izhar Halqi for Noon Sakinah."
+            },
+            {
+                arabic: "وَالتِّينِ <span class='text-amber-400'>وَالزَّيْتُونِ</span>",
+                prompt: "How is the Lam in <strong class='text-amber-400'>وَالزَّيْتُونِ</strong> treated?",
+                options: [
+                    { text: "Shamsiyyah (Assimilated into the Zay)", correct: true },
+                    { text: "Qamariyyah (Pronounced distinctly)", correct: false },
+                    { text: "Silent breath", correct: false },
+                    { text: "Echoed", correct: false }
+                ],
+                explanation: "Zay is a Shamsi letter, causing assimilation of the definite article Lam."
+            },
+            {
+                arabic: "لا <span class='text-cyan-400'>أُقْسِمُ</span> بِهَذَا الْبَلَدِ",
+                prompt: "What level of Qalqalah applies to the Qaf in <span class='text-cyan-400'>أُقْسِمُ</span>?",
+                options: [
+                    { text: "Sughra (Minor echo because it is in the middle of the word with Sukoon)", correct: true },
+                    { text: "Kubra (Major echo)", correct: false },
+                    { text: "No echo", correct: false },
+                    { text: "Super heavy", correct: false }
+                ],
+                explanation: "Quiescent Qaf inside a word is Qalqalah Sughra."
+            },
+            {
+                arabic: "وَأَيُّوبَ إِذْ <span class='text-amber-400'>نَادَى</span> رَبَّهُ",
+                prompt: "What Tajweed rule applies to the Dhal in <strong class='text-amber-400'>إِذْ</strong> followed by Noon?",
+                options: [
+                    { text: "Idgham Mutaqarribayn (Merging the Dhal into the Noon in certain contexts or Izhar depending on exact variant, here Izhar/Idgham rule applies)", correct: true },
+                    { text: "Qalqalah", correct: false },
+                    { text: "Ikhfa", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "Close articulation points govern letters like Dhal meeting Noon in specific master qira'at rules."
+            },
+            {
+                arabic: "وَيْلٌ <span class='text-cyan-400'>لِكُلِّ</span> هُمَزَةٍ لُمَزَةٍ",
+                prompt: "What rule governs the Tanween Dammah on <strong class='text-cyan-400'>وَيْلٌ</strong> followed by Lam?",
+                options: [
+                    { text: "Idgham Bilā Ghunnah (Merging without nasal resonance)", correct: true },
+                    { text: "Idgham Ma'al Ghunnah", correct: false },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Ikhfa", correct: false }
+                ],
+                explanation: "When Tanween or Noon Sakinah meets Lam or Raa, it merges completely without ghunnah (Idgham Bila Ghunnah)."
+            },
+            {
+                arabic: "مِنْ <span class='text-amber-400'>لَدُنْكَ</span>",
+                prompt: "What rule governs the Noon Sakinah in <strong class='text-amber-400'>مِنْ</strong> followed by Lam in <strong class='text-amber-400'>لَدُنْكَ</strong>?",
+                options: [
+                    { text: "Idgham Bilā Ghunnah (Merging without nasal sound)", correct: true },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Ikhfa Haqiqi", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "Meeting Lam or Raa results in Idgham Bila Ghunnah."
+            },
+            {
+                arabic: "رَبِّ <span class='text-cyan-400'>الْعَالَمِينَ</span>",
+                prompt: "What is the classification of the Lam in <strong class='text-cyan-400'>الْعَالَمِينَ</strong>?",
+                options: [
+                    { text: "Lam Qamariyyah (Moon Lam pronounced clearly)", correct: true },
+                    { text: "Lam Shamsiyyah", correct: false },
+                    { text: "Idgham Shafawi", correct: false },
+                    { text: "Madd Lazim", correct: false }
+                ],
+                explanation: "'Ain is a Qamari letter, so the Lam is pronounced distinctly."
+            },
+            {
+                arabic: "الرَّحْمَٰنِ <span class='text-amber-400'>الرَّحِيمِ</span>",
+                prompt: "How is the Ra in <strong class='text-amber-400'>الرَّحِيمِ</strong> pronounced?",
+                options: [
+                    { text: "Tafkheem (Heavy pronunciation because the Ra carries a Fat-ha)", correct: true },
+                    { text: "Tarqeeq (Light pronunciation)", correct: false },
+                    { text: "Silent", correct: false },
+                    { text: "Echoed", correct: false }
+                ],
+                explanation: "A Ra with a Fat-ha or Dammah is always heavy (Mufakhkham)."
+            },
+            {
+                arabic: "فِي <span class='text-cyan-400'>جِيدِهَا</span> حَبْلٌ مِنْ مَسَدٍ",
+                prompt: "What Madd rule applies to the prolonged Ya in <strong class='text-cyan-400'>جِيدِهَا</strong>?",
+                options: [
+                    { text: "Madd Tabii (Natural elongation of 2 vowel counts)", correct: true },
+                    { text: "Madd Muttasil", correct: false },
+                    { text: "Madd Lazim", correct: false },
+                    { text: "Madd Badal", correct: false }
+                ],
+                explanation: "Kasrah followed by quiescent Ya without hamza/suoon after it is Madd Tabii."
+            },
+            {
+                arabic: "قُلْ أَعُوذُ بِرَبِّ <span class='text-amber-400'>الْفَلَقِ</span>",
+                prompt: "When stopping on <strong class='text-amber-400'>الْفَلَقِ</strong>, what happens to the final Qaf?",
+                options: [
+                    { text: "It becomes quiescent and exhibits strong Qalqalah Kubra", correct: true },
+                    { text: "It is dropped entirely", correct: false },
+                    { text: "It turns into a Kaf", correct: false },
+                    { text: "It receives 6 counts of Madd", correct: false }
+                ],
+                explanation: "Pausing on a Qaf turns it into Sukoon, producing Qalqalah Kubra."
+            },
+            {
+                arabic: "خَلَقَ <span class='text-cyan-400'>الْإِنْسَانَ</span> مِنْ عَلَقٍ",
+                prompt: "What Tajweed rule governs the Noon Sakinah in <strong class='text-cyan-400'>الْإِنْسَانَ</strong> followed by Seen?",
+                options: [
+                    { text: "Ikhfā' Haqīqī (Concealment with nasal sound because Seen is an Ikhfa letter)", correct: true },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Idgham with Ghunnah", correct: false },
+                    { text: "Iqlab", correct: false }
+                ],
+                explanation: "Seen is one of the 15 letters of Ikhfa Haqiqi."
+            },
+            {
+                arabic: "إِنَّا أَنْزَلْنَاهُ فِي <span class='text-amber-400'>لَيْلَةِ</span> الْقَدْرِ",
+                prompt: "What Tajweed rule governs the Noon in <strong class='text-amber-400'>أَنْزَلْنَاهُ</strong> followed by Zay?",
+                options: [
+                    { text: "Ikhfā' Haqīqī (Concealment with nasal sound)", correct: true },
+                    { text: "Izhar Halqi", correct: false },
+                    { text: "Idgham Bila Ghunnah", correct: false },
+                    { text: "Izhar Shafawi", correct: false }
+                ],
+                explanation: "Zay is among the 15 letters requiring nasal concealment (Ikhfa)."
+            },
+            {
+                arabic: "وَمَا أَدْرَاكَ <span class='text-cyan-400'>مَا</span> لَيْلَةُ الْقَدْرِ",
+                prompt: "What Madd rule is present in <strong class='text-cyan-400'>مَا</strong> followed by an Alif and opening a new word?",
+                options: [
+                    { text: "Madd Jāiz Munfasil (Separated permissible elongation of 4-5 counts)", correct: true },
+                    { text: "Madd Wajib Muttasil", correct: false },
+                    { text: "Madd Lazim", correct: false },
+                    { text: "Madd Tabii only", correct: false }
+                ],
+                explanation: "When the madd letter is at the end of a word and the Hamza is at the start of the next word, it is Madd Munfasil."
+            },
+            {
+                arabic: "سَبَّحَ لِلَّهِ مَا فِي <span class='text-amber-400'>السَّمَاوَاتِ</span> وَالْأَرْضِ",
+                prompt: "How is the Lam in <strong class='text-amber-400'>السَّمَاوَاتِ</strong> classified?",
+                options: [
+                    { text: "Lam Shamsiyyah (Assimilated into the Seen)", correct: true },
+                    { text: "Lam Qamariyyah", correct: false },
+                    { text: "Idgham Shafawi", correct: false },
+                    { text: "Izhar", correct: false }
+                ],
+                explanation: "Seen is a Shamsi letter, causing the definite article Lam to assimilate fully."
             }
         ];
 
@@ -328,12 +677,11 @@
 
             const nextBtn = document.getElementById('next-btn');
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-amber-500/40 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const container = document.getElementById('options-container');
             container.innerHTML = '';
 
-            // Shuffle options for interactivity
             const shuffledOptions = [...q.options].sort(() => Math.random() - 0.5);
 
             shuffledOptions.forEach(opt => {
@@ -369,7 +717,6 @@
                 selectedBtn.className = "glass-card p-4 rounded-2xl text-left text-xs text-rose-200 bg-rose-950/40 border border-rose-500/60 flex items-start gap-3";
                 selectedBtn.querySelector('i').className = "fa-solid fa-circle-xmark text-rose-400 mt-0.5";
 
-                // Highlight correct option
                 allButtons.forEach(b => {
                     if (b.textContent.includes(quizQuestions[currentIdx].options.find(o => o.correct).text)) {
                         b.className = "glass-card p-4 rounded-2xl text-left text-xs text-emerald-200 bg-emerald-950/40 border border-emerald-500/60 flex items-start gap-3";
@@ -387,7 +734,6 @@
             if (currentIdx < quizQuestions.length) {
                 loadQuestion();
             } else {
-                // Quiz completed successfully
                 const pathParts = window.location.pathname.split('/');
                 const currentFileName = pathParts[pathParts.length - 1] || 'index.html';
                 localStorage.setItem('arabic_completed_' + currentFileName, 'true');
@@ -400,7 +746,7 @@
                         </div>
                         <h2 class="text-3xl font-extrabold text-white">Studio Module Completed!</h2>
                         <p class="text-slate-300 text-sm max-w-md mx-auto">
-                            Fantastic mastery! You successfully navigated through complex Hafs 'an 'Aasim special articulations with a total score of <strong class="text-amber-400">${score} points</strong>. Progress saved!
+                            Incredible mastery! You successfully navigated all 40 advanced Hafs 'an 'Aasim special articulation exercises with a total score of <strong class="text-amber-400">${score} points</strong>. Progress saved successfully!
                         </p>
                         <div class="pt-4 flex justify-center gap-4">
                             <a href="index.html" class="px-6 py-3 bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg hover:brightness-110 transition-all">
@@ -412,7 +758,6 @@
             }
         }
 
-        // Initialize quiz on load
         window.onload = loadQuestion;
     </script>
 </body>
