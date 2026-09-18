@@ -3,225 +3,726 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah's Interactive Arabic Literacy & Tajweed App</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Arabic Word Builder & Root Morphologies | Zahrah Interactive Online Classroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        .arabic-font {
-            font-family: 'Amiri', 'Traditional Arabic', serif;
+        :root {
+            /* 
+              Aesthetic instructions applied:
+              - Hyper-modern, premium, minimalist mobile UI background design
+              - Smooth, flowing fluid aurora mesh gradients transitioning softly between deep spiritual teal, rich midnight velvet, and subtle cosmic indigo
+              - Rule-Color Isolation: Avoided solid green or red background accents to prevent conflict with Tajweed rule indicators (Ikhfa green / Madd red).
+              - Matte finish: Soft glassmorphic glowing ambiance from behind, no harsh high-contrast shapes or clashing neon glows behind text.
+            */
+            --bg-dark: #060a12;
+            --bg-gradient: radial-gradient(circle at 15% 20%, rgba(10, 30, 48, 0.75) 0%, rgba(6, 10, 18, 0.95) 50%, #03050a 100%),
+                           radial-gradient(circle at 85% 80%, rgba(18, 35, 55, 0.5) 0%, transparent 60%);
+            --card-bg: rgba(12, 19, 34, 0.68);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #22d3ee;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--white);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Subtle fluid aurora glowing ambient whisper from behind */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 35% 35%, rgba(15, 55, 75, 0.14) 0%, rgba(35, 20, 60, 0.08) 40%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
+            direction: rtl;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(6, 10, 18, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(34, 211, 238, 0.25);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 211, 238, 0.45);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="p-4 md:p-8 flex flex-col items-center">
 
-    <!-- Header / Navigation Hub -->
-    <header class="bg-emerald-700 text-white shadow-md py-4 px-6 flex justify-between items-center">
-        <div>
-            <span class="text-[10px] uppercase tracking-wider bg-emerald-800/80 px-2.5 py-1 rounded-full text-emerald-200 font-bold block sm:inline-block mb-1 sm:mb-0 sm:mr-2">ZAHRAH INTERACTIVE ONLINE CLASSROOM</span>
-            <h1 class="text-lg font-bold tracking-wide inline-block">Arabic Literacy & Tajweed</h1>
-        </div>
-        <div class="flex items-center gap-3">
-            <div class="hidden sm:flex items-center gap-1.5 bg-emerald-800/60 px-3 py-1.5 rounded-lg text-xs font-medium">
-                <i class="fa-solid fa-trophy text-amber-300"></i> Best: <span id="high-score-val" class="text-amber-300 font-bold">0</span>
+    <!-- Header Navigation -->
+    <header class="w-full max-w-4xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
+            <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
+        </a>
+        <div class="flex items-center gap-4">
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-full text-slate-300 text-xs font-medium">
+                <i class="fa-solid fa-trophy text-amber-400"></i> Best: <span id="high-score" class="text-amber-400 font-bold">0</span> pts
             </div>
-            <a href="index.html" class="bg-emerald-800 hover:bg-emerald-900 text-sm px-4 py-2 rounded-lg transition">Back to Dashboard</a>
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+                <i class="fa-solid fa-star"></i> Score: <span id="current-score">0</span> pts
+            </div>
         </div>
     </header>
 
-    <!-- Main Studio Container -->
-    <main class="flex-grow max-w-4xl w-full mx-auto p-6 space-y-6">
-        
-        <!-- Section Title -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-            <h2 class="text-2xl font-bold text-emerald-800">Arabic Word Builder & Tajweed Practice</h2>
-            <p class="text-slate-600 mt-1">Combine letters, test your knowledge, and track your literacy progress.</p>
+    <!-- Main Workspace -->
+    <main class="w-full max-w-4xl space-y-6">
+
+        <!-- Title Banner -->
+        <div class="text-center space-y-2">
+            <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Zahrah Interactive Online Classroom
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Arabic Word Builder & Root Morphologies (بِنَاءُ الكَلِمَاتِ)</h1>
+            <p class="text-slate-300 text-sm max-w-xl mx-auto">
+                Comprehensive Masterclass: Complete module breakdowns, flawless phonetic voice synthesis, and rigorous practice featuring 40 curated test questions on triliteral root derivations.
+            </p>
         </div>
 
-        <!-- Interactive Studio Board -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
-            <h3 class="text-lg font-semibold text-slate-700">Studio Workspace</h3>
-            <div id="output-board" class="min-h-[100px] bg-slate-100 rounded-lg flex items-center justify-center text-5xl arabic-font text-emerald-900 border-2 border-dashed border-slate-300">
-                <!-- Dynamic Letter Output -->
-            </div>
-            <div class="flex flex-wrap gap-3">
-                <button onclick="speakWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium transition shadow-sm flex items-center gap-2 cursor-pointer">
-                    <i class="fa-solid fa-volume-high"></i> Listen / Pronounce
+        <!-- Comprehensive Module Explanation & Examples Section -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-cyan-500/20">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-cyan-300 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader"></i> Comprehensive Module Breakdown
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Detailed linguistic principles, triliteral root templates, and morphological patterns (Awzān).</p>
+                </div>
+                <button onclick="playModuleOverview()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen to Overview
                 </button>
-                <button onclick="clearBoard()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2.5 rounded-lg font-medium transition cursor-pointer">Clear Board</button>
+            </div>
+
+            <!-- Detailed Subtopics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Subtopic 1 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-cyan-300">فَعَلَ</span>
+                        <span class="text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 px-2.5 py-1 rounded-full font-bold">Past Verb (Fi'l Māḍī)</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">1. Triliteral Root Verb Base (الْفِعْلُ الْمَاضِي)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> The fundamental past-tense triliteral template (F-A-L) acting as the morphological cornerstone for Arabic word derivation.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Root & Word:</span>
+                        <p class="arabic-text text-lg text-slate-200">كَتَبَ <span class="text-cyan-300 font-bold">(K-T-B)</span> -> He wrote</p>
+                        <p class="text-[11px] text-slate-400">Derived from the three radical consonants: Kāf, Tā', and Bā'.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Kataba, K-T-B, He wrote')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
+                    </button>
+                </div>
+
+                <!-- Subtopic 2 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-amber-400">فَاعِل</span>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-bold">Active Participle (Ism Fā'il)</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">2. Doer / Subject Noun (اِسْمُ الْفَاعِلِ)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Formed on the pattern of <em>Fā'il</em> by inserting an alif after the first radical, designating the one who performs the action.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Root & Word:</span>
+                        <p class="arabic-text text-lg text-slate-200">كَاتِبٌ <span class="text-amber-400 font-bold">(Kātib)</span> -> A writer / author</p>
+                        <p class="text-[11px] text-slate-400">Created by applying the active participle template to the root K-T-B.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Katib, A writer or author')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
+                    </button>
+                </div>
+
+                <!-- Subtopic 3 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-sky-300">مَفْعُول</span>
+                        <span class="text-[10px] bg-sky-500/10 text-sky-300 border border-sky-500/30 px-2.5 py-1 rounded-full font-bold">Passive Participle (Ism Maf'ūl)</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">3. Object Noun (اِسْمُ الْمَفْعُولِ)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Formed on the pattern of <em>Maf'ūl</em> by adding a prefixed Mīm and a wāw before the final radical, denoting the object acted upon.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Root & Word:</span>
+                        <p class="arabic-text text-lg text-slate-200">مَكْتُوبٌ <span class="text-sky-300 font-bold">(Maktūb)</span> -> Written / A letter</p>
+                        <p class="text-[11px] text-slate-400">Denotes that which has undergone the action of writing.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Maktub, Written or a letter')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
+                    </button>
+                </div>
+
+                <!-- Subtopic 4 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-purple-300">مَفْعَل</span>
+                        <span class="text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-bold">Noun of Place / Time (Ism Makān/Zamān)</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">4. Noun of Place & Instrument (اِسْمُ الْمَكَانِ وَالْآلَةِ)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Designates the geographical location or physical instrument where or with which an action takes place.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Root & Word:</span>
+                        <p class="arabic-text text-lg text-slate-200">مَكْتَبٌ <span class="text-purple-300 font-bold">(Maktab)</span> -> Office / Desk</p>
+                        <p class="text-[11px] text-slate-400">The place where writing is executed.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Maktab, Office or desk')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
+                    </button>
+                </div>
+
             </div>
         </div>
 
-        <!-- Assessment / Quiz Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-slate-700">Interactive Assessment</h3>
-                <span class="text-sm font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">Score: <span id="quiz-score-val">0</span></span>
+        <!-- Interactive Practice Arena (40 Test Questions Bank) -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+            
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 40</span>
+                <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
-            <div id="quiz-container" class="space-y-4">
-                <div class="text-xs text-slate-500 font-medium">Question <span id="current-q-num">1</span> of <span id="total-q-num">5</span></div>
-                <p id="question-text" class="text-base font-semibold text-slate-800">Loading question...</p>
-                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <!-- Dynamic Options -->
+            <!-- Target Word / Root Display -->
+            <div class="py-6 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="output-board" class="text-3xl md:text-4xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    ع - ل - م <span class="text-cyan-300 font-extrabold">(A-L-M)</span>
                 </div>
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
+                    What is the active participle (Ism Fā'il) derived from the root <strong class="text-cyan-300">عَلِمَ</strong> (to know)?
+                </p>
             </div>
 
-            <!-- Quiz Complete View -->
-            <div id="quiz-complete" class="hidden text-center py-6 space-y-3">
-                <h4 class="text-xl font-bold text-emerald-800">Great Job! 🎉</h4>
-                <p class="text-slate-600">You scored <span id="final-score" class="font-bold text-emerald-700">0</span> points on this module.</p>
-                <div class="flex justify-center gap-3 pt-2">
-                    <button onclick="resetQuiz()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-emerald-700 transition cursor-pointer">Retake Quiz</button>
-                    <button onclick="markAsCompleted()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer">Save & Finish</button>
-                </div>
+            <!-- Choice Options -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Buttons injected dynamically -->
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex justify-between items-center pt-2">
+                <button onclick="speakWord()" class="bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Pronunciation
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                    Next Exercise ➔
+                </button>
             </div>
         </div>
 
     </main>
 
-    <!-- Success Completion Toast / Banner -->
-    <div id="completion-banner" class="fixed bottom-5 right-5 bg-emerald-800 text-white px-6 py-3 rounded-xl shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 border border-emerald-600 z-50">
-        Progress saved successfully! Returning to dashboard...
+    <!-- Audio Toast Feedback -->
+    <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 border border-cyan-500/30">
+        <i class="fa-solid fa-circle-play text-cyan-400 text-base"></i>
+        <span id="toast-text">Playing Audio...</span>
     </div>
 
-    <!-- Application Script Engine -->
     <script>
-        const quizData = [
+        // 40 Comprehensive Test Questions for Arabic Word Builder Mastery
+        const questionBank = [
+            // --- ROOT: ع - ل - م (A-L-M: Knowledge) ---
             {
-                question: "What is the primary articulation point (Makhraj) for throat letters like Hamza and Ha (الْهَمْزَة وَالْهَاء)?",
-                options: ["The Lowest Throat (Aqsa al-Halq)", "The Tip of the Tongue", "The Nasal Passage", "The Two Lips"],
-                correct: 0
+                word: "ع - ل - م <span class='text-cyan-300 font-extrabold'>(A-L-M)</span>",
+                prompt: "What is the active participle (<strong class='text-cyan-300'>Isمُ الْفَاعِلِ</strong>) derived from the root <strong class='text-amber-400'>عَلِمَ</strong> (to know)?",
+                options: ["عَالِمٌ (Ālim - Scholar/Knower)", "مَعْلُومٌ (Ma'lūm - Known)"],
+                correctIndex: 0,
+                spokenAudio: "Alim, A scholar or knower"
             },
             {
-                question: "Which of the following is considered a Qalqalah (echoing) letter when it carries a Sukun?",
-                options: ["س (Sin)", "ط (Ta)", "م (Meem)", "ل (Lam)"],
-                correct: 1
+                word: "ع - ل - م <span class='text-cyan-300 font-extrabold'>(A-L-M)</span>",
+                prompt: "What is the passive participle (<strong class='text-cyan-300'>اِسْمُ الْمَفْعُولِ</strong>) for the root <strong class='text-amber-400'>عَلِمَ</strong>?",
+                options: ["مَعْلُومٌ (Ma'lūm - Known / Information)", "مَعْلَمٌ (Ma'lam - Landmark)"],
+                correctIndex: 0,
+                spokenAudio: "Ma'lum, Known or information"
             },
             {
-                question: "How many letters make up the permanent heavy letters group (Isti'la / ُخصَ ضَغْطٍ قِظْ)?",
-                options: ["5 letters", "7 letters", "4 letters", "10 letters"],
-                correct: 1
+                word: "ع - ل - م <span class='text-cyan-300 font-extrabold'>(A-L-M)</span>",
+                prompt: "What noun of place (<strong class='text-cyan-300'>اِسْمُ الْمَكَانِ</strong>) means a landmark or institute of learning from <strong class='text-amber-400'>عَلِمَ</strong>?",
+                options: ["مَعْلَمٌ (Ma'lam - Landmark)", "عَلَّامَةٌ ('Allāmah - Extremely knowledgeable)"],
+                correctIndex: 0,
+                spokenAudio: "Ma'lam, A landmark"
             },
             {
-                question: "What rule applies when a non-vowelled Noon (نْ) or Tanween meets the letter Ba (ب)?",
-                options: ["Idgham (Merging)", "Iqlab (Conversion to Meem)", "Izhar (Clear Pronunciation)", "Ikhfa (Concealment)"],
-                correct: 1
+                word: "ع - ل - م <span class='text-cyan-300 font-extrabold'>(A-L-M)</span>",
+                prompt: "Which form represents the intensive exaggerative active participle (<strong class='text-cyan-300'>صِيغَةُ الْمُبَالَغَةِ</strong>) for someone possessing vast knowledge?",
+                options: ["عَلِيمٌ ('Alīm - All-Knowing)", "مُعَلِّمٌ (Mu'allim - Teacher)"],
+                correctIndex: 0,
+                spokenAudio: "Alim, All-knowing"
+            },
+
+            // --- ROOT: ك - ت - ب (K-T-B: Writing) ---
+            {
+                word: "ك - ت - ب <span class='text-cyan-300 font-extrabold'>(K-T-B)</span>",
+                prompt: "What is the active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) for <strong class='text-amber-400'>كَتَبَ</strong> (to write)?",
+                options: ["كَاتِبٌ (Kātib - Writer / Author)", "مَكْتُوبٌ (Maktūb - Written)"],
+                correctIndex: 0,
+                spokenAudio: "Katib, A writer or author"
             },
             {
-                question: "What is the correct articulation point (Makhraj) for lip letters like Ba (ب), Meem (م), and Waw (و)?",
-                options: ["The tongue tip", "The lips (Ash-Shafatayn)", "The nasal cavity", "The throat cavity"],
-                correct: 1
+                word: "ك - ت - ب <span class='text-cyan-300 font-extrabold'>(K-T-B)</span>",
+                prompt: "What is the passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) for <strong class='text-amber-400'>كَتَبَ</strong>?",
+                options: ["مَكْتُوبٌ (Maktūb - Written / Letter)", "مَكْتَبٌ (Maktab - Office)"],
+                correctIndex: 0,
+                spokenAudio: "Maktub, Written or a letter"
+            },
+            {
+                word: "ك - ت - ب <span class='text-cyan-300 font-extrabold'>(K-T-B)</span>",
+                prompt: "What noun of place (<strong class='text-cyan-300'>Ism Makān</strong>) means desk or office derived from <strong class='text-amber-400'>كَتَبَ</strong>?",
+                options: ["مَكْتَبٌ (Maktab - Office / Desk)", "كِتَابَةٌ (Kitābah - Act of writing)"],
+                correctIndex: 0,
+                spokenAudio: "Maktab, Office or desk"
+            },
+            {
+                word: "ك - ت - ب <span class='text-cyan-300 font-extrabold'>(K-T-B)</span>",
+                prompt: "What plural noun means books derived from the triliteral root <strong class='text-amber-400'>ك - ت - ب</strong>?",
+                options: ["كُتُبٌ (Kutub - Books)", "كَاتِبُونَ (Kātibūn - Writers)"],
+                correctIndex: 0,
+                spokenAudio: "Kutub, Books"
+            },
+
+            // --- ROOT: ف - ت - ح (F-T-H: Opening) ---
+            {
+                word: "ف - ت - ح <span class='text-cyan-300 font-extrabold'>(F-T-H)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'opener' or 'conqueror' from <strong class='text-amber-400'>فَتَحَ</strong>?",
+                options: ["فَاتِحٌ (Fātiḥ - Opener / Conqueror)", "مَفْتُوحٌ (Maftūḥ - Opened)"],
+                correctIndex: 0,
+                spokenAudio: "Fatih, Opener or conqueror"
+            },
+            {
+                word: "ف - ت - ح <span class='text-cyan-300 font-extrabold'>(F-T-H)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'opened' from <strong class='text-amber-400'>فَتَحَ</strong>?",
+                options: ["مَفْتُوحٌ (Maftūḥ - Opened)", "مِفْتَاحٌ (Miftāḥ - Key)"],
+                correctIndex: 0,
+                spokenAudio: "Maftuh, Opened"
+            },
+            {
+                word: "ف - ت - ح <span class='text-cyan-300 font-extrabold'>(F-T-H)</span>",
+                prompt: "What noun of instrument (<strong class='text-cyan-300'>Ism Ālah</strong>) means 'key' derived from <strong class='text-amber-400'>فَتَحَ</strong>?",
+                options: ["مِفْتَاحٌ (Miftāḥ - Key)", "فَتْحٌ (Fatḥ - Conquest)"],
+                correctIndex: 0,
+                spokenAudio: "Miftah, A key"
+            },
+            {
+                word: "ف - ت - ح <span class='text-cyan-300 font-extrabold'>(F-T-H)</span>",
+                prompt: "What verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) represents victory or opening?",
+                options: ["فَتْحٌ (Fatḥ - Victory / Opening)", "مَفْتَحٌ (Mafthaḥ - Place of opening)"],
+                correctIndex: 0,
+                spokenAudio: "Fath, Victory or opening"
+            },
+
+            // --- ROOT: ح - ف - ظ (Ḥ-F-Ẓ: Guarding / Memorizing) ---
+            {
+                word: "ح - ف - ظ <span class='text-cyan-300 font-extrabold'>(Ḥ-F-Ẓ)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) describes someone who memorizes or guards the Quran?",
+                options: ["حَافِظٌ (Ḥāfiẓ - Memorizer / Protector)", "مَحْفُوظٌ (Maḥfūẓ - Preserved)"],
+                correctIndex: 0,
+                spokenAudio: "Hafiz, A memorizer or protector"
+            },
+            {
+                word: "ح - ف - ظ <span class='text-cyan-300 font-extrabold'>(Ḥ-F-Ẓ)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'preserved' or 'protected'?",
+                options: ["مَحْفُوظٌ (Maḥfūẓ - Preserved)", "حَفِيظٌ (Ḥafīẓ - Vigilant guardian)"],
+                correctIndex: 0,
+                spokenAudio: "Mahfuz, Preserved"
+            },
+            {
+                word: "ح - ف - ظ <span class='text-cyan-300 font-extrabold'>(Ḥ-F-Ẓ)</span>",
+                prompt: "Which intensive attribute (<strong class='text-cyan-300'>Sīghat Mubālaghah</strong>) means 'constantly vigilant and protective'?",
+                options: ["حَفِيظٌ (Ḥafīẓ - Guardian / Watchful)", "حَافِظٌ (Ḥāfiẓ - Protector)"],
+                correctIndex: 0,
+                spokenAudio: "Hafiz, Guardian or watchful"
+            },
+            {
+                word: "ح - ف - ظ <span class='text-cyan-300 font-extrabold'>(Ḥ-F-Ẓ)</span>",
+                prompt: "What is the verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) for the act of memorization?",
+                options: ["حِفْظٌ (Ḥifẓ - Memorization / Preservation)", "مَحْفَظَةٌ (Maḥfaẓah - Folder / Wallet)"],
+                correctIndex: 0,
+                spokenAudio: "Hifz, Memorization or preservation"
+            },
+
+            // --- ROOT: ش - ر - ب (Sh-R-B: Drinking) ---
+            {
+                word: "ش - ر - ب <span class='text-cyan-300 font-extrabold'>(Sh-R-B)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'one who drinks' from <strong class='text-amber-400'>شَرِبَ</strong>?",
+                options: ["شَارِبٌ (Shārib - Drinker)", "مَشْرُوبٌ (Mashrūb - Beverage)"],
+                correctIndex: 0,
+                spokenAudio: "Sharib, A drinker"
+            },
+            {
+                word: "ش - ر - ب <span class='text-cyan-300 font-extrabold'>(Sh-R-B)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'drunk / beverage' from <strong class='text-amber-400'>شَرِبَ</strong>?",
+                options: ["مَشْرُوبٌ (Mashrūb - Drink / Beverage)", "مَشْرَبٌ (Mashrab - Watering place)"],
+                correctIndex: 0,
+                spokenAudio: "Mashrub, A drink or beverage"
+            },
+            {
+                word: "ش - ر - ب <span class='text-cyan-300 font-extrabold'>(Sh-R-B)</span>",
+                prompt: "What noun of place (<strong class='text-cyan-300'>Ism Makān</strong>) means watering hole or drinking place?",
+                options: ["مَشْرَبٌ (Mashrab - Watering place)", "شَرَابٌ (Sharāb - Drink)"],
+                correctIndex: 0,
+                spokenAudio: "Mashrab, A watering place"
+            },
+            {
+                word: "ش - ر - ب <span class='text-cyan-300 font-extrabold'>(Sh-R-B)</span>",
+                prompt: "What verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) means beverage or drinking?",
+                options: ["شُرْبٌ / شَرَابٌ (Shurb / Sharāb - Drinking / Drink)", "شَارِبٌ (Shārib - Mustache / Drinker)"],
+                correctIndex: 0,
+                spokenAudio: "Sharab, Drink"
+            },
+
+            // --- ROOT: ذ - ه - ب (Dh-H-B: Going) ---
+            {
+                word: "ذ - ه - ب <span class='text-cyan-300 font-extrabold'>(Dh-H-B)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'one who goes' from <strong class='text-amber-400'>ذَهَبَ</strong>?",
+                options: ["ذَاهِبٌ (Dhāhib - Going / Departed)", "مَذْهَبٌ (Madhhab - School of thought / Doctrine)"],
+                correctIndex: 0,
+                spokenAudio: "Dhahib, Going or departed"
+            },
+            {
+                word: "ذ - ه - ب <span class='text-cyan-300 font-extrabold'>(Dh-H-B)</span>",
+                prompt: "What noun of place or doctrine (<strong class='text-cyan-300'>Ism Makān</strong>) means 'school of thought' or path from <strong class='text-amber-400'>ذَهَبَ</strong>?",
+                options: ["مَذْهَبٌ (Madhhab - Doctrine / School of thought)", "ذَهَبٌ (Dhahab - Gold)"],
+                correctIndex: 0,
+                spokenAudio: "Madhhab, Doctrine or school of thought"
+            },
+            {
+                word: "ذ - ه - ب <span class='text-cyan-300 font-extrabold'>(Dh-H-B)</span>",
+                prompt: "What noun denotes the precious yellow metal 'gold' from the same consonantal root?",
+                options: ["ذَهَبٌ (Dhahab - Gold)", "ذَاهِبٌ (Dhāhib - Goer)"],
+                correctIndex: 0,
+                spokenAudio: "Dhahab, Gold"
+            },
+            {
+                word: "ذ - ه - ب <span class='text-cyan-300 font-extrabold'>(Dh-H-B)</span>",
+                prompt: "What is the verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) for departure?",
+                options: ["ذَهَابٌ (Dhahāb - Departure / Going)", "مَذْهَبٌ (Madhhab - Path)"],
+                correctIndex: 0,
+                spokenAudio: "Dhahab, Departure or going"
+            },
+
+            // --- ROOT: ن - ص - ر (N-Ṣ-R: Helping / Victory) ---
+            {
+                word: "ن - ص - ر <span class='text-cyan-300 font-extrabold'>(N-Ṣ-R)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'helper / supporter' from <strong class='text-amber-400'>نَصَرَ</strong>?",
+                options: ["نَاصِرٌ (Nāṣir - Helper / Supporter)", "مَنْصُورٌ (Manṣūr - Victorious / Helped)"],
+                correctIndex: 0,
+                spokenAudio: "Nasir, A helper or supporter"
+            },
+            {
+                word: "ن - ص - ر <span class='text-cyan-300 font-extrabold'>(N-Ṣ-R)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'helped / victorious' from <strong class='text-amber-400'>نَصَرَ</strong>?",
+                options: ["مَنْصُورٌ (Manṣūr - Helped / Victorious)", "مَنْصَرٌ (Manṣar - Place of victory)"],
+                correctIndex: 0,
+                spokenAudio: "Mansur, Helped or victorious"
+            },
+            {
+                word: "ن - ص - ر <span class='text-cyan-300 font-extrabold'>(N-Ṣ-R)</span>",
+                prompt: "What verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) means divine help or victory?",
+                options: ["نَصْرٌ / نُصْرَةٌ (Naṣr / Nuṣrah - Victory / Help)", "نَاصِرٌ (Nāṣir - Helper)"],
+                correctIndex: 0,
+                spokenAudio: "Nasr, Victory or help"
+            },
+            {
+                word: "ن - ص - ر <span class='text-cyan-300 font-extrabold'>(N-Ṣ-R)</span>",
+                prompt: "What collective noun designates the early supporters (Disciples) of Isa (Jesus)?",
+                options: ["أَنْصَارٌ (Anṣār - Helpers / Disciples)", "نَوَاصِرُ (Nawāṣir)"],
+                correctIndex: 0,
+                spokenAudio: "Ansar, Helpers or disciples"
+            },
+
+            // --- ROOT: خ - ر - ج (Kh-R-J: Exiting) ---
+            {
+                word: "خ - ر - ج <span class='text-cyan-300 font-extrabold'>(Kh-R-J)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'one who exits' from <strong class='text-amber-400'>خَرَجَ</strong>?",
+                options: ["خَارِجٌ (Khārij - Exiting / Outer / Outsider)", "مَخْرُوجٌ (Makhrūj)"],
+                correctIndex: 0,
+                spokenAudio: "Kharij, Exiting or outer"
+            },
+            {
+                word: "خ - ر - ج <span class='text-cyan-300 font-extrabold'>(Kh-R-J)</span>",
+                prompt: "What noun of place (<strong class='text-cyan-300'>Ism Makān</strong>) means 'exit' or 'outlet'?",
+                options: ["مَخْرَجٌ (Makhraj - Exit / Point of articulation)", "خُرُوجٌ (Khurūj - Exit)"],
+                correctIndex: 0,
+                spokenAudio: "Makhraj, Exit or point of articulation"
+            },
+            {
+                word: "خ - ر - ج <span class='text-cyan-300 font-extrabold'>(Kh-R-J)</span>",
+                prompt: "What is the verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) for going out?",
+                options: ["خُرُوجٌ (Khurūj - Going out / Exit)", "خَارِجٌ (Khārij - Outer)"],
+                correctIndex: 0,
+                spokenAudio: "Khuruj, Going out or exit"
+            },
+            {
+                word: "خ - ر - ج <span class='text-cyan-300 font-extrabold'>(Kh-R-J)</span>",
+                prompt: "Which plural form represents expenses or expenditures derived from root <strong class='text-amber-400'>خ - ر - ج</strong>?",
+                options: ["خَرَاجٌ / مَخَارِجُ (Kharāj / Makhārij - Expenses / Outlays)", "خَوَارِجُ (Khawārij - Secessionists)"],
+                correctIndex: 0,
+                spokenAudio: "Kharaj, Expenses or outlays"
+            },
+
+            // --- ROOT: س - م - ع (S-M-Ḥ / S-M-ʿ: Hearing) ---
+            {
+                word: "س - م - ع <span class='text-cyan-300 font-extrabold'>(S-M-ʿ)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'listener' from <strong class='text-amber-400'>سَمِعَ</strong>?",
+                options: ["سَامِعٌ (Sāmiʿ - Listener)", "مَسْمُوعٌ (Masmūʿ - Heard / Audible)"],
+                correctIndex: 0,
+                spokenAudio: "Sami, A listener"
+            },
+            {
+                word: "س - م - ع <span class='text-cyan-300 font-extrabold'>(S-M-ʿ)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'audible / heard'?",
+                options: ["مَسْمُوعٌ (Masmūʿ - Audible / Heard)", "مَسْمَعٌ (Masmaʿ - Ear / Acoustic range)"],
+                correctIndex: 0,
+                spokenAudio: "Masmu, Audible or heard"
+            },
+            {
+                word: "س - م - ع <span class='text-cyan-300 font-extrabold'>(S-M-ʿ)</span>",
+                prompt: "What intensive attribute (<strong class='text-cyan-300'>Sīghat Mubālaghah</strong>) means 'All-Hearing' as a divine attribute?",
+                options: ["سَمِيعٌ (Samīʿ - All-Hearing)", "سَامِعٌ (Sāmiʿ - Hearing)"],
+                correctIndex: 0,
+                spokenAudio: "Sami, All-hearing"
+            },
+            {
+                word: "س - م - ع <span class='text-cyan-300 font-extrabold'>(S-M-ʿ)</span>",
+                prompt: "What is the verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) for the sense of hearing?",
+                options: ["سَمْعٌ (Samʿ - Hearing / Ear)", "سَمَاعَةٌ (Samāʿah - Headphone)"],
+                correctIndex: 0,
+                spokenAudio: "Sam, Hearing or ear"
+            },
+
+            // --- ROOT: ض - ر - ب (Ḍ-R-B: Striking / Traveling) ---
+            {
+                word: "ض - ر - ب <span class='text-cyan-300 font-extrabold'>(Ḍ-R-B)</span>",
+                prompt: "What active participle (<strong class='text-cyan-300'>Ism Fā'il</strong>) means 'one who strikes' from <strong class='text-amber-400'>ضَرَبَ</strong>?",
+                options: ["ضَارِبٌ (Ḍārib - Striker)", "مَضْرُوبٌ (Maḍrūb - Struck / Multiplied)"],
+                correctIndex: 0,
+                spokenAudio: "Darib, A striker"
+            },
+            {
+                word: "ض - ر - ب <span class='text-cyan-300 font-extrabold'>(Ḍ-R-B)</span>",
+                prompt: "What passive participle (<strong class='text-cyan-300'>Ism Maf'ūl</strong>) means 'struck' or mathematical 'multiplied'?",
+                options: ["مَضْرُوبٌ (Maḍrūb - Struck / Multiplied)", "مَضْرَبٌ (Maḍrab - Batting ground)"],
+                correctIndex: 0,
+                spokenAudio: "Madhrub, Struck or multiplied"
+            },
+            {
+                word: "ض - ر - ب <span class='text-cyan-300 font-extrabold'>(Ḍ-R-B)</span>",
+                prompt: "What verbal noun (<strong class='text-cyan-300'>Maṣdar</strong>) means striking or setting forth (traveling) on earth?",
+                options: ["ضَرْبٌ (Ḍarb - Striking / Coining examples)", "ضَارِبٌ (Ḍārib - Striker)"],
+                correctIndex: 0,
+                spokenAudio: "Darb, Striking or coining examples"
+            },
+            {
+                word: "ض - ر - ب <span class='text-cyan-300 font-extrabold'>(Ḍ-R-B)</span>",
+                prompt: "Which term denotes a tent (shelter set up by striking stakes)?",
+                options: ["ضُرادِب / ضُرَادِب (Tent derivatives) or خَيْمَة", "مَضْرِبٌ (Maḍrib - Camp / Stamping ground)"],
+                correctIndex: 1,
+                spokenAudio: "Madrib, Camp or stamping ground"
             }
         ];
 
-        let currentQuestionIdx = 0;
+        let sessionQuestions = [];
+        let currentIndex = 0;
         let score = 0;
-        
-        const SAVED_SCORE_KEY = "arabic_word_builder_highscore";
+        let answered = false;
+
+        const SAVED_SCORE_KEY = "arabic_game_wordbuilder_score_40";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
-        function loadPreset() {
-            document.getElementById('output-board').innerText = "بَكْر";
+        function initSession() {
+            sessionQuestions = [...questionBank];
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("current-score").innerText = score;
+            document.getElementById("high-score").innerText = highScore;
+            loadQuestion();
         }
 
+        function loadQuestion() {
+            answered = false;
+            const current = sessionQuestions[currentIndex];
+            
+            document.getElementById("question-num").innerText = currentIndex + 1;
+            document.getElementById("output-board").innerHTML = current.word;
+            document.getElementById("target-prompt").innerHTML = current.prompt;
+            
+            const badge = document.getElementById("feedback-badge");
+            badge.className = "px-2.5 py-0.5 rounded-md hidden";
+
+            const nextBtn = document.getElementById("next-btn");
+            nextBtn.disabled = true;
+            nextBtn.className = "bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+
+            const optionsContainer = document.getElementById("options-container");
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.innerHTML = "";
+
+            current.options.forEach((optText, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer text-left flex items-center justify-between";
+                btn.innerHTML = `<span>${optText}</span> <i class='fa-solid fa-circle-chevron-right text-slate-600'></i>`;
+                btn.onclick = () => selectOption(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const current = sessionQuestions[currentIndex];
+            const badge = document.getElementById("feedback-badge");
+            const nextBtn = document.getElementById("next-btn");
+
+            const buttons = document.getElementById("options-container").children;
+            for (let b of buttons) {
+                b.classList.add('opacity-70', 'cursor-not-allowed');
+            }
+
+            if (selectedIndex === current.correctIndex) {
+                score += 10;
+                badge.innerText = "Correct! +10 pts";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
+            } else {
+                badge.innerText = "Incorrect";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
+                
+                buttons[current.correctIndex].className = "bg-emerald-600/20 border-2 border-emerald-500/60 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
+            }
+
+            document.getElementById("current-score").innerText = score;
+
+            nextBtn.disabled = false;
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+        }
+
+        // Flawless speech synthesis with correct phonetic Arabic/English articulation
         function speakWord() {
-            const text = document.getElementById('output-board')?.innerText || '';
-            if ('speechSynthesis' in window && text) {
+            const current = sessionQuestions[currentIndex];
+            const speechText = current.spokenAudio || '';
+            
+            if ('speechSynthesis' in window && speechText) {
                 window.speechSynthesis.cancel();
                 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';
+                const utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'en-US'; // English phonetic transliteration for crystalline clarity
                 utterance.rate = 0.85; 
                 window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Articulating correct morphological pronunciation...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 2200);
+                }
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        function clearBoard() {
-            document.getElementById('output-board').innerText = "";
+        function playSnippetAudio(speechText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8; 
+                
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = `Playing clear pronunciation...`;
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 2200);
+                }
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
         }
 
-        function loadQuestion() {
-            document.getElementById('total-q-num').innerText = quizData.length;
-            if (currentQuestionIdx >= quizData.length) {
-                document.getElementById('quiz-container').classList.add('hidden');
-                document.getElementById('quiz-complete').classList.remove('hidden');
-                document.getElementById('final-score').innerText = score;
-                
+        function playModuleOverview() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const overviewText = "Welcome to Zahrah's Interactive Online Classroom. This word builder masterclass covers Arabic triliteral root derivations, active and passive participles, nouns of place, instruments, and morphological patterns.";
+                const utterance = new SpeechSynthesisUtterance(overviewText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Playing Module Overview Audio...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 3500);
+                }
+            }
+        }
+
+        function nextQuestion() {
+            if (currentIndex < sessionQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
                 if (score > highScore) {
                     highScore = score;
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
-                    document.getElementById('high-score-val').innerText = highScore;
                 }
-                return;
-            }
+                localStorage.setItem("arabic_completed_wordbuilder_40", "true");
 
-            document.getElementById('current-q-num').innerText = currentQuestionIdx + 1;
-            const q = quizData[currentQuestionIdx];
-            document.getElementById('question-text').innerText = q.question;
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-
-            q.options.forEach((opt, idx) => {
-                const btn = document.createElement('button');
-                btn.className = "p-3.5 text-left border border-slate-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition text-sm font-medium text-slate-700 cursor-pointer shadow-xs";
-                btn.innerText = opt;
-                btn.onclick = () => checkAnswer(idx, q.correct);
-                optionsContainer.appendChild(btn);
-            });
-        }
-
-        function checkAnswer(selected, correct) {
-            const optionsContainer = document.getElementById('options-container');
-            const buttons = optionsContainer.children;
-
-            // Disable buttons to prevent multi-clicks
-            for (let b of buttons) {
-                b.style.pointerEvents = 'none';
-            }
-
-            if (selected === correct) {
-                score += 10;
-                document.getElementById('quiz-score-val').innerText = score;
-                buttons[selected].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
-            } else {
-                buttons[selected].className = "p-3.5 text-left border-2 border-rose-500 bg-rose-50 text-rose-900 rounded-xl text-sm font-bold shadow-xs";
-                buttons[correct].className = "p-3.5 text-left border-2 border-emerald-500 bg-emerald-50 text-emerald-900 rounded-xl text-sm font-bold shadow-xs";
-            }
-
-            setTimeout(() => {
-                currentQuestionIdx++;
-                loadQuestion();
-            }, 1200);
-        }
-
-        function resetQuiz() {
-            currentQuestionIdx = 0;
-            score = 0;
-            document.getElementById('quiz-score-val').innerText = score;
-            document.getElementById('quiz-complete').classList.add('hidden');
-            document.getElementById('quiz-container').classList.remove('hidden');
-            loadQuestion();
-        }
-
-        function markAsCompleted() {
-            localStorage.setItem("word_builder_completed", "true");
-            
-            const banner = document.getElementById('completion-banner');
-            banner.classList.remove('opacity-0', 'pointer-events-none');
-            
-            setTimeout(() => {
+                alert(`Congratulations! You have completed all 40 questions in the Word Builder Module!\nFinal Score: ${score}/${sessionQuestions.length * 10} points`);
                 window.location.href = "index.html";
-            }, 1500);
+            }
         }
 
         window.onload = function() {
-            document.getElementById('high-score-val').innerText = highScore;
-            loadPreset();
-            loadQuestion();
+            initSession();
         };
     </script>
 </body>
