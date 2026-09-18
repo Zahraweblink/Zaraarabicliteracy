@@ -10,9 +10,9 @@
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
+            --teal-spiritual: #06283D;
+            --midnight-velvet: #0B0F19;
+            --cosmic-indigo: #171b30;
             --accent-gold: #ffb703;
             --accent-cyan: #06b6d4;
             --white: #ffffff;
@@ -20,11 +20,29 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
-            background-image: var(--bg-gradient);
+            background-color: var(--midnight-velvet);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(6, 40, 61, 0.7) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(23, 27, 48, 0.8) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(15, 30, 50, 0.5) 0%, transparent 60%);
             background-attachment: fixed;
+            background-size: cover;
             color: var(--white);
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .arabic-text {
@@ -33,15 +51,20 @@
         }
 
         .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(14, 165, 233, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -51,7 +74,7 @@
 <body class="p-4 md:p-8 flex flex-col items-center justify-between min-h-screen">
 
     <!-- Header Navigation -->
-    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+    <header class="w-full max-w-3xl flex justify-between items-center mb-6 relative z-10">
         <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
@@ -61,7 +84,7 @@
     </header>
 
     <!-- Main Workspace -->
-    <main class="w-full max-w-3xl space-y-6">
+    <main class="w-full max-w-3xl space-y-6 relative z-10">
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
@@ -70,22 +93,22 @@
             </div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">As-Sifāt Studio (صِفَات الحُرُوف)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master <strong>As-Sifāt</strong>: Whisper (Hams), Strength (Shiddah), Softness (Rikhawah), and Stickiness (Itbāq).
+                Comprehensive Mastery of <strong>As-Sifāt</strong>: Permanent Opposing Characteristics, Non-Opposing Attributes, Breath Flow, Sound Blockage, and Resonance.
             </p>
         </div>
 
-        <!-- Rule Explainer Card with Integrated Audio Buttons -->
-        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+        <!-- Rule Explainer Card with Integrated Audio Buttons & Examples -->
+        <div class="glass-card p-6 border-cyan-500/20 space-y-4">
             <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap"></i> Core Letter Characteristics
+                <i class="fa-solid fa-graduation-cap"></i> Comprehensive Letter Characteristics & Examples
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
                 <!-- Hams Card -->
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
                     <div>
                         <span class="text-xl font-bold arabic-text text-amber-400 block mb-1">فَحَثَّهُ شَخْصٌ سَكَتَ</span>
                         <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">الهَمْس (Hams / Whisper)</span>
-                        <p class="text-[11px] text-slate-300 mt-2">Flow of breath due to weakness in articulation when pronouncing letters.</p>
+                        <p class="text-[11px] text-slate-300 mt-2">Flow of breath due to weakness in reliance on the articulation point. Letters: ف, ح, ث, ه, ش, خ, ص, س, ك, ت.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
                         <button onclick="speakSpecificText('فَحَثَّهُ شَخْصٌ سَكَتَ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
@@ -94,11 +117,11 @@
                     </div>
                 </div>
                 <!-- Shiddah Card -->
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
                     <div>
                         <span class="text-xl font-bold arabic-text text-cyan-400 block mb-1">أَجِدُ قَطْ بَكَتْ</span>
                         <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">الشِّدَّة (Shiddah / Strength)</span>
-                        <p class="text-[11px] text-slate-300 mt-2">Complete blockage of sound flow due to strong reliance on the articulation point.</p>
+                        <p class="text-[11px] text-slate-300 mt-2">Complete blockage of sound flow due to extreme strength. Letters: أ, ج, د, ق, ط, ب, ك, ت.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
                         <button onclick="speakSpecificText('أَجِدُ قَطْ بَكَتْ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
@@ -107,11 +130,11 @@
                     </div>
                 </div>
                 <!-- Rikhawah Card -->
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
                     <div>
-                        <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">س، ش، ز</span>
-                        <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">الرَّخَاوَة (Rikhawah / Softness)</span>
-                        <p class="text-[11px] text-slate-300 mt-2">Free flow of sound through the articulation point when pronouncing soft letters.</p>
+                        <span class="text-xl font-bold arabic-text text-amber-200 block mb-1">س، ش، ز، خ، ذ، ث</span>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">الرَّخَاوَة (Rikhawah / Softness)</span>
+                        <p class="text-[11px] text-slate-300 mt-2">Free flow of sound through the articulation point when pronouncing soft friction letters.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
                         <button onclick="speakSpecificText('س ش ز')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
@@ -120,11 +143,11 @@
                     </div>
                 </div>
                 <!-- Itbaq Card -->
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
                     <div>
                         <span class="text-xl font-bold arabic-text text-amber-300 block mb-1">ص، ض، ط، ظ</span>
                         <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">الإِطْبَاق (Itbāq / Stickiness)</span>
-                        <p class="text-[11px] text-slate-300 mt-2">Flattening and raising a large portion of the tongue toward the roof of the mouth.</p>
+                        <p class="text-[11px] text-slate-300 mt-2">Flattening and raising a large portion of the tongue toward the roof of the mouth, producing heavy emphasis.</p>
                     </div>
                     <div class="pt-3 flex justify-center">
                         <button onclick="speakSpecificText('ص ض ط ظ')" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
@@ -136,10 +159,10 @@
         </div>
 
         <!-- Interactive Practice Arena -->
-        <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+        <div id="quiz-container" class="glass-card p-6 md:p-8 space-y-6 text-center shadow-2xl overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 5</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
@@ -170,9 +193,9 @@
         </div>
 
         <!-- Quiz Complete View -->
-        <div id="quiz-complete" class="hidden glass-card rounded-3xl p-8 text-center space-y-4">
+        <div id="quiz-complete" class="hidden glass-card p-8 text-center space-y-4">
             <h4 class="text-2xl font-bold text-amber-400">Amazing Progress! 🎉</h4>
-            <p class="text-slate-300">You scored <span id="final-score" class="font-bold text-amber-400">0</span> points on As-Sifāt Studio.</p>
+            <p class="text-slate-300">You scored <span id="final-score" class="font-bold text-amber-400">0</span> / 400 points on As-Sifāt Studio Master Assessment.</p>
             <div class="flex justify-center gap-3 pt-2">
                 <button onclick="resetQuiz()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-5 py-2.5 rounded-xl text-xs transition">Retake Module</button>
                 <a href="index.html" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition inline-flex items-center">Return to Dashboard</a>
@@ -182,7 +205,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
+    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6 relative z-10">
         Zahrah’s Interactive Classroom &copy; 2026. Zahrah's Arabic Literacy & Tajweed Mastery App.
     </footer>
 
@@ -222,6 +245,216 @@
             prompt: "How does sound behave when pronouncing these soft letters?",
             options: ["Completely blocked", "Freely flows (Al-Rikhawah)", "Echoes with bounce", "Swallowed entirely"],
             correct: 1
+        },
+        {
+            arabic: "خ، ض، غ، ط، ق، ظ، ص",
+            prompt: "What is the collective term for these letters characterized by elevation (Al-Isticlā')?",
+            options: ["Letters of Heavy Emphasis (Tafkhīm / Isticlā')", "Letters of Whisper (Hams)", "Letters of Softness (Rikhawah)", "Letters of Qalqalah"],
+            correct: 0
+        },
+        {
+            arabic: "ت، ث، ج، ح، خ، د، ذ، ر، ز، س، ش، ص، ض، ط، ظ، ع، غ، ف، ق، ك، ل، م، ن، هـ، و، ي",
+            prompt: "What is the total number of recognized Arabic letters in classical Tajweed studied under Sifāt?",
+            options: ["28 letters", "29 letters", "25 letters", "30 letters"],
+            correct: 1
+        },
+        {
+            arabic: "صِفَاتٌ لَهَا ضِدٌّ",
+            prompt: "How many permanent characteristics have direct opposites in Tajweed science?",
+            options: ["5 pairs (10 characteristics total)", "4 pairs (8 characteristics total)", "6 pairs (12 characteristics total)", "7 pairs (14 characteristics total)"],
+            correct: 0
+        },
+        {
+            arabic: "صِفَاتٌ لَا ضِدَّ لَهَا",
+            prompt: "How many characteristics exist without direct opposites?",
+            options: ["7 characteristics", "5 characteristics", "4 characteristics", "10 characteristics"],
+            correct: 0
+        },
+        {
+            arabic: "الجهْر",
+            prompt: "What is the direct opposite of Al-Hams (Whisper)?",
+            options: ["Al-Jahr (Clarity / Confinement of breath)", "Ash-Shiddah (Strength)", "Al-Itbāq (Stickiness)", "Al-Istifāl (Lowering)"],
+            correct: 0
+        },
+        {
+            arabic: "التَّوَسُّط (بين الشِّدَّة والرَّخَاوَة)",
+            prompt: "Which letters fall into the middle category between complete sound blockage and free flow (Tawasut / Baynahu)?",
+            options: ["ل، ن، ع، م، ر (لن عمر)", "أ، ج، د، ق، ط", "س، ش، ز، خ", "ف، ح، ث، هـ"],
+            correct: 0
+        },
+        {
+            arabic: "الاستِفَال",
+            prompt: "What is the direct opposite of Al-Isticlā' (Elevation)?",
+            options: ["Al-Istifāl (Lowering of the tongue)", "Al-Infitāh (Opening)", "Al-Idhlāq (Fluidity)", "Al-Ismat (Resistance)"],
+            correct: 0
+        },
+        {
+            arabic: "الانفِتَاح",
+            prompt: "What is the direct opposite of Al-Itbāq (Stickiness/Closure)?",
+            options: ["Al-Infitāh (Opening of space between tongue and palate)", "Al-Istifāl (Lowering)", "Al-Jahr (Clarity)", "Al-Rikhawah (Softness)"],
+            correct: 0
+        },
+        {
+            arabic: "الإِذْلَاق",
+            prompt: "What does Al-Idhlāq mean in terms of articulation origin?",
+            options: ["Ease and fluency due to originating from the tip or edge of the tongue/lips", "Complete sound blockage", "Heavy nasal resonance", "Pronounced vibration"],
+            correct: 0
+        },
+        {
+            arabic: "الإِسْمَات",
+            prompt: "What is the opposite of Al-Idhlāq?",
+            options: ["Al-Ismat (Heavy or restrained articulation away from the edges)", "Al-Hams", "Al-Qalqalah", "Al-Madd"],
+            correct: 0
+        },
+        {
+            arabic: "الصفير",
+            prompt: "Which non-opposing characteristic produces a whistling sound like a bird?",
+            options: ["Al-Safeer (Whistling sound in ص، ز، س)", "Al-Qalqalah (Bounce)", "Al-Leen (Softness)", "Al-Inhirāf (Deviation)"],
+            correct: 0
+        },
+        {
+            arabic: "القلقلة",
+            prompt: "What creates the bouncing or echoing effect (Al-Qalqalah) when letters are pronounced with a Sukun?",
+            options: ["Vibration and release of the articulation point without vocalizing a vowel", "Continuous airflow through the nose", "Flattening the tongue against the palate", "Swallowing the breath"],
+            correct: 0
+        },
+        {
+            arabic: "اللين",
+            prompt: "Which two letters possess the characteristic of Al-Leen (Softness) when preceded by a matching soft vowel sound?",
+            options: ["Waw (و) and Ya (ي) with a Sukun preceded by a Fatha", "Alif and Hamza", "Ta and Ba", "Meem and Noon"],
+            correct: 0
+        },
+        {
+            arabic: "الانحراف",
+            prompt: "Which letters possess Al-Inhirāf (Deviation) where the sound deviates to find its exit?",
+            options: ["Laam (ل) and Raa (ر)", "Meem (م) and Noon (ن)", "Sad (ص) and Seen (س)", "Hamza and Ha"],
+            correct: 0
+        },
+        {
+            arabic: "التكرير",
+            prompt: "Which letter possesses Al-Takrīr (Vibration/Trilling), which reciters must be careful not to exaggerate?",
+            options: ["Raa (ر)", "Laam (ل)", "Ra-a (ر) and Noon", "Meem (م)"],
+            correct: 0
+        },
+        {
+            arabic: "التفشي",
+            prompt: "Which letter possesses Al-Tafashshī (Spreading of breath/sound inside the mouth)?",
+            options: ["Sheen (ش)", "Seen (س)", "Fa (ف)", "Ha (ح)"],
+            correct: 0
+        },
+        {
+            arabic: "الاستطالة",
+            prompt: "Which letter possesses Al-Istitālah (Prolongation of sound along the side of the tongue)?",
+            options: ["Dad (ض)", "Sad (ص)", "Tah (ط)", "Zah (ظ)"],
+            correct: 0
+        },
+        {
+            arabic: "حُرُوفُ القَلْقَلَةِ الخَمْسَةُ",
+            prompt: "What are the five specific letters of Qalqalah combined in 'Qatbu Jad' (قَطْبُ جَدٍّ)?",
+            options: ["Qaf, Ta, Ba, Jeem, Dal", "Fa, Ha, Tha, Ha, Seen", "Sin, Shin, Zay, Sad, Dad", "Meem, Noon, Waw, Ya, Ha"],
+            correct: 0
+        },
+        {
+            arabic: "قلقلة صغرى",
+            prompt: "When is a Qalqalah considered 'Sugra' (Minor / Light)?",
+            options: ["When the Qalqalah letter is in the middle of a word with a Sukun", "When pausing at the end of an ayah", "When followed by a Shaddah", "When recited in a whisper"],
+            correct: 0
+        },
+        {
+            arabic: "قلقلة كبرى",
+            prompt: "When is a Qalqalah considered 'Kubra' (Major / Strong)?",
+            options: ["When stopping on a Qalqalah letter at the end of a recitation pause", "At the beginning of a Surah", "When reciting quickly", "When connecting words"],
+            correct: 0
+        },
+        {
+            arabic: "صِفَةُ الصَّفِير",
+            prompt: "Which letters are characterized by Al-Safeer (Whistle)?",
+            options: ["Sād (ص), Zay (ز), Seen (س)", "Ha (ح), Kha (خ), Ain (ع)", "Ba (ب), Ta (ت), Tha (ث)", "Fa (ف), Waw (و), Meem (م)"],
+            correct: 0
+        },
+        {
+            arabic: "مَرَاتِبُ التَّفْخِيم",
+            prompt: "How many hierarchical levels of Tafkhīm (Heavy emphasis) are traditionally recognized for Isticlā' letters?",
+            options: ["5 levels", "3 levels", "7 levels", "2 levels"],
+            correct: 0
+        },
+        {
+            arabic: "أَقْوَى الحُرُوفِ صِفَاتٍ",
+            prompt: "Which category of letters generally possesses the strongest overall combination of permanent characteristics?",
+            options: ["Letters with Isticlā', Itbāq, and Shiddah (like ط)", "Letters with Hams and Rikhawah (like س)", "Soft vowels (Al-Madd letters)", "Nasal sounds (Ghunnah)"],
+            correct: 0
+        },
+        {
+            arabic: "الفرق بين الهمس والجهر",
+            prompt: "What is the primary physiological difference between Hams and Jahr?",
+            options: ["Hams allows breath to escape due to vocal cord relaxation; Jahr confines breath and vibrates vocal cords.", "Hams blocks sound entirely.", "Jahr uses the nasal cavity.", "There is no physiological difference."],
+            correct: 0
+        },
+        {
+            arabic: "مخرج حرف الضَّاد",
+            prompt: "Why is Al-Istitālah unique to the letter Dad (ض)?",
+            options: ["Because the sound extends from the back molars forward along the edge of the tongue until it touches the gum line.", "Because it bounces like Qalqalah.", "Because it whistles.", "Because it has a trilling vibration."],
+            correct: 0
+        },
+        {
+            arabic: "حروف الإِذْلَاق",
+            prompt: "What are the six letters of Al-Idhlāq (Ease/Fluidity) remembered by reciters?",
+            options: ["فر من لب (Fa, Ra, Meem, Noon, Lam, Ba)", "قطب جد", "أجد قط بكت", "فحثه شخص سكت"],
+            correct: 0
+        },
+        {
+            arabic: "حروف الاستعلاء",
+            prompt: "How many letters possess the property of Al-Isticlā' (Elevation)?",
+            options: ["7 letters (خص ضغط قظ)", "5 letters", "4 letters", "10 letters"],
+            correct: 0
+        },
+        {
+            arabic: "الفرق بين الشِّدَّة والتَّوَسُّط",
+            prompt: "How does Tawasut differ from Shiddah?",
+            options: ["Shiddah completely seals sound; Tawasut allows a partial, controlled flow of sound.", "Tawasut is completely silent.", "Shiddah is nasal.", "There is no difference."],
+            correct: 0
+        },
+        {
+            arabic: "تجنب التَّكْرِير المفرط",
+            prompt: "What error must reciters avoid when pronouncing the letter Raa (ر) due to its Takrīr characteristic?",
+            options: ["Exaggerating the trill so it sounds like multiple 'r' sounds (like rrroling)", "Swallowing the sound entirely", "Turning it into a D", "Turning it into a Lam"],
+            correct: 0
+        },
+        {
+            arabic: "صِفَةُ التَّفَشِّي في الشِّين",
+            prompt: "What does Al-Tafashshī mean for the letter Sheen (ش)?",
+            options: ["The spreading of the sound and breath across the palate until it hits the teeth", "Complete sound blockage", "Whistling like a bird", "Nasal humming"],
+            correct: 0
+        },
+        {
+            arabic: "أهمية دراسة الصفات",
+            prompt: "Why are As-Sifāt crucial for differentiating between similar-sounding Arabic letters (like س and ص or ت and ط)?",
+            options: ["Because letters sharing the same articulation point (Makhraj) are distinguished entirely by their unique Sifāt.", "To make recitation faster", "To memorize Surahs without looking", "To determine vowel lengths"],
+            correct: 0
+        },
+        {
+            arabic: "الحروف المجهورة",
+            prompt: "Are the majority of Arabic letters characterized by Jahr (Clarity/Confinement of breath) or Hams?",
+            options: ["The vast majority are Majoorah (Jah-hr)", "The vast majority are Mahmoosah (Hams)", "They are exactly equal (14 each)", "None are Majoorah"],
+            correct: 0
+        },
+        {
+            arabic: "حرف الخاء والغاز",
+            prompt: "What characteristic allows letters like Kha (خ) and Ghain (غ) to sustain sound flow without stopping?",
+            options: ["Al-Rikhawah (Softness)", "Ash-Shiddah (Strength)", "Al-Qalqalah (Echo)", "Al-Itbāq (Stickiness)"],
+            correct: 0
+        },
+        {
+            arabic: "اتقان مخارج الحروف وصفاتها",
+            prompt: "What is the ultimate goal of mastering As-Sifāt Studio and Tajweed phonetics?",
+            options: ["To recite the Quran accurately, beautifully, and exactly as it was revealed to Prophet Muhammad (ﷺ).", "To pass a written test only", "To speak modern Arabic dialects", "To learn poetry composition"],
+            correct: 0
+        },
+        {
+            arabic: "إتقان الإدغام والإخفاء",
+            prompt: "How do letter characteristics interact with rules like Idgham and Ikhfa?",
+            options: ["Characteristics dictate how blending, merging, and concealment affect sound quality and nasal resonance.", "They have no connection.", "Characteristics cancel out Tajweed rules.", "They only apply during pauses."],
+            correct: 0
         }
     ];
 
@@ -259,7 +492,6 @@
             document.getElementById('quiz-complete').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
             
-            // Saves completion status for your index.html dashboard badge
             localStorage.setItem('arabic_completed_as_sifat', 'true');
             localStorage.setItem('score_as_sifat', score);
             return;
@@ -305,12 +537,12 @@
         if (selected === correct) {
             score += 10;
             document.getElementById('current-score').innerText = score;
-            selectedBtn.className = "p-4 text-center border border-emerald-500 bg-emerald-500/20 rounded-xl text-sm font-semibold text-emerald-300 animate-success";
+            selectedBtn.className = "p-4 text-center border border-cyan-400 bg-cyan-950/40 rounded-xl text-sm font-semibold text-cyan-300 animate-success";
             feedbackBadge.innerText = "Correct! 🎉";
-            feedbackBadge.className = "px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold";
+            feedbackBadge.className = "px-2.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold";
         } else {
             selectedBtn.className = "p-4 text-center border border-rose-500 bg-rose-500/20 rounded-xl text-sm font-semibold text-rose-300";
-            allButtons[correct].className = "p-4 text-center border border-emerald-500 bg-emerald-500/20 rounded-xl text-sm font-semibold text-emerald-300";
+            allButtons[correct].className = "p-4 text-center border border-cyan-400 bg-cyan-950/40 rounded-xl text-sm font-semibold text-cyan-300";
             feedbackBadge.innerText = "Incorrect";
             feedbackBadge.className = "px-2.5 py-0.5 rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold";
         }
