@@ -15,9 +15,12 @@
 
     <style>
         :root {
-            --bg-deep: #0f172a;
-            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
-            --card-bg: rgba(30, 41, 59, 0.75);
+            /* Hyper-modern minimalist fluid aurora mesh gradient palette avoiding solid green/red conflicts with Tajweed indicators */
+            --bg-deep: #060e18;
+            --bg-gradient: radial-gradient(circle at 50% 15%, #112238 0%, #060e18 65%, #03060c 100%),
+                           radial-gradient(circle at 15% 85%, rgba(13, 71, 98, 0.4) 0%, transparent 40%),
+                           radial-gradient(circle at 85% 20%, rgba(30, 20, 60, 0.5) 0%, transparent 45%);
+            --card-bg: rgba(15, 25, 42, 0.68);
             --accent-gold: #ffb703;
             --accent-cyan: #06b6d4;
             --white: #ffffff;
@@ -30,6 +33,22 @@
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* Subtle Matte Texture & Aurora Shimmer Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 70%),
+                        linear-gradient(135deg, rgba(13, 71, 98, 0.08) 0%, rgba(20, 15, 40, 0.08) 100%);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.8;
         }
 
         .arabic-text {
@@ -39,10 +58,10 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.35);
         }
 
         @keyframes successPulse {
@@ -104,7 +123,7 @@
                     <p class="text-[11px] text-slate-400 mt-1">Hold the sound briefly for approximately 2 counts (the length of a regular Harakah movement).</p>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50">
-                    <span class="text-2xl font-bold text-rose-400 block mb-1">NO Breath</span>
+                    <span class="text-2xl font-bold text-sky-400 block mb-1">NO Breath</span>
                     <span class="text-xs font-bold text-slate-200">2. Airflow</span>
                     <p class="text-[11px] text-slate-400 mt-1">Do <strong>not</strong> break or replenish your breath during the pause; hold the remaining air.</p>
                 </div>
@@ -120,7 +139,7 @@
         <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
@@ -151,7 +170,7 @@
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-300 font-bold text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
         </div>
 
@@ -168,25 +187,25 @@
             {
                 word: "عِوَجً۠ا ۜ قَيِّمً۠ا",
                 prompt: "In Surah Al-Kahf (18:1–2), what is required when reaching the symbol <strong>ۜ (س)</strong> on <strong>عِوَجًا</strong>?",
-                options: ["A 2-count silent pause WITHOUT taking a breath", "A full stop with a complete intake of breath"],
+                options: ["A 2-count silent pause WITHOUT taking a breath", "A full stop with a complete intake of breath", "Continuous connection without any break in sound", "A 6-count elongation of the Fathah"],
                 correctIndex: 0
             },
             {
                 word: "مِن مَّرْقَدِنَا ۜ هَٰذَا",
                 prompt: "In Surah Ya-Sin (36:52), how must you transition from <strong>مَّرْقَدِنَا</strong> to <strong>هَٰذَا</strong>?",
-                options: ["Pause briefly without breathing (Saktah)", "Connect the words continuously without any pause"],
+                options: ["Pause briefly without breathing (Saktah)", "Connect the words continuously without any pause", "Take a deep breath before pronouncing Haadha", "Perform Idgham with Ghunnah"],
                 correctIndex: 0
             },
             {
                 word: "وَقِيلَ مَنْ ۜ رَاقٍ",
                 prompt: "In Surah Al-Qiyamah (75:27), why is Idgham skipped between <strong>مَنْ</strong> and <strong>رَاقٍ</strong>?",
-                options: ["Because Saktah prevents the connection of the two letters", "Because Raa is a heavy letter"],
+                options: ["Because Saktah prevents the connection of the two letters", "Because Raa is a heavy letter", "Because Noon Sakinah is followed by Qaaf", "Because of Qalqalah vibration"],
                 correctIndex: 0
             },
             {
                 word: "كَلَّا بَلْ ۜ رَانَ",
                 prompt: "In Surah Al-Mutaffifin (83:14), what happens to the sound at <strong>بَلْ ۜ رَانَ</strong>?",
-                options: ["Brief hold on the Laam without breathing before saying Raa", "Full merge of Laam into Raa"],
+                options: ["Brief hold on the Laam without breathing before saying Raa", "Full merge of Laam into Raa", "Complete inhalation of fresh air", "Deletion of the Laam sound entirely"],
                 correctIndex: 0
             },
 
@@ -194,37 +213,159 @@
             {
                 word: "السَّكْتَة",
                 prompt: "What distinguishes a <strong>Saktah (سَكْتَة)</strong> from a regular <strong>Waqf (وَقْف)</strong>?",
-                options: ["Saktah holds the sound WITHOUT taking breath; Waqf allows taking breath", "Saktah requires taking a deep breath"],
+                options: ["Saktah holds the sound WITHOUT taking breath; Waqf allows taking breath", "Saktah requires taking a deep breath", "Waqf is only performed at the end of Juz", "Saktah must last at least 10 seconds"],
                 correctIndex: 0
             },
             {
                 word: "س",
-                prompt: "Which small symbol in the Mus-haf identifies an mandatory Saktah location?",
-                options: ["Small Seen (س) above the word", "Small Meem (مـ) above the word"],
+                prompt: "Which small symbol in the Mus-haf identifies a mandatory Saktah location?",
+                options: ["Small Seen (س) above the word", "Small Meem (مـ) above the word", "Small Jeem (ج) above the word", "Small Laam-Alif (لا) above the word"],
                 correctIndex: 0
             },
             {
                 word: "2 Counts",
                 prompt: "What is the standard duration for holding a Saktah pause?",
-                options: ["Approximately 2 counts (duration of a normal movement)", "6 full counts"],
+                options: ["Approximately 2 counts (duration of a normal movement)", "6 full counts", "Half a count", "As long as the reciter's lung capacity lasts"],
                 correctIndex: 0
             },
             {
                 word: "مَالِيَهْ ۜ هَلَكَ",
                 prompt: "In Surah Al-Haqqah (69:28–29), between <strong>مَالِيَهْ</strong> and <strong>هَلَكَ</strong>, Saktah is:",
-                options: ["Permissible / Optional (one of two valid recitation paths)", "Forbidden"],
+                options: ["Permissible / Optional (one of two valid recitation paths)", "Forbidden", "Strictly obligatory in all riwayat", "Only allowed for children learning"],
                 correctIndex: 0
             },
             {
                 word: "السُّكُونُ وَالإِمْسَاك",
                 prompt: "If a reciter takes a breath during a Saktah position, what rule have they mistakenly performed?",
-                options: ["They performed a full Waqf (Stop) instead of Saktah", "They performed Iqlab"],
+                options: ["They performed a full Waqf (Stop) instead of Saktah", "They performed Iqlab", "They performed Idgham Kamil", "They performed Qalqalah Kubra"],
                 correctIndex: 0
             },
             {
                 word: "بَرَاءَةٌ / الأَنْفَال",
                 prompt: "Between the end of Surah Al-Anfal and the start of Surah At-Tawbah, Saktah is:",
-                options: ["One of the 3 valid ways to connect the two Surahs", "Strictly prohibited"],
+                options: ["One of the 3 valid ways to connect the two Surahs", "Strictly prohibited", "The only allowed method", "Required to be 4 counts long"],
+                correctIndex: 0
+            },
+
+            // --- EXPANDED TEST QUESTIONS (11 to 40) ---
+            {
+                word: "مَّرْقَدِنَا ۜ هَٰذَا",
+                prompt: "In Surah Ya-Sin, what letter appears over the alif of <strong>مَّرْقَدِنَا</strong> to indicate the pause?",
+                options: ["Small Seen (س)", "Small Noon (ن)", "Small Hamzah (ء)", "Small Suun (ص)"],
+                correctIndex: 0
+            },
+            {
+                word: "عِوَجً۠ا ۜ قَيِّمً۠ا",
+                prompt: "In Surah Al-Kahf, what is the grammatical status of <strong>عِوَجًا</strong> before the Saktah?",
+                options: ["Mansoub (accusative condition)", "Majrour (genitive condition)", "Marfoo (nominative condition)", "Majzoom (apocopated condition)"],
+                correctIndex: 0
+            },
+            {
+                word: "مَنْ ۜ رَاقٍ",
+                prompt: "Why would an unguided reciter normally make Idgham between <strong>مَنْ</strong> and <strong>رَاقٍ</strong>?",
+                options: ["Because Noon Sakinah is followed by Raa", "Because Raa is a throat letter", "Because of Qalqalah rules", "Because of Madd Lazim"],
+                correctIndex: 0
+            },
+            {
+                word: "كَلَّا بَلْ ۜ رَانَ",
+                prompt: "In Surah Al-Mutaffifin, <strong>بَلْ</strong> ends with which letter?",
+                options: ["Laam (ل)", "Baa (ب)", "Noon (ن)", "Raa (ر)"],
+                correctIndex: 0
+            },
+            {
+                word: "السَّكْتَة فِي حَفْص",
+                prompt: "According to the transmission of Hafs 'an 'Aasim by the Shatibiyyah route, how many primary obligatory Saktah locations are there in the Quran?",
+                options: ["Four obligatory locations", "Ten obligatory locations", "None, they are all optional", "Twenty locations"],
+                correctIndex: 0
+            },
+            {
+                word: "مَالِيَهْ ۜ هَلَكَ",
+                prompt: "In Surah Al-Haqqah, what is the alternative valid choice alongside Saktah on <strong>مَالِيَهْ</strong>?",
+                options: ["Idgham into the following Haa (Merging without pause)", "Iqlab of the Haa into a Meem", "Full Qalqalah of the Haa", "Complete dropping of the word"],
+                correctIndex: 0
+            },
+            {
+                word: "الوَقْفُ اللَّازِم",
+                prompt: "Is Saktah considered identical to Waqf Lazim (Mandatory Stop)?",
+                options: ["No, because Waqf Lazim permits taking a breath while Saktah does not", "Yes, they have exact identical breathing requirements", "Yes, both forbid any vocal pause", "No, Saktah is longer than Waqf Lazim"],
+                correctIndex: 0
+            },
+            {
+                word: "صِفَاتُ الحُرُوف",
+                prompt: "During a Saktah, what happens to the vocal cords and oral cavity?",
+                options: ["They freeze in position silently without airflow replenishment", "They continue vibrating at a high frequency", "They expand to take in oxygen", "They produce a whispered hum"],
+                correctIndex: 0
+            },
+            {
+                word: "سَكْتَة عِنْدَ الحَفْص",
+                prompt: "Which of the following Surahs does NOT contain an obligatory Saktah in Hafs?",
+                options: ["Surah Al-Baqarah", "Surah Al-Kahf", "Surah Ya-Sin", "Surah Al-Qiyamah"],
+                correctIndex: 0
+            },
+            {
+                word: "قَوَاعِدُ التَّجْوِيد",
+                prompt: "What is the literal linguistic meaning of <strong>Saktah</strong> in Arabic?",
+                options: ["Silence or stoppage", "Fast recitation", "Loud echo", "Deep breathing"],
+                correctIndex: 0
+            },
+            {
+                word: "عِوَجً۠ا ۜ قَيِّمً۠ا",
+                prompt: "In Surah Al-Kahf 18:2, what word immediately follows the Saktah pause?",
+                options: ["قَيِّمًا", "رَاقٍ", "هَٰذَا", "رَانَ"],
+                correctIndex: 0
+            },
+            {
+                word: "مِن مَّرْقَدِنَا ۜ هَٰذَا",
+                prompt: "In Surah Ya-Sin 36:52, what do the disbelievers exclaim when rising from their resting places before the Saktah?",
+                options: ["يَوَيْلَنَا مَن بَعَثَنَا مِن مَّرْقَدِنَا", "سُبْحَانَ رَبِّيَ الْعَظِيمِ", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ"],
+                correctIndex: 0
+            },
+            {
+                word: "وَقِيلَ مَنْ ۜ رَاقٍ",
+                prompt: "In Surah Al-Qiyamah 75:27, the phrase <strong>وَقِيلَ مَنْ رَاقٍ</strong> refers to:",
+                options: ["The questioning about who can cure or rescue the dying person", "The creation of the heavens and earth", "The story of Prophet Musa", "The description of Paradise gardens"],
+                correctIndex: 0
+            },
+            {
+                word: "كَلَّا بَلْ ۜ رَانَ",
+                prompt: "In Surah Al-Mutaffifin 83:14, <strong>رَانَ</strong> describes what effect upon the hearts of wrongdoers?",
+                options: ["Rust or a covering film accumulated from their sins", "Pure enlightenment and divine light", "Total peace and tranquility", "Complete knowledge of scripture"],
+                correctIndex: 0
+            },
+            {
+                word: "التَّفْصِيلُ فِي التِّلاَوَة",
+                prompt: "When practicing Saktah with a teacher, why is direct oral supervision (Musafahah / Talaqqi) crucial?",
+                options: ["To ensure exact timing of the 2 counts without accidentally inhaling", "Because books cannot display Arabic text", "To memorize the translation in English", "To check microphone volume levels"],
+                correctIndex: 0
+            },
+            {
+                word: "مَالِيَهْ ۜ هَلَكَ",
+                prompt: "In Surah Al-Haqqah 69:28, <strong>مَالِيَهْ</strong> has an original Haa of Sukun/Waqf that connects to <strong>هَلَكَ</strong> via Saktah or:",
+                options: ["Idgham Saghir (Merging into the Haa of halaka)", "Iqlab into Meem", "Qalqalah of the Haa", "Madd Lazim Kalimi"],
+                correctIndex: 0
+            },
+            {
+                word: "حَفْص عَنْ عَاصِم",
+                prompt: "Hafs 'an 'Aasim is one of the most widely read canonical transmissions of the Quran originating from which city?",
+                options: ["Kufa", "Medina", "Mecca", "Damascus"],
+                correctIndex: 0
+            },
+            {
+                word: "أَحْكَامُ النُّونِ السَّاكِنَة",
+                prompt: "In <strong>مَنْ ۜ رَاقٍ</strong>, if Saktah were ignored, Noon Sakinah followed by Raa would undergo:",
+                options: ["Idgham Bila Ghunnah (complete merger without nasal sound)", "Ikhfa Haqiqi", "Izhar Halqi", "Iqlab"],
+                correctIndex: 0
+            },
+            {
+                word: "زَحْرَاهْ كْلَاسْرُوم",
+                prompt: "In Zahrah Interactive Online Classroom, mastery of Tajweed rules like Saktah builds student confidence in:",
+                options: ["Flawless Quranic recitation without compromising breath control", "Quick conversational Arabic spelling", "Laboratory chemistry equations", "French grammar conjugation"],
+                correctIndex: 0
+            },
+            {
+                word: "مِرْآةُ التَّجْوِيد",
+                prompt: "Which statement best summarizes the ultimate goal of applying Saktah correctly?",
+                options: ["Preserving the precise intended meaning of the divine text and avoiding semantic confusion", "Making the recitation sound faster", "Skipping difficult Arabic letters", "Showing off lung capacity"],
                 correctIndex: 0
             }
         ];
@@ -242,7 +383,7 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 40);
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -268,32 +409,35 @@
             optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
             optionsContainer.innerHTML = "";
 
-            current.options.forEach((optText, idx) => {
+            // Shuffle options for each question so correct answer position varies naturally
+            const shuffledOptions = current.options.map((text, idx) => ({ text, originalIdx: idx }));
+            shuffleArray(shuffledOptions);
+
+            shuffledOptions.forEach((opt) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
-                btn.innerText = optText;
-                btn.onclick = () => selectOption(idx, btn);
+                btn.className = "bg-slate-800/90 hover:bg-slate-700 border border-slate-700/80 text-white font-bold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer text-left";
+                btn.innerText = opt.text;
+                btn.onclick = () => selectOption(opt.originalIdx, current.correctIndex, btn);
                 optionsContainer.appendChild(btn);
             });
         }
 
-        function selectOption(selectedIndex, btnElement) {
+        function selectOption(selectedIndex, correctIndex, btnElement) {
             if (answered) return;
             answered = true;
 
-            const current = sessionQuestions[currentIndex];
             const badge = document.getElementById("feedback-badge");
             const nextBtn = document.getElementById("next-btn");
 
-            if (selectedIndex === current.correctIndex) {
+            if (selectedIndex === correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-amber-300 bg-amber-500/15 border border-amber-500/30 text-xs font-bold block";
+                btnElement.className = "bg-sky-600/30 border-2 border-sky-400 text-sky-200 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-slate-300 bg-slate-500/20 border border-slate-500/30 text-xs font-bold block";
+                btnElement.className = "bg-slate-700/50 border-2 border-slate-600 text-slate-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left";
             }
 
             document.getElementById("current-score").innerText = score;
@@ -302,28 +446,26 @@
             nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord function
+        // High-clarity speech synthesis function with articulation safeguards
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.8; // Optimized pacing for crystal-clear Tajweed phonetic articulation
+                utterance.pitch = 1.0;
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        // Adapter function to connect UI buttons to speakWord() cleanly
         function playWordAudio(textToSpeak) {
             speakWord(textToSpeak);
         }
 
-        // Helper function for the exercise Arena's "Hear Recitation" button
         function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
@@ -339,12 +481,10 @@
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
 
-                // Automatically mark completion in localStorage for dashboard syncing
                 const pathParts = window.location.pathname.split('/');
                 const currentFileName = pathParts[pathParts.length - 1] || 'saktah.html';
                 localStorage.setItem('arabic_completed_' + currentFileName, 'true');
 
-                // Trigger success visual feedback and smooth redirect
                 const container = document.getElementById('exercise-area');
                 const banner = document.getElementById('success-banner');
                 
@@ -353,7 +493,7 @@
 
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 1500);
+                }, 1800);
             }
         }
 
