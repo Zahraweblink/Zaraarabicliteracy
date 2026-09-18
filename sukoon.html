@@ -10,11 +10,12 @@
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
-            --accent-gold: #ffb703;
-            --accent-amber: #f59e0b;
+            --bg-dark: #070d18;
+            --bg-gradient: radial-gradient(circle at 50% 15%, #112238 0%, #070d18 85%),
+                           linear-gradient(135deg, rgba(13, 27, 42, 0.9) 0%, rgba(7, 13, 24, 0.95) 100%);
+            --card-bg: rgba(19, 31, 51, 0.75);
+            --accent-gold: #f59e0b;
+            --accent-purple: #c084fc;
             --accent-sky: #38bdf8;
             --white: #ffffff;
         }
@@ -28,6 +29,22 @@
             min-height: 100vh;
         }
 
+        /* Fluid Aurora Mesh Background Overlay with Matte Texture & Glassmorphic Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 30%, rgba(20, 184, 166, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(76, 29, 149, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 90%, rgba(30, 41, 59, 0.2) 0%, transparent 60%);
+            opacity: 1;
+        }
+
         .arabic-text {
             font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
             direction: rtl;
@@ -35,16 +52,16 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(192, 132, 252, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(192, 132, 252, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -55,11 +72,11 @@
 
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
-        <a href="index.html" class="glass-card px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-amber-400 transition-all flex items-center gap-2">
-            <i class="fa-solid fa-arrow-left text-amber-400"></i> Back to Dashboard Hub
+        <a href="index.html" class="glass-card px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:border-purple-400 transition-all flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left text-purple-400"></i> Back to Dashboard Hub
         </a>
-        <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
-            <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        <div class="flex items-center gap-2 bg-purple-500/10 border border-purple-500/30 px-4 py-1.5 rounded-full text-purple-300 font-bold text-sm">
+            <i class="fa-solid fa-star text-amber-400"></i> Level Score: <span id="current-score">0</span> pts
         </div>
     </header>
 
@@ -68,43 +85,43 @@
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
-            <div class="inline-block bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+            <div class="inline-block bg-purple-500/10 text-purple-300 border border-purple-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                 Essential Tajweed Module
             </div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400" id="output-board">Sukoon & Stillness (السُّكُون)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master how vowelless letters are blended with preceding vowels and how Qalqalah bounce works.
+                Master how vowelless letters are blended with preceding vowels and how Qalqalah bounce works with comprehensive guided audio.
             </p>
         </div>
 
         <!-- Practical Rule Explainer Card with Audio Templates -->
-        <div class="glass-card rounded-3xl p-6 border-amber-500/30 space-y-4">
+        <div class="glass-card rounded-3xl p-6 border-slate-700/60 space-y-4">
             <h2 class="text-lg font-bold text-amber-300 flex items-center gap-2">
-                <i class="fa-solid fa-lightbulb"></i> Rules of Sukoon (سُكُون):
+                <i class="fa-solid fa-lightbulb text-purple-400"></i> Rules of Sukoon (سُكُون):
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-amber-500/30 flex flex-col items-center justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-between">
                     <div>
                         <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَبْ</span>
-                        <span class="text-xs font-bold text-amber-300 uppercase tracking-wide">🔗 Static Sound Blending</span>
+                        <span class="text-xs font-bold text-purple-300 uppercase tracking-wide">🔗 Static Sound Blending</span>
                         <p class="text-[11px] text-slate-300 mt-2">
-                            A letter with a Sukoon (ْ) attaches directly to the letter before it.
+                            A letter with a Sukoon (ْ) attaches directly to the letter before it for clean consonantal closure.
                         </p>
                     </div>
-                    <button onclick="playWordAudio('أَبْ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <button onclick="playWordAudio('أَبْ')" class="mt-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                         <i class="fa-solid fa-volume-high"></i> Listen (أَبْ)
                     </button>
                 </div>
 
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-sky-500/30 flex flex-col items-center justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-between">
                     <div>
                         <span class="text-3xl font-bold arabic-text text-sky-400 block mb-1">أَحَدْ</span>
                         <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">⭐ Qalqalah Bounce (قطب جد)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
-                            Produce a distinct echo or bouncing sound when stopping on Qalqalah letters.
+                            Produce a distinct echo or bouncing sound when stopping on Qalqalah letters without adding a full vowel.
                         </p>
                     </div>
-                    <button onclick="playWordAudio('أَحَدْ')" class="mt-3 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <button onclick="playWordAudio('أَحَدْ')" class="mt-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                         <i class="fa-solid fa-volume-high"></i> Listen (أَحَدْ)
                     </button>
                 </div>
@@ -112,10 +129,10 @@
         </div>
 
         <!-- Interactive Practice Arena -->
-        <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+        <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden border-slate-700/60">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
@@ -124,7 +141,7 @@
                 <div id="target-arabic" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide">
                     أَبْ
                 </div>
-                <button onclick="playCurrentWord()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
+                <button onclick="playCurrentWord()" class="bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
                     <i class="fa-solid fa-volume-high"></i> Listen to Target Word
                 </button>
                 <p id="target-prompt" class="text-sm text-slate-300 max-w-md px-4 pt-1">
@@ -139,14 +156,14 @@
 
             <!-- Action Controls -->
             <div class="flex justify-end items-center pt-2">
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed border border-slate-700">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-purple-500/15 border border-purple-500/40 text-purple-300 font-bold text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
         </div>
 
@@ -158,9 +175,8 @@
     </footer>
 
     <script>
-        // 20-Exercise Question Bank for Sukoon and Stillness
+        // Full 40-Exercise Question Bank for Sukoon and Stillness
         const questionBank = [
-            // --- MODE 1: BASIC SUKOON BLENDING ---
             {
                 word: "أَبْ",
                 prompt: "In <strong>أَبْ</strong>, how does the letter <strong>بْ</strong> with Sukoon behave?",
@@ -191,8 +207,6 @@
                 options: ["Stilled and linked directly to Baa", "Pronounced with a short Kasrah"],
                 correctIndex: 0
             },
-
-            // --- MODE 2: QALQALAH BOUNCE (قطب جد) ---
             {
                 word: "أَحَدْ",
                 prompt: "When stopping on <strong>أَحَدْ</strong>, why does Dal (د) bounce?",
@@ -219,20 +233,18 @@
             },
             {
                 word: "خَلَقَ",
-                prompt: "Which of these words contains a letter with explicit Sukoon?",
-                options: ["Look for static letter combinations in connected reading", "Every letter has a Harakah"],
+                prompt: "Which of these concepts relates directly to vowelless reading stability?",
+                options: ["Sukoon represents total stillness of breath and vowel", "Sukoon lengthens a letter by 4 counts"],
                 correctIndex: 0
             },
-
-            // --- MODE 3: IDENTIFYING SYLLABLES & BLENDING ---
             {
-                word: "يْت",
+                word: "كَيْ",
                 prompt: "When a Ya with Sukoon (يْ) is preceded by a Fathah (e.g., كَيْ), it forms a:",
                 options: ["Diphthong / Soft Letter (Layin)", "Sun letter merge"],
                 correctIndex: 0
             },
             {
-                word: "وْ",
+                word: "خَوْ",
                 prompt: "When a Waw with Sukoon (وْ) is preceded by a Fathah (e.g., خَوْ), what sound does it make?",
                 options: ["'Aw' sound", "Long 'Oo' sound"],
                 correctIndex: 0
@@ -255,8 +267,6 @@
                 options: ["Smoothly blend 'La' into closed 'm'", "Pronounce an extra vowel between them"],
                 correctIndex: 0
             },
-
-            // --- MODE 4: ADVANCED TAFKHEEM & QURANIC CONTEXTS ---
             {
                 word: "مَرْ",
                 prompt: "When Ra with Sukoon (رْ) is preceded by a Fathah (e.g., مَرْ), the Ra is pronounced:",
@@ -286,6 +296,126 @@
                 prompt: "When stopping on <strong>الصَّمَدْ</strong>, the Dal with Sukoon requires:",
                 options: ["Qalqalah (clear echo)", "Complete silence with no vibration"],
                 correctIndex: 0
+            },
+            {
+                word: "أُتْرُكْ",
+                prompt: "In <strong>أُتْرُكْ</strong>, the Kaf at the end has a Sukoon. What is the correct way to pronounce it?",
+                options: ["Clean stop without breath release", "Full bounce echo"],
+                correctIndex: 0
+            },
+            {
+                word: "مَرْيَم",
+                prompt: "In <strong>مَرْيَم</strong>, the letter Ra has a Sukoon and is preceded by Fathah. It is:",
+                options: ["Pronounced heavy (Tafkheem)", "Dropped entirely"],
+                correctIndex: 0
+            },
+            {
+                word: "بِسْمِ",
+                prompt: "In <strong>بِسْمِ</strong>, the Seen carries a Sukoon. How should it sound?",
+                options: ["A soft, continuous hissing closure", "A heavy throaty sound"],
+                correctIndex: 0
+            },
+            {
+                word: "الْحَمْدُ",
+                prompt: "In <strong>الْحَمْدُ</strong>, the Meem has a Sukoon. What rule applies to it here?",
+                options: ["Clear reading without ghunnah or bounce (Izhar Shafaawi context)", "Nasal prolongation"],
+                correctIndex: 0
+            },
+            {
+                word: "يَأْكُلُ",
+                prompt: "In <strong>يَأْكُلُ</strong>, the Hamzah has a Sukoon (أْ). How is it executed?",
+                options: ["A sudden glottal stop connecting the Ya and Kaf", "A long vowel stretch"],
+                correctIndex: 0
+            },
+            {
+                word: "تَدْخُلُونَ",
+                prompt: "In <strong>تَدْخُلُونَ</strong>, the Dal has a Sukoon and belongs to قطب جد. Is it bounced in the middle of a word?",
+                options: ["It receives a subtle, lighter echo (Qalqalah Sughra)", "It does not bounce at all"],
+                correctIndex: 0
+            },
+            {
+                word: "يَبْصُرُونَ",
+                prompt: "In <strong>يَبْصُرُونَ</strong>, the Baa with Sukoon is followed by Ṣaad. How should Baa be articulated?",
+                options: ["Bounced lightly as an inner Qalqalah", "Swallowed silently"],
+                correctIndex: 0
+            },
+            {
+                word: "وَالشَّمْسِ",
+                prompt: "In <strong>وَالشَّمْسِ</strong>, the Seen has a Sukoon. What phonetic quality is produced?",
+                options: ["A fine sibilant hiss (Hams & Rakhawah)", "A deep throat contraction"],
+                correctIndex: 0
+            },
+            {
+                word: "نَصْرُ",
+                prompt: "In <strong>نَصْرُ</strong>, the Ṣaad carries a Sukoon. Ṣaad is a letter of:",
+                options: ["Emphasis (Isti'la) and friction", "Nasal resonance only"],
+                correctIndex: 0
+            },
+            {
+                word: "الصَّبْرِ",
+                prompt: "In <strong>الصَّبْرِ</strong>, the Baa has a Sukoon in the middle of the word. How is it treated?",
+                options: ["Inner Qalqalah (bounced gently)", "Full silent merge"],
+                correctIndex: 0
+            },
+            {
+                word: "قُلْ هُوَ",
+                prompt: "When connecting <strong>قُلْ</strong> (with Sukoon on Lam) to <strong>هُوَ</strong>, what happens?",
+                options: ["The Lam is pronounced clearly without stopping", "A vowel is inserted between them"],
+                correctIndex: 0
+            },
+            {
+                word: "فَاصْبِرْ",
+                prompt: "When stopping on <strong>فَاصْبِرْ</strong>, the Ra has a Sukoon and is preceded by Kasrah. It is read:",
+                options: ["Thin / Light (Tarqeeq)", "Extremely thick"],
+                correctIndex: 0
+            },
+            {
+                word: "الْحَقُّ",
+                prompt: "In <strong>الْحَقُّ</strong>, the Lam has a Sukoon and the Qaf has a Shaddah. The Lam is:",
+                options: ["A clear Moon Lam (Lam Qamariyyah)", "A Sun Lam assimilated away"],
+                correctIndex: 0
+            },
+            {
+                word: "مِصْرْ",
+                prompt: "When stopping on <strong>مِصْرْ</strong>, how is the final Ra pronounced due to the preceding Ṣaad with Sukoon?",
+                options: ["Heavy / Thick (Tafkheem) due to the heavy letter before it", "Always light"],
+                correctIndex: 0
+            },
+            {
+                word: "وَالْعَصْرِ",
+                prompt: "In <strong>وَالْعَصْرِ</strong>, the Ayn has a Sukoon. Where originates the Ayn sound?",
+                options: ["From the middle of the throat (Middle Pharynx)", "From the lips"],
+                correctIndex: 0
+            },
+            {
+                word: "يَخْلُقُ",
+                prompt: "When a Khā' appears with a Sukoon (خْ), what attribute does it carry?",
+                options: ["Friction and breath flow (Rakhawah)", "Complete closure"],
+                correctIndex: 0
+            },
+            {
+                word: "مُسْتَقِيم",
+                prompt: "In <strong>مُسْتَقِيم</strong>, the Seen has a Sukoon. How should it contrast with the following Taa?",
+                options: ["Maintain a clean sibilant breath before transitioning to Taa", "Merge into a single letter"],
+                correctIndex: 0
+            },
+            {
+                word: "بِضَرَرْ",
+                prompt: "When pausing on a letter with Sukoon preceded by a Fathah, the tone should remain:",
+                options: ["Firm and steady in its base Harakah origin", "Unstable"],
+                correctIndex: 0
+            },
+            {
+                word: "تَنْهَ",
+                prompt: "In <strong>تَنْهَ</strong>, the Noon has a Sukoon before a throat letter (Haa). This is an example of:",
+                options: ["Izhar (Clear Noon pronunciation)", "Idgham (Merging)"],
+                correctIndex: 0
+            },
+            {
+                word: "سُبْحَانَ",
+                prompt: "In <strong>سُبْحَانَ</strong>, the Baa with Sukoon belongs to the Qalqalah group (قطب جد). In this connected middle position, it receives:",
+                options: ["A soft inner bounce (Qalqalah Sughra)", "Zero vibration"],
+                correctIndex: 0
             }
         ];
 
@@ -302,7 +432,7 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            sessionQuestions = shuffleArray([...questionBank]);
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -322,7 +452,7 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed border border-slate-700";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
@@ -330,7 +460,7 @@
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
+                btn.className = "bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-purple-400 cursorA-pointer text-left";
                 btn.innerText = optText;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
@@ -348,30 +478,29 @@
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-purple-300 bg-purple-500/10 border border-purple-500/30 text-xs font-bold block";
+                btnElement.className = "bg-purple-600/30 border-2 border-purple-500 text-purple-200 font-bold py-4 px-3 rounded-2xl text-sm md:text-base text-left";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-300 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-200 font-bold py-4 px-3 rounded-2xl text-sm md:text-base text-left";
             }
 
             document.getElementById("current-score").innerText = score;
 
             nextBtn.disabled = false;
-            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+            nextBtn.className = "bg-purple-600 hover:bg-purple-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
         // Integrated speakWord() core function with text-override support
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.85; // Slower rate for pristine Tajweed enunciation
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
