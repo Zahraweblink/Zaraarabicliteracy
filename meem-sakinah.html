@@ -3,134 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Makhaarij Studio | Zahrah’s Interactive Arabic Literacy & Tajweed Mastery App</title>
-    
+    <title>Meem Sakinah Rules & Practice | Zahrah Interactive Online Classroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-dark: #070d19;
-            /* Hyper-modern fluid aurora mesh gradient transitioning between deep spiritual teal, rich midnight velvet, and muted cosmic indigo */
-            --bg-gradient: radial-gradient(circle at 20% 20%, #0d2838 0%, #070d19 50%), radial-gradient(circle at 80% 80%, #151a30 0%, #070d19 60%), linear-gradient(135deg, #070d19 0%, #0a1728 50%, #070d19 100%);
-            --card-bg: rgba(13, 22, 38, 0.72);
-            --accent-gold: #ffb703;
-            --accent-cyan: #06b6d4;
+            /* 
+              Aesthetic instructions applied:
+              - Premium, hyper-modern, minimalist mobile UI background design
+              - Smooth, flowing fluid aurora mesh gradients transitioning softly between deep spiritual teal, rich midnight velvet, and subtle cosmic indigo.
+              - Rule-Color Isolation: Avoided solid green or red background accents to prevent conflict with Tajweed rule indicators (Ikhfa green / Madd red).
+              - Matte finish: Soft glassmorphic glowing ambiance from behind, no harsh high-contrast shapes.
+            */
+            --bg-dark: #060a12;
+            --bg-gradient: radial-gradient(circle at 15% 20%, rgba(10, 30, 48, 0.75) 0%, rgba(6, 10, 18, 0.95) 50%, #03050a 100%),
+                           radial-gradient(circle at 85% 80%, rgba(18, 35, 55, 0.5) 0%, transparent 60%);
+            --card-bg: rgba(12, 19, 34, 0.68);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #22d3ee;
             --white: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-dark);
             background-image: var(--bg-gradient);
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Subtle matte fluid aurora background aura overlay conforming to strict color isolation (no conflicting green/red accents) */
-        .aurora-bg-mesh {
+        /* Subtle fluid aurora glowing ambient whisper from behind */
+        body::before {
+            content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 35% 35%, rgba(15, 55, 75, 0.14) 0%, rgba(35, 20, 60, 0.08) 40%, transparent 70%);
             z-index: -1;
-            opacity: 0.45; /* Rich aura on active workspace */
-            background: 
-                radial-gradient(circle at 15% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 70%, rgba(99, 102, 241, 0.07) 0%, transparent 45%);
+            pointer-events: none;
+            filter: blur(80px);
         }
 
         .arabic-text {
-            font-family: 'Traditional Arabic', 'Scheherazade New', 'Amiri', serif;
+            font-family: 'Amiri', 'Traditional Arabic', 'Scheherazade New', serif;
             direction: rtl;
         }
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
         }
-        
-        @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
-            70% { transform: scale(1.01); box-shadow: 0 0 0 16px rgba(6, 182, 212, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        .animate-success {
-            animation: successPulse 0.8s ease-in-out;
+        ::-webkit-scrollbar-track {
+            background: rgba(6, 10, 18, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(34, 211, 238, 0.25);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 211, 238, 0.45);
         }
     </style>
 </head>
-<body class="p-4 md:p-8 flex flex-col items-center relative">
-
-    <!-- Fluid Aurora Mesh Background Layer -->
-    <div class="aurora-bg-mesh"></div>
+<body class="p-4 md:p-8 flex flex-col items-center">
 
     <!-- Header Navigation -->
-    <header class="w-full max-w-3xl flex justify-between items-center mb-6 z-10">
-        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold bg-slate-900/80 px-3.5 py-2 rounded-xl border border-slate-800 shadow-md">
+    <header class="w-full max-w-4xl flex justify-between items-center mb-6">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
-        <div class="flex items-center gap-3">
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm shadow-inner">
-                <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
+        <div class="flex items-center gap-4">
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-full text-slate-300 text-xs font-medium">
+                <i class="fa-solid fa-trophy text-amber-400"></i> Best: <span id="high-score" class="text-amber-400 font-bold">0</span> pts
             </div>
-            <div class="hidden md:inline-block bg-slate-900/80 text-cyan-300 border border-slate-800 text-xs font-bold px-3 py-1.5 rounded-full">
-                Zahrah’s Interactive Online Classroom
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+                <i class="fa-solid fa-star"></i> Score: <span id="current-score">0</span> pts
             </div>
         </div>
     </header>
 
     <!-- Main Workspace -->
-    <main class="w-full max-w-3xl space-y-6 z-10">
+    <main class="w-full max-w-4xl space-y-6">
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
-            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
-                Tajweed Articulation Points Masterclass (40 Questions Module)
+            <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Zahrah Interactive Online Classroom
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400 tracking-tight">Al-Makhaarij Studio (مَخَارِج الحُرُوف)</h1>
-            <p class="text-slate-300 text-sm max-w-xl mx-auto leading-relaxed">
-                Master <strong>Al-Makhaarij</strong> across the comprehensive 40-question curriculum module with professional audio articulation guides.
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Meem Sakinah Rules (أَحْكَامُ المِيمِ السَّاكِنَةِ)</h1>
+            <p class="text-slate-300 text-sm max-w-xl mx-auto">
+                Comprehensive Masterclass: Complete module breakdowns, flawless phonetic voice synthesis, and rigorous practice featuring 40 curated test questions covering Ikhfa Shafawi, Idgham Shafawi, and Izhar Shafawi.
             </p>
         </div>
 
-        <!-- Rule Explainer Card -->
-        <div class="glass-card rounded-3xl p-6 border-cyan-500/20 space-y-4">
-            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-lungs"></i> The 5 Primary Exit Zones (Al-Makhaarij Al-Asliyyah)
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-1">
-                    <span class="text-sm font-bold arabic-text text-amber-400 block">1. الجَوْف (Al-Jawf)</span>
-                    <p class="text-[11px] text-slate-300 leading-tight">Empty mouth and throat space. Exit point for the 3 Madd letters (ا، و، ي).</p>
+        <!-- Comprehensive Module Explanation & Examples Section -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-cyan-500/20">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-cyan-300 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader"></i> Comprehensive Module Breakdown
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Detailed Tajweed principles governing a silent Mīm (مْ) meeting various Arabic letters.</p>
                 </div>
-                <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-1">
-                    <span class="text-sm font-bold arabic-text text-cyan-400 block">2. الحَلْق (Al-Halq)</span>
-                    <p class="text-[11px] text-slate-300 leading-tight">The throat. Divided into 3 deep, middle, and upper sections for 6 letters.</p>
+                <button onclick="playModuleOverview()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen to Overview
+                </button>
+            </div>
+
+            <!-- Detailed Subtopics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <!-- Subtopic 1 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-emerald-400">إِخْفَاءُ شَفَوِيّ</span>
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-bold">Ikhfā' Shafawī</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">1. Labial Concealment (ب)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Rule:</strong> When a silent Mīm (<span class="arabic-text">مْ</span>) is followed by the letter <span class="arabic-text">ب</span>, the Mīm is concealed with Ghunnah (nasal sound lasting 2 vowel counts).
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example:</span>
+                        <p class="arabic-text text-lg text-slate-200">تَرْمِيهِمْ بِحِجَارَةٍ</p>
+                        <p class="text-[11px] text-slate-400">Termihim bi-hijarah (Conceal Mīm at 'bim')</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Termihim bi hijarah, Labial concealment with ghunnah')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example
+                    </button>
                 </div>
-                <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-1">
-                    <span class="text-sm font-bold arabic-text text-teal-300 block">3. اللِّسَان (Al-Lisan)</span>
-                    <p class="text-[11px] text-slate-300 leading-tight">The tongue. The largest zone containing 10 separate exit points for 18 letters.</p>
+
+                <!-- Subtopic 2 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-cyan-300">إِدْغَامُ مُتَمَاثِلَيْنِ</span>
+                        <span class="text-[10px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 px-2.5 py-1 rounded-full font-bold">Idghām Shafawī</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">2. Labial Assimilation (م)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Rule:</strong> When a silent Mīm (<span class="arabic-text">مْ</span>) is followed by a moving Mīm (<span class="arabic-text">م</span>), they merge into one emphasized Mīm with complete Ghunnah.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example:</span>
+                        <p class="arabic-text text-lg text-slate-200">لَهُمْ مَا يَشْتَهُونَ</p>
+                        <p class="text-[11px] text-slate-400">Lahum-ma yashtahoon (Merged Mīms)</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Lahum ma yashtahoon, Labial assimilation with ghunnah')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example
+                    </button>
                 </div>
-                <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-1">
-                    <span class="text-sm font-bold arabic-text text-amber-300 block">4. الشَّفَتَان (Ash-Shafatan)</span>
-                    <p class="text-[11px] text-slate-300 leading-tight">The lips. Exit zone for Fa, Meem, Ba, and Waaw sounds.</p>
+
+                <!-- Subtopic 3 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-amber-400">إِظْهَارٌ شَفَوِيّ</span>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-bold">Iẓhār Shafawī</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-200">3. Labial Clarity (Other Letters)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Rule:</strong> When a silent Mīm (<span class="arabic-text">مْ</span>) meets any letter other than <span class="arabic-text">ب</span> or <span class="arabic-text">م</span>, it is pronounced clearly without extra nasal elongation.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example:</span>
+                        <p class="arabic-text text-lg text-slate-200">أَمْ لَمْ تُنْذِرْهُمْ</p>
+                        <p class="text-[11px] text-slate-400">Am lam tundirhum (Clear Mīm articulation)</p>
+                    </div>
+                    <button onclick="playSnippetAudio('Am lam tundirhum, Clear labial pronunciation')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example
+                    </button>
                 </div>
-                <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 space-y-1 md:col-span-2">
-                    <span class="text-sm font-bold arabic-text text-cyan-300 block">5. الخَيْشُوم (Al-Khayshoom)</span>
-                    <p class="text-[11px] text-slate-300 leading-tight">The nasal cavity. The exclusive exit source for Ghunnah resonance.</p>
-                </div>
+
             </div>
         </div>
 
-        <!-- Interactive Practice Arena -->
-        <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
+        <!-- Interactive Practice Arena (40 Test Questions Bank) -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs font-semibold text-slate-400">
                 <span>Question <span id="question-num">1</span> of 40</span>
@@ -138,85 +199,327 @@
             </div>
 
             <!-- Target Word / Verse Display -->
-            <div class="py-6 bg-slate-950/70 rounded-2xl border border-slate-800/80 shadow-inner">
-                <div id="target-arabic" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
-                    مَخَارِجُ <span class="text-cyan-400">الحُرُوفِ</span> الخَمْسَة
+            <div class="py-6 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="output-board" class="text-3xl md:text-4xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                    تَرْمِيهِمْ بِحِجَارَةٍ
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
-                    How many <strong>primary anatomical zones (Al-Makhaarij Al-Asliyyah)</strong> are recognized in classical Tajweed?
+                    Identify the correct Tajweed rule for the silent <span class="arabic-text text-amber-400 font-bold">مْ</span> followed by <span class="arabic-text text-cyan-300 font-bold">ب</span>:
                 </p>
             </div>
 
             <!-- Choice Options -->
-            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Buttons injected dynamically -->
             </div>
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="speakWord()" class="bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
-                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
+                <button onclick="speakWord()" class="bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high text-sm"></i> Hear Pronunciation
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-slate-900 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
-        <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
-            <i class="fa-solid fa-circle-check text-lg"></i> Outstanding mastery! Full 40-question module completed. Returning to menu...
-        </div>
-
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6 z-10">
-        Zahrah’s Interactive Online Classroom &copy; 2026. Zahrah’s Interactive Classroom - Arabic Literacy & Tajweed Mastery App.
-    </footer>
+    <!-- Audio Toast Feedback -->
+    <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 border border-cyan-500/30">
+        <i class="fa-solid fa-circle-play text-cyan-400 text-base"></i>
+        <span id="toast-text">Playing Audio...</span>
+    </div>
 
     <script>
+        // 40 Comprehensive Test Questions for Meem Sakinah Mastery
         const questionBank = [
-            { word: "الْمَخَارِج الأَصْلِيَّة", prompt: "How many <strong>primary exit zones (Al-Makhaarij Al-Asliyyah)</strong> span the human vocal apparatus in Tajweed?", options: ["5 primary zones (Jawf, Halq, Lisan, Shafatan, Khayshoom)", "10 primary zones"], correctIndex: 0 },
-            { word: "عَدَد المَخَارِج الخَاصَّة", prompt: "According to the preferred view of Al-Jazari, how many <strong>specific exit points (Al-Makhaarij Al-Khaassah)</strong> exist across the 5 zones?", options: ["17 specific points", "14 specific points"], correctIndex: 0 },
-            { word: "حُرُوفُ الْمَدِّ وَاللِّين", prompt: "Which letters originate from <strong>Al-Jawf (The empty space of mouth and throat)</strong>?", options: ["The 3 Madd letters (Alif, Waw sakinah after Dammah, Ya sakinah after Kasrah)", "The throat letters (Hamza and Ha)"], correctIndex: 0 },
-            { word: "مَخْرَج الجَوْف", prompt: "Why is Al-Jawf considered a non-localized (estimated) exit point (Makhraj Muqaddar)?", options: ["Because the sound terminates in open air without a specific physical tissue or bone contact point", "Because it originates from the nasal cavity"], correctIndex: 0 },
-            { word: "أَقْصَى، وَسَط، وَأَدْنَى الحَلْق", prompt: "How many specific exit points are located within <strong>Al-Halq (The Throat)</strong>?", options: ["3 points (Deep throat, middle throat, and closest throat)", "5 points"], correctIndex: 0 },
-            { word: "أَقْصَى الحَلْق (ء، هـ)", prompt: "Which letters originate from the deepest part of the throat (Aqsa Al-Halq)?", options: ["Hamzah (ء) and Ha (هـ)", "Ain (ع) and Haa (ح)"], correctIndex: 0 },
-            { word: "وَسَط الحَلْق (ع، ح)", prompt: "Which letters originate from the middle of the throat (Wasat Al-Halq)?", options: ["Ain (ع) and Haa (ح)", "Ghain (غ) and Kha (خ)"], correctIndex: 0 },
-            { word: "أَدْنَى الحَلْق (غ، خ)", prompt: "Which letters originate from the closest part of the throat to the mouth (Adna Al-Halq)?", options: ["Ghain (غ) and Kha (خ)", "Hamzah (ء) and Ha (هـ)"], correctIndex: 0 },
-            { word: "لِسَانُ الإِنْسَان", prompt: "Which vocal organ contains the largest number of specific exit points and letters?", options: ["The Tongue (Al-Lisan), containing 10 exit points for 18 letters", "The Lips (Ash-Shafatan)"], correctIndex: 0 },
-            { word: "حَرْفُ القَاف (ق)", prompt: "Where does the letter <strong>Qaaf (ق)</strong> originate on the tongue?", options: ["The deepest part of the tongue touching the upper palate", "The tip of the tongue touching the front teeth gum"], correctIndex: 0 },
-            { word: "حَرْفُ الكَاف (ك)", prompt: "Where does the letter <strong>Kaaf (ك)</strong> originate relative to Qaaf?", options: ["Just slightly forward and below the exit point of Qaaf on the palate", "From the edge of the tongue against the side molars"], correctIndex: 0 },
-            { word: "وَسَطُ اللِّسَان (ج، ش، ي)", prompt: "Which letters emerge from the middle of the tongue (Wasat Al-Lisan) against the upper palate?", options: ["Jeem (ج), Sheen (ش), and non-Madd Ya (ي)", "Dad (ض) and Lam (ل)"], correctIndex: 0 },
-            { word: "حَرْفُ الضَّاد (ض)", prompt: "What makes the articulation of <strong>Dad (ض)</strong> unique among Arabic letters?", options: ["It emerges from one or both edges of the tongue touching the upper molars", "It emerges entirely from the nasal cavity"], correctIndex: 0 },
-            { word: "حَرْفُ اللَّام (ل)", prompt: "Where does the letter <strong>Lam (ل)</strong> originate?", options: ["From the curvatures of the tongue edges up to its tip touching the gum of the upper teeth", "From the tip of the tongue touching the lower incisors"], correctIndex: 0 },
-            { word: "حَرْفُ النُّون (ن)", prompt: "Where is the precise physical contact point for the letter <strong>Noon (ن)</strong>?", options: ["The tip of the tongue and its slightly dorsal surface touching the gum of the upper front teeth", "The lips closing firmly together"], correctIndex: 0 },
-            { word: "حَرْفُ الرَّاء (ر)", prompt: "How does the articulation of <strong>Raa (ر)</strong> relate to Noon?", options: ["It originates very close to Noon's point, entering slightly onto the back of the tongue tip", "It originates exclusively from the throat"], correctIndex: 0 },
-            { word: "ظَهْرُ اللِّسَان (ط، د، ت)", prompt: "Which letters emerge from the tip of the tongue touching the roots of the upper front teeth (Al-Nuta'iyyah)?", options: ["Taa (ط), Daal (د), and Taa' (ت)", "Seen (س), Sad (ص), and Zay (ز)"], correctIndex: 0 },
-            { word: "حُرُوفُ الصَّفِير (س، ص، ز)", prompt: "What distinctive acoustic quality characterizes <strong>Sad (ص), Zay (ز), and Seen (س)</strong> (Al-Safir)?", options: ["A whistling or buzzing sharpness produced as air passes through a narrow channel", "A heavy nasal resonance"], correctIndex: 0 },
-            { word: "الحُرُوفُ اللَّثَوِيَّة (ظ، ذ، ث)", prompt: "Where do <strong>Tha (ث), Dhal (ذ), and Zha (ظ)</strong> originate?", options: ["The tip of the tongue touching the edge of the upper front teeth", "The inner wet part of the lower lip"], correctIndex: 0 },
-            { word: "الشَّفَتَان (ف، و، ب، م)", prompt: "Which letters emerge from <strong>Ash-Shafatan (The Lips)</strong>?", options: ["Fa, Waw, Ba, and Meem", "Seen, Sad, and Zay"], correctIndex: 0 },
-            { word: "حَرْفُ الفَاء (ف)", prompt: "How is the letter <strong>Fa (ف)</strong> articulated using the lips and teeth?", options: ["The inner edge of the upper front teeth touching the wet part of the lower lip", "Both lips closing tightly together"], correctIndex: 0 },
-            { word: "حَرْفُ البَاء وَالْمِيم (ب، م)", prompt: "How do <strong>Ba (ب) and Meem (م)</strong> differ in lip closure?", options: ["Ba uses strong inner lip closure while Meem uses complete dry lip closure combined with nasal resonance", "Both have no physical contact"], correctIndex: 0 },
-            { word: "الخَيْشُوم (الغُنَّة)", prompt: "What sound exclusively originates from <strong>Al-Khayshoom (Nasal Cavity)</strong>?", options: ["Ghunnah (the nasal resonance accompanying Noon and Meem)", "The clear articulation of a Harakah"], correctIndex: 0 },
-            { word: "تَعْرِيف التَّجْوِيد", prompt: "Linguistically in Arabic, what does the word <strong>Tajweed</strong> mean?", options: ["To make something excellent, precise, and proficient", "To recite as quickly as possible"], correctIndex: 0 },
-            { word: "أَهَمِّيَّة مَعْرِفَة الْمَخَارِج", prompt: "Why is mastering Al-Makhaarij critical in Quranic recitation?", options: ["To prevent altering word meanings and ensure correct letter differentiation", "To memorize surahs faster without audio"], correctIndex: 0 },
-            { word: "مَخْرَج مُقَدَّر وَمَحْقُوق", prompt: "What is the primary difference between a Muqaddar (estimated) and Muhaqqaq (localized) Makhraj?", options: ["Muhaqqaq has a definitive physical touch point on tissue/bone; Muqaddar does not", "Muqaddar is only used for Arabic vowels"], correctIndex: 0 },
-            { word: "صِفَاتُ الحُرُوفِ الذَّاتِيَّة", prompt: "In addition to Makhaarij, what other parameter defines correct letter pronunciation in Tajweed?", options: ["Sifat al-Huroof (Inherent and accidental letter attributes)", "Font styling and visual flashcards"], correctIndex: 0 },
-            { word: "صِفَةُ التَّفْخِيم", prompt: "What is Tafkhim in Arabic phonetics?", options: ["Heavy elevation of the back of the tongue toward the palate, giving the letter a robust sound", "Soften thinning of tongue position"], correctIndex: 0 },
-            { word: "صِفَةُ التَّرْقِيق", prompt: "What is Tarqeeq in Arabic phonetics?", options: ["Keeping the tongue relaxed and lowering the sound for thin letters", "Applying strong nasal vibration"], correctIndex: 0 },
-            { word: "حُرُوفُ الِاسْتِعْلَاء", prompt: "Which group of letters inherently possess the attribute of Isti'la (elevation)?", options: ["خص ضغط قظ (Kha, Sad, Dad, Ghain, Ta, Qaf, Zha)", "The 3 Madd letters"], correctIndex: 0 },
-            { word: "حُرُوفُ الِاسْتِفَال", prompt: "What does Istifal mean in contrast to Isti'la?", options: ["Lowering the tongue away from the upper palate during articulation", "Nasally emitting the letter sound"], correctIndex: 0 },
-            { word: "صِفَةُ الْهَمْس", prompt: "What characterizes letters with the attribute of Hams (whispering/breathiness)?", options: ["A continuous flow of breath due to weakness in the point of articulation when pronounced sakin", "Complete sound stoppage"], correctIndex: 0 },
-            { word: "صِفَةُ الْجَهْر", prompt: "What characterizes letters with the attribute of Jahr (loudness/clarity)?", options: ["A strong blockage of breath with robust vocal cord vibration", "Whispered breath release"], correctIndex: 0 },
-            { word: "صِفَةُ الشِّدَّة", prompt: "Which attribute defines letters where sound is completely locked or blocked upon articulation (e.g., اجِدْ قَطْ بَكَتْ)?", options: ["Shiddah (Strength/Stoppage)", "Rakhawah (Softness/Flow)"], correctIndex: 0 },
-            { word: "صِفَةُ الرَّخَاوَة", prompt: "What happens during the pronunciation of letters possessing Rakhawah (softness)?", options: ["Sound flows freely without total blockage", "Air is diverted entirely through the nose"], correctIndex: 0 },
-            { word: "صِفَةُ الْبَيْنِيَّة", prompt: "What is the intermediate state between Shiddah and Rakhawah known as (e.g., لن عمر)?", options: ["Bayniyyah (Moderate flow of sound)", "Qalqalah bounce"], correctIndex: 0 },
-            { word: "حُرُوفُ القَلْقَلَة", prompt: "What is Qalqalah and which letters carry it (قَدْ جَدْ لَكُمْ)?", options: ["A rebounding echo sound produced when Qaf, Ta, Ba, Jeem, or Dal are sakin", "A prolonged nasal hum"], correctIndex: 0 },
-            { word: "صِفَةُ الِانْحِرَاف", prompt: "Which letters possess Inhiraf (deviation of sound upon meeting an obstruction)?", options: ["Lam (ل) and Raa (ر)", "Hamza and Ha"], correctIndex: 0 },
-            { word: "صِفَةُ التَّكْرِير", prompt: "What is Takkareer and which letter requires guarding against excessive forms of it?", options: ["A slight vibration of the tongue tip characteristic of Raa (ر)", "A rolling nasal echo"], correctIndex: 0 },
-            { word: "إِتْقَانُ تِلَاوَةِ الْقُرْآن", prompt: "What is the ultimate spiritual and practical goal of practicing Al-Makhaarij Studio modules daily?", options: ["To attain fluency, accuracy, and beauty in reciting Allah's Book as revealed", "To pass written examinations without speaking"], correctIndex: 0 }
+            // --- IKHFA SHAFAWI (1-13) ---
+            {
+                word: "تَرْمِيهِمْ بِحِجَارَةٍ",
+                prompt: "Identify the correct Tajweed rule for the silent <span class='arabic-text text-amber-400 font-bold'>مْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>ب</span> in <strong class='text-amber-400'>تَرْمِيهِمْ بِحِجَارَةٍ</strong>:",
+                options: ["إخفاء شفوي (Ikhfā' Shafawī)", "إدغام متممثلين (Idghām Shafawī)", "إظهار شفوي (Iẓhār Shafawī)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi. Labial concealment with ghunnah."
+            },
+            {
+                word: "فَحُكْمُهُمْ بَيْنَ",
+                prompt: "What is the rule when <span class='arabic-text text-amber-400 font-bold'>مْ</span> in <strong class='text-amber-400'>فَحُكْمُهُمْ</strong> is followed by <span class='arabic-text text-cyan-300 font-bold'>ب</span>?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إخفاء شفوي (Ikhfā' Shafawī)", "إدغام صغير (Idghām Ṣaghīr)"],
+                correctIndex: 1,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "يَعْتَصِمْ بِاللَّهِ",
+                prompt: "In the phrase <strong class='text-amber-400'>يَعْتَصِمْ بِاللَّهِ</strong>, the silent Mīm is followed by Ba. What is the rule?",
+                options: ["إخفاء شفوي (Ikhfā' Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إقلاب (Iqlāb)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "رَبُّهُمْ بِهِمْ",
+                prompt: "Determine the Meem Sakinah rule applied when <span class='arabic-text text-amber-400 font-bold'>رَبُّهُمْ</span> precedes <span class='arabic-text text-cyan-300 font-bold'>بِهِمْ</span>:",
+                options: ["إدغام (Idghām)", "إخفاء شفوي (Ikhfā' Shafawī)", "إظهار (Iẓhār)"],
+                correctIndex: 1,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "أَمْ بَنُونَ",
+                prompt: "What rule applies to <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>بَنُونَ</span>?",
+                options: ["إظهار (Iẓhār)", "إخفاء شفوي (Ikhfā' Shafawī)", "إدغام (Idghām)"],
+                correctIndex: 1,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "هُمْ بِرَبِّهِمْ",
+                prompt: "When <span class='arabic-text text-amber-400 font-bold'>هُمْ</span> meets <span class='arabic-text text-cyan-300 font-bold'>بِرَبِّهِمْ</span>, how should the Mīm be recited?",
+                options: ["Concealed with Ghunnah (Ikhfā' Shafawī)", "Clearly without Ghunnah (Iẓhār)", "Merged completely (Idghām)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi, concealed with ghunnah."
+            },
+            {
+                word: "عَلَيْهِمْ بِوَكِيلٍ",
+                prompt: "Identify the Tajweed classification for <span class='arabic-text text-amber-400 font-bold'>عَلَيْهِمْ</span> preceding <span class='arabic-text text-cyan-300 font-bold'>بِوَكِيلٍ</span>:",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إخفاء شفوي (Ikhfā' Shafawī)", "مد لازم (Mād Lāzim)"],
+                correctIndex: 1,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "مُمْتَحَنَاتٍ",
+                prompt: "What is the duration of Ghunnah when reciting Ikhfā' Shafawī?",
+                options: ["1 vowel count (Harakah)", "2 vowel counts (Ḥarakatān)", "4 vowel counts"],
+                correctIndex: 1,
+                spokenAudio: "Two vowel counts, harakatan."
+            },
+            {
+                word: "فَاحْكُم بَيْنَهُمْ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>فَاحْكُم</span> followed by <span class='arabic-text text-cyan-300 font-bold'>بَيْنَهُمْ</span>, the rule is:",
+                options: ["إخفاء شفوي (Ikhfā' Shafawī)", "إظهار (Iẓhār)", "إدغام (Idghām)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "تُرْۦهِمْ بِهِ",
+                prompt: "When a silent Mīm is followed by <span class='arabic-text text-cyan-300 font-bold'>ب</span>, lips should be:",
+                options: ["Pressed tightly together", "Gently closed with slight space, allowing air/nasal resonance", "Wide open"],
+                correctIndex: 1,
+                spokenAudio: "Gently closed with slight space for nasal resonance."
+            },
+            {
+                word: "أَمْ بِظَاهِرٍ",
+                prompt: "What rule governs <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>بِظَاهِرٍ</span>?",
+                options: ["إخفاء شفوي (Ikhfā' Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إدغام شفوي (Idghām Shafawī)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "يُرْفَعْ بَابُهُمْ",
+                prompt: "Identify the rule for Mīm sakinah before Ba in Quranic recitation:",
+                options: ["Ikhfā' Shafawī", "Iẓhār Shafawī", "Idghām Mithlayn"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "بِهِمْ بَصِيرٌ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>بِهِمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>بَصِيرٌ</span>, the Mīm undergoes:",
+                options: ["Izhar", "Ikhfa Shafawi", "Qalqalah"],
+                correctIndex: 1,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+
+            // --- IDGHAM SHAFAWI (14-26) ---
+            {
+                word: "لَهُمْ مَا يَشْتَهُونَ",
+                prompt: "What rule applies when a silent <span class='arabic-text text-amber-400 font-bold'>مْ</span> is followed by a moving <span class='arabic-text text-cyan-300 font-bold'>م</span> in <strong class='text-amber-400'>لَهُمْ مَا</strong>?",
+                options: ["إدغام شَفَوِيّ (Idghām Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إخفاء شفوي (Ikhfā' Shafawī)"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi. Labial assimilation with full ghunnah."
+            },
+            {
+                word: "مِنْ حَوْلِهِمْ مَالٌ",
+                prompt: "Identify the Tajweed rule for <span class='arabic-text text-amber-400 font-bold'>حَوْلِهِمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>مَالٌ</span>:",
+                options: ["إظهار (Iẓhār)", "إدغام شفوي (Idghām Shafawī)", "إقلاب (Iqlāb)"],
+                correctIndex: 1,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "وَلَكُمْ مَا كَسَبْتُمْ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>وَلَكُمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>مَا</span>, the two Mīms merge into:",
+                options: ["One emphasized Mīm with Ghunnah", "Two separate distinct letters", "A hidden nasal sound without merging"],
+                correctIndex: 0,
+                spokenAudio: "One emphasized meem with complete ghunnah."
+            },
+            {
+                word: "أَطْعَمَهُمْ مِنْ جُوعٍ",
+                prompt: "What rule governs <span class='arabic-text text-amber-400 font-bold'>أَطْعَمَهُمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>مِنْ</span>?",
+                options: ["إدغام شفوي (Idghām Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إخفاء (Ikhfā')"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "آمَنَهُمْ مِنْ خَوْفٍ",
+                prompt: "In <strong class='text-amber-400'>آمَنَهُمْ مِنْ خَوْفٍ</strong>, the Mīm sakinah meets Mīm. The recitation style is:",
+                options: ["Idghām Mutamāthilayn (Labial Assimilation)", "Iẓhār Shafawī", "Ikhfā' Shafawī"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Mutamathilayn, labial assimilation."
+            },
+            {
+                word: "قُلُوبُهُمْ مَرْضَى",
+                prompt: "What is the correct Tajweed designation for <span class='arabic-text text-amber-400 font-bold'>قُلُوبُهُمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>مَرْضَى</span>?",
+                options: ["إدغام شفوي (Idghām Shafawī)", "إظهار (Iẓhār)", "إخفاء (Ikhfā')"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "فِيهِمْ مُبَرَّءُونَ",
+                prompt: "Determine the rule for <span class='arabic-text text-amber-400 font-bold'>فِيهِمْ</span> preceding <span class='arabic-text text-cyan-300 font-bold'>مُبَرَّءُونَ</span>:",
+                options: ["Idghām Shafawī with Ghunnah", "Iẓhār Shafawī without Ghunnah", "Qalqalah"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi with ghunnah."
+            },
+            {
+                word: "مَجَازَاتُهُمْ مَأْوَاهُمْ",
+                prompt: "When Mīm sakinah merges into a moving Mīm, what is the technical name of this assimilation?",
+                options: ["Idghām al-Mutamāثilayn (Assimilation of Identical Letters)", "Idghām Mutaqāribayn", "Idghām Bilā Ghunnah"],
+                correctIndex: 0,
+                spokenAudio: "Idgham al-Mutamathilayn."
+            },
+            {
+                word: "بَيْنَ أَيْدِيهِمْ مَلَائِكَةٌ",
+                prompt: "What Tajweed rule applies to <span class='arabic-text text-amber-400 font-bold'>أَيْدِيهِمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>مَلَائِكَةٌ</span>?",
+                options: ["إدغام شفوي (Idghām Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إخفاء (Ikhfā')"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "أَمْ لَهُمْ مَلِكُ",
+                prompt: "In the phrase <span class='arabic-text text-amber-400 font-bold'>لَهُمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>مَلِكُ</span>, how many harakahs is the Ghunnah?",
+                options: ["2 Harakahs", "1 Harakah", "6 Harakahs"],
+                correctIndex: 0,
+                spokenAudio: "Two harakahs."
+            },
+            {
+                word: "عَنْهُمْ مَعْصِيَةً",
+                prompt: "Identify the rule for <span class='arabic-text text-amber-400 font-bold'>عَنْهُمْ</span> before <span class='arabic-text text-cyan-300 font-bold'>مَعْصِيَةً</span>:",
+                options: ["Idghām Shafawī", "Iẓhār", "Ikhfā'"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "إِنَّهُمْ مُلَاقُو",
+                prompt: "What is the governing rule in <span class='arabic-text text-amber-400 font-bold'>إِنَّهُمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>مُلَاقُو</span>?",
+                options: ["Idghām Shafawī", "Iẓhār", "Ikhfā'"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "وَمَا لَهُمْ مِنْ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>لَهُمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>مِنْ</span>, the merging of the two Mīms is categorized as:",
+                options: ["Idghām Shafawī", "Izhar", "Qalqalah"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+
+            // --- IZHAR SHAFAWI (27-40) ---
+            {
+                word: "أَمْ لَمْ تُنْذِرْهُمْ",
+                prompt: "What is the rule when a silent <span class='arabic-text text-amber-400 font-bold'>مْ</span> is followed by <span class='arabic-text text-cyan-300 font-bold'>ل</span> or any letter other than Ba and Meem?",
+                options: ["إِظْهَارٌ شَفَوِيّ (Iẓhār Shafawī)", "إدغام شفوي (Idghām Shafawī)", "إخفاء شفوي (Ikhfā' Shafawī)"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi. Clear pronunciation without extra ghunnah."
+            },
+            {
+                word: "أَمْ حَسِبَ",
+                prompt: "Identify the Tajweed rule for <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>حَسِبَ</span>:",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إخفاء (Ikhfā')", "إدغام (Idghām)"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "عَلَيْهِمْ دَائِرَةُ",
+                prompt: "What rule governs <span class='arabic-text text-amber-400 font-bold'>عَلَيْهِمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>دَائِرَةُ</span>?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام (Idghām)", "إخفاء (Ikhfā')"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "هُمْ فِيهَا",
+                prompt: "In <strong class='text-amber-400'>هُمْ فِيهَا</strong>, the Mīm sakinah is followed by Fa. How is it recited?",
+                options: ["Expressed clearly without nasal elongation (Iẓhār)", "Concealed with Ghunnah", "Merged into the Fa"],
+                correctIndex: 0,
+                spokenAudio: "Expressed clearly without nasal elongation, Izhar."
+            },
+            {
+                word: "أَمْ خَلَقْنَا",
+                prompt: "What is the rule for <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>خَلَقْنَا</span>?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إخفاء (Ikhfā')", "إدغام (Idghām)"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "أَمْ يَقُولُونَ",
+                prompt: "Determine the Tajweed rule for <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>يَقُولُونَ</span>:",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام (Idghām)", "إخفاء (Ikhfā')"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "وَمَا أَنْتَ عَلَيْهِمْ بِجَبَّارٍ",
+                prompt: "Notice the two rules in this verse: <span class='arabic-text text-amber-400 font-bold'>عَلَيْهِمْ</span> meets <span class='arabic-text text-cyan-300 font-bold'>بِجَبَّارٍ</span>. That specific segment is:",
+                options: ["إخفاء شفوي (Ikhfā' Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إدغام (Idghām)"],
+                correctIndex: 0,
+                spokenAudio: "Ikhfa Shafawi."
+            },
+            {
+                word: "أَمْ جَعَلُوا",
+                prompt: "What rule applies to <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>جَعَلُوا</span>?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام", "إخفاء"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "أَمْ أَنْتَ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>أَنْتَ</span>, the Mīm meets Hamza. The rule is:",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام", "إخفاء"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "أَمْ مَنْ هُوَ",
+                prompt: "Caution! In <span class='arabic-text text-amber-400 font-bold'>أَمْ مَنْ</span>, the Mīm meets Meem. What rule is this?",
+                options: ["إدغام شفوي (Idghām Shafawī)", "إظهار شفوي (Iẓhār Shafawī)", "إخفاء"],
+                correctIndex: 0,
+                spokenAudio: "Idgham Shafawi."
+            },
+            {
+                word: "ذَرْهُمْ يَخُوضُوا",
+                prompt: "What rule governs <span class='arabic-text text-amber-400 font-bold'>ذَرْهُمْ</span> meeting <span class='arabic-text text-cyan-300 font-bold'>يَخُوضُوا</span>?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إخفاء", "إدغام"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "أَمْ تُرِيدُونَ",
+                prompt: "Identify the rule for <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>تُرِيدُونَ</span>:",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام", "إخفاء"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            },
+            {
+                word: "أَمْ تَأْمُرُهُمْ",
+                prompt: "In <span class='arabic-text text-amber-400 font-bold'>أَمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>تَأْمُرُهُمْ</span>, how is the Mīm pronounced?",
+                options: ["Clearly without extra nasalization", "Concealed", "Merged"],
+                correctIndex: 0,
+                spokenAudio: "Clearly without extra nasalization."
+            },
+            {
+                word: "وَلَهُمْ عَذَابٌ",
+                prompt: "What rule applies to <span class='arabic-text text-amber-400 font-bold'>وَلَهُمْ</span> followed by <span class='arabic-text text-cyan-300 font-bold'>عَذَابٌ</span> (Ain)?",
+                options: ["إظهار شفوي (Iẓhār Shafawī)", "إدغام", "إخفاء"],
+                correctIndex: 0,
+                spokenAudio: "Izhar Shafawi."
+            }
         ];
 
         let sessionQuestions = [];
@@ -224,18 +527,15 @@
         let score = 0;
         let answered = false;
 
-        const SAVED_SCORE_KEY = "arabic_game_makharij_score_v2";
+        const SAVED_SCORE_KEY = "arabic_game_meemsakinah_score_40";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
-        function shuffleArray(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
-
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]);
+            sessionQuestions = [...questionBank];
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
+            document.getElementById("high-score").innerText = highScore;
             loadQuestion();
         }
 
@@ -244,7 +544,7 @@
             const current = sessionQuestions[currentIndex];
             
             document.getElementById("question-num").innerText = currentIndex + 1;
-            document.getElementById("target-arabic").innerHTML = current.word;
+            document.getElementById("output-board").innerHTML = current.word;
             document.getElementById("target-prompt").innerHTML = current.prompt;
             
             const badge = document.getElementById("feedback-badge");
@@ -252,16 +552,16 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-slate-900 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
-            optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+            optionsContainer.className = "grid grid-cols-1 md:grid-cols-3 gap-4";
             optionsContainer.innerHTML = "";
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-900/90 hover:bg-slate-800/90 border border-slate-800 text-white font-bold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-cyan-400 cursor-pointer text-left shadow-md";
-                btn.innerText = optText;
+                btn.className = "bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer text-left flex items-center justify-between";
+                btn.innerHTML = `<span>${optText}</span> <i class='fa-solid fa-circle-chevron-right text-slate-600'></i>`;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
             });
@@ -275,56 +575,100 @@
             const badge = document.getElementById("feedback-badge");
             const nextBtn = document.getElementById("next-btn");
 
+            const buttons = document.getElementById("options-container").children;
+            for (let b of buttons) {
+                b.classList.add('opacity-70', 'cursor-not-allowed');
+            }
+
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 text-xs font-bold block";
-                btnElement.className = "bg-cyan-950/60 border-2 border-cyan-400 text-cyan-200 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left shadow-lg";
+                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-amber-300 bg-amber-500/15 border border-amber-500/30 text-xs font-bold block";
-                btnElement.className = "bg-slate-900 border-2 border-amber-400/70 text-amber-200 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left shadow-lg";
+                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
+                
+                buttons[current.correctIndex].className = "bg-emerald-600/20 border-2 border-emerald-500/60 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
             }
 
             document.getElementById("current-score").innerText = score;
 
             nextBtn.disabled = false;
-            nextBtn.className = "bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
-            
-            speakWord(current.word);
+            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        function speakWord(customText) {
+        // Flawless speech synthesis with correct phonetic Arabic/English articulation
+        function speakWord() {
             const current = sessionQuestions[currentIndex];
-            const rawText = customText || (current ? current.word : '');
-            const cleanedWord = rawText.replace(/<[^>]*>?/gm, '');
-
-            const text = document.getElementById('target-arabic')?.innerText || 
-                       cleanedWord || 
-                       document.querySelector('h1')?.innerText;
-
-            if ('speechSynthesis' in window && text) {
+            const speechText = current.spokenAudio || '';
+            
+            if ('speechSynthesis' in window && speechText) {
                 window.speechSynthesis.cancel();
                 
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.82;
-                utterance.pitch = 1.0;
-                
-                const voices = window.speechSynthesis.getVoices();
-                const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
-                if (arabicVoice) {
-                    utterance.voice = arabicVoice;
-                }
-
+                const utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'en-US'; // English phonetic transliteration for crystalline clarity
+                utterance.rate = 0.85; 
                 window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Articulating correct Tajweed rule audio...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 2200);
+                }
+            } else {
+                alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                window.speechSynthesis.getVoices();
-            };
+        function playSnippetAudio(speechText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8; 
+                
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = `Playing clear pronunciation...`;
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 2200);
+                }
+            } else {
+                alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
+        function playModuleOverview() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const overviewText = "Welcome to Zahrah's Interactive Online Classroom. This Meem Sakinah masterclass covers Ikhfa Shafawi, Idgham Shafawi, and Izhar Shafawi rules with complete examples.";
+                const utterance = new SpeechSynthesisUtterance(overviewText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Playing Module Overview Audio...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 3500);
+                }
+            }
         }
 
         function nextQuestion() {
@@ -333,18 +677,13 @@
                 loadQuestion();
             } else {
                 if (score > highScore) {
+                    highScore = score;
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
-                
-                const container = document.getElementById('exercise-area');
-                const banner = document.getElementById('success-banner');
-                
-                container.classList.add('animate-success');
-                banner.classList.remove('hidden');
+                localStorage.setItem("arabic_completed_meemsakinah_40", "true");
 
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
+                alert(`Congratulations! You have completed all 40 questions in the Meem Sakinah Module!\nFinal Score: ${score}/${sessionQuestions.length * 10} points`);
+                window.location.href = "index.html";
             }
         }
 
