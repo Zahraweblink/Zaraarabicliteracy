@@ -10,11 +10,13 @@
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
-            --accent-gold: #ffb703;
-            --accent-cyan: #06b6d4;
+            /* Hyper-modern fluid aurora mesh background design: spiritual teal, rich midnight velvet, subtle cosmic indigo */
+            --bg-dark: #070d19;
+            --bg-gradient: radial-gradient(circle at 20% 15%, rgba(13, 33, 55, 0.85) 0%, rgba(7, 13, 25, 0.95) 50%, #04070d 100%),
+                           radial-gradient(circle at 80% 85%, rgba(15, 42, 63, 0.6) 0%, transparent 60%);
+            --card-bg: rgba(14, 23, 41, 0.65);
+            --accent-gold: #fbbf24;
+            --accent-cyan: #22d3ee;
             --white: #ffffff;
         }
 
@@ -25,6 +27,21 @@
             background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* Subtle fluid aurora glowing ambiance from behind */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle at 30% 30%, rgba(20, 70, 95, 0.18) 0%, rgba(45, 25, 75, 0.12) 40%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(60px);
         }
 
         .arabic-text {
@@ -34,20 +51,37 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Custom Scrollbar for Module Content */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(7, 13, 25, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(34, 211, 238, 0.3);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 211, 238, 0.5);
         }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
 
     <!-- Header Navigation -->
-    <header class="w-full max-w-3xl flex justify-between items-center mb-6">
+    <header class="w-full max-w-4xl flex justify-between items-center mb-6">
         <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
         <div class="flex items-center gap-4">
-            <div class="hidden sm:flex items-center gap-1.5 bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-full text-slate-300 text-xs font-medium">
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-full text-slate-300 text-xs font-medium">
                 <i class="fa-solid fa-trophy text-amber-400"></i> Best: <span id="high-score" class="text-amber-400 font-bold">0</span> pts
             </div>
             <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
@@ -57,89 +91,150 @@
     </header>
 
     <!-- Main Workspace -->
-    <main class="w-full max-w-3xl space-y-6">
+    <main class="w-full max-w-4xl space-y-6">
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
-            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                Zahrah's Arabic Literacy and Tajweed Mastery App
+            <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                Zahrah's Interactive Online Classroom
             </div>
             <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Stopping & Pausing Signs (رُمُوزُ الأَوْقَافِ)</h1>
-            <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master the rules of stopping (Waqf) to preserve meaning and recite with precision.
+            <p class="text-slate-300 text-sm max-w-xl mx-auto">
+                Comprehensive Masterclass: Complete module breakdowns, phonetic voice synthesis, and rigorous practice featuring 40 curated test questions.
             </p>
         </div>
 
-        <!-- Rule Explainer Cards with Audio Buttons -->
-        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
-            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                <i class="fa-solid fa-pause"></i> Key Stopping Signs Reference
-            </h2>
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-center">
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
-                    <div>
-                        <span class="text-2xl font-bold arabic-text text-rose-400 block mb-1">مـ</span>
-                        <span class="text-xs font-bold text-slate-200 block">Mandatory Stop</span>
-                        <p class="text-[10px] text-slate-400 mt-1">Stopping is compulsory to prevent distorting meaning.</p>
+        <!-- Comprehensive Module Explanation & Examples Section -->
+        <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-cyan-500/20">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-cyan-300 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader"></i> Comprehensive Module Breakdown
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Detailed linguistic principles, definitions, and reciter guidelines for Rumūz al-Awqāf.</p>
+                </div>
+                <button onclick="playModuleOverview()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                    <i class="fa-solid fa-volume-high"></i> Listen to Overview
+                </button>
+            </div>
+
+            <!-- Detailed Subtopics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Subtopic 1 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-rose-400">مـ</span>
+                        <span class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded-full font-bold">Waqf Lazim</span>
                     </div>
-                    <button onclick="playSnippetAudio('مـ')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
+                    <h3 class="text-sm font-bold text-slate-200">1. Mandatory Stop (الوقف اللازم)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> A compulsory pause where stopping is required because continuing would alter, corrupt, or invert the intended Qur'anic meaning.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Verse:</span>
+                        <p class="arabic-text text-lg text-slate-200">إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ <span class="text-rose-400 font-bold">مـ</span> وَالْمَوْتَىٰ</p>
+                        <p class="text-[11px] text-slate-400">Stop at "يَسْمَعُونَ" to complete the affirmative statement before mentioning the dead.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
                     </button>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
-                    <div>
-                        <span class="text-2xl font-bold arabic-text text-amber-400 block mb-1">قلي</span>
-                        <span class="text-xs font-bold text-slate-200 block">Preferred Stop</span>
-                        <p class="text-[10px] text-slate-400 mt-1">Stopping is better, though continuing is allowed.</p>
+
+                <!-- Subtopic 2 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-amber-400">قلي</span>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-bold">Al-Waqf Awla</span>
                     </div>
-                    <button onclick="playSnippetAudio('قلي')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
+                    <h3 class="text-sm font-bold text-slate-200">2. Preferred Stop (الوقف أولى)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Stopping is superior and preferred here, though continuing without taking a breath is grammatically permissible.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Verse:</span>
+                        <p class="arabic-text text-lg text-slate-200">مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ <span class="text-amber-400 font-bold">قلي</span></p>
+                        <p class="text-[11px] text-slate-400">Pausing here allows the listener to digest the rhetorical question before the reward clause.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
                     </button>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
-                    <div>
-                        <span class="text-2xl font-bold arabic-text text-emerald-400 block mb-1">صلي</span>
-                        <span class="text-xs font-bold text-slate-200 block">Preferred Continuation</span>
-                        <p class="text-[10px] text-slate-400 mt-1">Continuing is better, though stopping is allowed.</p>
+
+                <!-- Subtopic 3 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-emerald-400">صلي</span>
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-bold">Al-Wasl Awla</span>
                     </div>
-                    <button onclick="playSnippetAudio('صلي')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
+                    <h3 class="text-sm font-bold text-slate-200">3. Preferred Continuation (الوصل أولى)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Continuing the recitation without stopping is superior and preferred, though pausing is permitted if out of breath.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Verse:</span>
+                        <p class="arabic-text text-lg text-slate-200">وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ <span class="text-emerald-400 font-bold">صلي</span></p>
+                        <p class="text-[11px] text-slate-400">Keeping the recitation flowing preserves the indivisible attribution of power to Allah.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
                     </button>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
-                    <div>
-                        <span class="text-2xl font-bold arabic-text text-red-500 block mb-1">لا</span>
-                        <span class="text-xs font-bold text-slate-200 block">Forbidden Stop</span>
-                        <p class="text-[10px] text-slate-400 mt-1">Do not stop; sentence structure requires continuing.</p>
+
+                <!-- Subtopic 4 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-red-400">لا</span>
+                        <span class="text-[10px] bg-rose-500/10 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded-full font-bold">Forbidden Stop</span>
                     </div>
-                    <button onclick="playSnippetAudio('لا')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
+                    <h3 class="text-sm font-bold text-slate-200">4. Forbidden Stop (الوقف الممنوع)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Stopping here is strictly prohibited because the sentence is incomplete and requires immediate continuation to maintain sense.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Verse:</span>
+                        <p class="arabic-text text-lg text-slate-200">طَيِّبِينَ <span class="text-red-400 font-bold">لا</span> يَقُولُونَ سَلَامٌ عَلَيْكُمُ</p>
+                        <p class="text-[11px] text-slate-400">Do not pause at "طَيِّبِينَ" because "يَقُولُونَ" is the direct adjectival state of the angels.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('طَيِّبِينَ يَقُولُونَ سَلَامٌ عَلَيْكُمُ')" class="w-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
                     </button>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-700/50 col-span-2 md:col-span-1 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xl font-bold arabic-text text-purple-400 block mb-1">∴  ∴</span>
-                        <span class="text-xs font-bold text-slate-200 block">Paired / Linked Stops</span>
-                        <p class="text-[10px] text-slate-400 mt-1">Stop at one of the two places, but not at both.</p>
+
+                <!-- Subtopic 5 -->
+                <div class="bg-slate-900/70 p-5 rounded-2xl border border-slate-800 space-y-3 md:col-span-2">
+                    <div class="flex justify-between items-start">
+                        <span class="text-2xl font-bold arabic-text text-purple-400">∴ ∴</span>
+                        <span class="text-[10px] bg-purple-500/10 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-bold">Mu'anaqah (Embracing Pause)</span>
                     </div>
-                    <button onclick="playSnippetAudio('معانقة')" class="mt-3 mx-auto bg-cyan-500/25 hover:bg-cyan-500/40 text-cyan-300 border border-cyan-500/40 px-2.5 py-1.5 rounded-xl text-[10px] font-bold flex items-center gap-1.5 transition-all cursor-pointer">
-                        <i class="fa-solid fa-volume-high"></i> Listen
+                    <h3 class="text-sm font-bold text-slate-200">5. Paired / Linked Stops (المعناقة)</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        <strong>Explanation:</strong> Two sets of triple dots placed close together. The rule dictates that the reciter must stop at <em>one</em> of the two marked positions, but stopping at both or skipping both is incorrect.
+                    </p>
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="text-xs text-amber-400 font-semibold block">Example Verse:</span>
+                        <p class="arabic-text text-lg text-slate-200">ذَٰلِكَ الْكِتَابُ لَا رَيْبَ <span class="text-purple-400 font-bold">∴</span> فِيهِ <span class="text-purple-400 font-bold">∴</span> هُدًى لِّلْمُتَّقِينَ</p>
+                        <p class="text-[11px] text-slate-400">Pause at either "رَيْبَ" or "فِيهِ", but not both consecutively.</p>
+                    </div>
+                    <button onclick="playSnippetAudio('ذَٰلِكَ الْكِتَابُ لَا رَيْبَ فِيهِ هُدًى لِّلْمُتَّقِينَ')" class="w-full md:w-auto px-6 bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer mx-auto">
+                        <i class="fa-solid fa-volume-high"></i> Listen to Example Audio
                     </button>
                 </div>
+
             </div>
         </div>
 
-        <!-- Interactive Practice Arena -->
+        <!-- Interactive Practice Arena (40 Test Questions Bank) -->
         <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
-            <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs font-semibold text-slate-400">
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
             <!-- Target Word / Verse Display -->
-            <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="output-board" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+            <div class="py-6 bg-slate-900/90 rounded-2xl border border-slate-800 shadow-inner">
+                <div id="output-board" class="text-3xl md:text-4xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
                     إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ <span class="text-rose-400 font-extrabold">مـ</span>
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
@@ -154,10 +249,10 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord()" class="bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
@@ -166,80 +261,261 @@
     </main>
 
     <!-- Audio Toast Feedback -->
-    <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-lg shadow-lg text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 border border-cyan-500/30">
+    <div id="audio-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl text-sm flex items-center space-x-3 opacity-0 transition-opacity duration-300 pointer-events-none z-50 border border-cyan-500/30">
         <i class="fa-solid fa-circle-play text-cyan-400 text-base"></i>
         <span id="toast-text">Playing Audio...</span>
     </div>
 
     <script>
+        // 40 Comprehensive Test Questions for Rumūz al-Awqāf Mastery
         const questionBank = [
             // --- MANDATORY STOP (مـ) ---
             {
-                word: "إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ مـ وَالْمَوْتَىٰ يَبْعَثُهُمُ اللَّهُ",
+                word: "إِنَّمَا يَسْتَجِيبُ الَّذِينَ يَسْمَعُونَ <span class='text-rose-400 font-extrabold'>مـ</span> وَالْمَوْتَىٰ",
                 prompt: "What does the symbol <strong class='text-rose-400'>مـ</strong> indicate after يَسْمَعُونَ?",
                 options: ["Compulsory/Mandatory Stop (Waqf Lazim)", "Forbidden Stop"],
                 correctIndex: 0
             },
             {
-                word: "فَلَا يَحْزُنكَ قَوْلُهُمْ مـ إِنَّا نَعْلَمُ مَا يُسِرُّونَ وَمَا يُعْلِنُونَ",
+                word: "فَلَا يَحْزُنكَ قَوْلُهُمْ <span class='text-rose-400 font-extrabold'>مـ</span> إِنَّا نَعْلَمُ مَا يُسِرُّونَ",
                 prompt: "In this verse, why is the sign <strong class='text-rose-400'>مـ</strong> used?",
                 options: ["Mandatory Stop to avoid changing the meaning", "Preferred Continuation"],
+                correctIndex: 0
+            },
+            {
+                word: "وَلَا يَحْزُنكَ قَوْلُهُمْ ۘ إِنَّ الْعِزَّةَ لِلَّهِ جَمِيعًا <span class='text-rose-400 font-extrabold'>مـ</span> هُوَ السَّمِيعُ الْعَلِيمُ",
+                prompt: "What is the requirement when encountering <strong class='text-rose-400'>مـ</strong> here?",
+                options: ["Mandatory stop to separate theological statements", "Do not pause under any condition"],
+                correctIndex: 0
+            },
+            {
+                word: "أَلَا إِنَّ لِلَّهِ مَنْ فِي السَّمَاوَاتِ وَمَنْ فِي الْأَرْضِ <span class='text-rose-400 font-extrabold'>مـ</span> وَمَا يَتَّبِعُ الَّذِينَ يَدْعُونَ مِن دُونِ اللَّهِ شُرَكَاءَ",
+                prompt: "Why is stopping mandatory at <strong class='text-rose-400'>مـ</strong> in this ayah?",
+                options: ["To prevent attributing partners to Allah incorrectly", "Because it is the end of the Surah"],
+                correctIndex: 0
+            },
+            {
+                word: "وَكَذَٰلِكَ نُجْزِي الْمُسْرِفِينَ <span class='text-rose-400 font-extrabold'>مـ</span> ثُمَّ أَرْسَلْنَا مُوسَىٰ",
+                prompt: "Identify the correct stopping category for <span class='text-rose-400'>مـ</span>:",
+                options: ["Waqf Lazim (Mandatory Stop)", "Waqf Ja'iz (Optional Stop)"],
+                correctIndex: 0
+            },
+            {
+                word: "ثُمَّ إنَّكُمْ بَعْدَ ذَلِكَ لَمَيِّتُونَ <span class='text-rose-400 font-extrabold'>مـ</span> ثُمَّ إِنَّكُمْ يَوْمَ الْقِيَامَةِ تُبْعَثُونَ",
+                prompt: "What does <span class='text-rose-400'>مـ</span> dictate in this resurrection verse?",
+                options: ["A necessary pause before introducing the next event", "Continuous rapid reading"],
+                correctIndex: 0
+            },
+            {
+                word: "وَاتَّقُوا فِتْنَةً لَّا تُصِيبَنَّ الَّذِينَ ظَلَمُوا مِنْكُمْ خَاصَّةً <span class='text-rose-400 font-extrabold'>مـ</span> وَاعْلَمُوا أَنَّ اللَّهَ شَدِيدُ الْعِقَابِ",
+                prompt: "Why must a reciter stop at <span class='text-rose-400'>مـ</span> here?",
+                options: ["To isolate the warning from the divine attribute reminder", "To take a 5-minute break"],
+                correctIndex: 0
+            },
+            {
+                word: "يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمْ إِنَّ زَلْزَلَةَ السَّاعَةِ شَيْءٌ عَظِيمٌ <span class='text-rose-400 font-extrabold'>مـ</span> يَوْمَ تَرَوْنَهَا تَذْهَلُ كُلُّ مُرْضِعَةٍ",
+                prompt: "What is the ruling of <span class='text-rose-400'>مـ</span> in this context?",
+                options: ["Compulsory stop", "Forbidden continuation"],
                 correctIndex: 0
             },
 
             // --- PREFERRED STOP (قلي) ---
             {
-                word: "قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ قلي",
+                word: "قُل رَّبِّي أَعْلَمُ بِعِدَّتِهِم مَّا يَعْلَمُهُمْ إِلَّا قَلِيلٌ <span class='text-amber-400 font-extrabold'>قلي</span>",
                 prompt: "What does the sign <strong class='text-amber-400'>قلي</strong> mean at this stopping point?",
                 options: ["Stopping is preferred (Al-Waqf Awla)", "Continuation is preferred"],
                 correctIndex: 0
             },
             {
-                word: "مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ قلي",
+                word: "مَّن ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ <span class='text-amber-400 font-extrabold'>قلي</span>",
                 prompt: "When encountering <strong class='text-amber-400'>قلي</strong>, what is the best choice for the reciter?",
                 options: ["Pause and take a breath (Stopping is better)", "Do not pause under any circumstances"],
+                correctIndex: 0
+            },
+            {
+                word: "وَلَقَدْ أَرْسَلْنَا مُوسَىٰ بِآيَاتِنَا وَسُلْطَانٍ مُبِينٍ <span class='text-amber-400 font-extrabold'>قلي</span> إِلَى فِرْعَوْنَ وَهَامَانَ",
+                prompt: "How should you treat <span class='text-amber-400'>قلي</span> here?",
+                options: ["Stopping is preferred over continuing", "Stopping is strictly forbidden"],
+                correctIndex: 0
+            },
+            {
+                word: "يَا أَهْلَ الْكِتَابِ قَدْ جَاءَكُمْ رَسُولُنَا يُبَيِّنُ لَكُمْ عَلَىٰ فَتْرَةٍ مِّنَ الرُّسُلِ <span class='text-amber-400 font-extrabold'>قلي</span>",
+                prompt: "What is the primary implication of <span class='text-amber-400'>قلي</span>?",
+                options: ["Al-Waqf Awla (Stopping is better)", "Al-Wasl Awla (Continuing is better)"],
+                correctIndex: 0
+            },
+            {
+                word: "فَإِنْ حَاجُوكَ فَقُلْ أَسْلَمْتُ وَجْهِيَ لِلَّهِ وَمَنِ اتَّبَعَنِ <span class='text-amber-400 font-extrabold'>قلي</span>",
+                prompt: "Is stopping recommended at <span class='text-amber-400'>قلي</span>?",
+                options: ["Yes, stopping is preferred", "No, stopping breaks the sentence"],
+                correctIndex: 0
+            },
+            {
+                word: "وَإِذَا قِيلَ لَهُمُ اتَّقُوا مَا بَيْنَ أَيْدِيكُمْ وَمَا خَلْفَكُمْ لَعَلَّكُمْ تُرْحَمُونَ <span class='text-amber-400 font-extrabold'>قلي</span>",
+                prompt: "What does <span class='text-amber-400'>قلي</span> instruct reciters to do?",
+                options: ["Preferably pause before the subsequent verse theme", "Always connect without breathing"],
+                correctIndex: 0
+            },
+            {
+                word: "إِنَّ رَبَّكَ يَعْلَمُ أَنَّكَ تَقُومُ أَدْنَىٰ مِن ثُلُثَيِ اللَّيْلِ وَنِصْفَهُ وَثُلُثَهُ <span class='text-amber-400 font-extrabold'>قلي</span>",
+                prompt: "In this ayah on night prayer, what does <span class='text-amber-400'>قلي</span> signify?",
+                options: ["Stopping is better for breath and cadence", "Stopping invalidates recitation"],
+                correctIndex: 0
+            },
+            {
+                word: "فَاصْبِرْ لِحُكْمِ رَبِّكَ وَلَكُن كَصَاحِبِ الْحُوتِ إِذْ نَادَىٰ وَهُوَ مَكْظُومٌ <span class='text-amber-400 font-extrabold'>قلي</span>",
+                prompt: "What is the reciter's best option at <span class='text-amber-400'>قلي</span>?",
+                options: ["Pause and reflect on Jonah's trial", "Rush through to the next word"],
                 correctIndex: 0
             },
 
             // --- PREFERRED CONTINUATION (صلي) ---
             {
-                word: "وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ صلي",
+                word: "وَإِن يَمْسَسْكَ اللَّهُ بِضُرٍّ فَلَا كَاشِفَ لَهُ إِلَّا هُوَ <span class='text-emerald-400 font-extrabold'>صلي</span>",
                 prompt: "What does the sign <strong class='text-emerald-400'>صلي</strong> indicate?",
                 options: ["Continuing without stopping is preferred (Al-Wasl Awla)", "Mandatory Stop"],
                 correctIndex: 0
             },
             {
-                word: "فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا صلي",
+                word: "فِي قُلُوبِهِم مَّرَضٌ فَزَادَهُمُ اللَّهُ مَرَضًا <span class='text-emerald-400 font-extrabold'>صلي</span>",
                 prompt: "If you read <strong class='text-emerald-400'>صلي</strong>, stopping is allowed, but what is better?",
                 options: ["Continuing to read without pausing", "Stopping and repeating the phrase"],
+                correctIndex: 0
+            },
+            {
+                word: "وَلَوْ أَنَّهُمْ فَعَلُوا مَا يُوعَظُونَ بِهِ لَكَانَ خَيْرًا لَّهُمْ وَأَشَدَّ تَثْبِيتًا <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "How does <span class='text-emerald-400'>صلي</span> guide the reciter?",
+                options: ["Connecting the phrase is preferred", "Stopping is compulsory"],
+                correctIndex: 0
+            },
+            {
+                word: "وَسَارِعُوا إِلَىٰ مَغْفِرَةٍ مِّن رَّبِّكُمْ وَجَنَّةٍ عَرْضُهَا السَّمَاوَاتُ وَالْأَرْضُ أُعِدَّتْ لِلْمُتَّقِينَ <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "What is the significance of <span class='text-emerald-400'>صلي</span> in this verse?",
+                options: ["Keep reciting to maintain the momentum of Paradise descriptions", "Pause to catch your breath strictly"],
+                correctIndex: 0
+            },
+            {
+                word: "يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "Does <span class='text-emerald-400'>صلي</span> prioritize stopping or continuing?",
+                options: ["Continuing (Al-Wasl Awla)", "Stopping (Al-Waqf Awla)"],
+                correctIndex: 0
+            },
+            {
+                word: "وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "Why is continuation favored at <span class='text-emerald-400'>صلي</span> here?",
+                options: ["To link the closeness of Allah directly with His responsiveness", "Because stopping is a sin"],
+                correctIndex: 0
+            },
+            {
+                word: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "What is the ruling for <span class='text-emerald-400'>صلي</span> in Ayat al-Kursi segments?",
+                options: ["Continuing is preferred", "Stopping is mandatory"],
+                correctIndex: 0
+            },
+            {
+                word: "وَجَعَلْنَا مِنَ الْمَاءِ كُلَّ شَيْءٍ حَيٍّ ۖ أَفَلَا يُؤْمِنُونَ <span class='text-emerald-400 font-extrabold'>صلي</span>",
+                prompt: "How should you approach <span class='text-emerald-400'>صلي</span> here?",
+                options: ["Preferably connect into the rhetorical question", "Mandatory halt"],
                 correctIndex: 0
             },
 
             // --- FORBIDDEN STOP (لا) ---
             {
-                word: "الَّذِينَ تَتَوَفَّاهُمُ الْمَلَائِكَةُ طَيِّبِينَ لا يَقُولُونَ سَلَامٌ عَلَيْكُمُ",
-                prompt: "What does the sign <strong class='text-red-500'>لا</strong> signal at this point?",
+                word: "الَّذِينَ تَتَوَفَّاهُمُ الْمَلَائِكَةُ طَيِّبِينَ <span class='text-red-400 font-extrabold'>لا</span> يَقُولُونَ سَلَامٌ عَلَيْكُمُ",
+                prompt: "What does the sign <strong class='text-red-400'>لا</strong> signal at this point?",
                 options: ["Forbidden Stop (Do not pause here)", "Preferred Stop"],
                 correctIndex: 0
             },
             {
-                word: "وَمَا يَعْلَمُ تَأْوِيلَهُ إِلَّا اللَّهُ لا وَالرَّاسِخُونَ فِي الْعِلْمِ",
-                prompt: "Why must you NOT stop when encountering <strong class='text-red-500'>لا</strong> in a continuous phrase?",
+                word: "وَمَا يَعْلَمُ تَأْوِيلَهُ إِلَّا اللَّهُ <span class='text-red-400 font-extrabold'>لا</span> وَالرَّاسِخُونَ فِي الْعِلْمِ",
+                prompt: "Why must you NOT stop when encountering <strong class='text-red-400'>لا</strong> in a continuous phrase?",
                 options: ["Because stopping breaks the complete grammatical meaning", "Because it is the end of the Surah"],
+                correctIndex: 0
+            },
+            {
+                word: "وَقَالَ الَّذِينَ كَفَرُوا لَا تَأْتِينَا السَّاعَةُ <span class='text-red-400 font-extrabold'>لا</span> قُلْ بَلَىٰ وَرَبِّي لَتَأْتِيَنَّكُمْ",
+                prompt: "What is the rule of <span class='text-red-400'>لا</span> in this ayah?",
+                options: ["Do not stop; maintain the flow", "Stop immediately"],
+                correctIndex: 0
+            },
+            {
+                word: "وَمَا أَرْسَلْنَاكَ إِلَّا كَافَّةً لِّلنَّاسِ بَشِيرًا وَنَذِيرًا <span class='text-red-400 font-extrabold'>لا</span> وَلَٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ",
+                prompt: "What does <span class='text-red-400'>لا</span> prohibit here?",
+                options: ["Stopping at 'نَذِيرًا'", "Continuing past 'نَذِيرًا'"],
+                correctIndex: 0
+            },
+            {
+                word: "لَيْسَ الْبِرَّ أَنْ تُوَلُّوا وُجُوهَكُمْ قِبَلَ الْمَشْرِقِ وَالْمَغْرِبِ <span class='text-red-400 font-extrabold'>لا</span> وَلَٰكِنَّ الْبِرَّ مَنْ آمَنَ بِاللَّهِ",
+                prompt: "Why is stopping forbidden at <span class='text-red-400'>لا</span>?",
+                options: ["The verse connects righteousness description directly", "It changes Arabic grammar rules universally"],
+                correctIndex: 0
+            },
+            {
+                word: "فَإِنْ لَمْ تَفْعَلُوا وَلَنْ تَفْعَلُوا فَاتَّقُوا النَّارَ الَّتِي وَقُودُهَا النَّاسُ وَالْحِجَارَةُ <span class='text-red-400 font-extrabold'>لا</span> أُعِدَّتْ لِلْكَافِرِينَ",
+                prompt: "What does <span class='text-red-400'>لا</span> signify regarding Hellfire preparation?",
+                options: ["Do not pause between the fuel description and preparation", "Mandatory breath pause"],
+                correctIndex: 0
+            },
+            {
+                word: "إِنَّ الَّذِينَ كَفَرُوا سَوَاءٌ عَلَيْهِمْ أَأَنْذَرْتَهُمْ أَمْ لَمْ تُنْذِرْهُمْ <span class='text-red-400 font-extrabold'>لا</span> يُؤْمِنُونَ",
+                prompt: "How should you treat <span class='text-red-400'>لا</span> in Surah Al-Baqarah?",
+                options: ["Never pause; connect warning to lack of belief", "Pause for 3 seconds"],
+                correctIndex: 0
+            },
+            {
+                word: "وَمِنَ النَّاسِ مَنْ يَقُولُ آمَنَّا بِاللَّهِ وَبِالْيَوْمِ الْآخِرِ وَمَا هُمْ بِمُؤْمِنِينَ <span class='text-red-400 font-extrabold'>لا</span> يُخَادِعُونَ اللَّهَ",
+                prompt: "What does <span class='text-red-400'>لا</span> indicate about the hypocrites description?",
+                options: ["Do not break the continuity of their characteristics", "Stop to condemn them"],
                 correctIndex: 0
             },
 
             // --- PAIRED STOPS / EMBRACING STOP (∴ ∴) ---
             {
-                word: "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ∴ فِيهِ ∴ هُدًى لِّلْمُتَّقِينَ",
+                word: "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ <span class='text-purple-400 font-extrabold'>∴</span> فِيهِ <span class='text-purple-400 font-extrabold'>∴</span> هُدًى لِّلْمُتَّقِينَ",
                 prompt: "How must you handle the paired dots <strong class='text-purple-400'>∴  ∴</strong> (Mu'anaqah)?",
                 options: ["Stop at one of the two marks, but NOT both", "Stop at both places back to back"],
                 correctIndex: 0
             },
             {
-                word: "قَالُوا يَا مُوسَىٰ إِنَّا لَن نَّدْخُلَهَا أَبَدًا مَّا دَامُوا فِيهَا ∴ فَاذْهَبْ أَنْتَ وَرَبُّكَ ∴",
+                word: "قَالُوا يَا مُوسَىٰ إِنَّا لَن نَّدْخُلَهَا أَبَدًا مَّا دَامُوا فِيهَا <span class='text-purple-400 font-extrabold'>∴</span> فَاذْهَبْ أَنْتَ وَرَبُّكَ <span class='text-purple-400 font-extrabold'>∴</span> فَقَاتِلَا",
                 prompt: "If you choose to stop at the first <strong class='text-purple-400'>∴</strong> sign, what should you do at the second?",
                 options: ["Continue reading without stopping at the second", "Stop again at the second sign"],
+                correctIndex: 0
+            },
+            {
+                word: "ذَلِكَ الْحَقُّ مِن رَّبِّكَ فَلَا تَكُونَنَّ مِنَ المُمْتَرِينَ <span class='text-purple-400 font-extrabold'>∴</span> وَلِكُلٍّ وِجْهَةٌ هُوَ مُوَلِّيهَا <span class='text-purple-400 font-extrabold'>∴</span> فَاسْتَبِقُوا الْخَيْرَاتِ",
+                prompt: "What is the golden rule for Mu'anaqah (<span class='text-purple-400'>∴ ∴</span>)?",
+                options: ["Exclusively pause at either the first or the second, never both", "Ignore both marks entirely"],
+                correctIndex: 0
+            },
+            {
+                word: "أَمْ تقولُونَ إنَّ إبْرَاهِيمَ وَإِسْمَاعِيلَ وَإِسْحَاقَ وَيَعْقُوبَ وَالْأَسْبَاطَ كَانُوا هُودًا أَوْ نَصَارَىٰ <span class='text-purple-400 font-extrabold'>∴</span> قُلْ أَأَنْتُمْ أَعْلَمُ أَمِ اللَّهُ <span class='text-purple-400 font-extrabold'>∴</span> وَمَنْ أَظْلَمُ",
+                prompt: "When encountering paired embracing stops, what happens if you pause at the second mark?",
+                options: ["You must not have paused at the first mark", "You must repeat the whole verse"],
+                correctIndex: 0
+            },
+            {
+                word: "وَمَا يَعْلَمُ جُنُودَ رَبِّكَ إِلَّا هُوَ <span class='text-purple-400 font-extrabold'>∴</span> وَمَا هِيَ إِلَّا ذِكْرَىٰ لِلْبَشَرِ <span class='text-purple-400 font-extrabold'>∴</span> كَلَّا وَالْقَمَرِ",
+                prompt: "Identify the correct execution for Mu'anaqah marks (<span class='text-purple-400'>∴ ∴</span>):",
+                options: ["Stop at exactly one location between the two pairs", "Stop at neither or stop at both"],
+                correctIndex: 0
+            },
+            {
+                word: "فَأَوْجَسَ مِنْهُمْ خِيفَةً مُوسَىٰ <span class='text-purple-400 font-extrabold'>∴</span> قُلْنَا لَا تَخَفْ إِنَّكَ أَنْتَ الْأَعْلَىٰ <span class='text-purple-400 font-extrabold'>∴</span> وَأَلْقِ مَا فِي يَمِينِكَ",
+                prompt: "How does the embracing pause (<span class='text-purple-400'>∴ ∴</span>) affect breathing rhythm?",
+                options: ["Allows one strategic pause between the paired boundaries", "Forces two mandatory breath breaks"],
+                correctIndex: 0
+            },
+            {
+                word: "وَتِلْكَ الْأَمْثَالُ نَضْرِبُهَا لِلنَّاسِ <span class='text-purple-400 font-extrabold'>∴</span> وَمَا يَعْقِلُهَا إِلَّا الْعَالِمُونَ <span class='text-purple-400 font-extrabold'>∴</span> خَلَقَ اللَّهُ السَّمَاوَاتِ وَالْأَرْضَ",
+                prompt: "What is prohibited when reciting across Mu'anaqah symbols?",
+                options: ["Pausing at both marked positions consecutively", "Connecting both marked positions without stopping"],
+                correctIndex: 0
+            },
+            {
+                word: "يَا أَيُّهَا الَّذِينَ آمَنُوا هَلْ أَدُلُّكُمْ عَلَىٰ تِجَارَةٍ تُنجِيكُم مِّنْ عَذَابٍ أَلِيمٍ <span class='text-purple-400 font-extrabold'>∴</span> تُؤْمِنُونَ بِاللَّهِ وَرَسُولِهِ <span class='text-purple-400 font-extrabold'>∴</span> وَتُجَاهِدُونَ فِي سَبِيلِ اللَّهِ",
+                prompt: "What is the technical name for the <span class='text-purple-400'>∴ ∴</span> symbol in Tajweed science?",
+                options: ["Waqf al-Mu'anaqah (The Embracing Stop)", "Waqf al-Mutlaq (The Absolute Stop)"],
                 correctIndex: 0
             }
         ];
@@ -249,7 +525,7 @@
         let score = 0;
         let answered = false;
 
-        const SAVED_SCORE_KEY = "arabic_game_waqf_score";
+        const SAVED_SCORE_KEY = "arabic_game_waqf_score_40";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
         function shuffleArray(array) {
@@ -257,7 +533,8 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            // Load all 40 questions into the practice session
+            sessionQuestions = [...questionBank];
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -278,7 +555,7 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-amber-500/30 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
@@ -286,8 +563,8 @@
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
-                btn.innerText = optText;
+                btn.className = "bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer text-left flex items-center justify-between";
+                btn.innerHTML = `<span>${optText}</span> <i class='fa-solid fa-circle-chevron-right text-slate-600'></i>`;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
             });
@@ -310,13 +587,13 @@
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
                 badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
             } else {
                 badge.innerText = "Incorrect";
                 badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
                 
-                buttons[current.correctIndex].className = "bg-emerald-600/20 border-2 border-emerald-500/60 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                buttons[current.correctIndex].className = "bg-emerald-600/20 border-2 border-emerald-500/60 text-emerald-300 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left flex items-center justify-between";
             }
 
             document.getElementById("current-score").innerText = score;
@@ -326,7 +603,7 @@
         }
 
         function speakWord() {
-            const rawElementText = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
+            const rawElementText = document.getElementById('output-board')?.innerText || '';
             const text = rawElementText ? rawElementText.replace(/<[^>]*>?/gm, '') : '';
             
             if ('speechSynthesis' in window && text) {
@@ -334,17 +611,17 @@
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; 
+                utterance.rate = 0.8; 
                 window.speechSynthesis.speak(utterance);
 
                 const toast = document.getElementById('audio-toast');
                 const toastText = document.getElementById('toast-text');
                 if (toast && toastText) {
-                    toastText.innerText = "Reciting verse...";
+                    toastText.innerText = "Reciting verse clearly...";
                     toast.classList.remove('opacity-0');
                     setTimeout(() => {
                         toast.classList.add('opacity-0');
-                    }, 1800);
+                    }, 2000);
                 }
             } else {
                 alert("Text-to-speech is not supported on this browser.");
@@ -357,21 +634,42 @@
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.7; 
+                utterance.rate = 0.75; 
                 
                 window.speechSynthesis.speak(utterance);
 
                 const toast = document.getElementById('audio-toast');
                 const toastText = document.getElementById('toast-text');
                 if (toast && toastText) {
-                    toastText.innerText = `Playing sign: ${text}`;
+                    toastText.innerText = `Playing example audio...`;
                     toast.classList.remove('opacity-0');
                     setTimeout(() => {
                         toast.classList.add('opacity-0');
-                    }, 1800);
+                    }, 2000);
                 }
             } else {
                 alert("Audio speech synthesis is not supported in this browser.");
+            }
+        }
+
+        function playModuleOverview() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const overviewText = "Welcome to Zahrah's Interactive Online Classroom. This masterclass covers Rumūz al-Awqāf, the stopping and pausing signs of the Holy Quran, including mandatory stops, preferred stops, preferred continuations, forbidden stops, and embracing pauses.";
+                const utterance = new SpeechSynthesisUtterance(overviewText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+
+                const toast = document.getElementById('audio-toast');
+                const toastText = document.getElementById('toast-text');
+                if (toast && toastText) {
+                    toastText.innerText = "Playing Module Overview Audio...";
+                    toast.classList.remove('opacity-0');
+                    setTimeout(() => {
+                        toast.classList.add('opacity-0');
+                    }, 3500);
+                }
             }
         }
 
@@ -384,9 +682,9 @@
                     highScore = score;
                     localStorage.setItem(SAVED_SCORE_KEY, score.toString());
                 }
-                localStorage.setItem("arabic_completed_waqf.html", "true");
+                localStorage.setItem("arabic_completed_waqf_40", "true");
 
-                alert(`Rumūz al-Awwqāf Module Complete!\nYour Score: ${score}/100 points`);
+                alert(`Congratulations! You have completed all 40 questions in Rumūz al-Awwqāf Module!\nFinal Score: ${score}/${sessionQuestions.length * 10} points`);
                 window.location.href = "index.html";
             }
         }
