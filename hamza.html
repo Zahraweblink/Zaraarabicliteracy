@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamzatul Wasl & Qat' Studio | Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Hamzatul Wasl & Qat' Studio | Zahra's Arabic Literacy and Tajweed Mastery App</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,6 +35,7 @@
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -68,24 +69,25 @@
             <div class="inline-block bg-sky-500/10 text-sky-400 border border-sky-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                 Advanced Tajweed Module
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Hamzatul Wasl & Qat' (همزة الوصل والقطع)</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Hamzatul Wasl & Qat' Studio (همزة الوصل والقطع)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master the two types of Hamzah: the <strong>Connecting Hamzah (Wasl)</strong> which drops when continuing, and the <strong>Cutting Hamzah (Qat')</strong> which is always pronounced.
+                Comprehensive mastery of the two types of Hamzah: the <strong>Connecting Hamzah (Wasl)</strong> which drops when continuing, and the <strong>Cutting Hamzah (Qat')</strong> which is always pronounced.
             </p>
         </div>
 
         <!-- Practical Rule Explainer Card -->
         <div class="glass-card rounded-3xl p-6 border-sky-500/30 space-y-4">
             <h2 class="text-lg font-bold text-sky-300 flex items-center gap-2">
-                <i class="fa-solid fa-lightbulb"></i> Key Differences at a Glance:
+                <i class="fa-solid fa-lightbulb"></i> Key Differences & Examples at a Glance:
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                <!-- Qat' Card -->
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
                         <span class="text-3xl font-bold arabic-text text-amber-400 block mb-1">أَرْسَلْنَا</span>
                         <span class="text-xs font-bold text-sky-300 uppercase tracking-wide">Hamzatul Qat' (Cutting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
-                            <strong>Always pronounced</strong> whether starting or continuing speech. Carries a written Hamzah symbol (ء).
+                            <strong>Always pronounced</strong> whether starting or continuing speech. Carries a written Hamzah symbol (ء). Found in nouns, verbs (past 4-letter), and particles.
                         </p>
                     </div>
                     <div class="pt-3 flex justify-center">
@@ -94,12 +96,13 @@
                         </button>
                     </div>
                 </div>
+                <!-- Wasl Card -->
                 <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex flex-col justify-between">
                     <div>
                         <span class="text-3xl font-bold arabic-text text-emerald-400 block mb-1">ٱهْدِنَا</span>
                         <span class="text-xs font-bold text-emerald-300 uppercase tracking-wide">Hamzatul Wasl (Connecting)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
-                            <strong>Pronounced only when starting</strong>. Skipped entirely when connecting from a previous word. Carries a small Saad symbol (صـ).
+                            <strong>Pronounced only when starting</strong>. Skipped entirely when connecting from a previous word. Carries a small Saad symbol (صـ) or bare alif.
                         </p>
                     </div>
                     <div class="pt-3 flex justify-center">
@@ -115,16 +118,16 @@
         <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 2</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
             <!-- Target Word Display -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide mb-3">
+                <div id="output-board" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
                     ٱهْدِنَا
                 </div>
-                <p id="target-prompt" class="text-sm text-slate-300">
+                <p id="target-prompt" class="text-sm text-slate-300 px-4">
                     What type of Hamzah begins this word?
                 </p>
             </div>
@@ -148,7 +151,7 @@
         <!-- Quiz Complete View -->
         <div id="quiz-complete" class="hidden glass-card rounded-3xl p-8 text-center space-y-4">
             <h4 class="text-2xl font-bold text-amber-400">Great Job! 🎉</h4>
-            <p class="text-slate-300">You scored <span id="final-score" class="font-bold text-amber-400">0</span> points on this module.</p>
+            <p class="text-slate-300">You scored <span id="final-score" class="font-bold text-amber-400">0</span> / 400 points on Hamzatul Wasl & Qat' Master Assessment.</p>
             <div class="flex justify-center gap-3 pt-2">
                 <button onclick="resetQuiz()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold px-5 py-2.5 rounded-xl text-xs transition">Retake Module</button>
                 <a href="index.html" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition inline-flex items-center">Return to Dashboard</a>
@@ -159,7 +162,7 @@
 
     <!-- Footer -->
     <footer class="w-full max-w-3xl text-center text-slate-500 text-xs mt-6">
-        Zahrah’s Interactive Classroom &copy; 2026. Arabic Literacy & Tajweed Master App.
+        Zahra's Arabic Literacy and Tajweed Mastery App &copy; 2026. All rights reserved.
     </footer>
 
 <script>
@@ -180,6 +183,234 @@
             prompt: "What type of Hamzah begins this word?",
             options: ["Hamzatul Wasl (Connecting)", "Hamzatul Qat' (Cutting)"],
             correct: 1
+        },
+        {
+            word: "ٱسْتَغْفِرْ",
+            prompt: "In this 6-letter verb starting with a Hamzatul Wasl, what is the starting vowel sound?",
+            options: ["Kasrah (ِ)", "Fatha (َ)", "Dammah (ُ)", "Sukun (ْ)"],
+            correct: 0
+        },
+        {
+            word: "أَحْمَدُ",
+            prompt: "Why is the Hamza in this proper noun classified as Hamzatul Qat'?",
+            options: ["It is permanently pronounced whether initiated or connected, and bears an explicit Hamzah sign.", "It drops during continuous recitation.", "It is a connecting helper letter.", "It turns into a Waw."],
+            correct: 0
+        },
+        {
+            word: "ٱللَّهُ",
+            prompt: "How is the Hamzatul Wasl pronounced when initiating recitation with the majestic name (Lafdhul-Jalalah)?",
+            options: ["With a permanent Fatha (ٱللَّهُ)", "With a Kasrah", "With a Dammah", "It is skipped"],
+            correct: 0
+        },
+        {
+            word: "ٱبْن",
+            prompt: "What rule governs the Hamzatul Wasl in the exceptional noun 'Ibn' (son) when starting?",
+            options: ["It takes a Kasrah (ٱبْن)", "It takes a Dammah", "It takes a Fatha", "It is silent"],
+            correct: 0
+        },
+        {
+            word: "إِنَّ",
+            prompt: "Are particles (Huruf) like 'Inna' characterized by Hamzatul Wasl or Hamzatul Qat'?",
+            options: ["Hamzatul Qat' (All particles start with Qat' except definite article Alif-Lam)", "Hamzatul Wasl", "Neither", "Both simultaneously"],
+            correct: 0
+        },
+        {
+            word: "ٱضْرِبْ",
+            prompt: "When starting this imperative verb derived from 'Daraba', what vowel does the Hamzatul Wasl take due to the third letter's Kasrah?",
+            options: ["Kasrah (ٱضْرِبْ)", "Dammah (ٱضْرُبْ)", "Fatha", "Sukun"],
+            correct: 0
+        },
+        {
+            word: "ٱنْصُرْ",
+            prompt: "When starting this imperative verb, why does the Hamzatul Wasl take a Dammah?",
+            options: ["Because the third letter of the verb has an original Dammah (نصُرُ)", "Because it is a noun", "Because it follows a Fatha", "Random rule"],
+            correct: 0
+        },
+        {
+            word: "أَخذ",
+            prompt: "What category does this three-letter verbal noun (Masdar) belong to regarding Hamza?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Neither", "Dependent Wasl"],
+            correct: 0
+        },
+        {
+            word: "ٱسم",
+            prompt: "What is the initial vowel rule when starting the exceptional noun 'Ism' (name)?",
+            options: ["Kasrah (ٱسْم)", "Fatha", "Dammah", "Silent"],
+            correct: 0
+        },
+        {
+            word: "أَمْران",
+            prompt: "Is the Hamza in dual nouns like 'Amran' a Wasl or Qat'?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Dropped Wasl", "Assimilated Hamza"],
+            correct: 0
+        },
+        {
+            word: "ٱستَكْبَرَ",
+            prompt: "What is the root verb form category for 'Istakbara' determining its Wasl status?",
+            options: ["Six-letter verb (Sudaasi) past tense, always starting with Wasl", "Four-letter verb", "Particle", "Noun"],
+            correct: 0
+        },
+        {
+            word: "أَكَلَ",
+            prompt: "Does the past tense 3-letter verb 'Akala' use Wasl or Qat'?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Wasl with Dammah", "Wasl with Kasrah"],
+            correct: 0
+        },
+        {
+            word: "ٱمْرَأَة",
+            prompt: "How is the Hamzatul Wasl in 'Imra'ah' (woman) vocalized when starting?",
+            options: ["Kasrah (ٱمْرَأَة)", "Dammah", "Fatha", "Sukun"],
+            correct: 0
+        },
+        {
+            word: "أُذُن",
+            prompt: "Is the opening Hamza in 'Udun' (ear) a Qat' or Wasl?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Connecting helper", "Assimilation"],
+            correct: 0
+        },
+        {
+            word: "ٱثْنَيْنِ",
+            prompt: "What starting vowel does the dual number noun 'Ithnayn' take?",
+            options: ["Kasrah (ٱثْنَيْنِ)", "Fatha", "Dammah", "None"],
+            correct: 0
+        },
+        {
+            word: "أَنْبَأَ",
+            prompt: "Classify the Hamza in the four-letter past tense verb 'Anba'a'.",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Drop-out Wasl", "Silent letter"],
+            correct: 0
+        },
+        {
+            word: "ٱعْتَصِمُوا",
+            prompt: "What happens to the initial Hamzatul Wasl of 'I'tasimu' if preceded by the conjunction 'Wa' (وَٱعْتَصِمُوا)?",
+            options: ["It is skipped in pronunciation, connecting directly from Waw to 'Ayn", "It is pronounced with a Fatha", "It turns into a Qat'", "It lengthens into a Madd"],
+            correct: 0
+        },
+        {
+            word: "أَنْتُمْ",
+            prompt: "Are pronoun sets starting with an Alif classified under Wasl or Qat'?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Neither", "Optional"],
+            correct: 0
+        },
+        {
+            word: "ٱلْحَمْدُ",
+            prompt: "What is the definitive rule for the Alif-Lam (definite article) at the beginning of words like Al-Hamdu?",
+            options: ["It is always a Hamzatul Wasl taking a Fatha when starting (ٱلْحَمْدُ)", "It is a Hamzatul Qat'", "It is silent", "It takes a Dammah"],
+            correct: 0
+        },
+        {
+            word: "أَخْجَلَ",
+            prompt: "Determine the Hamza type in this active four-letter verb.",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Wasl with Kasrah", "Wasl with Dammah"],
+            correct: 0
+        },
+        {
+            word: "ٱطْلُبُوا",
+            prompt: "Why does the imperative verb 'Utlubu' start with a Dammah on its Wasl Hamza?",
+            options: ["Because the third letter (Ta) carries an original Dammah (طَلُبَ)", "Because it's a noun", "Because it ends with waw", "Arbitrary rule"],
+            correct: 0
+        },
+        {
+            word: "أُخْت",
+            prompt: "Is 'Ukht' (sister) initiated with Wasl or Qat'?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Connecting Hamza", "Slurred Hamza"],
+            correct: 0
+        },
+        {
+            word: "ٱبْنَتَانِ",
+            prompt: "How is the Hamzatul Wasl in 'Ibnatani' (two daughters) treated during continuous recitation?",
+            options: ["Dropped when connected from prior word", "Always pronounced", "Converted to Waw", "Given a Fatha"],
+            correct: 0
+        },
+        {
+            word: "أَعُوذُ",
+            prompt: "Identify the Hamza in the present tense verb 'A'udhu'.",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Wasl variant", "Silent padding"],
+            correct: 0
+        },
+        {
+            word: "ٱستِغْفَار",
+            prompt: "What rule applies to the verbal noun of a 6-letter verb (Masdar of Istaghfara)?",
+            options: ["Starts with Hamzatul Wasl taking a Kasrah (ٱستِغْفَار)", "Starts with Qat'", "Takes a Dammah", "Silent"],
+            correct: 0
+        },
+        {
+            word: "أَيْنَ",
+            prompt: "Classify the interrogative particle 'Ayna'.",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Connecting particle", "Omitted letter"],
+            correct: 0
+        },
+        {
+            word: "ٱمْرُؤٌ",
+            prompt: "When initiating recitation with the noun 'Imru'un' (a man), how is the Hamzatul Wasl vocalized?",
+            options: ["With a Kasrah on the Hamza (ٱمْرُؤٌ)", "With a Dammah", "With a Fatha", "Left without vowel"],
+            correct: 0
+        },
+        {
+            word: "أَكْثَر",
+            prompt: "Does 'Akthar' feature a Wasl or Qat' Hamza?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Mixed type", "Connecting prefix"],
+            correct: 0
+        },
+        {
+            word: "ٱسْتَكْبَرْتُمْ",
+            prompt: "If you connect the phrase 'Wa'astakbartum' (وَٱسْتَكْبَرْتُمْ), what happens to the initial Alif?",
+            options: ["It is bypassed in sound delivery; you move straight from Waw to Seen with Sukun", "It is pronounced clearly", "It turns into a long Alif", "It takes a Dammah"],
+            correct: 0
+        },
+        {
+            word: "أَلَمْ",
+            prompt: "Are interrogative particles like 'Alam' starting with Hamza classified as Qat'?",
+            options: ["Yes, Hamzatul Qat'", "No, Hamzatul Wasl", "Neither", "Optional Wasl"],
+            correct: 0
+        },
+        {
+            word: "ٱعْتُمِرَ",
+            prompt: "In this passive verb form, what is the starting rule for its Hamzatul Wasl?",
+            options: ["Starts with a Kasrah", "Starts with a Dammah", "Starts with a Fatha", "Stays silent"],
+            correct: 0
+        },
+        {
+            word: "إِسْلَام",
+            prompt: "Why does the verbal noun 'Islam' (derived from Aslama) begin with Hamzatul Qat' rather than Wasl?",
+            options: ["Because it is the Masdar of a 4-letter verb (أَسْلَمَ - إِسْلَامًا)", "Because it's a noun of 6 letters", "Because it follows definite articles", "It is an exception"],
+            correct: 0
+        },
+        {
+            word: "ٱثْنَانِ",
+            prompt: "What is the grammatical category of 'Ithnani' requiring Hamzatul Wasl?",
+            options: ["One of the specific 7 nouns (Asma' As-Sifiyyah)", "A 6-letter verb", "A particle", "A past tense verb"],
+            correct: 0
+        },
+        {
+            word: "أُوتِيَ",
+            prompt: "Classify the Hamza in the passive verb 'Utiya'.",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Wasl helper", "Implicit silence"],
+            correct: 0
+        },
+        {
+            word: "ٱسْتَحْوَذَ",
+            prompt: "How many letters comprise the root-based verb stem of 'Istahwaza', confirming its Wasl requirement?",
+            options: ["6 letters (Sudaasi)", "3 letters", "4 letters", "5 letters"],
+            correct: 0
+        },
+        {
+            word: "أَحْسَنَ",
+            prompt: "Is the initial Hamza in the past tense verb 'Ahsana' a Wasl or Qat'?",
+            options: ["Hamzatul Qat'", "Hamzatul Wasl", "Connecting letter", "Assimilated sound"],
+            correct: 0
+        },
+        {
+            word: "ٱصْطَبِرْ",
+            prompt: "When initiating the imperative verb 'Istabir', how is the Wasl Hamza vocalized?",
+            options: ["Kasrah (ٱصْطَبِرْ) because the third letter Ta has a Kasrah in the imperfect", "Dammah", "Fatha", "Sukun"],
+            correct: 0
+        },
+        {
+            word: "الفرق الجوهري بين الوصل والقطع",
+            prompt: "What is the ultimate defining summary test between Hamzatul Wasl and Hamzatul Qat'?",
+            options: ["Wasl drops during connection and exists to bypass starting with a Sukun; Qat' is permanent and mandatory in all contexts.", "Wasl is louder than Qat'.", "Qat' only appears in the middle of words.", "There is no functional difference."],
+            correct: 0
         }
     ];
 
@@ -217,7 +448,6 @@
             document.getElementById('quiz-complete').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
             
-            // Saves completion status for your index.html dashboard badge
             localStorage.setItem('hamzatul_wasl_completed', 'true');
             localStorage.setItem('score_hamzatul_wasl', score);
             return;
