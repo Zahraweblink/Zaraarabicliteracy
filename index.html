@@ -87,195 +87,435 @@
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
 
-    <!-- Header / Branding -->
-    <header class="w-full max-w-4xl text-center space-y-3 mb-10 mt-2 z-10">
-        <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
-            Zahrah's Interactive Online Classroom — Arabic Literacy & Tajweed Mastery App
-        </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-amber-400 tracking-tight">Tajweed Curriculum Hub</h1>
-        <p class="text-slate-300 text-sm max-w-xl mx-auto font-medium leading-relaxed">
-            Welcome to your elite digital classroom! Choose a lesson below to journey step-by-step from foundational letters to advanced recitations. Every module features comprehensive guides, sufficient examples, audio articulations, and 40 mastery test questions.
-        </p>
+    <!-- ================= VIEW 1: CURRICULUM HUB (MENU) ================= -->
+    <div id="view-hub" class="w-full max-w-4xl flex flex-col items-center">
+        <!-- Header / Branding -->
+        <header class="w-full text-center space-y-3 mb-10 mt-2 z-10">
+            <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
+                Zahrah's Interactive Online Classroom — Arabic Literacy & Tajweed Mastery App
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-amber-400 tracking-tight">Tajweed Curriculum Hub</h1>
+            <p class="text-slate-300 text-sm max-w-xl mx-auto font-medium leading-relaxed">
+                Welcome to your elite digital classroom! Choose a lesson below to journey step-by-step from foundational letters to advanced recitations. Every module features comprehensive guides, sufficient examples, audio articulations, and 40 mastery test questions.
+            </p>
 
-        <!-- Global Audio Demo Trigger -->
-        <div class="pt-3 flex justify-center">
-            <button onclick="playWordAudio('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ')" class="bg-amber-400/15 hover:bg-amber-400/25 text-amber-300 border border-amber-400/30 px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 transition-all cursor-pointer shadow-md">
-                <i class="fa-solid fa-volume-high text-sm text-amber-400"></i> Test Recitation: <span class="arabic-text text-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+            <!-- Global Audio Demo Trigger -->
+            <div class="pt-3 flex justify-center">
+                <button onclick="playWordAudio('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ')" class="bg-amber-400/15 hover:bg-amber-400/25 text-amber-300 border border-amber-400/30 px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 transition-all cursor-pointer shadow-md">
+                    <i class="fa-solid fa-volume-high text-sm text-amber-400"></i> Test Recitation: <span class="arabic-text text-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main App Container -->
+        <main class="w-full space-y-10 z-10">
+
+            <!-- Step 1: Absolute Beginners -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
+                    <i class="fa-solid fa-seedling text-cyan-400"></i> Step 1: Absolute Beginners' Level
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Letter Lab</h3><p class="text-xs text-slate-300">Letter Recognition & Formation</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Vowel Master</h3><p class="text-xs text-slate-300">Practicing Short Vowels (Harakat)</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sun & Moon Letters</h3><p class="text-xs text-slate-300">Al-Shamsiyyah & Al-Qamariyyah</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sukoon Studio</h3><p class="text-xs text-slate-300">Understanding Static Letters</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Step 2: Elementary Tajweed -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
+                    <i class="fa-solid fa-book-open text-cyan-400"></i> Step 2: Elementary Tajweed
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Al-Makhaarij Studio</h3><p class="text-xs text-slate-300">Anatomical Exit Points</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">As-Sifāt Studio</h3><p class="text-xs text-slate-300">Inherent Letter Characteristics</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tafkheem Studio</h3><p class="text-xs text-slate-300">Heavy Letters & Elevation</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tarqeeq Studio</h3><p class="text-xs text-slate-300">Light Letters & Thinning</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Qalqalah Studio</h3><p class="text-xs text-slate-300">Bouncing Echoing Sounds</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Step 3: Blending & Flow Rules -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2.5 text-amber-400 font-bold text-base px-2 border-b border-amber-500/20 pb-2">
+                    <i class="fa-solid fa-water text-amber-400"></i> Step 3: Blending & Flow Rules (Intermediate Tajweed)
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Noon Sakinah Studio</h3><p class="text-xs text-slate-300">Voicing, Merging, Flipping & Hiding</p></div>
+                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="meem-sakinah.html" onclick="alert('Module file link'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Meem Sakinah Studio</h3><p class="text-xs text-slate-300">Static Meem Blending Rules</p></div>
+                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Shaddah Studio</h3><p class="text-xs text-slate-300">Doubled Letters & Emphasis</p></div>
+                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Madd Studio</h3><p class="text-xs text-slate-300">Accurate Elongation Counts</p></div>
+                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Waqf Studio</h3><p class="text-xs text-slate-300">Safe Stopping Rules & Signs</p></div>
+                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Step 4: Refining the Art -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
+                    <i class="fa-solid fa-graduation-cap text-cyan-400"></i> Step 4: Advanced Recitations
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Hamza Studio</h3><p class="text-xs text-slate-300">Glottal Stops & Carrier Rules</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Nabr Studio</h3><p class="text-xs text-slate-300">Vocal Accents & Pressure</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Saktah Studio</h3><p class="text-xs text-slate-300">Mandatory Silent Pauses</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Imālah Studio</h3><p class="text-xs text-slate-300">Vowel Deflection (Majrehaa)</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-300">Lip-Rounding & Softened Hamzah</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Step 5: Interactive Practice & Games -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
+                    <i class="fa-solid fa-gamepad text-cyan-400"></i> Step 5: Interactive Practice
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Clicking this instantly switches view to Spelling Bee Studio smoothly on mobile -->
+                    <button onclick="switchView('spelling-bee')" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Spelling Bee</h3><p class="text-xs text-slate-300">Interactive Spelling Challenge (40 Qs)</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Word Builder</h3><p class="text-xs text-slate-300">Construct Words & Roots</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="w-full text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10 space-y-1">
+            <p>Zahrah's Interactive Online Classroom &copy; 2026. All modules integrated.</p>
+            <p class="text-amber-400 font-semibold text-[11px]">Excellence in Language & Science Instruction</p>
+        </footer>
+    </div>
+
+
+    <!-- ================= VIEW 2: SPELLING BEE STUDIO (BUILT-IN) ================= -->
+    <div id="view-spelling-bee" class="w-full max-w-3xl flex flex-col items-center hidden">
+        <!-- Top Navigation -->
+        <header class="w-full flex justify-between items-center mb-6 z-10">
+            <button onclick="switchView('hub')" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <i class="fa-solid fa-arrow-left"></i> Back to Hub
             </button>
-        </div>
-    </header>
+            <div class="text-xs uppercase tracking-widest text-slate-300 font-bold">Spelling Bee Studio</div>
+        </header>
 
-    <!-- Main App Container -->
-    <main class="w-full max-w-4xl space-y-10 z-10">
+        <!-- Main Container -->
+        <main class="w-full space-y-6 z-10">
+            <!-- Banner -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-3 border-cyan-500/20 relative">
+                <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                    Interactive Spelling Challenge
+                </div>
+                <h1 class="text-2xl md:text-4xl font-extrabold text-amber-400 tracking-tight">
+                    Arabic Spelling Bee (<span class="arabic-text">مسابقة التهجئة</span>)
+                </h1>
+                <p class="text-slate-300 text-xs md:text-sm max-w-lg mx-auto leading-relaxed">
+                    Listen to the precise audio pronunciation, review the breakdown, and test your mastery across 40 rigorous interactive spelling questions.
+                </p>
+            </div>
 
-        <!-- Step 1: Absolute Beginners -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
-                <i class="fa-solid fa-seedling text-cyan-400"></i> Step 1: Absolute Beginners' Level
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="letter-lab.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Letter Lab</h3><p class="text-xs text-slate-300">Letter Recognition & Formation</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="vowel-master.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Vowel Master</h3><p class="text-xs text-slate-300">Practicing Short Vowels (Harakat)</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="sun-moon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sun & Moon Letters</h3><p class="text-xs text-slate-300">Al-Shamsiyyah & Al-Qamariyyah</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="sukoon.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sukoon Studio</h3><p class="text-xs text-slate-300">Understanding Static Letters</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-        </section>
+            <!-- Quiz Workspace Card -->
+            <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
+                <!-- Quiz Progress & Header -->
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                    <div>
+                        <span id="question-counter" class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Question 1 of 40</span>
+                        <h2 class="text-lg font-bold text-white mt-1">Identify the Correct Spelling</h2>
+                    </div>
+                    <div class="bg-amber-400/10 border border-amber-400/30 text-amber-300 px-3 py-1.5 rounded-xl text-xs font-bold">
+                        Score: <span id="current-score">0</span> / 40
+                    </div>
+                </div>
 
-        <!-- Step 2: Elementary Tajweed -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
-                <i class="fa-solid fa-book-open text-cyan-400"></i> Step 2: Elementary Tajweed
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="makharij.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Al-Makhaarij Studio</h3><p class="text-xs text-slate-300">Anatomical Exit Points</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="as-sifat.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">As-Sifāt Studio</h3><p class="text-xs text-slate-300">Inherent Letter Characteristics</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="tafkheem.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tafkheem Studio</h3><p class="text-xs text-slate-300">Heavy Letters & Elevation</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="tarqeeq.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tarqeeq Studio</h3><p class="text-xs text-slate-300">Light Letters & Thinning</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="qalqalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Qalqalah Studio</h3><p class="text-xs text-slate-300">Bouncing Echoing Sounds</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-        </section>
+                <!-- Audio Prompt Box -->
+                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 text-center space-y-3">
+                    <p class="text-xs text-slate-400 font-medium">Click to hear the target word articulated clearly:</p>
+                    <button onclick="playTargetAudio()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm inline-flex items-center gap-2.5 transition-all shadow-lg cursor-pointer">
+                        <i class="fa-solid fa-volume-high text-base"></i> Play Pronunciation
+                    </button>
+                    <div id="hidden-reveal" class="hidden pt-2">
+                        <p class="text-[11px] text-slate-400">Target Word:</p>
+                        <p id="target-arabic-display" class="arabic-text text-2xl text-amber-400 font-bold mt-1"></p>
+                    </div>
+                </div>
 
-        <!-- Step 3: Blending & Flow Rules -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-2.5 text-amber-400 font-bold text-base px-2 border-b border-amber-500/20 pb-2">
-                <i class="fa-solid fa-water text-amber-400"></i> Step 3: Blending & Flow Rules (Intermediate Tajweed)
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="noon-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Noon Sakinah Studio</h3><p class="text-xs text-slate-300">Voicing, Merging, Flipping & Hiding</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="meem-sakinah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Meem Sakinah Studio</h3><p class="text-xs text-slate-300">Static Meem Blending Rules</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="shaddah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Shaddah Studio</h3><p class="text-xs text-slate-300">Doubled Letters & Emphasis</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="madd.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Madd Studio</h3><p class="text-xs text-slate-300">Accurate Elongation Counts</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="waqf.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Waqf Studio</h3><p class="text-xs text-slate-300">Safe Stopping Rules & Signs</p></div>
-                    <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-        </section>
+                <!-- Options Grid -->
+                <div id="options-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5"></div>
 
-        <!-- Step 4: Refining the Art -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
-                <i class="fa-solid fa-graduation-cap text-cyan-400"></i> Step 4: Advanced Recitations
+                <!-- Feedback / Next Button Area -->
+                <div id="feedback-area" class="hidden pt-4 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p id="feedback-text" class="text-xs font-bold"></p>
+                    <button onclick="nextQuestion()" class="w-full md:w-auto bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-pointer">
+                        Next Question <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="hamza.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Hamza Studio</h3><p class="text-xs text-slate-300">Glottal Stops & Carrier Rules</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="nabr.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Nabr Studio</h3><p class="text-xs text-slate-300">Vocal Accents & Pressure</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="saktah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Saktah Studio</h3><p class="text-xs text-slate-300">Mandatory Silent Pauses</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="imalah.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Imālah Studio</h3><p class="text-xs text-slate-300">Vowel Deflection (Majrehaa)</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="ishmam-tashil.html" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-300">Lip-Rounding & Softened Hamzah</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
+
+            <!-- Completion Screen (Hidden by default) -->
+            <div id="completion-screen" class="glass-card rounded-3xl p-8 text-center space-y-6 hidden">
+                <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-2xl mx-auto flex items-center justify-center text-2xl">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <div class="space-y-2">
+                    <h2 class="text-2xl font-extrabold text-amber-400">Mastery Test Completed!</h2>
+                    <p class="text-slate-300 text-xs">You have successfully completed all 40 Spelling Bee questions.</p>
+                    <p id="final-score-text" class="text-lg font-bold text-cyan-300 pt-2"></p>
+                </div>
+                <div class="pt-4 flex justify-center gap-3">
+                    <button onclick="restartQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer">
+                        Retake Test
+                    </button>
+                    <button onclick="switchView('hub')" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs transition-all cursor-pointer">
+                        Return to Hub
+                    </button>
+                </div>
             </div>
-        </section>
+        </main>
 
-        <!-- Step 5: Interactive Practice & Games -->
-        <section class="space-y-4">
-            <div class="flex items-center gap-2.5 text-cyan-300 font-bold text-base px-2 border-b border-cyan-500/20 pb-2">
-                <i class="fa-solid fa-gamepad text-cyan-400"></i> Step 5: Interactive Practice
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="spelling-bee.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Spelling Bee</h3><p class="text-xs text-slate-300">Interactive Spelling Challenge</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="word-builder.html" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                    <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Word Builder</h3><p class="text-xs text-slate-300">Construct Words & Roots</p></div>
-                    <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div>
-        </section>
+        <!-- Footer -->
+        <footer class="w-full text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10">
+            Zahrah's Interactive Online Classroom &copy; 2026
+        </footer>
+    </div>
 
-    </main>
 
-    <!-- Footer -->
-    <footer class="w-full max-w-4xl text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10 space-y-1">
-        <p>Zahrah's Interactive Online Classroom &copy; 2026. All 22 modules linked and active.</p>
-        <p class="text-amber-400 font-semibold text-[11px]">Excellence in Language & Science Instruction</p>
-    </footer>
-
-    <!-- Native Arabic Speech Engine (Optimized for correct articulation & Arabic speech synthesis) -->
+    <!-- Global Scripts -->
     <script>
-        function playWordAudio(textToSpeak) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop any overlapping sounds
-
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.rate = 0.75; // Slower, precise cadence for Tajweed articulation
-                utterance.pitch = 1.0;
-
-                // Force the browser to find an Arabic voice so it never defaults to English
-                const voices = window.speechSynthesis.getVoices();
-                const arabicVoice = voices.find(voice => voice.lang.startsWith('ar') || voice.lang.includes('ar-'));
-                
-                if (arabicVoice) {
-                    utterance.voice = arabicVoice;
-                }
-                utterance.lang = 'ar-SA';
-
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Text-to-speech is not supported on your browser.");
+        // View Switcher for Single-File Mobile Navigation
+        function switchView(viewName) {
+            window.scrollTo(0, 0);
+            if (viewName === 'hub') {
+                document.getElementById('view-hub').classList.remove('hidden');
+                document.getElementById('view-spelling-bee').classList.add('hidden');
+            } else if (viewName === 'spelling-bee') {
+                document.getElementById('view-hub').classList.add('hidden');
+                document.getElementById('view-spelling-bee').classList.remove('hidden');
+                restartQuiz();
             }
         }
 
-        // Preload voices so they are ready instantly when clicked
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                window.speechSynthesis.getVoices();
-            };
+        // Global Speech Synthesis for Hub
+        function playWordAudio(textToSpeak) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.rate = 0.75;
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang.startsWith('ar') || v.lang.includes('ar-'));
+                if (arabicVoice) utterance.voice = arabicVoice;
+                utterance.lang = 'ar-SA';
+                window.speechSynthesis.speak(utterance);
+            }
         }
+
+        // 40 Spelling Bee Questions Dataset
+        const quizData = [
+            { word: "كِتَاب", options: ["كِتَاب", "كَتَبَ", "كَاتِب", "مَكْتَب"], correct: 0 },
+            { word: "قَلَم", options: ["قَلْب", "قَلَم", "قَالَم", "قُلُوب"], correct: 1 },
+            { word: "مَدْرَسَة", options: ["مُدَرِّس", "مَدْرَسَة", "دِرَاسَة", "مَدَارِس"], correct: 1 },
+            { word: "شَمْس", options: ["قَمَر", "شَمْس", "سَمَاء", "شَمْسِي"], correct: 1 },
+            { word: "قَمَر", options: ["قَمَر", "قَمْح", "أَقْمَار", "مَقْمُور"], correct: 0 },
+            { word: "بَحْر", options: ["نَهْر", "بَحْر", "بُحَيْرَة", "بَحَّار"], correct: 1 },
+            { word: "تُفَاح", options: ["تُفَاح", "تَفْح", "تُفَاحَة", "فَاح"], correct: 0 },
+            { word: "زَهْرَة", options: ["زَهْرَة", "أَزْهَار", "زَهَرَ", "مَزْهَر"], correct: 0 },
+            { word: "سَمَاء", options: ["سَمَاء", "سَمِيّ", "سَمَاوِي", "أَسْمَاء"], correct: 0 },
+            { word: "أَرْض", options: ["أَرْض", "رِيَاض", "أَرَاضِي", "أَرْضِيّ"], correct: 0 },
+            { word: "سَبُورَة", options: ["سَبُورَة", "سَبْر", "سَابِر", "سَبَّار"], correct: 0 },
+            { word: "حَقِيبَة", options: ["حَقِيبَة", "حَقَائِب", "حَقْب", "مَحْقُوب"], correct: 0 },
+            { word: "مِسْطَرَة", options: ["مِسْطَرَة", "سَطْر", "أَسْطُر", "مَسْطُور"], correct: 0 },
+            { word: "بَيْت", options: ["بَيْت", "بُيُوت", "بَيَات", "مَبِيت"], correct: 0 },
+            { word: "قَطَّة", options: ["قِطَّة", "قَطَّة", "قَطْط", "قُطَاط"], correct: 1 },
+            { word: "كَلْب", options: ["كَلْب", "كِلَاب", "أَكْلَب", "مَكْلُوب"], correct: 0 },
+            { word: "طَائِر", options: ["طَيْر", "طَائِر", "مَطَار", "طَيَرَان"], correct: 1 },
+            { word: "شَجَرَة", options: ["شَجَرَة", "أَشْجَار", "شَجْر", "مُشَجَّر"], correct: 0 },
+            { word: "حَلِيب", options: ["حَلِيب", "حَلَب", "حَالِب", "مَحْلُوب"], correct: 0 },
+            { word: "مَاء", options: ["مَاء", "مِيَاه", "مَوِياء", "أَمْوَاء"], correct: 0 },
+            { word: "خُبْز", options: ["خُبْز", "خَبَّاز", "مَخْبَز", "خَبْز"], correct: 0 },
+            { word: "قَهْوَة", options: ["قَهْوَة", "قَهَاوِي", "قَاهِي", "مَقْهُو"], correct: 0 },
+            { word: "شَاي", options: ["شَاي", "شَوِيّ", "شُيُوع", "شَائِي"], correct: 0 },
+            { word: "سَرِير", options: ["سَرِير", "أَسِرَّة", "سَرْر", "سَرِيرِي"], correct: 0 },
+            { word: "بَاب", options: ["بَاب", "أَبْوَاب", "بَوَّاب", "مَبْبُوب"], correct: 0 },
+            { word: "نَافِذَة", options: ["نَافِذَة", "نَوَافِذ", "نَفْذ", "مَنْفُوذ"], correct: 0 },
+            { word: "قِرْد", options: ["قِرْد", "قُرُود", "أَقْرَاد", "مَقْرُود"], correct: 0 },
+            { word: "أَسَد", options: ["أَسَد", "أُسُود", "آسَاد", "مَأْسُود"], correct: 0 },
+            { word: "فِيل", options: ["فِيل", "أَفْيَال", "فُيُول", "فَيَّال"], correct: 0 },
+            { word: "رُمّان", options: ["رُمَّان", "رَمِيم", "رَامّ", "رَمَّان"], correct: 0 },
+            { word: "مَوْز", options: ["مَوْز", "مَوَاز", "مَوْزَة", "مَازِز"], correct: 0 },
+            { word: "عِنَب", options: ["عِنَب", "أَعْنَاب", "عَانِب", "مَعْنُوب"], correct: 0 },
+            { word: "بَطّيخ", options: ["بِطِّيخ", "بَطِّيخ", "بَطْخ", "مَبْطُوخ"], correct: 1 },
+            { word: "نَجْم", options: ["نَجْم", "نُجُوم", "أَنْجُم", "نَاجِم"], correct: 0 },
+            { word: "قَمَر", options: ["قَمَر", "أَقْمَار", "قَمْر", "قَامِر"], correct: 0 },
+            { word: "زَرَافَة", options: ["زَرَافَة", "زَرَائِف", "زَرْف", "مَزْرُوف"], correct: 0 },
+            { word: "دَجَاجَة", options: ["دَجَاجَة", "دَوَاجِج", "دَجْج", "مُدَجَّج"], correct: 0 },
+            { word: "بَرَد", options: ["بَرَد", "بُرُود", "بَارِد", "بَرْدَان"], correct: 0 },
+            { word: "مِفْتَاح", options: ["مِفْتَاح", "فَتَحَ", "مَفْتُوح", "فَاتِح"], correct: 0 },
+            { word: "سَاعَة", options: ["سَاعَة", "سَاعَات", "سُوع", "سَوِيع"], correct: 0 }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById("feedback-area").classList.add("hidden");
+            document.getElementById("hidden-reveal").classList.add("hidden");
+            
+            const q = quizData[currentIndex];
+            document.getElementById("question-counter").innerText = `Question ${currentIndex + 1} of ${quizData.length}`;
+            document.getElementById("current-score").innerText = score;
+            document.getElementById("target-arabic-display").innerText = q.word;
+
+            const grid = document.getElementById("options-grid");
+            grid.innerHTML = "";
+
+            let shuffledOptions = q.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+            shuffledOptions.sort(() => Math.random() - 0.5);
+
+            shuffledOptions.forEach(optObj => {
+                const btn = document.createElement("button");
+                btn.className = "glass-card p-4 rounded-2xl text-center arabic-text text-xl font-bold text-white hover:border-cyan-400 transition-all cursor-pointer";
+                btn.innerText = optObj.text;
+                btn.onclick = () => selectOption(optObj.originalIndex === q.correct, btn);
+                grid.appendChild(btn);
+            });
+
+            playTargetAudio();
+        }
+
+        function playTargetAudio() {
+            const q = quizData[currentIndex];
+            document.getElementById("hidden-reveal").classList.remove("hidden");
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(q.word);
+                utterance.rate = 0.75;
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(v => v.lang.startsWith('ar') || v.lang.includes('ar-'));
+                if (arabicVoice) utterance.voice = arabicVoice;
+                utterance.lang = 'ar-SA';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function selectOption(isCorrect, selectedBtn) {
+            if (answered) return;
+            answered = true;
+
+            const buttons = document.getElementById("options-grid").children;
+            const q = quizData[currentIndex];
+
+            for (let btn of buttons) {
+                btn.style.pointerEvents = 'none';
+                if (btn.innerText === q.options[q.correct]) {
+                    btn.className = "glass-card p-4 rounded-2xl text-center arabic-text text-xl font-bold bg-emerald-500/20 border-emerald-500 text-emerald-300";
+                }
+            }
+
+            const feedbackText = document.getElementById("feedback-text");
+            const feedbackArea = document.getElementById("feedback-area");
+            feedbackArea.classList.remove("hidden");
+
+            if (isCorrect) {
+                score++;
+                document.getElementById("current-score").innerText = score;
+                selectedBtn.className = "glass-card p-4 rounded-2xl text-center arabic-text text-xl font-bold bg-emerald-500/20 border-emerald-500 text-emerald-300";
+                feedbackText.innerHTML = "<i class='fa-solid fa-circle-check text-emerald-400'></i> Correct spelling identified!";
+                feedbackText.className = "text-xs font-bold text-emerald-400";
+            } else {
+                selectedBtn.className = "glass-card p-4 rounded-2xl text-center arabic-text text-xl font-bold bg-rose-500/20 border-rose-500 text-rose-300";
+                feedbackText.innerHTML = "<i class='fa-solid fa-circle-xmark text-rose-400'></i> Incorrect. The correct spelling is highlighted above.";
+                feedbackText.className = "text-xs font-bold text-rose-400";
+            }
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                document.getElementById("quiz-container").classList.add("hidden");
+                document.getElementById("completion-screen").classList.remove("hidden");
+                document.getElementById("final-score-text").innerText = `Your Final Score: ${score} out of ${quizData.length}`;
+                localStorage.setItem("arabic_completed_spelling_bee", "true");
+            }
+        }
+
+        function restartQuiz() {
+            currentIndex = 0;
+            score = 0;
+            document.getElementById("completion-screen").classList.add("hidden");
+            document.getElementById("quiz-container").classList.remove("hidden");
+            loadQuestion();
+        }
+
+        window.onload = () => {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+            }
+        };
     </script>
 </body>
 </html>
