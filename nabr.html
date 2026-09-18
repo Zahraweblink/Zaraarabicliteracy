@@ -14,9 +14,9 @@
 
     <style>
         :root {
-            --bg-deep: #0f172a;
-            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
-            --card-bg: rgba(30, 41, 59, 0.75);
+            --bg-deep: #070d14;
+            --bg-gradient: radial-gradient(circle at 50% 10%, #0d1b2a 0%, #070d14 70%, #04070c 100%);
+            --card-bg: rgba(13, 27, 42, 0.75);
             --accent-gold: #ffb703;
             --accent-cyan: #06b6d4;
             --white: #ffffff;
@@ -40,14 +40,14 @@
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(6, 182, 212, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -65,14 +65,14 @@
             <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
                 Zahrah's Interactive Online Classroom
             </div>
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+            <div class="flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 px-4 py-1.5 rounded-full text-cyan-400 font-bold text-sm">
                 <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
             </div>
         </div>
     </header>
 
     <!-- Main Workspace -->
-    <main class="w-full max-w-3xl glass-card p-6 md:p-10 rounded-3xl space-y-6 text-center border border-slate-700/60 my-auto">
+    <main class="w-full max-w-3xl glass-card p-6 md:p-10 rounded-3xl space-y-6 text-center border border-slate-800/80 my-auto">
 
         <!-- Title Banner -->
         <div class="space-y-2">
@@ -86,7 +86,7 @@
         </div>
 
         <!-- Rule Explainer Card -->
-        <div class="bg-slate-900/60 rounded-2xl p-5 border border-cyan-500/30 space-y-4 text-left">
+        <div class="bg-slate-900/60 rounded-2xl p-5 border border-slate-800 space-y-4 text-left">
             <h2 class="text-base font-bold text-cyan-300 flex items-center justify-between">
                 <span class="flex items-center gap-2"><i class="fa-solid fa-bolt"></i> Primary Situations Requiring Nabr</span>
             </h2>
@@ -119,7 +119,7 @@
                 <!-- Card 3 -->
                 <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
                     <div>
-                        <span class="text-xl font-bold arabic-text text-emerald-400 block mb-1">ذَاقَا الشَّجَرَةَ</span>
+                        <span class="text-xl font-bold arabic-text text-cyan-300 block mb-1">ذَاقَا الشَّجَرَةَ</span>
                         <span class="text-xs font-bold text-slate-200">3. Dropped Alif of Dual</span>
                         <p class="text-[11px] text-slate-400 mt-1">Lifting the sound on the previous letter when the Alif of dual is dropped due to meeting a Sukoon.</p>
                     </div>
@@ -135,7 +135,7 @@
         <div id="exercise-area" class="p-6 md:p-8 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-6">
             
             <div class="flex justify-between items-center border-b border-slate-800 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
@@ -159,14 +159,14 @@
                 <button onclick="playCurrentQuestionAudio()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-bold text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
         </div>
 
@@ -207,6 +207,69 @@
                 ],
                 correctIndex: 0
             },
+            {
+                word: "تَابَّةٌ",
+                prompt: "In words featuring a prolonged vowel preceding a doubled consonant, Nabr functions as:",
+                options: [
+                    "An acoustic bridge that maintains vocal energy across the heavy junction",
+                    "A mandatory pause of two seconds"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "الصَّاخَّةُ",
+                prompt: "What happens if Nabr is omitted when moving from a 6-count Madd to a Shaddah?",
+                options: [
+                    "The distinctive weight and clarity of the doubled consonant are compromised",
+                    "The preceding letter automatically acquires a Sukoon"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "وَالصَّافَّاتِ",
+                prompt: "In <strong>وَالصَّافَّاتِ</strong>, the application of Nabr highlights:",
+                options: [
+                    "The transition from the stretched Alif directly into the rigid Saf (صّ)",
+                    "A silent pause between the letters"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "الْمَوَادُّ",
+                prompt: "When encountering multiple structural weights in <strong>الْمَوَادُّ</strong>, Nabr assists by:",
+                options: [
+                    "Providing the necessary voice lift to execute the final doubled Daal cleanly",
+                    "Lowering the pitch of the entire verse"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "حَاجَّوْكُمْ",
+                prompt: "During the recitation of <strong>حَاجَّوْكُمْ</strong>, Nabr ensures:",
+                options: [
+                    "The prolonged Alif does not swallow the initial impact of the doubled Jiim",
+                    "The final Meem becomes silent"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "دَابَّةٍ",
+                prompt: "Why is acoustic pressure (Nabr) applied in <strong>دَابَّةٍ</strong>?",
+                options: [
+                    "To articulate the dual nature of the Baa without dropping its secondary sound",
+                    "To convert the Kasrah into a Dhammah"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "آلْآنَ وَقَدْ",
+                prompt: "When a long vowel meets a structured heavy letter, Nabr acts to:",
+                options: [
+                    "Safeguard the phonetic integrity of the heavier stress point",
+                    "Eliminate the vowel entirely"
+                ],
+                correctIndex: 0
+            },
 
             // --- STOPPING ON A SHADDAH (WAFQ) ---
             {
@@ -236,6 +299,69 @@
                 ],
                 correctIndex: 0
             },
+            {
+                word: "بَوَّابٍ",
+                prompt: "When concluding a recitation on a Shaddah letter like <strong>بَوَّابٍ</strong>, the purpose of Nabr is to:",
+                options: [
+                    "Demonstrate physical vocal control over the suspended doubled consonant",
+                    "Add an extra syllable to the end"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "مُسْتَمِرs",
+                prompt: "In terms of phonetics, stopping on a Shaddah without Nabr results in:",
+                options: [
+                    "A weakening of the final sound into a single, light letter",
+                    "An instantaneous echo effect"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "حَقّ",
+                prompt: "When halting on <strong>حَقّ</strong>, the reciter must:",
+                options: [
+                    "Briefly tense the vocal cords to emphasize the closure of the Qaaf",
+                    "Soften the letter into a fricative sound"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "تَمَّ",
+                prompt: "The rule of Nabr during Waqf on a Shaddah applies to:",
+                options: [
+                    "All letters bearing a Shaddah except Nun and Meem (which take Ghunnah instead)",
+                    "Only the letter Alif"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "بَطُّ",
+                prompt: "Why is extra care needed when stopping on a Qalqalah letter with a Shaddah (like طّ)?",
+                options: [
+                    "Because both Qalqalah bounce and Shaddah pressure must be balanced without merging incorrectly",
+                    "Because Qalqalah is forbidden on Shaddah"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "مُحِيطٌ",
+                prompt: "Does a regular non-shaddah letter at the end of a word require Shaddah-Nabr upon stopping?",
+                options: [
+                    "No, Nabr during stopping is specifically designated for letters carrying a Shaddah",
+                    "Yes, every stopping point requires Nabr"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "عَلِيّ",
+                prompt: "Executing Nabr on <strong>عَلِيّ</strong> during Waqf ensures the listener perceives:",
+                options: [
+                    "The double articulation of the Ya' even though breath has ceased",
+                    "A transition into the next verse"
+                ],
+                correctIndex: 0
+            },
 
             // --- DUAL ALIF DROPPED DUE TO SUKOON ---
             {
@@ -253,6 +379,78 @@
                 options: [
                     "The original word contained a dual Alif (two speakers) before silent meeting",
                     "The word is a command verb"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "رَجُلَانِ اثْنَانِ",
+                prompt: "When a dual marker meets a following Sukoon, the primary grammatical clue preserved by Nabr is:",
+                options: [
+                    "The dual subject indicator which would otherwise vanish entirely in connected speech",
+                    "The plural feminine status"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "فِي الْجَنَّةِ اسْتَوَى",
+                prompt: "Nabr in dual-dropping contexts acts as:",
+                options: [
+                    "A linguistic compensation mechanism for dropped orthographic letters",
+                    "A substitute for Idgham"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "تَكْتُبَانِ الْكِتَابَ",
+                prompt: "If the dual Alif in <strong>تَكْتُبَانِ</strong> drops due to a following Sukoon, the preceding letter receives Nabr to:",
+                options: [
+                    " Maintain verbal clarity regarding the dual pronoun",
+                    "Shorten the sentence structure"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "عَبَدَا الطَّاغُوتَ",
+                prompt: "In <strong>عَبَدَا الطَّاغُوتَ</strong>, the structural role of Nabr is to:",
+                options: [
+                    "Signal the hidden dual form across the connected words",
+                    "Add an unwritten vowel"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "أَخَذَا الْعَهْدَ",
+                prompt: "Without Nabr on <strong>أَخَذَا</strong> when meeting <strong>الْعَهْدَ</strong>, what happens?",
+                options: [
+                    "The dual meaning risks sounding like a singular third-person masculine past verb",
+                    "The sentence becomes grammatically incorrect in writing"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "جَاءَا نَاصِرِينَ",
+                prompt: "The phonetic adjustment in dual Alif dropping is classified under:",
+                options: [
+                    "Advanced Tajweed accentuation and Nabr applications",
+                    "Basic Madd rules"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "رَمَيَا السَّهْمَ",
+                prompt: "When reciting <strong>رَمَيَا السَّهْمَ</strong>, the voice lift on the letter Ya serves to:",
+                options: [
+                    "Compensate for the dropped dual Alif meeting the following Shaddah",
+                    "Create a nasal Ghunnah sound"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "وَصَلَا بَابَ",
+                prompt: "The core philosophy behind Nabr in dual-dropping is:",
+                options: [
+                    "Preserving grammatical meaning through precise oral articulation",
+                    "Speeding up the recitation tempo"
                 ],
                 correctIndex: 0
             },
@@ -275,6 +473,78 @@
                     "Holding a nasal sound for 2 full beats"
                 ],
                 correctIndex: 0
+            },
+            {
+                word: "أَوْلِيَاؤُهَا",
+                prompt: "Why is Nabr important when reciting connected hamzated vowels after elongation?",
+                options: [
+                    "To maintain precise vocal control over the abrupt glottal constriction",
+                    "To soften the tone into a whisper"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "شَيْءٍ",
+                prompt: "In words like <strong>شَيْءٍ</strong>, when stopping, Nabr assists in:",
+                options: [
+                    "Balancing the softness of the Leafty-Ya with the final Hamzah closure",
+                    "Converting the word into a plural form"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "بَرِيءُ",
+                prompt: "The acoustic lift associated with Nabr is best described as:",
+                options: [
+                    "An energetic micro-pulse rather than a harsh shout",
+                    "A complete doubling of the word volume"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "قُرْآن",
+                prompt: "Does every standard recitation rule require Nabr?",
+                options: [
+                    "No, Nabr is restricted to specific precise linguistic environments such as Shaddah transitions and dual drops",
+                    "Yes, every single word must contain multiple Nabrs"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "مَالِكِ يَوْمِ",
+                prompt: "Mastering Nabr contributes to a reciter's overall skill by:",
+                options: [
+                    "Eliminating common hidden errors and elevating recitation to professional fluency",
+                    "Allowing the reciter to skip vowel markings"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "السَّمَاوَاتِ",
+                prompt: "When checking your Nabr execution, a teacher listens for:",
+                options: [
+                    "A crisp, controlled elevation of vocal presence without disrupting rhythm or pitch",
+                    "An obvious exaggeration or shouting tone"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "تِلاوَتُهَا",
+                prompt: "The study of Nabr Studio modules helps students connect:",
+                options: [
+                    "Theoretical Tajweed rules with practical, flawless oral execution",
+                    "Arabic grammar rules with English sentence structures"
+                ],
+                correctIndex: 0
+            },
+            {
+                word: "خَاتِمَةُ النَّبْرِ",
+                prompt: "Ultimately, the primary goal of applying Nabr in Tajweed is to:",
+                options: [
+                    "Honor the precise prophetic tradition of articulation without slurring or dropping sounds",
+                    "Make recitation faster and less formal"
+                ],
+                correctIndex: 0
             }
         ];
 
@@ -288,7 +558,7 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 40);
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -308,14 +578,14 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.innerHTML = "";
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all hover:border-amber-400 cursor-pointer text-left";
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-3 px-4 rounded-xl text-sm transition-all hover:border-cyan-400 cursor-pointer text-left";
                 btn.innerText = optText;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
@@ -333,12 +603,12 @@
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
+                badge.className = "px-2.5 py-0.5 rounded-md text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold block";
+                btnElement.className = "bg-cyan-600/30 border-2 border-cyan-500 text-cyan-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
+                badge.className = "px-2.5 py-0.5 rounded-md text-amber-400 bg-amber-500/10 border border-amber-500/30 text-xs font-bold block";
+                btnElement.className = "bg-amber-600/30 border-2 border-amber-500 text-amber-300 font-bold py-3 px-4 rounded-xl text-sm text-left";
             }
 
             document.getElementById("current-score").innerText = score;
@@ -348,10 +618,9 @@
             }
 
             nextBtn.disabled = false;
-            nextBtn.className = "px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-emerald-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer";
+            nextBtn.className = "px-6 py-3.5 bg-gradient-to-r from-cyan-500 via-teal-500 to-amber-400 text-slate-950 font-extrabold text-sm rounded-xl shadow-lg hover:brightness-110 transition-all transform active:scale-95 cursor-pointer";
         }
 
-        // Integrated speakWord() function
         function speakWord() {
             const text = document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
@@ -366,7 +635,6 @@
             }
         }
 
-        // Web Speech API Pronunciation Function with HTML Sanitizer for individual word buttons
         function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -380,7 +648,6 @@
             }
         }
 
-        // Helper to play current active question text safely
         function playCurrentQuestionAudio() {
             const current = sessionQuestions[currentIndex];
             const cleanText = current.word.replace(/<[^>]*>?/gm, '');
