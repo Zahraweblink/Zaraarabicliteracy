@@ -10,9 +10,12 @@
 
     <style>
         :root {
-            --bg-deep: #0f172a;
-            --bg-gradient: radial-gradient(circle at 50% 10%, #1e293b 0%, #0f172a 70%, #090d16 100%);
-            --card-bg: rgba(30, 41, 59, 0.75);
+            /* Hyper-modern, premium aurora mesh gradient background (Deep Spiritual Teal, Rich Midnight Velvet, Subtle Cosmic Indigo) */
+            --bg-deep: #09131a;
+            --bg-gradient: radial-gradient(circle at 20% 15%, rgba(13, 148, 136, 0.18) 0%, transparent 40%),
+                           radial-gradient(circle at 80% 85%, rgba(79, 70, 229, 0.15) 0%, transparent 45%),
+                           linear-gradient(135deg, #070d14 0%, #0d1b2a 50%, #05080c 100%);
+            --card-bg: rgba(15, 23, 42, 0.70);
             --accent-gold: #ffb703;
             --accent-orange: #f97316;
             --accent-cyan: #06b6d4;
@@ -33,18 +36,19 @@
             direction: rtl;
         }
 
+        /* Ultra-clean matte texture with soft glassmorphic glowing ambiance from behind */
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
         }
 
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(14, 165, 233, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -59,10 +63,10 @@
             <i class="fa-solid fa-arrow-left text-cyan-400"></i> Back to Dashboard Hub
         </a>
         <div class="flex items-center gap-3">
-            <div class="inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1 rounded-full">
+            <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full">
                 Zahrah’s Interactive Classroom
             </div>
-            <div class="flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full text-amber-400 font-bold text-xs">
+            <div class="flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/30 px-3 py-1 rounded-full text-cyan-400 font-bold text-xs">
                 <i class="fa-solid fa-star"></i> Score: <span id="current-score">0</span>
             </div>
         </div>
@@ -73,25 +77,25 @@
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
-            <div class="inline-block bg-orange-500/10 text-orange-400 border border-orange-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                 Tajweed Phonetics Module
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Heavy & Light Letters (التَّفْخِيم وَالتَّرْقِيق)</h1>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-cyan-300">Heavy & Light Letters (التَّفْخِيم وَالتَّرْقِيق)</h1>
             <p class="text-slate-300 text-sm max-w-lg mx-auto">
                 Master <strong>Tafkheem</strong> (full, heavy echo produced by elevating the back tongue) and <strong>Tarqeeq</strong> (flat, light tone).
             </p>
         </div>
 
         <!-- Practical Rule Explainer Card -->
-        <div class="glass-card rounded-3xl p-6 border-orange-500/30 space-y-4">
-            <h2 class="text-lg font-bold text-orange-300 flex items-center gap-2">
+        <div class="glass-card rounded-3xl p-6 border-slate-700/60 space-y-4">
+            <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
                 <i class="fa-solid fa-lightbulb"></i> Core Rules of Tafkheem & Tarqeeq:
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-orange-500/30 flex flex-col items-center justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-between">
                     <div>
-                        <span class="text-3xl font-bold arabic-text text-orange-400 block mb-1">خُصَّ ضَغْطٍ قِظْ</span>
-                        <span class="text-xs font-bold text-orange-300 uppercase tracking-wide">🔥 Always Heavy (7 Letters)</span>
+                        <span class="text-3xl font-bold arabic-text text-amber-300 block mb-1">خُصَّ ضَغْطٍ قِظْ</span>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">🔥 Always Heavy (7 Letters)</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>خ ، ص ، ض ، غ ، ط ، ق ، ظ</strong> <br>
                             Always pronounced heavy regardless of vowels.
@@ -101,10 +105,10 @@
                         <i class="fa-solid fa-volume-high"></i> Listen (Rule Group)
                     </button>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-2xl border border-cyan-500/30 flex flex-col items-center justify-between">
+                <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-800 flex flex-col items-center justify-between">
                     <div>
-                        <span class="text-2xl font-bold arabic-text text-cyan-400 block mb-1">ر  /  اللَّه</span>
-                        <span class="text-xs font-bold text-cyan-300 uppercase tracking-wide">⚖️ Conditionally Heavy/Light</span>
+                        <span class="text-2xl font-bold arabic-text text-cyan-300 block mb-1">ر  /  اللَّه</span>
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wide">⚖️ Conditionally Heavy/Light</span>
                         <p class="text-[11px] text-slate-300 mt-2">
                             <strong>Lam in Allah:</strong> Heavy after Fatha/Damma; Light after Kasra. <br>
                             <strong>Raa (ر):</strong> Heavy with Fatha/Damma; Light with Kasra.
@@ -121,13 +125,13 @@
         <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden border border-slate-700/60">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
             <!-- Target Word Display with Integrated Audio Button Template -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner flex flex-col items-center justify-center space-y-3">
-                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-400 tracking-wide">
+                <div id="output-board" class="text-6xl md:text-7xl font-bold arabic-text text-amber-300 tracking-wide">
                     قَالَ
                 </div>
                 <button onclick="playCurrentWord()" class="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/40 px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
@@ -145,14 +149,14 @@
 
             <!-- Action Controls -->
             <div class="flex justify-end items-center pt-2">
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-bold text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Return to dashboard hub...
         </div>
 
@@ -164,7 +168,7 @@
     </footer>
 
     <script>
-        // Integrated Full Question Bank for Heavy & Light Letters
+        // Expanded Comprehensive Question Bank for Heavy & Light Letters (Fully populated to 40 complete test questions)
         const questionBank = [
             {
                 word: "قَالَ",
@@ -211,7 +215,7 @@
             {
                 word: "قُلْ هُوَ اللَّهُ",
                 prompt: "In <strong>قُلْ هُوَ اللَّهُ</strong>, the <strong>Lam (ل)</strong> in Allah is pronounced:",
-                options: ["Heavy / Tafkheem (Preceded by Fatha)", "Light / Tarqeeq (Preceded by Kasra)"],
+                options: ["Heavy / Tafkheem (Preceded by Fatha/Damma)", "Light / Tarqeeq (Preceded by Kasra)"],
                 correctIndex: 0
             },
             {
@@ -223,7 +227,7 @@
             {
                 word: "نَصْرُ اللَّهِ",
                 prompt: "In <strong>نَصْرُ اللَّهِ</strong>, the <strong>Lam (ل)</strong> in Allah is pronounced:",
-                options: ["Heavy / Tafkheem (Preceded by Damma 'ru')", "Light / Tarqeeq"],
+                options: ["Heavy / Tafkheem (Preceded by Damma)", "Light / Tarqeeq"],
                 correctIndex: 0
             },
             {
@@ -285,6 +289,126 @@
                 prompt: "In <strong>مُسْتَقِيمٍ</strong>, the letter <strong>Qâf (قِ)</strong> carrying a Kasra is still classified under:",
                 options: ["Heavy / Tafkheem (Lowest degree, permanent heavy letter)", "Light / Tarqeeq"],
                 correctIndex: 0
+            },
+            {
+                word: "بَاطِلٌ",
+                prompt: "In <strong>بَاطِلٌ</strong>, the letter <strong>Tâ (ط)</strong> is:",
+                options: ["Heavy / Tafkheem (مُفَخَّم)", "Light / Tarqeeq (مُرَقَّق)"],
+                correctIndex: 0
+            },
+            {
+                word: "صَدَقَ",
+                prompt: "In <strong>صَدَقَ</strong>, the letter <strong>Sâd (ص)</strong> is:",
+                options: ["Heavy / Tafkheem (مُفَخَّم)", "Light / Tarqeeq (مُرَقَّق)"],
+                correctIndex: 0
+            },
+            {
+                word: "عَظِيمٌ",
+                prompt: "In <strong>عَظِيمٌ</strong>, the letter <strong>Dhâ (ظ)</strong> is:",
+                options: ["Heavy / Tafkheem (مُفَخَّم)", "Light / Tarqeeq (مُرَقَّق)"],
+                correctIndex: 0
+            },
+            {
+                word: "الْحَقُّ",
+                prompt: "In <strong>الْحَقُّ</strong>, the letter <strong>Qâf (ق)</strong> is:",
+                options: ["Heavy / Tafkheem (مُفَخَّم)", "Light / Tarqeeq (مُرَقَّق)"],
+                correctIndex: 0
+            },
+            {
+                word: "تَابَ",
+                prompt: "In <strong>تَابَ</strong>, the letter <strong>Tâ' (ت)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "جَاءَ",
+                prompt: "In <strong>جَاءَ</strong>, the letter <strong>Jeem (ج)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "حَمَدَ",
+                prompt: "In <strong>حَمَدَ</strong>, the letter <strong>Hâ' (ح)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "دَخَلَ",
+                prompt: "In <strong>دَخَلَ</strong>, the letter <strong>Dal (د)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "رَزَقْنَاهُمْ",
+                prompt: "In <strong>رَزَقْنَاهُمْ</strong>, the initial <strong>Raa (رَ)</strong> is:",
+                options: ["Heavy / Tafkheem (رَ)", "Light / Tarqeeq (رَ)"],
+                correctIndex: 0
+            },
+            {
+                word: "مَرْيَمُ",
+                prompt: "In <strong>مَرْيَمُ</strong>, the silent <strong>Raa (رْ)</strong> preceded by Fatha is:",
+                options: ["Heavy / Tafkheem", "Light / Tarqeeq"],
+                correctIndex: 0
+            },
+            {
+                word: "عَرْشِ",
+                prompt: "In <strong>عَرْشِ</strong>, the silent <strong>Raa (رْ)</strong> preceded by Fatha is:",
+                options: ["Heavy / Tafkheem", "Light / Tarqeeq"],
+                correctIndex: 0
+            },
+            {
+                word: "وَالْفَجْرِ",
+                prompt: "In <strong>وَالْفَجْرِ</strong>, the stopped <strong>Raa (رْ)</strong> preceded by a Sukoon which is preceded by a Kasra is:",
+                options: ["Light / Tarqeeq (When stopping)", "Heavy / Tafkheem"],
+                correctIndex: 0
+            },
+            {
+                word: "الصَّبْرِ",
+                prompt: "In <strong>الصَّبْرِ</strong>, the stopped <strong>Raa (رْ)</strong> preceded by a quiescent Ba and Kasra is:",
+                options: ["Light / Tarqeeq (When stopping)", "Heavy / Tafkheem"],
+                correctIndex: 0
+            },
+            {
+                word: "زَيْتُونَةٍ",
+                prompt: "In <strong>زَيْتُونَةٍ</strong>, the letter <strong>Zay (ز)</strong> is always:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "شَمْسٍ",
+                prompt: "In <strong>شَمْسٍ</strong>, the letter <strong>Sheen (ش)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "عَالَمِينَ",
+                prompt: "In <strong>عَالَمِينَ</strong>, the letter <strong>Ayn (ع)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "فَلَقَ",
+                prompt: "In <strong>فَلَقَ</strong>, the letter <strong>Fa (ف)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "كَفَرُوا",
+                prompt: "In <strong>كَفَرُوا</strong>, the letter <strong>Kaf (ك)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "لَمْ يَلِدْ",
+                prompt: "In <strong>لَمْ يَلِدْ</strong>, the letter <strong>Lam (ل)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
+            },
+            {
+                word: "نُورٌ",
+                prompt: "In <strong>نُورٌ</strong>, the letter <strong>Noon (ن)</strong> is:",
+                options: ["Light / Tarqeeq (مُرَقَّق)", "Heavy / Tafkheem (مُفَخَّم)"],
+                correctIndex: 0
             }
         ];
 
@@ -301,7 +425,8 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            // Full 40 questions loaded per session
+            sessionQuestions = shuffleArray([...questionBank]).slice(0, 40);
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -321,7 +446,7 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
@@ -329,7 +454,7 @@
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
+                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-cyan-400 cursor-pointer";
                 btn.innerText = optText;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
@@ -347,42 +472,40 @@
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold block";
+                btnElement.className = "bg-cyan-600/30 border-2 border-cyan-400 text-cyan-200 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-amber-400 bg-amber-500/10 border border-amber-500/30 text-xs font-bold block";
+                btnElement.className = "bg-amber-600/30 border-2 border-amber-500 text-amber-200 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
             }
 
             document.getElementById("current-score").innerText = score;
 
             nextBtn.disabled = false;
-            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+            nextBtn.className = "bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
         }
 
-        // Integrated speakWord() core function with text-override support
+        // Integrated speakWord() core function with text-override support & clear articulation
         function speakWord(textOverride) {
             const text = textOverride || document.getElementById('output-board')?.innerText || document.querySelector('h1, h2, span')?.innerText;
             if ('speechSynthesis' in window && text) {
-                // Cancel any ongoing speech so the phone doesn't block the new queue
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85; // Slightly slower for clearer Tajweed listening
+                utterance.rate = 0.8; // Calibrated slower rate for crystal-clear Tajweed phoneme articulation
+                utterance.pitch = 1.0;
                 window.speechSynthesis.speak(utterance);
             } else {
                 alert("Text-to-speech is not supported on this browser.");
             }
         }
 
-        // Adapter wrapper for custom word pronunciation
         function playWordAudio(textToSpeak) {
             speakWord(textToSpeak);
         }
 
-        // Helper trigger for the active quiz card item
         function playCurrentWord() {
             const current = sessionQuestions[currentIndex];
             speakWord(current.word);
