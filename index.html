@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zahrah's Arabic Literacy & Tajweed Mastery App</title>
+    <title>Zahrah Interactive Online Classroom | Arabic Literacy & Tajweed Mastery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 
-              Aesthetic instructions fully integrated:
-              - Premium, hyper-modern, minimalist mobile UI background design
-              - Smooth, flowing fluid aurora mesh gradients transitioning softly between deep spiritual teal, rich midnight velvet, and subtle hints of muted cosmic indigo.
-              - Rule-Color Isolation: Avoided solid green or red background accents to prevent conflict with Tajweed rule indicators (Ikhfa green / Madd red).
-              - Matte finish: Soft glassmorphic glowing ambiance from behind with no harsh high-contrast shapes.
-            */
             --bg-deep: #060a12;
             --bg-gradient: radial-gradient(circle at 15% 20%, rgba(10, 30, 48, 0.75) 0%, rgba(6, 10, 18, 0.95) 50%, #03050a 100%),
                            radial-gradient(circle at 85% 80%, rgba(18, 35, 55, 0.5) 0%, transparent 60%);
@@ -36,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle fluid aurora glowing ambient whisper from behind (Matte Finish) */
         body::before {
             content: '';
             position: fixed;
@@ -69,7 +61,6 @@
             direction: rtl;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -80,26 +71,21 @@
             background: rgba(34, 211, 238, 0.25);
             border-radius: 3px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(34, 211, 238, 0.45);
-        }
     </style>
 </head>
 <body class="p-4 md:p-8 flex flex-col items-center">
 
     <!-- ================= VIEW 1: CURRICULUM HUB (MENU) ================= -->
     <div id="view-hub" class="w-full max-w-4xl flex flex-col items-center">
-        <!-- Header / Branding -->
         <header class="w-full text-center space-y-3 mb-10 mt-2 z-10">
             <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
                 Zahrah's Interactive Online Classroom — Arabic Literacy & Tajweed Mastery App
             </div>
             <h1 class="text-3xl md:text-5xl font-extrabold text-amber-400 tracking-tight">Tajweed Curriculum Hub</h1>
             <p class="text-slate-300 text-sm max-w-xl mx-auto font-medium leading-relaxed">
-                Welcome to your elite digital classroom! Choose a lesson below to journey step-by-step from foundational letters to advanced recitations. Every module features comprehensive guides, sufficient examples, audio articulations, and 40 mastery test questions.
+                Welcome to your fully operational digital classroom! Tap any module below to launch its interactive study station, audio guide, and practice exercises.
             </p>
 
-            <!-- Global Audio Demo Trigger -->
             <div class="pt-3 flex justify-center">
                 <button onclick="playWordAudio('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ')" class="bg-amber-400/15 hover:bg-amber-400/25 text-amber-300 border border-amber-400/30 px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2.5 transition-all cursor-pointer shadow-md">
                     <i class="fa-solid fa-volume-high text-sm text-amber-400"></i> Test Recitation: <span class="arabic-text text-sm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
@@ -107,7 +93,6 @@
             </div>
         </header>
 
-        <!-- Main App Container -->
         <main class="w-full space-y-10 z-10">
 
             <!-- Step 1: Absolute Beginners -->
@@ -116,22 +101,22 @@
                     <i class="fa-solid fa-seedling text-cyan-400"></i> Step 1: Absolute Beginners' Level
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <button onclick="openModule('Letter Lab', 'Letter Recognition & Formation', 'Explore isolated, initial, medial, and final forms of Arabic alphabets.', ['أ', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Letter Lab</h3><p class="text-xs text-slate-300">Letter Recognition & Formation</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Vowel Master', 'Practicing Short Vowels (Harakat)', 'Master Fat-hah, Kasrah, and Dammah sound productions.', ['بَ', 'بِ', 'بُ', 'تَ', 'تِ', 'تُ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Vowel Master</h3><p class="text-xs text-slate-300">Practicing Short Vowels (Harakat)</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Sun & Moon Letters', 'Al-Shamsiyyah & Al-Qamariyyah', 'Learn when to assimilate the Lam (ل) sound versus pronouncing it clearly.', ['الشَّمْس', 'الْقَمَر', 'السَّمَاء', 'الْكِتَاب'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sun & Moon Letters</h3><p class="text-xs text-slate-300">Al-Shamsiyyah & Al-Qamariyyah</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Sukoon Studio', 'Understanding Static Letters', 'Practice reading letters bearing a Sukoon (sukun) pause mark.', ['أَبْ', 'إِدْ', 'أُمْ', 'أَسْ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Sukoon Studio</h3><p class="text-xs text-slate-300">Understanding Static Letters</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -141,26 +126,26 @@
                     <i class="fa-solid fa-book-open text-cyan-400"></i> Step 2: Elementary Tajweed
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <button onclick="openModule('Al-Makhaarij Studio', 'Anatomical Exit Points', 'Study the 5 primary articulation zones: Al-Jawf, Halq, Lisaan, Shafataan, and Khayshoom.', ['ء', 'هـ', 'ع', 'ح', 'غ', 'خ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Al-Makhaarij Studio</h3><p class="text-xs text-slate-300">Anatomical Exit Points</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('As-Sifāt Studio', 'Inherent Letter Characteristics', 'Analyze permanent attributes like Hams (whisper), Jahr (voiced), Isti\'laa (elevation), and Istifaal (lowering).', ['ص', 'ض', 'ط', 'ظ', 'س', 'ز'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">As-Sifāt Studio</h3><p class="text-xs text-slate-300">Inherent Letter Characteristics</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Tafkheem Studio', 'Heavy Letters & Elevation', 'Master the 7 permanent heavy letters (خص ضغط قظ) with full mouth resonance.', ['خَا', 'صَ', 'ضَ', 'طَ', 'ظَ', 'غَا', 'قَا'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tafkheem Studio</h3><p class="text-xs text-slate-300">Heavy Letters & Elevation</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Tarqeeq Studio', 'Light Letters & Thinning', 'Practice maintaining a thin, slender vocal posture for all non-heavy letters.', ['بِ', 'تِ', 'ثِ', 'جِ', 'حِ', 'دِ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Tarqeeq Studio</h3><p class="text-xs text-slate-300">Light Letters & Thinning</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    </button>
+                    <button onclick="openModule('Qalqalah Studio', 'Bouncing Echoing Sounds', 'Execute a clean, bouncing echo on the 5 Qalqalah letters when static: قطب جد.', ['أَبْ', 'أَجْ', 'أَدْ', 'أَبْ', 'أَقْ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Qalqalah Studio</h3><p class="text-xs text-slate-300">Bouncing Echoing Sounds</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -170,26 +155,26 @@
                     <i class="fa-solid fa-water text-amber-400"></i> Step 3: Blending & Flow Rules (Intermediate Tajweed)
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <button onclick="openModule('Noon Sakinah Studio', 'Voicing, Merging, Flipping & Hiding', 'Learn the four rules of Noon Sakinah and Tanween: Izhaar, Idghaam, Iqlāb, and Ikhfā\'.', ['مِنْ حَكِيم', 'مِنْ لَدُن', 'سَمِيعٌ عَلِيم', 'أَنْدَاداً'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Noon Sakinah Studio</h3><p class="text-xs text-slate-300">Voicing, Merging, Flipping & Hiding</p></div>
                         <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="meem-sakinah.html" onclick="alert('Module file link'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Meem Sakinah Studio', 'Static Meem Blending Rules', 'Master Idghaam Shafawi, Ikhfā\' Shafawi, and Izhaar Shafawi rules.', ['تَرْمِيهِمْ بِحِجَارَة', 'لَهُمْ مَاقَشْتَرُونَ', 'أَمْ لَمْ تُنْذِرْهُمْ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Meem Sakinah Studio</h3><p class="text-xs text-slate-300">Static Meem Blending Rules</p></div>
                         <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Shaddah Studio</h3><p class="text-xs text-slate-300">Doubled Letters & Emphasis</p></div>
-                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
-                        <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Madd Studio</h3><p class="text-xs text-slate-300">Accurate Elongation Counts</p></div>
-                        <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    </button>
+                    <button onclick="openModule('Shaddah Studio', 'Doubled Letters & Emphasis', 'Hold stressed doubled letters for a duration of two counts with firm pressure.', ['رَبُّكm', 'إِيَّاكَ', 'نَزَّلْنَا', 'مُحَمَّد'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Shaddah Studio</h3><p class="text-xs text-slate-300">Doubled Letters & Emphasis</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button onclick="openModule('Madd Studio', 'Accurate Elongation Counts', 'Differentiate between Madd Tabii (natural) and Madd Lazim/Mutasil (extended 4-6 counts).', ['قَالُوا', 'السَّمَاءِ', 'وَلَا الضَّالِّينَ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
+                        <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Madd Studio</h3><p class="text-xs text-slate-300">Accurate Elongation Counts</p></div>
+                        <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <button onclick="openModule('Waqf Studio', 'Safe Stopping Rules & Signs', 'Understand mandatory stops (لا), permissible stops (ج), and how to handle ending Harakat.', ['صَدَقَ اللَّهُ الْعَظِيمُ', 'رَبَّنَا آتِنَا'])" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-amber-300 transition-colors">Waqf Studio</h3><p class="text-xs text-slate-300">Safe Stopping Rules & Signs</p></div>
                         <i class="fa-solid fa-chevron-right text-amber-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -199,26 +184,26 @@
                     <i class="fa-solid fa-graduation-cap text-cyan-400"></i> Step 4: Advanced Recitations
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <button onclick="openModule('Hamza Studio', 'Glottal Stops & Carrier Rules', 'Master handling of Hamzatul Wasl and Hamzatul Qat\' across connected speech.', ['ٱهْدِنَا', 'أَمْ لَمْ', 'اقْرَأْ'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Hamza Studio</h3><p class="text-xs text-slate-300">Glottal Stops & Carrier Rules</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Nabr Studio', 'Vocal Accents & Pressure', 'Apply correct stress to maintain clarity when words merge or end in specific vowel combinations.', ['إِيَّاك نَعْبُدُ', 'وَالسَّمَاءِ بَنَيْنَاهَا'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Nabr Studio</h3><p class="text-xs text-slate-300">Vocal Accents & Pressure</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Saktah Studio', 'Mandatory Silent Pauses', 'Practice the 4 prescribed light silent pauses in Hafs recitation without taking a new breath.', ['عِوَجًا ۜ قَيِّمًا', 'مَرْقَدِنَا ۜ هَٰذَا'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Saktah Studio</h3><p class="text-xs text-slate-300">Mandatory Silent Pauses</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    </button>
+                    <button onclick="openModule('Imālah Studio', 'Vowel Deflection (Majrehaa)', 'Examine the sole authorized Imālah in Hafs recitation (Surah Hud verse 41).', ['بِسْمِ اللَّهِ مَجْرَاهَا وَمُرْسَاهَا'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Imālah Studio</h3><p class="text-xs text-slate-300">Vowel Deflection (Majrehaa)</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group">
+                    </button>
+                    <button onclick="openModule('Ishmām & Tashīl Studio', 'Lip-Rounding & Softened Hamzah', 'Advanced phonetic execution for specific Quranic words.', ['لَا تَأْمَنَّا (إِشْمَام)', 'أَعْجَمِيِّوَعَرَبِيِّ (تَسْهِيل)'])" class="glass-card p-5 rounded-2xl flex justify-between items-center md:col-span-2 group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Ishmām & Tashīl Studio</h3><p class="text-xs text-slate-300">Lip-Rounding & Softened Hamzah</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -228,31 +213,60 @@
                     <i class="fa-solid fa-gamepad text-cyan-400"></i> Step 5: Interactive Practice
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Clicking this instantly switches view to Spelling Bee Studio smoothly on mobile -->
                     <button onclick="switchView('spelling-bee')" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Spelling Bee</h3><p class="text-xs text-slate-300">Interactive Spelling Challenge (40 Qs)</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
                     </button>
-                    <a href="#" onclick="alert('Module is ready for deployment!'); return false;" class="glass-card p-5 rounded-2xl flex justify-between items-center group">
+                    <button onclick="openModule('Word Builder', 'Construct Words & Roots', 'Practice assembling trilateral root letters into complete nouns and verbs.', ['ك ت ب (كَاتِب، مَكْتَب، كِتَاب)', 'ع ل م (عَالِم، مَعْلُوم، تَعْلِيم)'])" class="glass-card p-5 rounded-2xl flex justify-between items-center group text-left w-full cursor-pointer">
                         <div><h3 class="font-bold text-white text-sm group-hover:text-cyan-300 transition-colors">Word Builder</h3><p class="text-xs text-slate-300">Construct Words & Roots</p></div>
                         <i class="fa-solid fa-chevron-right text-cyan-400 text-xs group-hover:translate-x-1 transition-transform"></i>
-                    </a>
+                    </button>
                 </div>
             </section>
 
         </main>
 
-        <!-- Footer -->
         <footer class="w-full text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10 space-y-1">
-            <p>Zahrah's Interactive Online Classroom &copy; 2026. All modules integrated.</p>
+            <p>Zahrah's Interactive Online Classroom &copy; 2026. All modules fully operational.</p>
             <p class="text-amber-400 font-semibold text-[11px]">Excellence in Language & Science Instruction</p>
         </footer>
     </div>
 
 
-    <!-- ================= VIEW 2: SPELLING BEE STUDIO (BUILT-IN) ================= -->
+    <!-- ================= VIEW 2: DYNAMIC MODULE STUDY STATION ================= -->
+    <div id="view-module" class="w-full max-w-3xl flex flex-col items-center hidden">
+        <header class="w-full flex justify-between items-center mb-6 z-10">
+            <button onclick="switchView('hub')" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <i class="fa-solid fa-arrow-left"></i> Back to Hub
+            </button>
+            <div id="module-tag" class="text-xs uppercase tracking-widest text-amber-400 font-bold">Study Studio</div>
+        </header>
+
+        <main class="w-full space-y-6 z-10">
+            <div class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-3 border-cyan-500/20">
+                <h1 id="module-title-display" class="text-2xl md:text-3xl font-extrabold text-amber-400 tracking-tight"></h1>
+                <p id="module-desc-display" class="text-slate-300 text-xs md:text-sm max-w-lg mx-auto leading-relaxed"></p>
+            </div>
+
+            <!-- Interactive Practice Station Card -->
+            <div class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center">
+                <h2 class="text-sm font-bold text-cyan-300 uppercase tracking-widest">Interactive Pronunciation & Examples</h2>
+                <p class="text-xs text-slate-400">Tap any sample item below to listen to precise speech synthesis:</p>
+                
+                <div id="module-examples-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3.5 pt-2">
+                    <!-- Dynamically populated examples -->
+                </div>
+            </div>
+        </main>
+
+        <footer class="w-full text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10">
+            Zahrah's Interactive Online Classroom &copy; 2026
+        </footer>
+    </div>
+
+
+    <!-- ================= VIEW 3: SPELLING BEE STUDIO ================= -->
     <div id="view-spelling-bee" class="w-full max-w-3xl flex flex-col items-center hidden">
-        <!-- Top Navigation -->
         <header class="w-full flex justify-between items-center mb-6 z-10">
             <button onclick="switchView('hub')" class="bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
                 <i class="fa-solid fa-arrow-left"></i> Back to Hub
@@ -260,10 +274,8 @@
             <div class="text-xs uppercase tracking-widest text-slate-300 font-bold">Spelling Bee Studio</div>
         </header>
 
-        <!-- Main Container -->
         <main class="w-full space-y-6 z-10">
-            <!-- Banner -->
-            <div class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-3 border-cyan-500/20 relative">
+            <div class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-3 border-cyan-500/20">
                 <div class="inline-block bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
                     Interactive Spelling Challenge
                 </div>
@@ -271,13 +283,12 @@
                     Arabic Spelling Bee (<span class="arabic-text">مسابقة التهجئة</span>)
                 </h1>
                 <p class="text-slate-300 text-xs md:text-sm max-w-lg mx-auto leading-relaxed">
-                    Listen to the precise audio pronunciation, review the breakdown, and test your mastery across 40 rigorous interactive spelling questions.
+                    Tap the button below to hear the pronunciation, then choose the correct spelling across 40 questions.
                 </p>
             </div>
 
             <!-- Quiz Workspace Card -->
             <div id="quiz-container" class="glass-card rounded-3xl p-6 md:p-8 space-y-6">
-                <!-- Quiz Progress & Header -->
                 <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                     <div>
                         <span id="question-counter" class="text-xs font-bold text-cyan-300 uppercase tracking-widest">Question 1 of 40</span>
@@ -290,7 +301,7 @@
 
                 <!-- Audio Prompt Box -->
                 <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 text-center space-y-3">
-                    <p class="text-xs text-slate-400 font-medium">Click to hear the target word articulated clearly:</p>
+                    <p class="text-xs text-slate-400 font-medium">Tap to hear the target word:</p>
                     <button onclick="playTargetAudio()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-3 rounded-xl text-sm inline-flex items-center gap-2.5 transition-all shadow-lg cursor-pointer">
                         <i class="fa-solid fa-volume-high text-base"></i> Play Pronunciation
                     </button>
@@ -312,7 +323,7 @@
                 </div>
             </div>
 
-            <!-- Completion Screen (Hidden by default) -->
+            <!-- Completion Screen -->
             <div id="completion-screen" class="glass-card rounded-3xl p-8 text-center space-y-6 hidden">
                 <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-2xl mx-auto flex items-center justify-center text-2xl">
                     <i class="fa-solid fa-award"></i>
@@ -333,29 +344,48 @@
             </div>
         </main>
 
-        <!-- Footer -->
         <footer class="w-full text-center text-slate-400 text-xs mt-12 pb-6 border-t border-slate-800/80 pt-6 z-10">
             Zahrah's Interactive Online Classroom &copy; 2026
         </footer>
     </div>
 
 
-    <!-- Global Scripts -->
     <script>
-        // View Switcher for Single-File Mobile Navigation
         function switchView(viewName) {
             window.scrollTo(0, 0);
+            document.getElementById('view-hub').classList.add('hidden');
+            document.getElementById('view-module').classList.add('hidden');
+            document.getElementById('view-spelling-bee').classList.add('hidden');
+
             if (viewName === 'hub') {
                 document.getElementById('view-hub').classList.remove('hidden');
-                document.getElementById('view-spelling-bee').classList.add('hidden');
+            } else if (viewName === 'module') {
+                document.getElementById('view-module').classList.remove('hidden');
             } else if (viewName === 'spelling-bee') {
-                document.getElementById('view-hub').classList.add('hidden');
                 document.getElementById('view-spelling-bee').classList.remove('hidden');
                 restartQuiz();
             }
         }
 
-        // Global Speech Synthesis for Hub
+        function openModule(title, subtitle, description, examples) {
+            document.getElementById('module-tag').innerText = title;
+            document.getElementById('module-title-display').innerText = title + " (" + subtitle + ")";
+            document.getElementById('module-desc-display').innerText = description;
+
+            const grid = document.getElementById('module-examples-grid');
+            grid.innerHTML = "";
+
+            examples.forEach(ex => {
+                const btn = document.createElement("button");
+                btn.className = "glass-card p-4 rounded-2xl text-center arabic-text text-xl font-bold text-amber-300 hover:border-cyan-400 transition-all cursor-pointer shadow-md";
+                btn.innerText = ex;
+                btn.onclick = () => playWordAudio(ex);
+                grid.appendChild(btn);
+            });
+
+            switchView('module');
+        }
+
         function playWordAudio(textToSpeak) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -369,7 +399,7 @@
             }
         }
 
-        // 40 Spelling Bee Questions Dataset
+        // Full 40 Questions Dataset
         const quizData = [
             { word: "كِتَاب", options: ["كِتَاب", "كَتَبَ", "كَاتِب", "مَكْتَب"], correct: 0 },
             { word: "قَلَم", options: ["قَلْب", "قَلَم", "قَالَم", "قُلُوب"], correct: 1 },
@@ -385,7 +415,7 @@
             { word: "حَقِيبَة", options: ["حَقِيبَة", "حَقَائِب", "حَقْب", "مَحْقُوب"], correct: 0 },
             { word: "مِسْطَرَة", options: ["مِسْطَرَة", "سَطْر", "أَسْطُر", "مَسْطُور"], correct: 0 },
             { word: "بَيْت", options: ["بَيْت", "بُيُوت", "بَيَات", "مَبِيت"], correct: 0 },
-            { word: "قَطَّة", options: ["قِطَّة", "قَطَّة", "قَطْط", "قُطَاط"], correct: 1 },
+            { word: "قِطَّة", options: ["قِطَّة", "قَطَّة", "قَطْط", "قُطَاط"], correct: 0 },
             { word: "كَلْب", options: ["كَلْب", "كِلَاب", "أَكْلَب", "مَكْلُوب"], correct: 0 },
             { word: "طَائِر", options: ["طَيْر", "طَائِر", "مَطَار", "طَيَرَان"], correct: 1 },
             { word: "شَجَرَة", options: ["شَجَرَة", "أَشْجَار", "شَجْر", "مُشَجَّر"], correct: 0 },
@@ -400,10 +430,10 @@
             { word: "قِرْد", options: ["قِرْد", "قُرُود", "أَقْرَاد", "مَقْرُود"], correct: 0 },
             { word: "أَسَد", options: ["أَسَد", "أُسُود", "آسَاد", "مَأْسُود"], correct: 0 },
             { word: "فِيل", options: ["فِيل", "أَفْيَال", "فُيُول", "فَيَّال"], correct: 0 },
-            { word: "رُمّان", options: ["رُمَّان", "رَمِيم", "رَامّ", "رَمَّان"], correct: 0 },
+            { word: "رُمَّان", options: ["رُمَّان", "رَمِيم", "رَامّ", "رَمَّان"], correct: 0 },
             { word: "مَوْز", options: ["مَوْز", "مَوَاز", "مَوْزَة", "مَازِز"], correct: 0 },
             { word: "عِنَب", options: ["عِنَب", "أَعْنَاب", "عَانِب", "مَعْنُوب"], correct: 0 },
-            { word: "بَطّيخ", options: ["بِطِّيخ", "بَطِّيخ", "بَطْخ", "مَبْطُوخ"], correct: 1 },
+            { word: "بِطِّيخ", options: ["بِطِّيخ", "بَطِّيخ", "بَطْخ", "مَبْطُوخ"], correct: 0 },
             { word: "نَجْم", options: ["نَجْم", "نُجُوم", "أَنْجُم", "نَاجِم"], correct: 0 },
             { word: "قَمَر", options: ["قَمَر", "أَقْمَار", "قَمْر", "قَامِر"], correct: 0 },
             { word: "زَرَافَة", options: ["زَرَافَة", "زَرَائِف", "زَرْف", "مَزْرُوف"], correct: 0 },
@@ -440,8 +470,6 @@
                 btn.onclick = () => selectOption(optObj.originalIndex === q.correct, btn);
                 grid.appendChild(btn);
             });
-
-            playTargetAudio();
         }
 
         function playTargetAudio() {
@@ -499,7 +527,6 @@
                 document.getElementById("quiz-container").classList.add("hidden");
                 document.getElementById("completion-screen").classList.remove("hidden");
                 document.getElementById("final-score-text").innerText = `Your Final Score: ${score} out of ${quizData.length}`;
-                localStorage.setItem("arabic_completed_spelling_bee", "true");
             }
         }
 
