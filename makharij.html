@@ -10,9 +10,9 @@
 
     <style>
         :root {
-            --bg-dark: #0a111e;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #172a45 0%, #0a111e 80%);
-            --card-bg: rgba(27, 38, 59, 0.8);
+            --bg-dark: #070d19;
+            --bg-gradient: radial-gradient(circle at 50% 15%, #10233f 0%, #070d19 85%);
+            --card-bg: rgba(18, 28, 48, 0.75);
             --accent-gold: #ffb703;
             --accent-cyan: #06b6d4;
             --white: #ffffff;
@@ -34,14 +34,15 @@
 
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         @keyframes successPulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(14, 165, 233, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(14, 165, 233, 0); }
         }
         .animate-success {
             animation: successPulse 0.8s ease-in-out;
@@ -52,15 +53,14 @@
 
     <!-- Header Navigation -->
     <header class="w-full max-w-3xl flex justify-between items-center mb-6">
-        <!-- CRITICAL FIX: Change 'index.html' below to whatever your main hub file is called (e.g., 'dashboard.html', 'home.html', etc.) -->
-        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700">
+        <a href="index.html" class="flex items-center gap-2 text-slate-300 hover:text-amber-400 transition-colors text-sm font-semibold bg-slate-800/80 px-3.5 py-2 rounded-xl border border-slate-700/60 shadow-md">
             <i class="fa-solid fa-arrow-left"></i> Back to Main Menu
         </a>
-        <div class="flex items-center gap-4">
-            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm">
+        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-1.5 rounded-full text-amber-400 font-bold text-sm shadow-inner">
                 <i class="fa-solid fa-star"></i> Level Score: <span id="current-score">0</span> pts
             </div>
-            <div class="hidden md:inline-block bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-3 py-1.5 rounded-full">
+            <div class="hidden md:inline-block bg-slate-800/80 text-cyan-300 border border-slate-700/60 text-xs font-bold px-3 py-1.5 rounded-full">
                 Zahrah’s Interactive Online Classroom
             </div>
         </div>
@@ -71,40 +71,40 @@
 
         <!-- Title Banner -->
         <div class="text-center space-y-2">
-            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
-                Tajweed Articulation Points
+            <div class="inline-block bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-widest shadow-sm">
+                Tajweed Articulation Points Masterclass
             </div>
-            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400">Al-Makhaarij Studio (مَخَارِج الحُرُوف)</h1>
-            <p class="text-slate-300 text-sm max-w-lg mx-auto">
-                Master <strong>Al-Makhaarij</strong>: The 5 primary anatomical zones and 17 specific exit points for Arabic letters.
+            <h1 class="text-3xl md:text-4xl font-extrabold text-amber-400 tracking-tight">Al-Makhaarij Studio (مَخَارِج الحُرُوف)</h1>
+            <p class="text-slate-300 text-sm max-w-xl mx-auto leading-relaxed">
+                Master <strong>Al-Makhaarij</strong> across the comprehensive 40-question curriculum module with professional audio articulation guides.
             </p>
         </div>
 
         <!-- Rule Explainer Card -->
-        <div class="glass-card rounded-3xl p-6 border-cyan-500/30 space-y-4">
+        <div class="glass-card rounded-3xl p-6 border-cyan-500/20 space-y-4">
             <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
                 <i class="fa-solid fa-lungs"></i> The 5 Primary Exit Zones (Al-Makhaarij Al-Asliyyah)
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
-                <div class="bg-slate-900/65 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-base font-bold arabic-text text-amber-400 block">1. الجَوْف (Al-Jawf)</span>
-                    <p class="text-[11px] text-slate-300">The empty space of the mouth and throat. Exit point for the 3 Madd letters (ا، و، ي).</p>
+                <div class="bg-slate-900/70 p-4 rounded-2xl border border-slate-700/40 space-y-1">
+                    <span class="text-sm font-bold arabic-text text-amber-400 block">1. الجَوْف (Al-Jawf)</span>
+                    <p class="text-[11px] text-slate-300 leading-tight">Empty mouth and throat space. Exit point for the 3 Madd letters (ا، و، ي).</p>
                 </div>
-                <div class="bg-slate-900/65 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-base font-bold arabic-text text-cyan-400 block">2. الحَلْق (Al-Halq)</span>
-                    <p class="text-[11px] text-slate-300">The throat. Divided into 3 sections for the Hamza, Ha, Ain, Haa, Ghain, and Kha.</p>
+                <div class="bg-slate-900/70 p-4 rounded-2xl border border-slate-700/40 space-y-1">
+                    <span class="text-sm font-bold arabic-text text-cyan-400 block">2. الحَلْق (Al-Halq)</span>
+                    <p class="text-[11px] text-slate-300 leading-tight">The throat. Divided into 3 deep, middle, and upper sections for 6 letters.</p>
                 </div>
-                <div class="bg-slate-900/65 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-base font-bold arabic-text text-emerald-400 block">3. اللِّسَان (Al-Lisan)</span>
-                    <p class="text-[11px] text-slate-300">The tongue. The largest zone containing 10 separate exit points for 18 letters.</p>
+                <div class="bg-slate-900/70 p-4 rounded-2xl border border-slate-700/40 space-y-1">
+                    <span class="text-sm font-bold arabic-text text-teal-300 block">3. اللِّسَان (Al-Lisan)</span>
+                    <p class="text-[11px] text-slate-300 leading-tight">The tongue. The largest zone containing 10 separate exit points for 18 letters.</p>
                 </div>
-                <div class="bg-slate-900/65 p-4 rounded-2xl border border-slate-700/50 space-y-1">
-                    <span class="text-base font-bold arabic-text text-amber-300 block">4. الشَّفَتَان (Ash-Shafatan)</span>
-                    <p class="text-[11px] text-slate-300">The lips. Exit zone for Fa, Meem, Ba, and Waaw.</p>
+                <div class="bg-slate-900/70 p-4 rounded-2xl border border-slate-700/40 space-y-1">
+                    <span class="text-sm font-bold arabic-text text-amber-300 block">4. الشَّفَتَان (Ash-Shafatan)</span>
+                    <p class="text-[11px] text-slate-300 leading-tight">The lips. Exit zone for Fa, Meem, Ba, and Waaw sounds.</p>
                 </div>
-                <div class="bg-slate-900/65 p-4 rounded-2xl border border-slate-700/50 space-y-1 md:col-span-2">
-                    <span class="text-base font-bold arabic-text text-cyan-300 block">5. الخَيْشُوم (Al-Khayshoom)</span>
-                    <p class="text-[11px] text-slate-300">The nasal cavity. The exclusive exit source for Ghunnah (nasal sound accompanying Noon and Meem).</p>
+                <div class="bg-slate-900/70 p-4 rounded-2xl border border-slate-700/40 space-y-1 md:col-span-2">
+                    <span class="text-sm font-bold arabic-text text-cyan-300 block">5. الخَيْشُوم (Al-Khayshoom)</span>
+                    <p class="text-[11px] text-slate-300 leading-tight">The nasal cavity. The exclusive exit source for Ghunnah resonance.</p>
                 </div>
             </div>
         </div>
@@ -113,13 +113,13 @@
         <div id="exercise-area" class="glass-card rounded-3xl p-6 md:p-8 space-y-6 text-center shadow-2xl relative overflow-hidden">
             
             <div class="flex justify-between items-center border-b border-slate-700/60 pb-3 text-xs font-semibold text-slate-400">
-                <span>Question <span id="question-num">1</span> of 10</span>
+                <span>Question <span id="question-num">1</span> of 40</span>
                 <span id="feedback-badge" class="px-2.5 py-0.5 rounded-md hidden">Correct!</span>
             </div>
 
             <!-- Target Word / Verse Display -->
             <div class="py-6 bg-slate-900/80 rounded-2xl border border-slate-800 shadow-inner">
-                <div id="target-arabic" class="text-5xl md:text-6xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
+                <div id="target-arabic" class="text-4xl md:text-5xl font-bold arabic-text text-amber-400 tracking-wide mb-3 px-4">
                     مَخَارِجُ <span class="text-cyan-400">الحُرُوفِ</span> الخَمْسَة
                 </div>
                 <p id="target-prompt" class="text-sm text-slate-300 px-4">
@@ -134,18 +134,18 @@
 
             <!-- Action Controls -->
             <div class="flex justify-between items-center pt-2">
-                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer">
+                <button onclick="speakWord()" class="bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-cyan-500/30 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-md">
                     <i class="fa-solid fa-volume-high text-sm"></i> Hear Recitation
                 </button>
-                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
+                <button id="next-btn" onclick="nextQuestion()" disabled class="bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed">
                     Next Exercise ➔
                 </button>
             </div>
         </div>
 
         <!-- Success Notification Banner (Hidden initially) -->
-        <div id="success-banner" class="hidden p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-circle-check text-lg"></i> Amazing job! Progress saved. Returning to menu...
+        <div id="success-banner" class="hidden p-4 rounded-2xl bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
+            <i class="fa-solid fa-circle-check text-lg"></i> Outstanding mastery! Full module completed. Returning to menu...
         </div>
 
     </main>
@@ -157,96 +157,46 @@
 
     <script>
         const questionBank = [
-            {
-                word: "الْمَخَارِج الأَصْلِيَّة",
-                prompt: "How many <strong>primary exit zones (Al-Makhaarij Al-Asliyyah)</strong> span the human vocal apparatus in Tajweed?",
-                options: [
-                    "5 primary zones (Jawf, Halq, Lisan, Shafatan, Khayshoom)",
-                    "10 primary zones"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "عَدَد المَخَارِج الخَاصَّة",
-                prompt: "According to the preferred view of Al-Jazari, how many <strong>specific exit points (Al-Makhaarij Al-Khaassah)</strong> exist across the 5 zones?",
-                options: [
-                    "17 specific points",
-                    "14 specific points"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "حُرُوفُ الْمَدِّ وَاللِّين",
-                prompt: "Which letters originate from <strong>Al-Jawf (The empty space of mouth and throat)</strong>?",
-                options: [
-                    "The 3 Madd letters (Alif sakinah after Fathah, Waw sakinah after Dammah, Ya sakinah after Kasrah)",
-                    "The throat letters (Hamza and Ha)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "مَخْرَج الجَوْف",
-                prompt: "Why is Al-Jawf considered a non-localized (estimated) exit point (Makhraj Muqaddar)?",
-                options: [
-                    "Because the sound terminates in open air without a specific physical contact point on tissue or bone",
-                    "Because it originates from the nasal cavity"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "أَقْصَى، وَسَط، وَأَدْنَى الحَلْق",
-                prompt: "How many specific exit points are located within <strong>Al-Halq (The Throat)</strong>?",
-                options: [
-                    "3 points (Deep throat, middle throat, and closest throat)",
-                    "5 points"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "أَقْصَى الحَلْق (ء، هـ)",
-                prompt: "Which letters originate from the deepest part of the throat (Aqsa Al-Halq)?",
-                options: [
-                    "Hamzah (ء) and Ha (هـ)",
-                    "Ain (ع) and Haa (ح)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "لِسَانُ الإِنْسَان",
-                prompt: "Which vocal organ contains the largest number of specific exit points and letters?",
-                options: [
-                    "The Tongue (Al-Lisan), containing 10 exit points for 18 letters",
-                    "The Lips (Ash-Shafatan)"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "حَرْفُ القَاف وَالكَاف",
-                prompt: "Where do the letters <strong>Qaaf (ق)</strong> and <strong>Kaaf (ك)</strong> originate on the tongue?",
-                options: [
-                    "The deepest part of the tongue (Aqsa Al-Lisan) touching the palate",
-                    "The tip of the tongue touching the front teeth"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "الشَّفَتَان (ف، و، ب، م)",
-                prompt: "Which letters emerge from <strong>Ash-Shafatan (The Lips)</strong>?",
-                options: [
-                    "Fa, Waw, Ba, and Meem",
-                    "Seen, Sad, and Zay"
-                ],
-                correctIndex: 0
-            },
-            {
-                word: "الخَيْشُوم (الغُنَّة)",
-                prompt: "What sound exclusively originates from <strong>Al-Khayshoom (Nasal Cavity)</strong>?",
-                options: [
-                    "Ghunnah (the nasal resonance accompanying Noon and Meem)",
-                    "The clear articulation of a Harakah (Fathah, Kasrah, Dammah)"
-                ],
-                correctIndex: 0
-            }
+            { word: "الْمَخَارِج الأَصْلِيَّة", prompt: "How many <strong>primary exit zones (Al-Makhaarij Al-Asliyyah)</strong> span the human vocal apparatus in Tajweed?", options: ["5 primary zones (Jawf, Halq, Lisan, Shafatan, Khayshoom)", "10 primary zones"], correctIndex: 0 },
+            { word: "عَدَد المَخَارِج الخَاصَّة", prompt: "According to the preferred view of Al-Jazari, how many <strong>specific exit points (Al-Makhaarij Al-Khaassah)</strong> exist across the 5 zones?", options: ["17 specific points", "14 specific points"], correctIndex: 0 },
+            { word: "حُرُوفُ الْمَدِّ وَاللِّين", prompt: "Which letters originate from <strong>Al-Jawf (The empty space of mouth and throat)</strong>?", options: ["The 3 Madd letters (Alif, Waw sakinah after Dammah, Ya sakinah after Kasrah)", "The throat letters (Hamza and Ha)"], correctIndex: 0 },
+            { word: "مَخْرَج الجَوْف", prompt: "Why is Al-Jawf considered a non-localized (estimated) exit point (Makhraj Muqaddar)?", options: ["Because the sound terminates in open air without a specific physical tissue or bone contact point", "Because it originates from the nasal cavity"], correctIndex: 0 },
+            { word: "أَقْصَى، وَسَط، وَأَدْنَى الحَلْق", prompt: "How many specific exit points are located within <strong>Al-Halq (The Throat)</strong>?", options: ["3 points (Deep throat, middle throat, and closest throat)", "5 points"], correctIndex: 0 },
+            { word: "أَقْصَى الحَلْق (ء، هـ)", prompt: "Which letters originate from the deepest part of the throat (Aqsa Al-Halq)?", options: ["Hamzah (ء) and Ha (هـ)", "Ain (ع) and Haa (ح)"], correctIndex: 0 },
+            { word: "وَسَط الحَلْق (ع، ح)", prompt: "Which letters originate from the middle of the throat (Wasat Al-Halq)?", options: ["Ain (ع) and Haa (ح)", "Ghain (غ) and Kha (خ)"], correctIndex: 0 },
+            { word: "أَدْنَى الحَلْق (غ، خ)", prompt: "Which letters originate from the closest part of the throat to the mouth (Adna Al-Halq)?", options: ["Ghain (غ) and Kha (خ)", "Hamzah (ء) and Ha (هـ)"], correctIndex: 0 },
+            { word: "لِسَانُ الإِنْسَان", prompt: "Which vocal organ contains the largest number of specific exit points and letters?", options: ["The Tongue (Al-Lisan), containing 10 exit points for 18 letters", "The Lips (Ash-Shafatan)"], correctIndex: 0 },
+            { word: "حَرْفُ القَاف (ق)", prompt: "Where does the letter <strong>Qaaf (ق)</strong> originate on the tongue?", options: ["The deepest part of the tongue touching the upper palate", "The tip of the tongue touching the front teeth gum"], correctIndex: 0 },
+            { word: "حَرْفُ الكَاف (ك)", prompt: "Where does the letter <strong>Kaaf (ك)</strong> originate relative to Qaaf?", options: ["Just slightly forward and below the exit point of Qaaf on the palate", "From the edge of the tongue against the side molars"], correctIndex: 0 },
+            { word: "وَسَطُ اللِّسَان (ج، ش، ي)", prompt: "Which letters emerge from the middle of the tongue (Wasat Al-Lisan) against the upper palate?", options: ["Jeem (ج), Sheen (ش), and non-Madd Ya (ي)", "Dad (ض) and Lam (ل)"], correctIndex: 0 },
+            { word: "حَرْفُ الضَّاد (ض)", prompt: "What makes the articulation of <strong>Dad (ض)</strong> unique among Arabic letters?", options: ["It emerges from one or both edges of the tongue touching the upper molars", "It emerges entirely from the nasal cavity"], correctIndex: 0 },
+            { word: "حَرْفُ اللَّام (ل)", prompt: "Where does the letter <strong>Lam (ل)</strong> originate?", options: ["From the curvatures of the tongue edges up to its tip touching the gum of the upper teeth", "From the tip of the tongue touching the lower incisors"], correctIndex: 0 },
+            { word: "حَرْفُ النُّون (ن)", prompt: "Where is the precise physical contact point for the letter <strong>Noon (ن)</strong>?", options: ["The tip of the tongue and its slightly dorsal surface touching the gum of the upper front teeth", "The lips closing firmly together"], correctIndex: 0 },
+            { word: "حَرْفُ الرَّاء (ر)", prompt: "How does the articulation of <strong>Raa (ر)</strong> relate to Noon?", options: ["It originates very close to Noon's point, entering slightly onto the back of the tongue tip", "It originates exclusively from the throat"], correctIndex: 0 },
+            { word: "ظَهْرُ اللِّسَان (ط، د، ت)", prompt: "Which letters emerge from the tip of the tongue touching the roots of the upper front teeth (Al-Nuta'iyyah)?", options: ["Taa (ط), Daal (د), and Taa' (ت)", "Seen (س), Sad (ص), and Zay (ز)"], correctIndex: 0 },
+            { word: "حُرُوفُ الصَّفِير (س، ص، ز)", prompt: "What distinctive acoustic quality characterizes <strong>Sad (ص), Zay (ز), and Seen (س)</strong> (Al-Safir)?", options: ["A whistling or buzzing sharpness produced as air passes through a narrow channel", "A heavy nasal resonance"], correctIndex: 0 },
+            { word: "الحُرُوفُ اللَّثَوِيَّة (ظ، ذ، ث)", prompt: "Where do <strong>Tha (ث), Dhal (ذ), and Zha (ظ)</strong> originate?", options: ["The tip of the tongue touching the edge of the upper front teeth", "The inner wet part of the lower lip"], correctIndex: 0 },
+            { word: "الشَّفَتَان (ف، و، ب، م)", prompt: "Which letters emerge from <strong>Ash-Shafatan (The Lips)</strong>?", options: ["Fa, Waw, Ba, and Meem", "Seen, Sad, and Zay"], correctIndex: 0 },
+            { word: "حَرْفُ الفَاء (ف)", prompt: "How is the letter <strong>Fa (ف)</strong> articulated using the lips and teeth?", options: ["The inner edge of the upper front teeth touching the wet part of the lower lip", "Both lips closing tightly together"], correctIndex: 0 },
+            { word: "حَرْفُ البَاء وَالْمِيم (ب، م)", prompt: "How do <strong>Ba (ب) and Meem (م)</strong> differ in lip closure?", options: ["Ba uses strong inner lip closure while Meem uses complete dry lip closure combined with nasal resonance", "Both have no physical contact"], correctIndex: 0 },
+            { word: "الخَيْشُوم (الغُنَّة)", prompt: "What sound exclusively originates from <strong>Al-Khayshoom (Nasal Cavity)</strong>?", options: ["Ghunnah (the nasal resonance accompanying Noon and Meem)", "The clear articulation of a Harakah"], correctIndex: 0 },
+            { word: "تَعْرِيف التَّجْوِيد", prompt: "Linguistically in Arabic, what does the word <strong>Tajweed</strong> mean?", options: ["To make something excellent, precise, and proficient", "To recite as quickly as possible"], correctIndex: 0 },
+            { word: "أَهَمِّيَّة مَعْرِفَة الْمَخَارِج", prompt: "Why is mastering Al-Makhaarij critical in Quranic recitation?", options: ["To prevent altering word meanings and ensure correct letter differentiation", "To memorize surahs faster without audio"], correctIndex: 0 },
+            { word: "مَخْرَج مُقَدَّر وَمَحْقُوق", prompt: "What is the primary difference between a Muqaddar (estimated) and Muhaqqaq (localized) Makhraj?", options: ["Muhaqqaq has a definitive physical touch point on tissue/bone; Muqaddar does not", "Muqaddar is only used for Arabic vowels"], correctIndex: 0 },
+            { word: "صِفَاتُ الحُرُوفِ الذَّاتِيَّة", prompt: "In addition to Makhaarij, what other parameter defines correct letter pronunciation in Tajweed?", options: ["Sifat al-Huroof (Inherent and accidental letter attributes)", "Font styling and visual flashcards"], correctIndex: 0 },
+            { word: "صِفَةُ التَّفْخِيم", prompt: "What is Tafkhim in Arabic phonetics?", options: ["Heavy elevation of the back of the tongue toward the palate, giving the letter a robust sound", "Soften thinning of tongue position"], correctIndex: 0 },
+            { word: "صِفَةُ التَّرْقِيق", prompt: "What is Tarqeeq in Arabic phonetics?", options: ["Keeping the tongue relaxed and lowering the sound for thin letters", "Applying strong nasal vibration"], correctIndex: 0 },
+            { word: "حُرُوفُ الِاسْتِعْلَاء", prompt: "Which group of letters inherently possess the attribute of Isti'la (elevation)?", options: ["خص ضغط قظ (Kha, Sad, Dad, Ghain, Ta, Qaf, Zha)", "The 3 Madd letters"], correctIndex: 0 },
+            { word: "حُرُوفُ الِاسْتِفَال", prompt: "What does Istifal mean in contrast to Isti'la?", options: ["Lowering the tongue away from the upper palate during articulation", "Nasally emitting the letter sound"], correctIndex: 0 },
+            { word: "صِفَةُ الْهَمْس", prompt: "What characterizes letters with the attribute of Hams (whispering/breathiness)?", options: ["A continuous flow of breath due to weakness in the point of articulation when pronounced sakin", "Complete sound stoppage"], correctIndex: 0 },
+            { word: "صِفَةُ الْجَهْر", prompt: "What characterizes letters with the attribute of Jahr (loudness/clarity)?", options: ["A strong blockage of breath with robust vocal cord vibration", "Whispered breath release"], correctIndex: 0 },
+            { word: "صِفَةُ الشِّدَّة", prompt: "Which attribute defines letters where sound is completely locked or blocked upon articulation (e.g., اجِدْ قَطْ بَكَتْ)?", options: ["Shiddah (Strength/Stoppage)", "Rakhawah (Softness/Flow)"], correctIndex: 0 },
+            { word: "صِفَةُ الرَّخَاوَة", prompt: "What happens during the pronunciation of letters possessing Rakhawah (softness)?", options: ["Sound flows freely without total blockage", "Air is diverted entirely through the nose"], correctIndex: 0 },
+            { word: "صِفَةُ الْبَيْنِيَّة", prompt: "What is the intermediate state between Shiddah and Rakhawah known as (e.g., لن عمر)?", options: ["Bayniyyah (Moderate flow of sound)", "Qalqalah bounce"], correctIndex: 0 },
+            { word: "حُرُوفُ القَلْقَلَة", prompt: "What is Qalqalah and which letters carry it (قَدْ جَدْ لَكُمْ)?",options: ["A rebounding echo sound produced when Qaf, Ta, Ba, Jeem, or Dal are sakin", "A prolonged nasal hum"], correctIndex: 0 },
+            { word: "صِفَةُ الِانْحِرَاف", prompt: "Which letters possess Inhiraf (deviation of sound upon meeting an obstruction)?", options: ["Lam (ل) and Raa (ر)", "Hamza and Ha"], correctIndex: 0 },
+            { word: "صِفَةُ التَّكْرِير", prompt: "What is Takkareer and which letter requires guarding against excessive forms of it?", options: ["A slight vibration of the tongue tip characteristic of Raa (ر)", "A rolling nasal echo"], correctIndex: 0 },
+            { word: "إِتْقَانُ تِلَاوَةِ الْقُرْآن", prompt: "What is the ultimate spiritual and practical goal of practicing Al-Makhaarij Studio modules daily?", options: ["To attain fluency, accuracy, and beauty in reciting Allah's Book as revealed", "To pass written examinations without speaking"], correctIndex: 0 }
         ];
 
         let sessionQuestions = [];
@@ -254,7 +204,7 @@
         let score = 0;
         let answered = false;
 
-        const SAVED_SCORE_KEY = "arabic_game_makharij_score";
+        const SAVED_SCORE_KEY = "arabic_game_makharij_score_v2";
         let highScore = parseInt(localStorage.getItem(SAVED_SCORE_KEY) || "0", 10);
 
         function shuffleArray(array) {
@@ -262,7 +212,7 @@
         }
 
         function initSession() {
-            sessionQuestions = shuffleArray([...questionBank]).slice(0, 10);
+            sessionQuestions = shuffleArray([...questionBank]);
             currentIndex = 0;
             score = 0;
             document.getElementById("current-score").innerText = score;
@@ -282,7 +232,7 @@
 
             const nextBtn = document.getElementById("next-btn");
             nextBtn.disabled = true;
-            nextBtn.className = "bg-amber-500/40 text-slate-900 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
+            nextBtn.className = "bg-slate-800 text-slate-500 font-bold px-6 py-2.5 rounded-xl text-xs transition-all cursor-not-allowed";
 
             const optionsContainer = document.getElementById("options-container");
             optionsContainer.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
@@ -290,7 +240,7 @@
 
             current.options.forEach((optText, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "bg-slate-800 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-3 rounded-2xl text-sm md:text-base transition-all hover:border-amber-400 cursor-pointer";
+                btn.className = "bg-slate-800/90 hover:bg-slate-700/80 border border-slate-700 text-white font-bold py-4 px-4 rounded-2xl text-sm md:text-base transition-all hover:border-cyan-400 cursor-pointer text-left shadow-md";
                 btn.innerText = optText;
                 btn.onclick = () => selectOption(idx, btn);
                 optionsContainer.appendChild(btn);
@@ -308,18 +258,21 @@
             if (selectedIndex === current.correctIndex) {
                 score += 10;
                 badge.innerText = "Correct! +10 pts";
-                badge.className = "px-2.5 py-0.5 rounded-md text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 text-xs font-bold block";
-                btnElement.className = "bg-emerald-600/30 border-2 border-emerald-500 text-emerald-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 text-xs font-bold block";
+                btnElement.className = "bg-cyan-600/30 border-2 border-cyan-400 text-cyan-200 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left shadow-lg";
             } else {
                 badge.innerText = "Incorrect";
-                badge.className = "px-2.5 py-0.5 rounded-md text-rose-400 bg-rose-500/10 border border-rose-500/30 text-xs font-bold block";
-                btnElement.className = "bg-rose-600/30 border-2 border-rose-500 text-rose-300 font-bold py-4 px-3 rounded-2xl text-sm md:text-base";
+                badge.className = "px-2.5 py-0.5 rounded-md text-amber-300 bg-amber-500/15 border border-amber-500/30 text-xs font-bold block";
+                btnElement.className = "bg-amber-600/30 border-2 border-amber-400 text-amber-200 font-bold py-4 px-4 rounded-2xl text-sm md:text-base text-left shadow-lg";
             }
 
             document.getElementById("current-score").innerText = score;
 
             nextBtn.disabled = false;
-            nextBtn.className = "bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+            nextBtn.className = "bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs transition-all shadow-lg cursor-pointer";
+            
+            // Speak confirmation feedback automatically for user satisfaction
+            speakWord(current.word);
         }
 
         function speakWord(customText) {
@@ -329,15 +282,15 @@
 
             const text = document.getElementById('target-arabic')?.innerText || 
                        cleanedWord || 
-                       document.getElementById('output-board')?.innerText || 
-                       document.querySelector('h1, h2, span')?.innerText;
+                       document.querySelector('h1')?.innerText;
 
             if ('speechSynthesis' in window && text) {
                 window.speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
-                utterance.rate = 0.85;
+                utterance.rate = 0.82;
+                utterance.pitch = 1.0;
                 
                 const voices = window.speechSynthesis.getVoices();
                 const arabicVoice = voices.find(v => v.lang.startsWith('ar')) || voices[0];
@@ -346,8 +299,6 @@
                 }
 
                 window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Text-to-speech is not supported on this browser.");
             }
         }
 
@@ -372,10 +323,9 @@
                 container.classList.add('animate-success');
                 banner.classList.remove('hidden');
 
-                // CHANGE THIS FILENAME IF YOUR MAIN MENU PAGE IS CALLED SOMETHING ELSE (e.g., 'dashboard.html')
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 1500);
+                }, 2000);
             }
         }
 
